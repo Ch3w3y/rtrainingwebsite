@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spatial Data Analysis and Mapping | HARP Team R Training</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #f5f5f5;
+      border-left: 4px solid #3498db;
+      padding: 15px;
+      margin: 20px 0;
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    code {
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+    .topic-nav {
+      background-color: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .topic-nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .topic-nav li {
+      margin-right: 10px;
+    }
+    .section {
+      background-color: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .exercise {
+      background-color: #e8f4fc;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+    .exercise h3 {
+      margin-top: 0;
+      color: #2980b9;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .home-link {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .quiz-option {
+      margin: 10px 0;
+    }
+    .code-input {
+      width: 100%;
+      height: 100px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+    .map-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+    .map-item {
+      flex: 1;
+      min-width: 300px;
+      max-width: 450px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <script src="auth.js"></script>
+  
+  <header>
+    <div class="container">
+      <h1>Spatial Data Analysis and Mapping in R</h1>
+      <p>Creating and analyzing geographic data visualizations</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="home-link">← Back to Course Index</a>
+    
+    <div class="topic-nav section">
+      <h3>In this module:</h3>
+      <ul>
+        <li><a href="#intro">Introduction to Spatial Data</a></li>
+        <li><a href="#packages">Spatial Packages in R</a></li>
+        <li><a href="#data-types">Spatial Data Types</a></li>
+        <li><a href="#importing">Importing and Exporting Spatial Data</a></li>
+        <li><a href="#basic-maps">Creating Basic Maps</a></li>
+        <li><a href="#interactive">Interactive Maps</a></li>
+        <li><a href="#analysis">Spatial Analysis</a></li>
+        <li><a href="#case-study">Case Study: Mapping Population Data</a></li>
+      </ul>
+    </div>
+
+    <div class="section" id="intro">
+      <h2>Introduction to Spatial Data</h2>
+      <p>Spatial data represents information about the physical locations and shapes of objects on the Earth. This includes points (e.g., cities), lines (e.g., roads, rivers), polygons (e.g., countries, lakes), and rasters (e.g., satellite imagery, elevation models).</p>
+      
+      <h3>Why Use R for Spatial Analysis?</h3>
+      <ul>
+        <li>Integration with statistical analysis and data manipulation</li>
+        <li>Reproducible workflows</li>
+        <li>Wide range of specialized packages</li>
+        <li>Ability to create static and interactive visualizations</li>
+        <li>Free and open-source</li>
+      </ul>
+      
+      <h3>Key Concepts in Spatial Data</h3>
+      <ul>
+        <li><strong>Coordinate Reference Systems (CRS):</strong> Systems that define how coordinates relate to positions on the Earth</li>
+        <li><strong>Projections:</strong> Methods for transforming the curved surface of the Earth onto a flat map</li>
+        <li><strong>Vector data:</strong> Discrete objects represented as points, lines, or polygons</li>
+        <li><strong>Raster data:</strong> Continuous data represented as a grid of cells</li>
+        <li><strong>Spatial operations:</strong> Functions like buffering, intersections, and distance calculations</li>
+      </ul>
+      
+      <img src="images/spatial-data-types.png" alt="Types of spatial data" width="600">
+    </div>
+
+    <div class="section" id="packages">
+      <h2>Spatial Packages in R</h2>
+      <p>R has a rich ecosystem of packages for working with spatial data. The following are some of the most important:</p>
+      
+      <h3>Modern Spatial Packages</h3>
+      <ul>
+        <li><strong>sf</strong>: Simple Features for R, the modern standard for vector data</li>
+        <li><strong>terra</strong>: Modern package for raster data analysis</li>
+        <li><strong>stars</strong>: Spatiotemporal arrays, raster and vector data cubes</li>
+        <li><strong>tmap</strong>: Create thematic maps with a layered approach similar to ggplot2</li>
+        <li><strong>mapview</strong>: Interactive viewing of spatial data</li>
+        <li><strong>leaflet</strong>: Create interactive web maps</li>
+        <li><strong>rnaturalearth</strong>: Access Natural Earth map data</li>
+      </ul>
+      
+      <h3>Legacy Packages (Still Useful to Know)</h3>
+      <ul>
+        <li><strong>sp</strong>: Classes and methods for spatial data</li>
+        <li><strong>raster</strong>: Reading, writing, manipulating, and analyzing raster data</li>
+        <li><strong>rgdal</strong>: Bindings to the GDAL library</li>
+        <li><strong>rgeos</strong>: Interface to the GEOS library</li>
+      </ul>
+      
+      <h3>Getting Started with Spatial Packages</h3>
+      <pre><code># Install key packages
+# install.packages(c("sf", "terra", "tmap", "leaflet", "rnaturalearth"))
+
+# Load the packages
+library(sf)          # Simple Features for vector data
+library(terra)       # Raster data handling
+library(tmap)        # Thematic mapping
+library(leaflet)     # Interactive maps
+library(rnaturalearth) # Natural Earth data</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Spatial Packages</h3>
+        <p>Which R package is now considered the modern standard for working with vector spatial data?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="pkg-q1" id="pkg1" value="sp">
+          <label for="pkg1">sp</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="pkg-q1" id="pkg2" value="sf">
+          <label for="pkg2">sf</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="pkg-q1" id="pkg3" value="rgdal">
+          <label for="pkg3">rgdal</label>
+        </div>
+        
+        <button onclick="checkAnswer('pkg-q1', 'sf')">Check Answer</button>
+        <div id="pkg-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="data-types">
+      <h2>Spatial Data Types in R</h2>
+      
+      <h3>Vector Data with the sf Package</h3>
+      <p>The sf package implements the Simple Features standard, which defines a collection of geometry types:</p>
+      
+      <ul>
+        <li><strong>POINT:</strong> Single locations (e.g., cities)</li>
+        <li><strong>LINESTRING:</strong> Sequence of points connected by straight lines (e.g., rivers)</li>
+        <li><strong>POLYGON:</strong> Area with boundaries (e.g., countries)</li>
+        <li><strong>MULTIPOINT:</strong> Collection of points</li>
+        <li><strong>MULTILINESTRING:</strong> Collection of linestrings</li>
+        <li><strong>MULTIPOLYGON:</strong> Collection of polygons</li>
+        <li><strong>GEOMETRYCOLLECTION:</strong> Collection of different geometry types</li>
+      </ul>
+      
+      <pre><code># Create simple feature objects
+library(sf)
+
+# Create a POINT
+pt <- st_point(c(0, 0))
+pt
+
+# Create a LINESTRING
+line <- st_linestring(matrix(c(0, 0, 1, 1, 2, 1), ncol = 2, byrow = TRUE))
+line
+
+# Create a POLYGON (note: must be closed, so first point = last point)
+poly <- st_polygon(list(matrix(c(0, 0, 1, 0, 1, 1, 0, 1, 0, 0), ncol = 2, byrow = TRUE)))
+poly
+
+# Create a simple feature from a geometry
+pt_sf <- st_sf(st_sfc(pt), data = data.frame(name = "Origin"))
+pt_sf</code></pre>
+      
+      <h3>Raster Data with the terra Package</h3>
+      <p>Raster data is stored as a grid of cells, each with one or more values.</p>
+      
+      <pre><code>library(terra)
+
+# Create a simple raster
+r <- rast(ncol = 10, nrow = 10, xmin = 0, xmax = 10, ymin = 0, ymax = 10)
+values(r) <- 1:ncell(r)
+r
+
+# Plot the raster
+plot(r)
+
+# Create a multi-layer raster (like a satellite image with bands)
+r_multi <- c(r, r*2, r*3)
+names(r_multi) <- c("band1", "band2", "band3")
+plot(r_multi)</code></pre>
+      
+      <h3>Working with Coordinate Reference Systems</h3>
+      <p>Coordinate Reference Systems (CRS) define how coordinates relate to locations on the Earth.</p>
+      
+      <pre><code># View the CRS of a spatial object
+world <- st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
+st_crs(world)
+
+# Set a CRS (using EPSG code)
+world_projected <- st_transform(world, 3857)  # Web Mercator projection
+st_crs(world_projected)
+
+# Set a CRS using PROJ string
+world_lambert <- st_transform(world, "+proj=lcc +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96")
+st_crs(world_lambert)</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Spatial Data Types</h3>
+        <p>What type of simple feature geometry would be most appropriate for representing cities on a map?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="geom-q1" id="geom1" value="POINT">
+          <label for="geom1">POINT</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="geom-q1" id="geom2" value="LINESTRING">
+          <label for="geom2">LINESTRING</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="geom-q1" id="geom3" value="POLYGON">
+          <label for="geom3">POLYGON</label>
+        </div>
+        
+        <button onclick="checkAnswer('geom-q1', 'POINT')">Check Answer</button>
+        <div id="geom-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="importing">
+      <h2>Importing and Exporting Spatial Data</h2>
+      <p>R can read and write many spatial data formats, including Shapefiles, GeoJSON, GeoPackage, and raster formats.</p>
+      
+      <h3>Reading Vector Data</h3>
+      <pre><code>library(sf)
+
+# Read a shapefile
+nc <- st_read(system.file("shape/nc.shp", package="sf"))
+
+# Read a GeoJSON file
+# geojson <- st_read("path/to/file.geojson")
+
+# Read from a spatial database (PostgreSQL/PostGIS)
+# db_connection <- st_read("PG:dbname=postgis host=localhost", "table_name")
+
+# View the data
+print(nc)
+head(nc)
+plot(st_geometry(nc))</code></pre>
+      
+      <h3>Reading Raster Data</h3>
+      <pre><code>library(terra)
+
+# Read a GeoTIFF file
+# r <- rast("path/to/file.tif")
+
+# For demonstration, create a sample raster
+r <- rast(system.file("ex/elev.tif", package = "terra"))
+plot(r)</code></pre>
+      
+      <h3>Writing Spatial Data</h3>
+      <pre><code># Write vector data
+# st_write(nc, "north_carolina.shp")
+# st_write(nc, "north_carolina.geojson")
+# st_write(nc, "north_carolina.gpkg")
+
+# Write raster data
+# writeRaster(r, "elevation.tif")
+# writeRaster(r, "elevation.grd")</code></pre>
+      
+      <h3>Converting Between Formats</h3>
+      <pre><code># Convert between sf and sp
+library(sp)
+
+# sf to sp
+nc_sp <- as(nc, "Spatial")
+
+# sp to sf
+nc_sf <- st_as_sf(nc_sp)
+
+# Convert between raster and terra
+# library(raster)
+# r_raster <- raster(r)  # terra to raster
+# r_terra <- rast(r_raster)  # raster to terra</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Importing Spatial Data</h3>
+        <p>Fill in the blank: To read a shapefile in R using the sf package, you would use the function:</p>
+        
+        <textarea class="code-input" id="import-exercise">nc <- __________(system.file("shape/nc.shp", package="sf"))</textarea>
+        
+        <button onclick="checkImportExercise()">Check Answer</button>
+        <div id="import-exercise-result" class="result"></div>
+      </div>
+    </div>
+    <div class="section" id="basic-maps">
+      <h2>Creating Basic Maps</h2>
+      <p>There are several ways to create maps in R, with different packages offering different approaches.</p>
+      
+      <h3>Mapping with the sf Package</h3>
+      <pre><code>library(sf)
+nc <- st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
+
+# Basic plot
+plot(nc["AREA"])
+
+# Multiple attributes
+plot(nc[c("AREA", "PERIMETER", "NAME")], main = "North Carolina Counties")</code></pre>
+      
+      <h3>Mapping with ggplot2</h3>
+      <pre><code>library(ggplot2)
+
+# Simple map
+ggplot(nc) +
+  geom_sf() +
+  theme_minimal() +
+  labs(title = "North Carolina Counties")
+
+# Choropleth map
+ggplot(nc) +
+  geom_sf(aes(fill = AREA)) +
+  scale_fill_viridis_c(option = "plasma") +
+  theme_minimal() +
+  labs(title = "North Carolina Counties by Area", fill = "Area")</code></pre>
+      
+      <h3>Thematic Mapping with tmap</h3>
+      <pre><code>library(tmap)
+
+# Quick thematic map
+tm_shape(nc) +
+  tm_polygons("AREA", title = "Area") +
+  tm_layout(title = "North Carolina Counties")
+
+# More detailed thematic map
+tm_shape(nc) +
+  tm_polygons("AREA", 
+             style = "quantile", 
+             palette = "Blues",
+             title = "Area (quantiles)") +
+  tm_layout(
+    title = "North Carolina Counties",
+    legend.position = c("right", "bottom")
+  ) +
+  tm_compass() +
+  tm_scale_bar()</code></pre>
+      
+      <h3>Working with World Data</h3>
+      <pre><code>library(rnaturalearth)
+library(ggplot2)
+
+# Get world countries
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Simple world map
+ggplot(world) +
+  geom_sf() +
+  theme_minimal() +
+  labs(title = "World Map")
+
+# World map with country fill
+ggplot(world) +
+  geom_sf(aes(fill = pop_est)) +
+  scale_fill_viridis_c(
+    trans = "log10",
+    name = "Population\n(log scale)"
+  ) +
+  theme_minimal() +
+  labs(title = "World Population")</code></pre>
+      
+      <div class="map-gallery">
+        <div class="map-item">
+          <img src="images/sf-map.png" alt="Map created with sf" width="400">
+          <p>Map created with sf</p>
+        </div>
+        <div class="map-item">
+          <img src="images/ggplot2-map.png" alt="Map created with ggplot2" width="400">
+          <p>Map created with ggplot2</p>
+        </div>
+        <div class="map-item">
+          <img src="images/tmap-example.png" alt="Map created with tmap" width="400">
+          <p>Map created with tmap</p>
+        </div>
+        <div class="map-item">
+          <img src="images/world-choropleth.png" alt="World choropleth map" width="400">
+          <p>World choropleth map</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="interactive">
+      <h2>Interactive Maps</h2>
+      <p>Interactive maps allow users to zoom, pan, and explore spatial data dynamically.</p>
+      
+      <h3>Interactive Maps with tmap</h3>
+      <pre><code>library(tmap)
+
+# Switch to interactive mode
+tmap_mode("view")
+
+# Create an interactive map
+tm_shape(nc) +
+  tm_polygons("AREA", id = "NAME") +
+  tm_layout(title = "North Carolina Counties")
+
+# Switch back to plot mode when done
+tmap_mode("plot")</code></pre>
+      
+      <h3>Interactive Maps with leaflet</h3>
+      <pre><code>library(leaflet)
+library(sf)
+
+# Basic leaflet map
+leaflet(nc) %>%
+  addTiles() %>%  # Add default OpenStreetMap tiles
+  addPolygons(
+    weight = 1,
+    color = "#333333",
+    fillColor = ~colorQuantile("YlOrRd", AREA)(AREA),
+    fillOpacity = 0.7,
+    label = ~NAME,
+    highlightOptions = highlightOptions(
+      weight = 2,
+      color = "#000000",
+      fillOpacity = 0.9,
+      bringToFront = TRUE
+    )
+  )
+
+# Leaflet with multiple layers and base maps
+leaflet(nc) %>%
+  addProviderTiles(providers$CartoDB.Positron, group = "CartoDB") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
+  addPolygons(
+    weight = 1,
+    fillColor = ~colorQuantile("Blues", AREA)(AREA),
+    fillOpacity = 0.7,
+    label = ~NAME,
+    group = "Counties"
+  ) %>%
+  addLayersControl(
+    baseGroups = c("CartoDB", "Satellite"),
+    overlayGroups = c("Counties"),
+    options = layersControlOptions(collapsed = FALSE)
+  )</code></pre>
+      
+      <h3>Interactive Maps with mapview</h3>
+      <pre><code>library(mapview)
+
+# Simple interactive map
+mapview(nc, zcol = "AREA", layer.name = "Area")
+
+# Combine multiple layers
+mapview(list(
+  mapview(nc, zcol = "AREA", layer.name = "Area"),
+  mapview(st_centroid(nc), col.regions = "red", layer.name = "Centroids")
+))</code></pre>
+      
+      <img src="images/leaflet-interactive.png" alt="Interactive map with leaflet" width="600">
+      
+      <div class="exercise">
+        <h3>Exercise: Interactive Maps</h3>
+        <p>In the leaflet package, what function would you use to add a popup that appears when users click on a feature?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="int-q1" id="int1" value="addPopups">
+          <label for="int1">addPopups()</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="int-q1" id="int2" value="addLabel">
+          <label for="int2">addLabel()</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="int-q1" id="int3" value="popup">
+          <label for="int3">popup = ~content</label>
+        </div>
+        
+        <button onclick="checkAnswer('int-q1', 'addPopups')">Check Answer</button>
+        <div id="int-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="analysis">
+      <h2>Spatial Analysis in R</h2>
+      <p>R provides a wide range of tools for analyzing spatial data, from simple calculations to complex operations.</p>
+      
+      <h3>Basic Spatial Operations</h3>
+      <pre><code>library(sf)
+nc <- st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
+
+# Get the geometry type
+st_geometry_type(nc)
+
+# Get the bounding box
+st_bbox(nc)
+
+# Calculate area
+nc$area_km2 <- st_area(nc) / 1000000  # convert from m² to km²
+
+# Calculate centroid
+nc_centroids <- st_centroid(nc)
+
+# Calculate distance between features
+dist_matrix <- st_distance(nc_centroids)
+head(dist_matrix[1:5, 1:5])</code></pre>
+      
+      <h3>Spatial Subsetting and Joins</h3>
+      <pre><code># Create a point
+point <- st_point(c(-80, 35))
+point_sf <- st_sf(geometry = st_sfc(point, crs = st_crs(nc)))
+
+# Which county contains this point?
+county <- nc[point_sf, ]
+county$NAME
+
+# Spatial join: find which county each point is in
+set.seed(123)
+random_points <- st_sample(st_as_sfc(st_bbox(nc)), 10)
+random_points_sf <- st_sf(
+  ID = 1:10,
+  geometry = st_sfc(random_points, crs = st_crs(nc))
+)
+
+# Join points to counties
+points_with_counties <- st_join(random_points_sf, nc)
+head(points_with_counties[, c("ID", "NAME")])</code></pre>
+      
+      <h3>Spatial Transformations</h3>
+      <pre><code># Buffer (create a 10km buffer around county centroids)
+buffers <- st_buffer(nc_centroids, dist = 10000)  # 10 km
+
+# Union (merge all counties into a single polygon)
+nc_union <- st_union(nc)
+
+# Intersection
+county1 <- nc[nc$NAME == "Ashe", ]
+county2 <- nc[nc$NAME == "Alleghany", ]
+intersection <- st_intersection(
+  st_buffer(county1, 10000),  # 10 km buffer
+  st_buffer(county2, 10000)   # 10 km buffer
+)
+
+# Simplify geometries (for faster rendering)
+nc_simple <- st_simplify(nc, dTolerance = 1000)  # 1000m tolerance</code></pre>
+      
+      <h3>Raster Analysis</h3>
+      <pre><code>library(terra)
+
+# Create a sample raster
+r <- rast(system.file("ex/elev.tif", package = "terra"))
+
+# Basic statistics
+global(r, "mean")
+global(r, c("min", "max", "mean", "sd"))
+
+# Reclassify values
+reclass_matrix <- matrix(c(
+  0, 500, 1,    # 0-500 becomes 1
+  500, 1000, 2, # 500-1000 becomes 2
+  1000, 2000, 3 # 1000-2000 becomes 3
+), ncol = 3, byrow = TRUE)
+
+r_reclass <- classify(r, reclass_matrix)
+
+# Terrain analysis
+slope <- terrain(r, "slope", unit = "degrees")
+aspect <- terrain(r, "aspect", unit = "degrees")
+hillshade <- shade(slope, aspect)
+
+# Plot results
+plot(c(r, slope, aspect, hillshade),
+     main = c("Elevation", "Slope", "Aspect", "Hillshade"))</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Spatial Analysis</h3>
+        <p>What function would you use to find which polygons contain a specific point?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="analysis-q1" id="analysis1" value="st_within">
+          <label for="analysis1">st_within()</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="analysis-q1" id="analysis2" value="st_contains">
+          <label for="analysis2">st_contains()</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="analysis-q1" id="analysis3" value="st_intersects">
+          <label for="analysis3">st_intersects()</label>
+        </div>
+        
+        <button onclick="checkAnswer('analysis-q1', 'st_contains')">Check Answer</button>
+        <div id="analysis-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="case-study">
+      <h2>Case Study: Mapping Population Data</h2>
+      <p>Let's put everything together with a comprehensive example of importing, analyzing, and visualizing spatial data.</p>
+      
+      <h3>Step 1: Get the Data</h3>
+      <pre><code>library(sf)
+library(dplyr)
+library(ggplot2)
+library(rnaturalearth)
+library(viridis)
+
+# Get world country boundaries
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Examine the data
+head(world %>% select(name, pop_est, gdp_md_est))
+
+# Filter to a region (e.g., Europe)
+europe <- world %>% 
+  filter(continent == "Europe") %>%
+  select(name, pop_est, gdp_md_est, economy)</code></pre>
+      
+      <h3>Step 2: Prepare the Data</h3>
+      <pre><code># Calculate population density (people per km²)
+europe <- europe %>%
+  mutate(
+    area_km2 = as.numeric(st_area(geometry)) / 1000000,  # Convert to km²
+    pop_density = pop_est / area_km2,
+    gdp_per_capita = gdp_md_est * 1000000 / pop_est  # GDP is in millions
+  )
+
+# Check the results
+europe %>% 
+  select(name, pop_est, area_km2, pop_density, gdp_per_capita) %>%
+  arrange(desc(pop_density)) %>%
+  head(10)</code></pre>
+      
+      <h3>Step 3: Create Visualizations</h3>
+      <pre><code># Population density choropleth map
+ggplot(europe) +
+  geom_sf(aes(fill = pop_density)) +
+  scale_fill_viridis_c(
+    trans = "log10",
+    name = "Population Density\n(people per km²)",
+    option = "plasma"
+  ) +
+  theme_minimal() +
+  labs(
+    title = "Population Density in Europe",
+    subtitle = "People per square kilometer (log scale)",
+    caption = "Source: Natural Earth Data"
+  )
+
+# GDP per capita map
+ggplot(europe) +
+  geom_sf(aes(fill = gdp_per_capita)) +
+  scale_fill_viridis_c(
+    name = "GDP per Capita\n(USD)",
+    option = "viridis"
+  ) +
+  theme_minimal() +
+  labs(
+    title = "GDP per Capita in Europe",
+    subtitle = "In US dollars",
+    caption = "Source: Natural Earth Data"
+  )</code></pre>
+      
+      <h3>Step 4: Interactive Map</h3>
+      <pre><code>library(leaflet)
+library(htmltools)
+
+# Create popups with country info
+popups <- paste0(
+  "<strong>", europe$name, "</strong><br>",
+  "Population: ", format(europe$pop_est, big.mark=","), "<br>",
+  "Pop. Density: ", round(europe$pop_density, 1), " per km²<br>",
+  "GDP per Capita: $", format(round(europe$gdp_per_capita), big.mark=",")
+)
+
+# Create interactive map
+leaflet(europe) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addPolygons(
+    fillColor = ~colorQuantile("viridis", gdp_per_capita)(gdp_per_capita),
+    weight = 1,
+    opacity = 1,
+    color = "white",
+    dashArray = "3",
+    fillOpacity = 0.7,
+    highlight = highlightOptions(
+      weight = 2,
+      color = "#666",
+      dashArray = "",
+      fillOpacity = 0.7,
+      bringToFront = TRUE
+    ),
+    label = ~name,
+    popup = ~popups
+  ) %>%
+  addLegend(
+    position = "bottomright",
+    pal = colorQuantile("viridis", europe$gdp_per_capita),
+    values = europe$gdp_per_capita,
+    title = "GDP per Capita<br>(Quantiles)",
+    opacity = 0.7
+  )</code></pre>
+      
+      <div class="map-gallery">
+        <div class="map-item">
+          <img src="images/europe-density.png" alt="Europe population density map" width="400">
+          <p>Population Density Map</p>
+        </div>
+        <div class="map-item">
+          <img src="images/europe-gdp.png" alt="Europe GDP per capita map" width="400">
+          <p>GDP per Capita Map</p>
+        </div>
+      </div>
+      
+      <h3>Step 5: Adding Point Data</h3>
+      <pre><code># Create a dataset of major European cities
+cities <- data.frame(
+  name = c("London", "Paris", "Berlin", "Madrid", "Rome", "Warsaw", "Stockholm"),
+  country = c("United Kingdom", "France", "Germany", "Spain", "Italy", "Poland", "Sweden"),
+  pop_mil = c(8.9, 2.2, 3.6, 3.2, 2.9, 1.8, 1.5),
+  lon = c(-0.1278, 2.3522, 13.4050, -3.7038, 12.4964, 21.0122, 18.0686),
+  lat = c(51.5074, 48.8566, 52.5200, 40.4168, 41.9028, 52.2297, 59.3293)
+)
+
+# Convert to sf object
+cities_sf <- st_as_sf(cities, coords = c("lon", "lat"), crs = st_crs(europe))
+
+# Create a map with both countries and cities
+ggplot() +
+  geom_sf(data = europe, aes(fill = gdp_per_capita)) +
+  geom_sf(data = cities_sf, aes(size = pop_mil), color = "red", alpha = 0.7) +
+  scale_fill_viridis_c(name = "GDP per Capita\n(USD)") +
+  scale_size_continuous(name = "City Population\n(millions)") +
+  theme_minimal() +
+  labs(
+    title = "GDP per Capita in Europe with Major Cities",
+    subtitle = "City size indicates population",
+    caption = "Source: Natural Earth Data"
+  )</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Case Study Challenge</h3>
+        <p>Complete the code to calculate the average GDP per capita for each economy classification in Europe:</p>
+        
+        <textarea class="code-input" id="case-study-exercise">europe %>%
+  group_by(__________) %>%
+  summarize(
+    avg_gdp_per_capita = __________,
+    count = n()
+  ) %>%
+  arrange(____________)</textarea>
+        
+        <button onclick="checkCaseStudyExercise()">Check Answer</button>
+        <div id="case-study-exercise-result" class="result"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>HARP Team R Training © 2025 | Created by Daryn Sutton</p>
+    </div>
+  </footer>
+
+  <script>
+    function checkAnswer(questionId, correctAnswer) {
+      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+      const resultDiv = document.getElementById(`${questionId}-result`);
+      
+      if (!selectedOption) {
+        resultDiv.textContent = "Please select an answer.";
+        resultDiv.className = "result incorrect";
+        resultDiv.style.display = "block";
+        return;
+      }
+      
+      if (selectedOption.value === correctAnswer) {
+        resultDiv.textContent = "Correct! Well done.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
+        resultDiv.className = "result incorrect";
+      }
+      
+      resultDiv.style.display = "block";
+    }
+    
+    function checkImportExercise() {
+      const userCode = document.getElementById("import-exercise").value.trim();
+      const resultDiv = document.getElementById("import-exercise-result");
+      
+      // Check various correct answers
+      const correctAnswers = [
+        "st_read",
+        "st_read()"
+      ];
+      
+      if (correctAnswers.some(answer => userCode.includes(answer))) {
+        resultDiv.textContent = "Correct! The st_read() function is used to import vector spatial data in the sf package.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. The function to read shapefiles with sf is st_read().";
+        resultDiv.className = "result incorrect";
+      }
+      
+      resultDiv.style.display = "block";
+    }
+    
+    function checkCaseStudyExercise() {
+      const userCode = document.getElementById("case-study-exercise").value.trim();
+      const resultDiv = document.getElementById("case-study-exercise-result");
+      
+      // Check if key elements are present
+      const hasEconomy = userCode.includes("economy");
+      const hasMean = userCode.includes("mean(gdp_per_capita)") || 
+                      userCode.includes("mean(gdp_per_capita, na.rm = TRUE)") ||
+                      userCode.includes("mean(gdp_per_capita, na.rm=TRUE)");
+      const hasDescSort = userCode.includes("desc(avg_gdp_per_capita)");
+      
+      if (hasEconomy && hasMean && hasDescSort) {
+        resultDiv.textContent = "Correct! This code will calculate and sort the average GDP per capita by economy classification.";
+        resultDiv.className = "result correct";
+      } else {
+        let feedback = "Not quite right. ";
+        if (!hasEconomy) feedback += "You should group by 'economy'. ";
+        if (!hasMean) feedback += "Use mean(gdp_per_capita) to calculate the average. ";
+        if (!hasDescSort) feedback += "Sort by desc(avg_gdp_per_capita) to show highest values first.";
+        
+        resultDiv.textContent = feedback;
+        resultDiv.className = "result incorrect";
+      }
+      
+      resultDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>

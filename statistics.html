@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistical Analysis in R | HARP Team R Training</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #f5f5f5;
+      border-left: 4px solid #3498db;
+      padding: 15px;
+      margin: 20px 0;
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    code {
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+    .section {
+      background-color: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .exercise {
+      background-color: #e8f4fc;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+    .exercise h3 {
+      margin-top: 0;
+      color: #2980b9;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .home-link {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .quiz-option {
+      margin: 10px 0;
+    }
+    .code-input {
+      width: 100%;
+      height: 100px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <script src="auth.js"></script>
+
+  <header>
+    <div class="container">
+      <h1>Statistical Analysis in R</h1>
+      <p>Performing statistical tests and modeling</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="home-link">← Back to Course Index</a>
+
+    <div class="section" id="descriptive-stats">
+      <h2>Descriptive Statistics</h2>
+      <p>Descriptive statistics summarize and describe the main features of a dataset.</p>
+
+      <h3>Basic Summary Statistics</h3>
+      <pre><code># Summary of a dataset
+summary(data)
+
+# Mean, median, and standard deviation
+mean(data$column_name, na.rm = TRUE)
+median(data$column_name, na.rm = TRUE)
+sd(data$column_name, na.rm = TRUE)</code></pre>
+
+      <h3>Quantiles</h3>
+      <pre><code># Calculate quantiles
+quantile(data$column_name, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)</code></pre>
+
+      <h3>Frequency Tables</h3>
+      <pre><code># Frequency of values
+table(data$column_name)
+
+# Proportions
+prop.table(table(data$column_name))</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Descriptive Statistics</h3>
+        <p>Write code to calculate the mean, median, and standard deviation of the column <code>score</code>, ignoring missing values.</p>
+
+        <textarea class="code-input" id="descriptive-stats-exercise"></textarea>
+
+        <button onclick="checkDescriptiveStatsExercise()">Check Answer</button>
+        <div id="descriptive-stats-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="correlation">
+      <h2>Correlation Analysis</h2>
+      <p>Correlation measures the strength and direction of the relationship between two variables.</p>
+
+      <h3>Calculating Correlation</h3>
+      <pre><code># Pearson correlation
+cor(data$x, data$y, method = "pearson")
+
+# Spearman correlation
+cor(data$x, data$y, method = "spearman")
+
+# Kendall correlation
+cor(data$x, data$y, method = "kendall")</code></pre>
+
+      <h3>Correlation Matrix</h3>
+      <pre><code># Correlation matrix for multiple variables
+cor(data[, c("x", "y", "z")], use = "complete.obs")</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Correlation</h3>
+        <p>Write code to calculate the Pearson correlation between the columns <code>height</code> and <code>weight</code>.</p>
+
+        <textarea class="code-input" id="correlation-exercise"></textarea>
+
+        <button onclick="checkCorrelationExercise()">Check Answer</button>
+        <div id="correlation-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="hypothesis-testing">
+      <h2>Hypothesis Testing</h2>
+      <p>Hypothesis testing is used to determine whether there is enough evidence to reject a null hypothesis.</p>
+
+      <h3>t-Test</h3>
+      <pre><code># One-sample t-test
+t.test(data$column_name, mu = 0)
+
+# Two-sample t-test
+t.test(data$column_name ~ data$group)
+
+# Paired t-test
+t.test(data$before, data$after, paired = TRUE)</code></pre>
+
+      <h3>Chi-Square Test</h3>
+      <pre><code># Chi-square test for independence
+chisq.test(table(data$column1, data$column2))</code></pre>
+
+      <h3>ANOVA</h3>
+      <pre><code># One-way ANOVA
+aov_result <- aov(data$column_name ~ data$group)
+summary(aov_result)</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Hypothesis Testing</h3>
+        <p>Write code to perform a two-sample t-test comparing the column <code>score</code> between two groups in the column <code>group</code>.</p>
+
+        <textarea class="code-input" id="hypothesis-testing-exercise"></textarea>
+
+        <button onclick="checkHypothesisTestingExercise()">Check Answer</button>
+        <div id="hypothesis-testing-exercise-result" class="result"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>HARP Team R Training © 2025 | Created by Daryn Sutton</p>
+    </div>
+  </footer>
+
+  <script>
+    function checkDescriptiveStatsExercise() {
+      const userCode = document.getElementById("descriptive-stats-exercise").value.trim();
+      const resultDiv = document.getElementById("descriptive-stats-exercise-result");
+
+      if (userCode.includes("mean(score, na.rm = TRUE)") &&
+          userCode.includes("median(score, na.rm = TRUE)") &&
+          userCode.includes("sd(score, na.rm = TRUE)")) {
+        resultDiv.textContent = "Correct! You've calculated the mean, median, and standard deviation.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure to use 'na.rm = TRUE' to ignore missing values.";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+
+    function checkCorrelationExercise() {
+      const userCode = document.getElementById("correlation-exercise").value.trim();
+      const resultDiv = document.getElementById("correlation-exercise-result");
+
+      if (userCode.includes("cor(height, weight, method = \"pearson\")")) {
+        resultDiv.textContent = "Correct! You've calculated the Pearson correlation.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure to use 'method = \"pearson\"' for Pearson correlation.";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+
+    function checkHypothesisTestingExercise() {
+      const userCode = document.getElementById("hypothesis-testing-exercise").value.trim();
+      const resultDiv = document.getElementById("hypothesis-testing-exercise-result");
+
+      if (userCode.includes("t.test(score ~ group)")) {
+        resultDiv.textContent = "Correct! You've performed a two-sample t-test.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure to use 't.test(score ~ group)' for a two-sample t-test.";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>

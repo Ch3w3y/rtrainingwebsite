@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Cleaning and Wrangling | HARP Team R Training</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #f5f5f5;
+      border-left: 4px solid #3498db;
+      padding: 15px;
+      margin: 20px 0;
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    code {
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+    .section {
+      background-color: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .exercise {
+      background-color: #e8f4fc;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+    .exercise h3 {
+      margin-top: 0;
+      color: #2980b9;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .home-link {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .quiz-option {
+      margin: 10px 0;
+    }
+    .code-input {
+      width: 100%;
+      height: 100px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <script src="auth.js"></script>
+
+  <header>
+    <div class="container">
+      <h1>Data Cleaning and Wrangling</h1>
+      <p>Preparing data for analysis</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="home-link">← Back to Course Index</a>
+
+    <div class="section" id="missing-values">
+      <h2>Handling Missing Values</h2>
+      <p>Missing values are common in datasets. R provides several ways to handle them.</p>
+
+      <h3>Identifying Missing Values</h3>
+      <pre><code># Check for missing values
+is.na(data)  # Returns TRUE for missing values
+
+# Count missing values in each column
+colSums(is.na(data))
+
+# Check if any missing values exist
+any(is.na(data))</code></pre>
+
+      <h3>Removing Missing Values</h3>
+      <pre><code># Remove rows with missing values
+data_cleaned <- na.omit(data)
+
+# Remove rows with missing values in specific columns
+data_cleaned <- data[!is.na(data$column_name), ]</code></pre>
+
+      <h3>Replacing Missing Values</h3>
+      <pre><code># Replace missing values with a specific value
+data$column_name[is.na(data$column_name)] <- 0
+
+# Replace missing values with the column mean
+data$column_name[is.na(data$column_name)] <- mean(data$column_name, na.rm = TRUE)</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Missing Values</h3>
+        <p>Write code to replace missing values in the column <code>score</code> with the median of the column.</p>
+
+        <textarea class="code-input" id="missing-exercise"></textarea>
+
+        <button onclick="checkMissingExercise()">Check Answer</button>
+        <div id="missing-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="duplicates">
+      <h2>Handling Duplicate Rows</h2>
+      <p>Duplicate rows can skew analysis results. R provides tools to identify and remove duplicates.</p>
+
+      <h3>Identifying Duplicates</h3>
+      <pre><code># Check for duplicate rows
+duplicated(data)
+
+# View duplicate rows
+data[duplicated(data), ]</code></pre>
+
+      <h3>Removing Duplicates</h3>
+      <pre><code># Remove duplicate rows
+data_cleaned <- data[!duplicated(data), ]</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Duplicates</h3>
+        <p>Write code to remove duplicate rows from the dataset <code>sales_data</code>.</p>
+
+        <textarea class="code-input" id="duplicates-exercise"></textarea>
+
+        <button onclick="checkDuplicatesExercise()">Check Answer</button>
+        <div id="duplicates-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="data-types">
+      <h2>Handling Data Types</h2>
+      <p>Understanding and managing data types is crucial for effective data cleaning and manipulation.</p>
+
+      <h3>Checking Data Types</h3>
+      <pre><code># Check the type of a variable
+class(data$column_name)
+
+# Check the structure of the dataset
+str(data)</code></pre>
+
+      <h3>Converting Data Types</h3>
+      <pre><code># Convert to numeric
+data$column_name <- as.numeric(data$column_name)
+
+# Convert to character
+data$column_name <- as.character(data$column_name)
+
+# Convert to factor
+data$column_name <- as.factor(data$column_name)</code></pre>
+
+      <h3>Working with Factors</h3>
+      <pre><code># View levels of a factor
+levels(data$column_name)
+
+# Reorder levels
+data$column_name <- factor(data$column_name, levels = c("Low", "Medium", "High"))
+
+# Add new levels
+data$column_name <- factor(data$column_name, levels = c(levels(data$column_name), "Very High"))</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Data Types</h3>
+        <p>Write code to convert the column <code>category</code> to a factor and reorder its levels to "Basic", "Intermediate", "Advanced".</p>
+
+        <textarea class="code-input" id="data-types-exercise"></textarea>
+
+        <button onclick="checkDataTypesExercise()">Check Answer</button>
+        <div id="data-types-exercise-result" class="result"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>HARP Team R Training © 2025 | Created by Daryn Sutton</p>
+    </div>
+  </footer>
+
+  <script>
+    function checkMissingExercise() {
+      const userCode = document.getElementById("missing-exercise").value.trim();
+      const resultDiv = document.getElementById("missing-exercise-result");
+
+      if (userCode.includes("median(data$score, na.rm = TRUE)")) {
+        resultDiv.textContent = "Correct! You've replaced missing values with the column median.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure to use 'median(data$score, na.rm = TRUE)' to calculate the median.";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+
+    function checkDuplicatesExercise() {
+      const userCode = document.getElementById("duplicates-exercise").value.trim();
+      const resultDiv = document.getElementById("duplicates-exercise-result");
+
+      if (userCode.includes("!duplicated(sales_data)")) {
+        resultDiv.textContent = "Correct! You've removed duplicate rows from the dataset.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure to use '!duplicated(sales_data)' to filter out duplicates.";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+
+    function checkDataTypesExercise() {
+      const userCode = document.getElementById("data-types-exercise").value.trim();
+      const resultDiv = document.getElementById("data-types-exercise-result");
+
+      if (userCode.includes("factor(category, levels = c(\"Basic\", \"Intermediate\", \"Advanced\"))")) {
+        resultDiv.textContent = "Correct! You've converted the column to a factor and reordered its levels.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure to use 'factor(category, levels = c(\"Basic\", \"Intermediate\", \"Advanced\"))' to reorder levels.";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>

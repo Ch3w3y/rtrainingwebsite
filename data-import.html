@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Import and Export | HARP Team R Training</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #f5f5f5;
+      border-left: 4px solid #3498db;
+      padding: 15px;
+      margin: 20px 0;
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    code {
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+    .topic-nav {
+      background-color: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .topic-nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .topic-nav li {
+      margin-right: 10px;
+    }
+    .section {
+      background-color: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .exercise {
+      background-color: #e8f4fc;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+    .exercise h3 {
+      margin-top: 0;
+      color: #2980b9;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .home-link {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .quiz-option {
+      margin: 10px 0;
+    }
+    .code-input {
+      width: 100%;
+      height: 100px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <script src="auth.js"></script>
+  
+  <header>
+    <div class="container">
+      <h1>Data Import and Export</h1>
+      <p>Getting data in and out of R efficiently</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="home-link">← Back to Course Index</a>
+    
+    <div class="topic-nav section">
+      <h3>In this module:</h3>
+      <ul>
+        <li><a href="#working-directory">Working Directory</a></li>
+        <li><a href="#csv-files">CSV Files</a></li>
+        <li><a href="#excel-files">Excel Files</a></li>
+        <li><a href="#text-files">Text Files</a></li>
+        <li><a href="#database">Database Connections</a></li>
+        <li><a href="#r-data">R Data Files</a></li>
+        <li><a href="#web-data">Web Data</a></li>
+        <li><a href="#export">Data Export</a></li>
+      </ul>
+    </div>
+
+    <div class="section" id="working-directory">
+      <h2>Working Directory</h2>
+      <p>The working directory is the default location where R looks for files and saves outputs. Understanding and managing the working directory is essential for data import and export.</p>
+      
+      <h3>Checking the Current Working Directory</h3>
+      <pre><code># Check current working directory
+getwd()</code></pre>
+      
+      <h3>Setting the Working Directory</h3>
+      <pre><code># Set working directory
+setwd("C:/Users/YourName/Documents/R_Projects")  # Windows
+# setwd("/Users/YourName/Documents/R_Projects")  # Mac/Linux
+
+# You can also use RStudio's interface:
+# Session → Set Working Directory → Choose Directory...</code></pre>
+      
+      <h3>Listing Files in the Working Directory</h3>
+      <pre><code># List all files in working directory
+list.files()
+
+# List files with specific extension
+list.files(pattern = ".csv")
+
+# List files in a subdirectory
+list.files("data")</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Working Directory</h3>
+        <p>If your working directory is set to "C:/R_Projects" and you have a file "data.csv" in the "datasets" subfolder, which path would you use to read this file?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="wd-q1" id="wd1" value="data.csv">
+          <label for="wd1">read.csv("data.csv")</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="wd-q1" id="wd2" value="path">
+          <label for="wd2">read.csv("datasets/data.csv")</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="wd-q1" id="wd3" value="absolute">
+          <label for="wd3">read.csv("C:/R_Projects/data.csv")</label>
+        </div>
+        
+        <button onclick="checkAnswer('wd-q1', 'path')">Check Answer</button>
+        <div id="wd-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="csv-files">
+      <h2>Working with CSV Files</h2>
+      <p>CSV (Comma-Separated Values) files are among the most common formats for storing tabular data and can be easily imported into R.</p>
+      
+      <h3>Basic CSV Import with Base R</h3>
+      <pre><code># Import CSV with base R function
+data <- read.csv("file.csv")
+
+# With more control over import parameters
+data <- read.csv("file.csv", 
+                header = TRUE,     # First row contains column names
+                sep = ",",         # Column separator
+                dec = ".",         # Decimal point character
+                stringsAsFactors = FALSE,  # Don't convert strings to factors
+                na.strings = c("NA", "", "N/A"))  # Strings to interpret as NA</code></pre>
+      
+      <h3>CSV Import with readr (Faster and More Flexible)</h3>
+      <pre><code># Load the tidyverse's readr package
+library(readr)
+
+# Basic usage
+data <- read_csv("file.csv")
+
+# With more control
+data <- read_csv("file.csv",
+                col_types = cols(
+                  id = col_integer(),
+                  name = col_character(),
+                  score = col_double(),
+                  date = col_date(format = "%Y-%m-%d")
+                ),
+                na = c("NA", "", "N/A"),
+                trim_ws = TRUE)  # Trim whitespace from character fields</code></pre>
+      
+      <h3>Viewing the Imported Data</h3>
+      <pre><code># Quick overview
+head(data)       # First 6 rows
+tail(data)       # Last 6 rows
+glimpse(data)    # From dplyr, shows data structure
+summary(data)    # Statistical summary</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Importing CSV Files</h3>
+        <p>What's the difference between <code>read.csv()</code> from base R and <code>read_csv()</code> from readr?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="csv-q1" id="csv1" value="same">
+          <label for="csv1">They are identical functions with no differences</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="csv-q1" id="csv2" value="factors">
+          <label for="csv2">read_csv() is faster, doesn't convert strings to factors by default, and uses tibbles</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="csv-q1" id="csv3" value="limited">
+          <label for="csv3">read_csv() is more limited and handles fewer file formats than read.csv()</label>
+        </div>
+        
+        <button onclick="checkAnswer('csv-q1', 'factors')">Check Answer</button>
+        <div id="csv-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="excel-files">
+      <h2>Working with Excel Files</h2>
+      <p>Excel files are widely used in business contexts. R provides several packages to read and write Excel files.</p>
+      
+      <h3>Using readxl Package</h3>
+      <pre><code># Load the readxl package
+library(readxl)
+
+# Read an Excel file
+data <- read_excel("file.xlsx")
+
+# Specify which sheet to read
+data <- read_excel("file.xlsx", sheet = "Sheet1")
+# Can also use sheet index
+data <- read_excel("file.xlsx", sheet = 2)  # Second sheet
+
+# Specify a range
+data <- read_excel("file.xlsx", range = "A1:C100")
+
+# Skip rows and set column types
+data <- read_excel("file.xlsx",
+                  skip = 2,            # Skip first 2 rows
+                  col_types = c("text", "numeric", "date"))</code></pre>
+      
+      <h3>List Sheets in an Excel File</h3>
+      <pre><code># Get the names of all sheets
+excel_sheets("file.xlsx")</code></pre>
+      
+      <h3>Reading Multiple Sheets</h3>
+      <pre><code># Read all sheets into a list
+sheets <- excel_sheets("file.xlsx")
+data_list <- lapply(sheets, function(sheet) {
+  read_excel("file.xlsx", sheet = sheet)
+})
+names(data_list) <- sheets  # Name list elements with sheet names</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Excel Import</h3>
+        <p>Fix the following code to read the first sheet from an Excel file:</p>
+        
+        <textarea class="code-input" id="excel-exercise">library(readxl)
+data <- read_excel(file = "sales_data.xlsx" sheet = 1)</textarea>
+        
+        <button onclick="checkExcelExercise()">Check Answer</button>
+        <div id="excel-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="text-files">
+      <h2>Working with Text Files</h2>
+      <p>R can read various text file formats, including fixed-width files and custom delimited files.</p>
+      
+      <h3>Reading Tab-Delimited Files</h3>
+      <pre><code># Base R approach
+data <- read.delim("file.txt", sep = "\t")
+
+# readr approach
+library(readr)
+data <- read_tsv("file.txt")</code></pre>
+      
+      <h3>Reading Fixed-Width Files</h3>
+      <pre><code># Base R approach
+data <- read.fwf("file.txt", 
+                widths = c(10, 5, 15),  # Column widths in characters
+                col.names = c("name", "id", "description"))
+
+# readr approach
+library(readr)
+data <- read_fwf("file.txt",
+                fwf_widths(c(10, 5, 15), 
+                          c("name", "id", "description")))</code></pre>
+      
+      <h3>Reading Files with Unusual Delimiters</h3>
+      <pre><code># Base R for pipe-delimited file
+data <- read.table("file.txt", sep = "|", header = TRUE)
+
+# readr for flexible delimiter
+library(readr)
+data <- read_delim("file.txt", delim = "|")</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Text File Import</h3>
+        <p>Which function would you use to read a tab-delimited text file using the tidyverse packages?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="text-q1" id="text1" value="read_csv">
+          <label for="text1">read_csv()</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="text-q1" id="text2" value="read_tsv">
+          <label for="text2">read_tsv()</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="text-q1" id="text3" value="read.delim">
+          <label for="text3">read.delim()</label>
+        </div>
+        
+        <button onclick="checkAnswer('text-q1', 'read_tsv')">Check Answer</button>
+        <div id="text-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="database">
+      <h2>Database Connections</h2>
+      <p>R can connect to databases and directly query them, allowing you to work with very large datasets.</p>
+      
+      <h3>DBI and RSQLite</h3>
+      <pre><code># Install packages if needed
+# install.packages(c("DBI", "RSQLite"))
+
+# Load packages
+library(DBI)
+library(RSQLite)
+
+# Connect to a SQLite database
+con <- dbConnect(RSQLite::SQLite(), "database.sqlite")
+
+# Query the database
+result <- dbGetQuery(con, "SELECT * FROM table_name")
+
+# Get table names in the database
+tables <- dbListTables(con)
+
+# Close the connection when finished
+dbDisconnect(con)</code></pre>
+      
+      <h3>Using dplyr with Databases</h3>
+      <pre><code>library(dplyr)
+library(DBI)
+library(RSQLite)
+
+# Connect to database
+con <- dbConnect(RSQLite::SQLite(), "database.sqlite")
+
+# Use dplyr to query
+tbl_db <- tbl(con, "table_name")
+
+# Perform operations (these are executed lazily)
+result <- tbl_db %>%
+  filter(value > 100) %>%
+  group_by(category) %>%
+  summarize(avg_value = mean(value))
+
+# Collect the results into R
+result_df <- result %>% collect()
+
+# Close connection
+dbDisconnect(con)</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Database Connections</h3>
+        <p>What does the <code>collect()</code> function do when working with database connections in dplyr?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="db-q1" id="db1" value="optimize">
+          <label for="db1">It optimizes the SQL query for faster execution</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="db-q1" id="db2" value="collect">
+          <label for="db2">It executes the query and brings the results into R as a data frame</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="db-q1" id="db3" value="connect">
+          <label for="db3">It establishes the connection to the database</label>
+        </div>
+        
+        <button onclick="checkAnswer('db-q1', 'collect')">Check Answer</button>
+        <div id="db-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="r-data">
+      <h2>R Data Files</h2>
+      <p>R has its own data file formats that are useful for saving R objects between sessions.</p>
+      
+      <h3>RDS Files (Single Objects)</h3>
+      <pre><code># Save a single R object to an RDS file
+saveRDS(my_data, file = "my_data.rds")
+
+# Load an RDS file
+my_data <- readRDS("my_data.rds")</code></pre>
+      
+      <h3>RData/RDA Files (Multiple Objects)</h3>
+      <pre><code># Save multiple objects to an RData file
+x <- 1:10
+y <- letters[1:10]
+save(x, y, file = "objects.RData")
+
+# Load all objects from the file
+load("objects.RData")  # x and y are now available in your environment</code></pre>
+      
+      <h3>Saving and Loading the Entire Workspace</h3>
+      <pre><code># Save entire workspace
+save.image("workspace.RData")
+
+# Load entire workspace
+load("workspace.RData")</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: R Data Files</h3>
+        <p>What's the main difference between saving data with <code>saveRDS()</code> versus <code>save()</code>?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="rdata-q1" id="rdata1" value="compress">
+          <label for="rdata1">saveRDS() compresses data while save() doesn't</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="rdata-q1" id="rdata2" value="object-name">
+          <label for="rdata2">saveRDS() stores a single object without its name, while save() stores multiple objects with their names</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="rdata-q1" id="rdata3" value="format">
+          <label for="rdata3">saveRDS() is for newer R versions while save() is for compatibility with older versions</label>
+        </div>
+        
+        <button onclick="checkAnswer('rdata-q1', 'object-name')">Check Answer</button>
+        <div id="rdata-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="web-data">
+      <h2>Importing Data from the Web</h2>
+      <p>R can download data directly from the internet and parse various web formats.</p>
+      
+      <h3>Downloading Files</h3>
+      <pre><code># Download a file from the web
+download.file(
+  url = "https://example.com/data.csv",
+  destfile = "data.csv"
+)
+
+# Then read it as usual
+data <- read.csv("data.csv")</code></pre>
+      
+      <h3>Reading Directly from URLs</h3>
+      <pre><code># Read CSV directly from URL
+data <- read.csv("https://example.com/data.csv")
+
+# With readr
+library(readr)
+data <- read_csv("https://example.com/data.csv")</code></pre>
+      
+      <h3>Web Scraping with rvest</h3>
+      <pre><code># Install and load rvest package
+# install.packages("rvest")
+library(rvest)
+
+# Read HTML from a webpage
+webpage <- read_html("https://example.com")
+
+# Extract table data
+tables <- html_table(webpage)
+first_table <- tables[[1]]  # Get the first table
+
+# Extract specific elements with CSS selectors
+titles <- webpage %>%
+  html_nodes("h2.title") %>%
+  html_text()</code></pre>
+      
+      <h3>Working with APIs</h3>
+      <pre><code># Install and load httr and jsonlite packages
+# install.packages(c("httr", "jsonlite"))
+library(httr)
+library(jsonlite)
+
+# Make a GET request to an API
+response <- GET("https://api.example.com/data")
+
+# Check if request was successful
+if (http_status(response)$category == "Success") {
+  # Parse JSON response
+  data <- fromJSON(content(response, "text"))
+  
+  # Work with the data
+  print(head(data))
+}</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Web Data Import</h3>
+        <p>Which package would you use to scrape tables from an HTML webpage?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="web-q1" id="web1" value="httr">
+          <label for="web1">httr</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="web-q1" id="web2" value="jsonlite">
+          <label for="web2">jsonlite</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="web-q1" id="web3" value="rvest">
+          <label for="web3">rvest</label>
+        </div>
+        
+        <button onclick="checkAnswer('web-q1', 'rvest')">Check Answer</button>
+        <div id="web-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="export">
+      <h2>Data Export</h2>
+      <p>Once you've processed your data, you often need to save it in various formats for sharing or future use.</p>
+      
+      <h3>Exporting to CSV</h3>
+      <pre><code># Base R approach
+write.csv(data, file = "output.csv", row.names = FALSE)
+
+# readr approach
+library(readr)
+write_csv(data, "output.csv")</code></pre>
+      
+      <h3>Exporting to Excel</h3>
+      <pre><code># Using writexl package
+# install.packages("writexl")
+library(writexl)
+write_xlsx(data, "output.xlsx")
+
+# Using openxlsx for more control
+# install.packages("openxlsx")
+library(openxlsx)
+write.xlsx(data, "output.xlsx", sheetName = "Data", rowNames = FALSE)</code></pre>
+      
+      <h3>Exporting to Text Files</h3>
+      <pre><code># Tab-delimited file
+write.table(data, "output.txt", sep = "\t", row.names = FALSE, quote = FALSE)
+
+# Using readr
+library(readr)
+write_tsv(data, "output.txt")</code></pre>
+      
+      <h3>Exporting to Database</h3>
+      <pre><code>library(DBI)
+library(RSQLite)
+
+# Connect to database
+con <- dbConnect(RSQLite::SQLite(), "database.sqlite")
+
+# Write data to a table
+dbWriteTable(con, "table_name", data, overwrite = TRUE)
+
+# Close connection
+dbDisconnect(con)</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Data Export</h3>
+        <p>Fix the following code to export a data frame to a CSV file without row names:</p>
+        
+        <textarea class="code-input" id="export-exercise">write.csv(my_data, "results.csv")</textarea>
+        
+        <button onclick="checkExportExercise()">Check Answer</button>
+        <div id="export-exercise-result" class="result"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>HARP Team R Training © 2025 | Created by Daryn Sutton</p>
+    </div>
+  </footer>
+
+  <script>
+    function checkAnswer(questionId, correctAnswer) {
+      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+      const resultDiv = document.getElementById(`${questionId}-result`);
+      
+      if (!selectedOption) {
+        resultDiv.textContent = "Please select an answer.";
+        resultDiv.className = "result incorrect";
+        resultDiv.style.display = "block";
+        return;
+      }
+      
+      if (selectedOption.value === correctAnswer) {
+        resultDiv.textContent = "Correct! Well done.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
+        resultDiv.className = "result incorrect";
+      }
+      
+      resultDiv.style.display = "block";
+    }
+    
+    function checkExcelExercise() {
+      const userCode = document.getElementById("excel-exercise").value.trim();
+      const resultDiv = document.getElementById("excel-exercise-result");
+      
+      if (userCode.includes("file = \"sales_data.xlsx\", sheet = 1") || 
+          userCode.includes("\"sales_data.xlsx\", sheet = 1")) {
+        resultDiv.textContent = "Correct! You've added the missing comma between the file and sheet parameters.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. There should be a comma between the file and sheet parameters.";
+        resultDiv.className = "result incorrect";
+      }
+      
+      resultDiv.style.display = "block";
+    }
+    
+    function checkExportExercise() {
+      const userCode = document.getElementById("export-exercise").value.trim();
+      const resultDiv = document.getElementById("export-exercise-result");
+      
+      if (userCode.includes("row.names = FALSE")) {
+        resultDiv.textContent = "Correct! Adding 'row.names = FALSE' prevents writing the row names to the CSV file.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. You need to add 'row.names = FALSE' to avoid writing row indices to the CSV file.";
+        resultDiv.className = "result incorrect";
+      }
+      
+      resultDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>

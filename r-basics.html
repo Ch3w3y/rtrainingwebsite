@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R Basics: Getting Started | HARP Team R Training</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #f5f5f5;
+      border-left: 4px solid #3498db;
+      padding: 15px;
+      margin: 20px 0;
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    code {
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+    .topic-nav {
+      background-color: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .topic-nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .topic-nav li {
+      margin-right: 10px;
+    }
+    .section {
+      background-color: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .exercise {
+      background-color: #e8f4fc;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+    .exercise h3 {
+      margin-top: 0;
+      color: #2980b9;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .home-link {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .quiz-option {
+      margin: 10px 0;
+    }
+    .code-input {
+      width: 100%;
+      height: 100px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <script src="auth.js"></script>
+  
+  <header>
+    <div class="container">
+      <h1>R Basics: Getting Started</h1>
+      <p>Your first steps into the world of R programming</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="home-link">← Back to Course Index</a>
+    
+    <div class="topic-nav section">
+      <h3>In this module:</h3>
+      <ul>
+        <li><a href="#what-is-r">What is R?</a></li>
+        <li><a href="#installation">Installing R and RStudio</a></li>
+        <li><a href="#rstudio-interface">RStudio Interface</a></li>
+        <li><a href="#basic-operations">Basic Operations</a></li>
+        <li><a href="#packages">Working with Packages</a></li>
+        <li><a href="#help">Getting Help</a></li>
+        <li><a href="#scripts">R Scripts</a></li>
+      </ul>
+    </div>
+
+    <div class="section" id="what-is-r">
+      <h2>What is R?</h2>
+      <p>R is a programming language and free software environment for statistical computing and graphics. It was created by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand, and is currently developed by the R Development Core Team.</p>
+      
+      <h3>Key Features of R</h3>
+      <ul>
+        <li><strong>Statistical Focus:</strong> Designed specifically for data analysis and statistics</li>
+        <li><strong>Graphics Capabilities:</strong> Excellent tools for data visualization</li>
+        <li><strong>Open Source:</strong> Free to use and modify</li>
+        <li><strong>Community Packages:</strong> Extensive ecosystem of user-contributed packages</li>
+        <li><strong>Cross-Platform:</strong> Runs on Windows, macOS, and Linux</li>
+      </ul>
+      
+      <h3>When to Use R</h3>
+      <p>R is particularly useful for:</p>
+      <ul>
+        <li>Statistical analysis</li>
+        <li>Data visualization</li>
+        <li>Data cleaning and preparation</li>
+        <li>Machine learning</li>
+        <li>Scientific research</li>
+      </ul>
+      
+      <img src="images/r-ecosystem.png" alt="R Ecosystem" width="600">
+    </div>
+
+    <div class="section" id="installation">
+      <h2>Installing R and RStudio</h2>
+      <p>To get started with R, you'll need to install both R itself and RStudio, a powerful integrated development environment (IDE) for R.</p>
+      
+      <h3>Step 1: Install R</h3>
+      <ol>
+        <li>Go to the <a href="https://cran.r-project.org/" target="_blank">CRAN (Comprehensive R Archive Network)</a> website</li>
+        <li>Select your operating system:
+          <ul>
+            <li>Windows: Click "Download R for Windows" → "base" → "Download R x.x.x for Windows"</li>
+            <li>macOS: Click "Download R for macOS" and select the appropriate package</li>
+            <li>Linux: Click "Download R for Linux" and follow instructions for your distribution</li>
+          </ul>
+        </li>
+        <li>Run the installer and follow the default installation options</li>
+      </ol>
+      
+      <h3>Step 2: Install RStudio</h3>
+      <ol>
+        <li>Go to the <a href="https://posit.co/download/rstudio-desktop/" target="_blank">RStudio Desktop Download</a> page</li>
+        <li>Click "Download RStudio" for your operating system</li>
+        <li>Run the installer and follow the default installation options</li>
+      </ol>
+      
+      <div class="exercise">
+        <h3>Exercise: Installation Check</h3>
+        <p>After installing R and RStudio, which of the following statements is TRUE?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="install-q1" id="install1" value="r-only">
+          <label for="install1">You only need to open R directly, as RStudio is just an optional add-on</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="install-q1" id="install2" value="rstudio-only">
+          <label for="install2">You must install RStudio first, then it will install R automatically</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="install-q1" id="install3" value="both">
+          <label for="install3">You need to install R first, then RStudio, and you'll typically use RStudio for your work</label>
+        </div>
+        
+        <button onclick="checkAnswer('install-q1', 'both')">Check Answer</button>
+        <div id="install-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="rstudio-interface">
+      <h2>RStudio Interface</h2>
+      <p>RStudio provides a user-friendly interface divided into four main panes:</p>
+      
+      <img src="images/rstudio-interface.png" alt="RStudio Interface" width="700">
+      
+      <h3>The Four Panes</h3>
+      <ol>
+        <li><strong>Source Editor (top-left):</strong> Where you write and edit your R scripts</li>
+        <li><strong>Console (bottom-left):</strong> Where you can type commands and see results immediately</li>
+        <li><strong>Environment/History (top-right):</strong>
+          <ul>
+            <li>Environment tab: Shows all objects currently in memory</li>
+            <li>History tab: List of previously executed commands</li>
+          </ul>
+        </li>
+        <li><strong>Files/Plots/Packages/Help (bottom-right):</strong>
+          <ul>
+            <li>Files tab: File browser</li>
+            <li>Plots tab: View graphical output</li>
+            <li>Packages tab: Manage installed packages</li>
+            <li>Help tab: Access documentation</li>
+          </ul>
+        </li>
+      </ol>
+      
+      <h3>Customizing RStudio</h3>
+      <p>You can customize the RStudio interface by going to Tools → Global Options. Some useful settings to adjust:</p>
+      <ul>
+        <li>Appearance: Change color themes and font size</li>
+        <li>Code: Adjust code completion and display options</li>
+        <li>Pane Layout: Change the arrangement of the panes</li>
+      </ul>
+      
+      <div class="exercise">
+        <h3>Exercise: RStudio Interface</h3>
+        <p>Match the RStudio pane with its primary function:</p>
+        
+        <p>1. Where do graphical plots appear?</p>
+        <div class="quiz-option">
+          <input type="radio" name="interface-q1" id="int1a" value="source">
+          <label for="int1a">Source Editor pane</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="interface-q1" id="int1b" value="console">
+          <label for="int1b">Console pane</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="interface-q1" id="int1c" value="plots">
+          <label for="int1c">Plots tab (bottom-right pane)</label>
+        </div>
+        
+        <button onclick="checkAnswer('interface-q1', 'plots')">Check Answer</button>
+        <div id="interface-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="basic-operations">
+      <h2>Basic Operations in R</h2>
+      <p>Let's start with some fundamental operations in R.</p>
+      
+      <h3>R as a Calculator</h3>
+      <p>You can use R for basic arithmetic operations:</p>
+      
+      <pre><code># Addition
+5 + 3  # 8
+
+# Subtraction
+10 - 4  # 6
+
+# Multiplication
+6 * 7  # 42
+
+# Division
+20 / 4  # 5
+
+# Exponentiation
+2 ^ 3  # 8 (2 raised to the power of 3)
+
+# Modulo (remainder after division)
+17 %% 5  # 2
+
+# Integer division
+17 %/% 5  # 3 (how many complete times 5 goes into 17)</code></pre>
+
+      <h3>Variables and Assignment</h3>
+      <p>You can store values in variables using the assignment operator (<code>&lt;-</code>):</p>
+      
+      <pre><code># Assign a value to a variable
+x <- 10
+y <- 5
+
+# Perform operations with variables
+z <- x + y  # z is now 15
+
+# Print a variable's value (several ways)
+z           # 15
+print(z)    # 15
+cat("The value of z is", z, "\n")  # The value of z is 15
+
+# R also allows = for assignment, but <- is preferred
+a = 20      # Works, but not recommended
+b <- 30     # Preferred style</code></pre>
+
+      <h3>Variable Naming Rules</h3>
+      <p>When naming variables in R, follow these rules:</p>
+      <ul>
+        <li>Names can contain letters, numbers, underscores (_) and periods (.)</li>
+        <li>Names must start with a letter or a period</li>
+        <li>If a name starts with a period, it cannot be followed by a number</li>
+        <li>Names are case-sensitive (age, Age, and AGE are different variables)</li>
+      </ul>
+      
+      <pre><code># Valid variable names
+my_variable <- 10
+myVariable <- 20
+my.variable <- 30
+.hidden_var <- 40
+
+# Invalid variable names (would cause errors)
+# 2nd_var <- 50       # Cannot start with a number
+# my-variable <- 60   # Cannot contain hyphens
+# .2var <- 70         # Cannot start with period followed by number</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Basic R Operations</h3>
+        <p>What will be the value of the variable 'result' after running the following code?</p>
+        <pre><code>x <- 15
+y <- 4
+result <- (x %% y) * 2 + (x %/% y)</code></pre>
+        
+        <div class="quiz-option">
+          <input type="radio" name="ops-q1" id="ops1" value="6">
+          <label for="ops1">6</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="ops-q1" id="ops2" value="7">
+          <label for="ops2">7</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="ops-q1" id="ops3" value="11">
+          <label for="ops3">11</label>
+        </div>
+        
+        <button onclick="checkAnswer('ops-q1', '7')">Check Answer</button>
+        <div id="ops-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="packages">
+      <h2>Working with Packages</h2>
+      <p>R's functionality can be extended with packages, which are collections of functions, data, and documentation.</p>
+      
+      <h3>Installing Packages</h3>
+      <p>You can install packages from CRAN (Comprehensive R Archive Network) using the <code>install.packages()</code> function:</p>
+      
+      <pre><code># Install a single package
+install.packages("dplyr")
+
+# Install multiple packages at once
+install.packages(c("ggplot2", "tidyr", "readr"))</code></pre>
+      
+      <h3>Loading Packages</h3>
+      <p>After installing a package, you need to load it into your current R session to use its functions:</p>
+      
+      <pre><code># Load a package
+library(dplyr)
+
+# You can now use dplyr functions
+# For example, filter() from dplyr
+# Without loading the package, you would need to use dplyr::filter()</code></pre>
+      
+      <h3>Checking Installed Packages</h3>
+      <p>You can view all installed packages and their versions:</p>
+      
+      <pre><code># List all installed packages
+installed.packages()
+
+# More readable way to check specific packages
+packageVersion("dplyr")  # Shows version of dplyr package</code></pre>
+      
+      <h3>Updating Packages</h3>
+      <p>It's a good practice to keep your packages up to date:</p>
+      
+      <pre><code># Update all packages
+update.packages()
+
+# Update specific packages
+install.packages("dplyr")  # Reinstalling will update to the latest version</code></pre>
+      
+      <h3>Popular R Packages</h3>
+      <table>
+        <tr>
+          <th>Package</th>
+          <th>Description</th>
+          <th>Common Uses</th>
+        </tr>
+        <tr>
+          <td>dplyr</td>
+          <td>Data manipulation</td>
+          <td>Filtering, selecting, mutating, summarizing data</td>
+        </tr>
+        <tr>
+          <td>ggplot2</td>
+          <td>Data visualization</td>
+          <td>Creating publication-quality graphics</td>
+        </tr>
+        <tr>
+          <td>tidyr</td>
+          <td>Data tidying</td>
+          <td>Reshaping data between wide and long formats</td>
+        </tr>
+        <tr>
+          <td>readr</td>
+          <td>Data import</td>
+          <td>Reading CSV, TSV, and other delimited files</td>
+        </tr>
+        <tr>
+          <td>lubridate</td>
+          <td>Date and time handling</td>
+          <td>Parsing, manipulating, and calculating with dates</td>
+        </tr>
+      </table>
+      
+      <div class="exercise">
+        <h3>Exercise: R Packages</h3>
+        <p>Fix the following code to properly install and load the 'readxl' package:</p>
+        
+        <textarea class="code-input" id="package-exercise">packages.install("readxl")
+library(readxl)</textarea>
+        
+        <button onclick="checkPackageExercise()">Check Answer</button>
+        <div id="package-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="help">
+      <h2>Getting Help in R</h2>
+      <p>R has a comprehensive built-in help system that can assist you when you're stuck or need information about functions.</p>
+      
+      <h3>Accessing Help Documentation</h3>
+      <p>There are several ways to access help in R:</p>
+      
+      <pre><code># Get help for a specific function using ?
+?mean
+help(mean)  # Alternative syntax
+
+# Get help on a package
+help(package = "dplyr")
+
+# Search for help on a topic
+??correlation  # Searches for "correlation" in all documentation</code></pre>
+      
+      <h3>Help Page Structure</h3>
+      <p>A typical R help page contains these sections:</p>
+      <ul>
+        <li><strong>Description</strong>: Brief description of the function</li>
+        <li><strong>Usage</strong>: The function's syntax</li>
+        <li><strong>Arguments</strong>: Explanation of each parameter</li>
+        <li><strong>Details</strong>: Additional information about how the function works</li>
+        <li><strong>Value</strong>: What the function returns</li>
+        <li><strong>Examples</strong>: Working examples of the function</li>
+      </ul>
+      
+      <h3>Function Arguments and Examples</h3>
+      <p>You can quickly check a function's arguments:</p>
+      
+      <pre><code># See arguments without full help page
+args(mean)  # function (x, ..., na.rm = FALSE, trim = 0)
+
+# View function code (for non-primitive functions)
+mean
+
+# Get examples for a function
+example(mean)</code></pre>
+      
+      <h3>Online Resources</h3>
+      <p>Beyond R's built-in help, these resources are invaluable:</p>
+      <ul>
+        <li><a href="https://www.rdocumentation.org/" target="_blank">RDocumentation</a>: Searchable interface for R package documentation</li>
+        <li><a href="https://stackoverflow.com/questions/tagged/r" target="_blank">Stack Overflow</a>: Q&A for programming problems</li>
+        <li><a href="https://www.r-bloggers.com/" target="_blank">R-bloggers</a>: Collection of R-related blogs</li>
+        <li><a href="https://rdrr.io/" target="_blank">rdrr.io</a>: R package documentation, search and code execution</li>
+      </ul>
+      
+      <div class="exercise">
+        <h3>Exercise: Getting Help</h3>
+        <p>How would you find help for the 'filter' function specifically from the dplyr package?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="help-q1" id="help1" value="filter">
+          <label for="help1">?filter</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="help-q1" id="help2" value="dplyr-filter">
+          <label for="help2">?dplyr::filter</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="help-q1" id="help3" value="help-filter">
+          <label for="help3">help(filter)</label>
+        </div>
+        
+        <button onclick="checkAnswer('help-q1', 'dplyr-filter')">Check Answer</button>
+        <div id="help-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="scripts">
+      <h2>R Scripts</h2>
+      <p>While you can type commands directly in the console, for more complex analyses, you'll want to save your code in R scripts.</p>
+      
+      <h3>Creating and Running Scripts</h3>
+      <p>In RStudio, you can create a new script by clicking File → New File → R Script, or pressing Ctrl+Shift+N (Cmd+Shift+N on Mac).</p>
+      
+      <pre><code># This is an example R script
+
+# Set working directory (where your files are located)
+setwd("C:/Users/YourName/Documents/R_Projects")  # Windows example
+# setwd("/Users/YourName/Documents/R_Projects")  # Mac example
+
+# Load packages
+library(dplyr)
+library(ggplot2)
+
+# Create some data
+x <- 1:10
+y <- x^2
+
+# Make a data frame
+data <- data.frame(x = x, y = y)
+
+# Print the data
+print(data)
+
+# Create a plot
+plot(x, y, main = "Square Function", 
+     xlab = "x", ylab = "y = x^2", 
+     type = "b", col = "blue")
+
+# Save the plot to a file
+# pdf("my_plot.pdf")
+# plot(x, y)
+# dev.off()</code></pre>
+      
+      <h3>Running Code from Scripts</h3>
+      <p>You can execute code from your script in several ways:</p>
+      <ul>
+        <li>Run the current line: Ctrl+Enter (Cmd+Enter on Mac)</li>
+        <li>Run selected lines: Select code + Ctrl+Enter</li>
+        <li>Run the entire script: Ctrl+Shift+Enter or click the "Source" button</li>
+      </ul>
+      
+      <h3>Script Best Practices</h3>
+      <ul>
+        <li><strong>Comments</strong>: Use # to add comments explaining your code</li>
+        <li><strong>Organization</strong>: Group related code together with clear section headers</li>
+        <li><strong>Documentation</strong>: Document data sources, assumptions, and goals at the top</li>
+        <li><strong>Readability</strong>: Use consistent indentation and spacing</li>
+        <li><strong>Modularity</strong>: Break complex tasks into smaller, manageable functions</li>
+      </ul>
+      
+      <div class="exercise">
+        <h3>Exercise: R Scripts</h3>
+        <p>Identify the mistake in the following R script:</p>
+        
+        <pre><code># Calculate the mean of a vector
+numbers <- c(10, 15, 20, NA, 30)
+result <- mean(numbers)
+print("The mean is", result)</code></pre>
+        
+        <div class="quiz-option">
+          <input type="radio" name="script-q1" id="script1" value="vector">
+          <label for="script1">The vector includes an NA value which will result in NA without na.rm=TRUE</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="script-q1" id="script2" value="print">
+          <label for="script2">The print function is used incorrectly; should use cat() instead</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="script-q1" id="script3" value="both">
+          <label for="script3">Both of the above issues</label>
+        </div>
+        
+        <button onclick="checkAnswer('script-q1', 'both')">Check Answer</button>
+        <div id="script-q1-result" class="result"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>HARP Team R Training © 2025 | Created by Daryn Sutton</p>
+    </div>
+  </footer>
+
+  <script>
+    function checkAnswer(questionId, correctAnswer) {
+      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+      const resultDiv = document.getElementById(`${questionId}-result`);
+      
+      if (!selectedOption) {
+        resultDiv.textContent = "Please select an answer.";
+        resultDiv.className = "result incorrect";
+        resultDiv.style.display = "block";
+        return;
+      }
+      
+      if (selectedOption.value === correctAnswer) {
+        resultDiv.textContent = "Correct! Well done.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
+        resultDiv.className = "result incorrect";
+      }
+      
+      resultDiv.style.display = "block";
+    }
+    
+    function checkPackageExercise() {
+      const userCode = document.getElementById("package-exercise").value.trim();
+      const resultDiv = document.getElementById("package-exercise-result");
+      
+      const correctCode = "install.packages(\"readxl\")\nlibrary(readxl)";
+      
+      if (userCode.replace(/\s+/g, '').includes("install.packages(\"readxl\")") || 
+          userCode.replace(/\s+/g, '').includes("install.packages('readxl')")) {
+        resultDiv.textContent = "Correct! You've fixed the function name from 'packages.install' to 'install.packages'.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. The correct function to install packages is 'install.packages()' not 'packages.install()'.";
+        resultDiv.className = "result incorrect";
+      }
+      
+      resultDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>

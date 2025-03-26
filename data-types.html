@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R Data Types and Structures | HARP Team R Training</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #f5f5f5;
+      border-left: 4px solid #3498db;
+      padding: 15px;
+      margin: 20px 0;
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    code {
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+    .topic-nav {
+      background-color: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .topic-nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .topic-nav li {
+      margin-right: 10px;
+    }
+    .section {
+      background-color: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .exercise {
+      background-color: #e8f4fc;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+    .exercise h3 {
+      margin-top: 0;
+      color: #2980b9;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .home-link {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .quiz-option {
+      margin: 10px 0;
+    }
+    .code-input {
+      width: 100%;
+      height: 100px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <script src="auth.js"></script>
+  
+  <header>
+    <div class="container">
+      <h1>R Data Types and Structures</h1>
+      <p>Understanding the fundamental building blocks in R</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="home-link">← Back to Course Index</a>
+    
+    <div class="topic-nav section">
+      <h3>In this module:</h3>
+      <ul>
+        <li><a href="#basic-types">Basic Data Types</a></li>
+        <li><a href="#vectors">Vectors</a></li>
+        <li><a href="#matrices">Matrices</a></li>
+        <li><a href="#lists">Lists</a></li>
+        <li><a href="#dataframes">Data Frames</a></li>
+        <li><a href="#factors">Factors</a></li>
+        <li><a href="#missing-values">Missing Values</a></li>
+        <li><a href="#type-conversion">Type Conversion</a></li>
+      </ul>
+    </div>
+
+    <div class="section" id="basic-types">
+      <h2>Basic Data Types in R</h2>
+      <p>R has several basic data types that are fundamental to understanding how data is represented and manipulated:</p>
+      
+      <h3>Numeric</h3>
+      <p>Numeric values are the default computational data type in R. They include both integers and double-precision floating-point numbers.</p>
+      
+      <pre><code># Numeric examples
+x <- 42     # Integer
+y <- 3.14   # Decimal
+z <- 2e3    # Scientific notation (2000)
+
+# Check the type
+class(x)  # "numeric"
+class(y)  # "numeric"
+class(z)  # "numeric"
+
+# Force an integer type
+a <- 42L   # The L suffix creates an integer
+class(a)  # "integer"</code></pre>
+
+      <h3>Character</h3>
+      <p>Character data types store text values. In R, character strings can be created using either single or double quotes.</p>
+      
+      <pre><code># Character examples
+name <- "Alice"
+greeting <- 'Hello, world!'
+
+# Character operations
+nchar(name)      # 5 (number of characters)
+paste(greeting, name)  # "Hello, world! Alice"
+toupper(name)    # "ALICE"</code></pre>
+
+      <h3>Logical (Boolean)</h3>
+      <p>Logical values represent true/false conditions. R uses TRUE and FALSE as built-in constants.</p>
+      
+      <pre><code># Logical examples
+x <- TRUE
+y <- FALSE
+
+# Logical operations
+!x         # NOT: FALSE
+x & y      # AND: FALSE
+x | y      # OR: TRUE
+
+# Logical results from comparisons
+5 > 3      # TRUE
+10 == 10   # TRUE
+"a" == "b" # FALSE</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Basic Data Types</h3>
+        <p>What will the following R code return?</p>
+        <pre><code>result <- 10 > 5 & 3 == 3</code></pre>
+        
+        <div class="quiz-option">
+          <input type="radio" name="basic-types-q1" id="opt1" value="TRUE">
+          <label for="opt1">TRUE</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="basic-types-q1" id="opt2" value="FALSE">
+          <label for="opt2">FALSE</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="basic-types-q1" id="opt3" value="Error">
+          <label for="opt3">Error</label>
+        </div>
+        
+        <button onclick="checkAnswer('basic-types-q1', 'TRUE')">Check Answer</button>
+        <div id="basic-types-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="vectors">
+      <h2>Vectors</h2>
+      <p>Vectors are the most basic data structure in R. They are one-dimensional arrays that can hold data of the same type.</p>
+      
+      <pre><code># Creating vectors
+numeric_vector <- c(1, 2, 3, 4, 5)
+character_vector <- c("apple", "banana", "cherry")
+logical_vector <- c(TRUE, FALSE, TRUE, TRUE)
+
+# Vector operations
+numeric_vector + 10         # Add 10 to each element
+numeric_vector * 2          # Multiply each element by 2
+length(character_vector)    # 3 (number of elements)
+sum(logical_vector)         # 3 (TRUE counts as 1, FALSE as 0)
+
+# Vector indexing (1-based, not 0-based)
+numeric_vector[1]           # 1 (first element)
+character_vector[2:3]       # c("banana", "cherry") (elements 2 through 3)
+logical_vector[c(1, 4)]     # c(TRUE, TRUE) (first and fourth elements)
+
+# Negative indexing excludes elements
+numeric_vector[-3]          # c(1, 2, 4, 5) (all except the third element)</code></pre>
+
+      <h3>Vector Recycling</h3>
+      <p>When performing operations with vectors of different lengths, R will recycle the shorter vector to match the length of the longer one.</p>
+      
+      <pre><code># Vector recycling example
+x <- c(1, 2, 3, 4, 5)
+y <- c(10, 20)
+
+# y will be recycled to c(10, 20, 10, 20, 10)
+x + y   # c(11, 22, 13, 24, 15)</code></pre>
+
+      <img src="images/vector-operations.png" alt="Vector operations visualization" width="600">
+
+      <div class="exercise">
+        <h3>Exercise: Vector Operations</h3>
+        <p>Fix the following code to create a vector containing the values 2, 4, 6, 8, 10:</p>
+        
+        <textarea class="code-input" id="vector-exercise">seq(from = 2, by = 2, to = 10</textarea>
+        
+        <button onclick="checkVectorExercise()">Check Answer</button>
+        <div id="vector-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <!-- More sections would go here -->
+
+    <div class="section" id="missing-values">
+      <h2>Missing Values in R</h2>
+      <p>R has two special values for representing missing or undefined data: NA and NULL.</p>
+      
+      <h3>NA (Not Available)</h3>
+      <p>NA represents a missing value or a value that is not available. NAs are contagious in calculations.</p>
+      
+      <pre><code># Working with NA values
+x <- c(1, 2, NA, 4, 5)
+
+# NA propagates in calculations
+sum(x)               # NA
+mean(x)              # NA
+
+# Use na.rm parameter to remove NAs in calculations
+sum(x, na.rm = TRUE) # 12
+mean(x, na.rm = TRUE) # 3
+
+# Check for NA values
+is.na(x)             # c(FALSE, FALSE, TRUE, FALSE, FALSE)
+any(is.na(x))        # TRUE
+sum(is.na(x))        # 1 (count of NA values)</code></pre>
+
+      <h3>NULL</h3>
+      <p>NULL represents the absence of a value or an undefined value. Unlike NA, NULL has no type and length zero.</p>
+      
+      <pre><code># Working with NULL
+y <- NULL
+
+# NULL behaves differently than NA
+length(y)           # 0
+typeof(y)           # "NULL"
+
+# NULL in vectors
+c(1, 2, NULL, 4)    # c(1, 2, 4) - NULL is removed
+
+# Checking for NULL
+is.null(y)          # TRUE
+is.null(NA)         # FALSE</code></pre>
+
+      <h3>Key Differences between NA and NULL</h3>
+      <table>
+        <tr>
+          <th>Feature</th>
+          <th>NA</th>
+          <th>NULL</th>
+        </tr>
+        <tr>
+          <td>Represents</td>
+          <td>Missing value</td>
+          <td>Absence of value</td>
+        </tr>
+        <tr>
+          <td>Has type</td>
+          <td>Yes (NA_integer_, NA_character_, etc.)</td>
+          <td>No (NULL is its own type)</td>
+        </tr>
+        <tr>
+          <td>Length</td>
+          <td>1</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>In vectors</td>
+          <td>Takes up space</td>
+          <td>Disappears</td>
+        </tr>
+        <tr>
+          <td>Detection</td>
+          <td>is.na()</td>
+          <td>is.null()</td>
+        </tr>
+      </table>
+
+      <div class="exercise">
+        <h3>Exercise: Missing Values</h3>
+        <p>What will the following code return?</p>
+        <pre><code>vec <- c(10, NA, 30, NULL, 50)
+sum(vec, na.rm = TRUE)</code></pre>
+        
+        <div class="quiz-option">
+          <input type="radio" name="na-null-q1" id="na1" value="90">
+          <label for="na1">90</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="na-null-q1" id="na2" value="NA">
+          <label for="na2">NA</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="na-null-q1" id="na3" value="error">
+          <label for="na3">Error</label>
+        </div>
+        
+        <button onclick="checkAnswer('na-null-q1', '90')">Check Answer</button>
+        <div id="na-null-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <!-- Additional sections would continue -->
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>HARP Team R Training © 2025 | Created by Daryn Sutton</p>
+    </div>
+  </footer>
+
+  <script>
+    function checkAnswer(questionId, correctAnswer) {
+      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+      const resultDiv = document.getElementById(`${questionId}-result`);
+      
+      if (!selectedOption) {
+        resultDiv.textContent = "Please select an answer.";
+        resultDiv.className = "result incorrect";
+        resultDiv.style.display = "block";
+        return;
+      }
+      
+      if (selectedOption.value === correctAnswer) {
+        resultDiv.textContent = "Correct! Well done.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
+        resultDiv.className = "result incorrect";
+      }
+      
+      resultDiv.style.display = "block";
+    }
+    
+    function checkVectorExercise() {
+      const userCode = document.getElementById("vector-exercise").value.trim();
+      const resultDiv = document.getElementById("vector-exercise-result");
+      
+      // Check if the code is correct (multiple solutions possible)
+      const correctAnswers = [
+        "seq(from = 2, by = 2, to = 10)",
+        "seq(2, 10, 2)",
+        "seq(2, 10, by = 2)",
+        "seq(from = 2, to = 10, by = 2)",
+        "c(2, 4, 6, 8, 10)"
+      ];
+      
+      if (correctAnswers.some(answer => userCode.replace(/\s+/g, '') === answer.replace(/\s+/g, ''))) {
+        resultDiv.textContent = "Correct! This code will generate the vector c(2, 4, 6, 8, 10).";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Try again or check the hint: you need to close the parentheses.";
+        resultDiv.className = "result incorrect";
+      }
+      
+      resultDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>

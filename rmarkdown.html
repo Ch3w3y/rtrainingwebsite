@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R Markdown and Reproducible Reports | HARP Team R Training</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #f5f5f5;
+      border-left: 4px solid #3498db;
+      padding: 15px;
+      margin: 20px 0;
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    code {
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+    .section {
+      background-color: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .exercise {
+      background-color: #e8f4fc;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+    .exercise h3 {
+      margin-top: 0;
+      color: #2980b9;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .home-link {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .quiz-option {
+      margin: 10px 0;
+    }
+    .code-input {
+      width: 100%;
+      height: 100px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <script src="auth.js"></script>
+
+  <header>
+    <div class="container">
+      <h1>R Markdown and Reproducible Reports</h1>
+      <p>Create dynamic and reproducible reports with R Markdown</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="home-link">← Back to Course Index</a>
+
+    <div class="section" id="intro">
+      <h2>Introduction to R Markdown</h2>
+      <p>R Markdown is a powerful tool for creating dynamic documents that combine code, text, and visualizations.</p>
+
+      <h3>Basic Structure of an R Markdown File</h3>
+      <pre><code>---
+title: "My Report"
+author: "Daryn Sutton"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Introduction
+
+This is an example R Markdown document.
+
+```{r}
+# R code chunk
+summary(cars)
+
+Conclusion
+
+This document was created using R Markdown.</code></pre> <h3>Creating an R Markdown File</h3> <p>To create an R Markdown file in RStudio:</p> <ol> <li>Go to <code>File → New File → R Markdown...</code></li> <li>Choose a document type (e.g., HTML, PDF, Word).</li> <li>Fill in the title, author, and other details.</li> <li>Click <code>OK</code> to create the file.</li> </ol> </div>
+text
+
+<div class="section" id="code-chunks">
+  <h2>Code Chunks</h2>
+  <p>Code chunks are sections of R code embedded in an R Markdown document.</p>
+
+  <h3>Basic Code Chunk</h3>
+  <pre><code>```{r}
+
+R code goes here
+
+summary(cars)
+text
+
+
+      <h3>Chunk Options</h3>
+      <pre><code>```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Suppress output and messages
+summary(cars)
+```</code></pre>
+
+      <h3>Inline Code</h3>
+      <pre><code>The mean of the dataset is `r mean(cars$speed)`.</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Code Chunks</h3>
+        <p>Write an R Markdown code chunk to calculate the mean of the column <code>speed</code> in the <code>cars</code> dataset, suppressing messages and warnings.</p>
+
+        <textarea class="code-input" id="code-chunks-exercise"></textarea>
+
+        <button onclick="checkCodeChunksExercise()">Check Answer</button>
+        <div id="code-chunks-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="output-formats">
+      <h2>Output Formats</h2>
+      <p>R Markdown supports multiple output formats, including HTML, PDF, and Word.</p>
+
+      <h3>HTML Output</h3>
+      <pre><code>---
+title: "HTML Report"
+output: html_document
+---</code></pre>
+
+      <h3>PDF Output</h3>
+      <pre><code>---
+title: "PDF Report"
+output: pdf_document
+---</code></pre>
+
+      <h3>Word Output</h3>
+      <pre><code>---
+title: "Word Report"
+output: word_document
+---</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Output Formats</h3>
+        <p>Write the YAML header for an R Markdown document that outputs to PDF format.</p>
+
+        <textarea class="code-input" id="output-formats-exercise"></textarea>
+
+        <button onclick="checkOutputFormatsExercise()">Check Answer</button>
+        <div id="output-formats-exercise-result" class="result"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>HARP Team R Training © 2025 | Created by Daryn Sutton</p>
+    </div>
+  </footer>
+
+  <script>
+    function checkCodeChunksExercise() {
+      const userCode = document.getElementById("code-chunks-exercise").value.trim();
+      const resultDiv = document.getElementById("code-chunks-exercise-result");
+
+      if (userCode.includes("echo=FALSE") &&
+          userCode.includes("message=FALSE") &&
+          userCode.includes("warning=FALSE") &&
+          userCode.includes("mean(cars$speed)")) {
+        resultDiv.textContent = "Correct! You've written a code chunk with the required options.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure to include 'echo=FALSE', 'message=FALSE', and 'warning=FALSE'.";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+
+    function checkOutputFormatsExercise() {
+      const userCode = document.getElementById("output-formats-exercise").value.trim();
+      const resultDiv = document.getElementById("output-formats-exercise-result");
+
+      if (userCode.includes("output: pdf_document")) {
+        resultDiv.textContent = "Correct! You've specified the PDF output format.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure to include 'output: pdf_document' in the YAML header.";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>

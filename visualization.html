@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Visualization with ggplot2 | HARP Team R Training</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #f5f5f5;
+      border-left: 4px solid #3498db;
+      padding: 15px;
+      margin: 20px 0;
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    code {
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+    .topic-nav {
+      background-color: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .topic-nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .topic-nav li {
+      margin-right: 10px;
+    }
+    .section {
+      background-color: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .exercise {
+      background-color: #e8f4fc;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+    .exercise h3 {
+      margin-top: 0;
+      color: #2980b9;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .home-link {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .quiz-option {
+      margin: 10px 0;
+    }
+    .code-input {
+      width: 100%;
+      height: 100px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+    .plot-compare {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .plot-item {
+      flex: 1;
+      min-width: 300px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <script src="auth.js"></script>
+  
+  <header>
+    <div class="container">
+      <h1>Data Visualization with ggplot2</h1>
+      <p>Create beautiful and informative visualizations in R</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="home-link">← Back to Course Index</a>
+    
+    <div class="topic-nav section">
+      <h3>In this module:</h3>
+      <ul>
+        <li><a href="#intro">Introduction to ggplot2</a></li>
+        <li><a href="#grammar">Grammar of Graphics</a></li>
+        <li><a href="#basic-plots">Basic Plot Types</a></li>
+        <li><a href="#customization">Customizing Plots</a></li>
+        <li><a href="#complex">Complex Visualizations</a></li>
+        <li><a href="#maps">Spatial Data Visualization</a></li>
+        <li><a href="#best-practices">Best Practices</a></li>
+      </ul>
+    </div>
+
+    <div class="section" id="intro">
+      <h2>Introduction to ggplot2</h2>
+      <p>ggplot2 is one of the most popular packages for data visualization in R. Created by Hadley Wickham, it's based on the Grammar of Graphics, a systematic approach to describing the components of a graphic.</p>
+      
+      <h3>Why Use ggplot2?</h3>
+      <ul>
+        <li><strong>Consistent approach</strong> to creating different types of plots</li>
+        <li><strong>Layered system</strong> that allows building complex visualizations incrementally</li>
+        <li><strong>Default aesthetic choices</strong> that produce professional-looking graphics</li>
+        <li><strong>Extensive customization options</strong> for fine-tuning visualizations</li>
+        <li><strong>Strong community support</strong> and extensive documentation</li>
+      </ul>
+      
+      <h3>Getting Started with ggplot2</h3>
+      <pre><code># Install and load ggplot2
+# install.packages("ggplot2")  # Uncomment if not installed
+library(ggplot2)
+
+# First basic plot
+ggplot(data = mtcars, aes(x = wt, y = mpg)) +
+  geom_point()
+</code></pre>
+
+      <p>This creates a scatter plot showing the relationship between car weight (wt) and fuel efficiency (mpg) using the built-in mtcars dataset.</p>
+      
+      <img src="images/ggplot2-basic.png" alt="Basic ggplot2 scatter plot" width="600">
+      
+      <div class="exercise">
+        <h3>Exercise: Understanding ggplot2 Components</h3>
+        <p>Match each ggplot2 component with its correct description:</p>
+        
+        <ol>
+          <li>
+            <strong>ggplot()</strong> function is:
+            <div class="quiz-option">
+              <input type="radio" name="ggplot-q1" id="q1-a" value="a">
+              <label for="q1-a">A function that creates a specific type of plot like bar charts</label>
+            </div>
+            <div class="quiz-option">
+              <input type="radio" name="ggplot-q1" id="q1-b" value="b">
+              <label for="q1-b">The initialization function that creates a coordinate system</label>
+            </div>
+            <div class="quiz-option">
+              <input type="radio" name="ggplot-q1" id="q1-c" value="c">
+              <label for="q1-c">A function that applies color schemes to the plot</label>
+            </div>
+          </li>
+          
+          <li style="margin-top: 15px">
+            <strong>aes()</strong> function is:
+            <div class="quiz-option">
+              <input type="radio" name="ggplot-q2" id="q2-a" value="a">
+              <label for="q2-a">The function that defines titles and labels</label>
+            </div>
+            <div class="quiz-option">
+              <input type="radio" name="ggplot-q2" id="q2-b" value="b">
+              <label for="q2-b">A function that maps variables in your data to visual properties of the plot</label>
+            </div>
+            <div class="quiz-option">
+              <input type="radio" name="ggplot-q2" id="q2-c" value="c">
+              <label for="q2-c">The function that saves the plot to a file</label>
+            </div>
+          </li>
+        </ol>
+        
+        <button onclick="checkGgplotQuiz()">Check Answers</button>
+        <div id="ggplot-quiz-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="grammar">
+      <h2>Grammar of Graphics</h2>
+      <p>The Grammar of Graphics is a framework for creating visualizations from components like axes, scales, geometries, and aesthetics. ggplot2 implements this grammar to provide a consistent way of describing and building visualizations.</p>
+      
+      <h3>Key Components of ggplot2</h3>
+      <ul>
+        <li><strong>Data:</strong> The dataset you want to visualize</li>
+        <li><strong>Aesthetics (aes):</strong> Mapping between data variables and visual properties (position, color, size, shape)</li>
+        <li><strong>Geometries (geom):</strong> The visual elements used to represent data (points, lines, bars)</li>
+        <li><strong>Facets:</strong> For creating small multiples by splitting data into subsets</li>
+        <li><strong>Statistics:</strong> Statistical transformations applied to the data (counts, averages)</li>
+        <li><strong>Coordinates:</strong> The coordinate system for the plot</li>
+        <li><strong>Themes:</strong> Visual styling of non-data elements</li>
+      </ul>
+      
+      <h3>Building a Plot Layer by Layer</h3>
+      <pre><code># Start with data and aesthetics
+p <- ggplot(mtcars, aes(x = wt, y = mpg))
+
+# Add a geometry layer
+p <- p + geom_point()
+
+# Add more layers
+p <- p + 
+  geom_smooth(method = "lm") +  # Add a linear model trendline
+  labs(
+    title = "Car Weight vs. Fuel Efficiency",
+    x = "Weight (1000 lbs)",
+    y = "Miles per Gallon"
+  )
+
+# Apply a theme
+p + theme_minimal()
+
+# The same plot can be written in one chain:
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(
+    title = "Car Weight vs. Fuel Efficiency",
+    x = "Weight (1000 lbs)",
+    y = "Miles per Gallon"
+  ) +
+  theme_minimal()</code></pre>
+      
+      <img src="images/ggplot2-layers.png" alt="ggplot2 layers example" width="600">
+    </div>
+
+    <div class="section" id="basic-plots">
+      <h2>Basic Plot Types in ggplot2</h2>
+      <p>ggplot2 can create almost any type of statistical visualization. Here are some of the most common plot types:</p>
+      
+      <h3>Scatter Plots (geom_point)</h3>
+      <pre><code># Basic scatter plot
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point()
+
+# Enhanced scatter plot with color and size
+ggplot(mtcars, aes(x = wt, y = mpg, color = as.factor(cyl), size = hp)) +
+  geom_point(alpha = 0.7) +
+  labs(color = "Cylinders", size = "Horsepower")</code></pre>
+      
+      <h3>Line Plots (geom_line)</h3>
+      <pre><code># Create a time series example
+economics_subset <- economics[1:100, ]
+
+# Basic line plot
+ggplot(economics_subset, aes(x = date, y = unemploy)) +
+  geom_line() +
+  labs(title = "Unemployment Over Time", 
+       x = "Year", 
+       y = "Unemployed Population")</code></pre>
+      
+      <h3>Bar Charts (geom_bar, geom_col)</h3>
+      <pre><code># geom_bar() for counts
+ggplot(mtcars, aes(x = as.factor(cyl))) +
+  geom_bar() +
+  labs(x = "Number of Cylinders", y = "Count")
+
+# geom_col() for values
+cylinder_avg <- aggregate(mpg ~ cyl, data = mtcars, FUN = mean)
+ggplot(cylinder_avg, aes(x = as.factor(cyl), y = mpg)) +
+  geom_col() +
+  labs(title = "Average MPG by Cylinder Count",
+       x = "Number of Cylinders", 
+       y = "Average MPG")</code></pre>
+      
+      <h3>Histograms and Density Plots</h3>
+      <pre><code># Histogram
+ggplot(mtcars, aes(x = mpg)) +
+  geom_histogram(bins = 10, fill = "skyblue", color = "black") +
+  labs(title = "Distribution of MPG", x = "Miles per Gallon", y = "Count")
+
+# Density plot
+ggplot(mtcars, aes(x = mpg)) +
+  geom_density(fill = "skyblue", alpha = 0.5) +
+  labs(title = "Density of MPG", x = "Miles per Gallon", y = "Density")</code></pre>
+      
+      <h3>Box Plots (geom_boxplot)</h3>
+      <pre><code># Basic boxplot
+ggplot(mtcars, aes(x = as.factor(cyl), y = mpg)) +
+  geom_boxplot() +
+  labs(title = "MPG Distribution by Cylinder Count",
+       x = "Number of Cylinders", 
+       y = "Miles per Gallon")</code></pre>
+      
+      <div class="plot-compare">
+        <div class="plot-item">
+          <img src="images/ggplot2-scatter.png" alt="Scatter plot example" width="300">
+          <p>Scatter Plot</p>
+        </div>
+        <div class="plot-item">
+          <img src="images/ggplot2-bar.png" alt="Bar chart example" width="300">
+          <p>Bar Chart</p>
+        </div>
+        <div class="plot-item">
+          <img src="images/ggplot2-histogram.png" alt="Histogram example" width="300">
+          <p>Histogram</p>
+        </div>
+        <div class="plot-item">
+          <img src="images/ggplot2-boxplot.png" alt="Box plot example" width="300">
+          <p>Box Plot</p>
+        </div>
+      </div>
+      
+      <div class="exercise">
+        <h3>Exercise: Creating Basic Plots</h3>
+        <p>Fill in the missing code to create a scatter plot of the iris dataset, with Sepal.Length on the x-axis, Petal.Length on the y-axis, and points colored by Species:</p>
+        
+        <textarea class="code-input" id="basic-plot-exercise">ggplot(data = iris, aes(x = __________, y = __________, color = __________)) +
+  geom_point()</textarea>
+        
+        <button onclick="checkBasicPlotExercise()">Check Answer</button>
+        <div id="basic-plot-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="customization">
+      <h2>Customizing ggplot2 Visualizations</h2>
+      <p>ggplot2 offers extensive customization options to create publication-quality graphics.</p>
+      
+      <h3>Colors and Palettes</h3>
+      <pre><code># Manual color specification
+ggplot(mtcars, aes(x = wt, y = mpg, color = as.factor(cyl))) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("4" = "forestgreen", "6" = "steelblue", "8" = "firebrick")) +
+  labs(color = "Cylinders")
+
+# Built-in color palettes
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 3) +
+  scale_color_brewer(palette = "Set1")  # ColorBrewer palette
+
+# Viridis color scales (colorblind-friendly)
+# install.packages("viridis")
+library(viridis)
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Petal.Length)) +
+  geom_point(size = 3) +
+  scale_color_viridis_c() +  # Continuous viridis scale
+  labs(color = "Petal Length")</code></pre>
+      
+      <h3>Titles, Labels, and Annotations</h3>
+      <pre><code># Add titles and labels
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  labs(
+    title = "Car Weight vs. Fuel Efficiency",
+    subtitle = "Source: Motor Trend US Magazine (1974)",
+    x = "Weight (1000 lbs)",
+    y = "Miles per Gallon",
+    caption = "Note: Each point represents a car model"
+  )
+
+# Add annotations
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  annotate("text", x = 5, y = 30, label = "Lightweight, efficient cars", 
+           color = "blue", fontface = "bold") +
+  annotate("rect", xmin = 1.5, xmax = 2.5, ymin = 25, ymax = 35, 
+           alpha = 0.2, fill = "blue") +
+  labs(title = "Car Weight vs. Fuel Efficiency")</code></pre>
+      
+      <h3>Themes</h3>
+      <pre><code># Built-in themes
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  labs(title = "Car Weight vs. Fuel Efficiency")
+
+# Default theme
+p
+
+# Minimal theme
+p + theme_minimal()
+
+# Black and white theme
+p + theme_bw()
+
+# Classic theme
+p + theme_classic()
+
+# Dark theme
+p + theme_dark()
+
+# Custom theme elements
+p + theme(
+  plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+  axis.title.x = element_text(size = 12, color = "darkblue"),
+  axis.title.y = element_text(size = 12, color = "darkblue"),
+  panel.background = element_rect(fill = "aliceblue"),
+  panel.grid.major = element_line(color = "lightblue", linetype = "dashed"),
+  panel.grid.minor = element_blank()
+)</code></pre>
+      
+      <h3>Faceting</h3>
+      <pre><code># Facet by a single variable
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  facet_wrap(~ cyl) +
+  labs(title = "Car Weight vs. MPG by Cylinder Count")
+
+# Facet by two variables
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  facet_grid(vs ~ am, labeller = label_both) +
+  labs(title = "Car Weight vs. MPG by Engine Type and Transmission")</code></pre>
+      
+      <img src="images/ggplot2-facets.png" alt="ggplot2 faceting example" width="600">
+      
+      <div class="exercise">
+        <h3>Exercise: Customizing Plots</h3>
+        <p>Which of the following would you add to change the plot title font size to 20 and center it?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="custom-q1" id="custom1" value="a">
+          <label for="custom1">title(size = 20, center = TRUE)</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="custom-q1" id="custom2" value="b">
+          <label for="custom2">labs(title = element_text(size = 20, hjust = 0.5))</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="custom-q1" id="custom3" value="c">
+          <label for="custom3">theme(plot.title = element_text(size = 20, hjust = 0.5))</label>
+        </div>
+        
+        <button onclick="checkAnswer('custom-q1', 'c')">Check Answer</button>
+        <div id="custom-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="complex">
+      <h2>Complex Visualizations</h2>
+      <p>ggplot2's layering system allows the creation of sophisticated visualizations by combining multiple geoms and statistical transformations.</p>
+      
+      <h3>Combining Multiple Geoms</h3>
+      <pre><code># Points and smoothed line
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth() +
+  labs(title = "Car Weight vs. Fuel Efficiency with Trend")
+
+# Multiple geoms with different aesthetics
+ggplot(economics, aes(x = date)) +
+  geom_line(aes(y = unemploy/1000, color = "Unemployment")) +
+  geom_line(aes(y = pce/5000, color = "Consumer Spending")) +
+  scale_y_continuous(
+    name = "Unemployment (thousands)",
+    sec.axis = sec_axis(~.*5000/1000, name = "Consumer Spending (billions)")
+  ) +
+  scale_color_manual(
+    name = "Metric",
+    values = c("Unemployment" = "red", "Consumer Spending" = "blue")
+  ) +
+  theme_minimal() +
+  labs(title = "Unemployment and Consumer Spending Over Time")</code></pre>
+      
+      <h3>Heat Maps</h3>
+      <pre><code># Create a correlation matrix of the mtcars dataset
+cor_matrix <- round(cor(mtcars), 2)
+cor_data <- as.data.frame(as.table(cor_matrix))
+names(cor_data) <- c("Var1", "Var2", "Correlation")
+
+# Create a heatmap
+ggplot(cor_data, aes(x = Var1, y = Var2, fill = Correlation)) +
+  geom_tile() +
+  scale_fill_gradient2(
+    low = "blue", 
+    mid = "white", 
+    high = "red", 
+    midpoint = 0
+  ) +
+  geom_text(aes(label = Correlation), color = "black", size = 3) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid.major = element_blank()
+  ) +
+  labs(title = "Correlation Matrix of Car Variables")</code></pre>
+      
+      <h3>Interactive Plots with plotly</h3>
+      <pre><code># Install and load plotly
+# install.packages("plotly")
+library(plotly)
+
+# Create a ggplot
+p <- ggplot(mtcars, aes(x = wt, y = mpg, color = as.factor(cyl), 
+                        text = rownames(mtcars))) +
+  geom_point(size = 3) +
+  labs(title = "Interactive Car Weight vs. MPG", color = "Cylinders")
+
+# Convert to an interactive plot
+ggplotly(p)</code></pre>
+      
+      <img src="images/ggplot2-complex.png" alt="Complex ggplot2 example" width="600">
+    </div>
+
+    <div class="section" id="maps">
+      <h2>Spatial Data Visualization</h2>
+      <p>ggplot2 can be used for creating beautiful maps and visualizing spatial data, especially when combined with packages like sf and rnaturalearth.</p>
+      
+      <h3>Creating Basic Maps</h3>
+      <pre><code># Install necessary packages
+# install.packages(c("sf", "rnaturalearth", "rnaturalearthdata"))
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+# Get world data
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Basic world map
+ggplot(data = world) +
+  geom_sf() +
+  theme_minimal() +
+  labs(title = "World Map")</code></pre>
+      
+      <h3>Choropleth Maps</h3>
+      <pre><code># Choropleth map with population data
+ggplot(data = world) +
+  geom_sf(aes(fill = pop_est)) +
+  scale_fill_viridis_c(
+    trans = "log10", 
+    label = scales::comma,
+    name = "Population"
+  ) +
+  theme_minimal() +
+  labs(title = "World Population (Log Scale)")</code></pre>
+      
+      <h3>Adding Points to Maps</h3>
+      <pre><code># Create a sample dataset of major cities
+cities <- data.frame(
+  name = c("London", "Paris", "Berlin", "Madrid", "Rome"),
+  lon = c(-0.1278, 2.3522, 13.4050, -3.7038, 12.4964),
+  lat = c(51.5074, 48.8566, 52.5200, 40.4168, 41.9028)
+)
+
+# Plot European countries with cities
+europe <- ne_countries(scale = "medium", continent = "europe", returnclass = "sf")
+
+ggplot() +
+  geom_sf(data = europe) +
+  geom_point(
+    data = cities, 
+    aes(x = lon, y = lat, color = name),
+    size = 4
+  ) +
+  coord_sf(xlim = c(-10, 30), ylim = c(35, 60)) +
+  theme_minimal() +
+  labs(
+    title = "Major European Cities",
+    color = "City"
+  )</code></pre>
+      
+      <div class="plot-compare">
+        <div class="plot-item">
+          <img src="images/ggplot2-world-map.png" alt="World map example" width="400">
+          <p>Basic World Map</p>
+        </div>
+        <div class="plot-item">
+          <img src="images/ggplot2-choropleth.png" alt="Choropleth map example" width="400">
+          <p>Choropleth Map</p>
+        </div>
+      </div>
+      
+      <h3>Mapping Regional Data</h3>
+      <pre><code># US state-level map example
+# Get US states data
+us_states <- ne_states(country = "united states of america", returnclass = "sf")
+
+# Create a random value for each state
+set.seed(123)
+us_states$value <- runif(nrow(us_states), 0, 100)
+
+# Plot states with color based on the random value
+ggplot(data = us_states) +
+  geom_sf(aes(fill = value)) +
+  scale_fill_viridis_c(name = "Value") +
+  theme_minimal() +
+  labs(title = "US States with Random Values")</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Map Visualization</h3>
+        <p>What would you need to add to the code below to zoom the map to continental United States (approximately longitude -125 to -65 and latitude 25 to 50)?</p>
+        
+        <pre><code>ggplot(data = us_states) +
+  geom_sf(aes(fill = value)) +
+  scale_fill_viridis_c(name = "Value") +
+  theme_minimal() +
+  labs(title = "US States with Random Values")</code></pre>
+        
+        <div class="quiz-option">
+          <input type="radio" name="map-q1" id="map1" value="a">
+          <label for="map1">limit(longitude = c(-125, -65), latitude = c(25, 50))</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="map-q1" id="map2" value="b">
+          <label for="map2">coord_sf(xlim = c(-125, -65), ylim = c(25, 50))</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="map-q1" id="map3" value="c">
+          <label for="map3">zoom(x = c(-125, -65), y = c(25, 50))</label>
+        </div>
+        
+        <button onclick="checkAnswer('map-q1', 'b')">Check Answer</button>
+        <div id="map-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="best-practices">
+      <h2>Data Visualization Best Practices</h2>
+      <p>Creating effective data visualizations involves more than just code. Here are some best practices to follow:</p>
+      
+      <h3>Choose the Right Plot Type</h3>
+      <ul>
+        <li><strong>Distributions:</strong> Histograms, density plots, box plots</li>
+        <li><strong>Relationships:</strong> Scatter plots, line plots</li>
+        <li><strong>Comparisons:</strong> Bar charts, dot plots</li>
+        <li><strong>Compositions:</strong> Pie charts, stacked bar charts, treemaps</li>
+        <li><strong>Spatial data:</strong> Maps</li>
+      </ul>
+      
+      <h3>Design Principles</h3>
+      <ul>
+        <li><strong>Simplicity:</strong> Remove unnecessary elements (chart junk)</li>
+        <li><strong>Clarity:</strong> Make your point clear with appropriate titles and labels</li>
+        <li><strong>Honesty:</strong> Don't distort data (e.g., with misleading axis ranges)</li>
+        <li><strong>Accessibility:</strong> Use colorblind-friendly palettes and sufficient contrast</li>
+        <li><strong>Consistency:</strong> Keep the same style across multiple visualizations</li>
+      </ul>
+      
+      <h3>Avoiding Common Mistakes</h3>
+      <ul>
+        <li>Using 3D charts when 2D would be clearer</li>
+        <li>Overloading plots with too much information</li>
+        <li>Using pie charts for more than a few categories</li>
+        <li>Ignoring the importance of axis labels and titles</li>
+        <li>Choosing inappropriate color schemes</li>
+      </ul>
+      
+      <div class="plot-compare">
+        <div class="plot-item">
+          <img src="images/good-plot-example.png" alt="Good plot example" width="350">
+          <p>Effective Visualization</p>
+        </div>
+        <div class="plot-item">
+          <img src="images/bad-plot-example.png" alt="Bad plot example" width="350">
+          <p>Problematic Visualization</p>
+        </div>
+      </div>
+      
+      <h3>Saving Your Plots</h3>
+      <pre><code># Save the last plot
+p <- ggplot(mtcars, aes(x = wt, y = mpg, color = as.factor(cyl))) +
+  geom_point() +
+  labs(title = "Car Weight vs. MPG", color = "Cylinders") +
+  theme_minimal()
+
+# Save as PNG with specified dimensions and resolution
+ggsave("my_plot.png", plot = p, width = 8, height = 6, dpi = 300)
+
+# Save as PDF (vector format, good for publications)
+ggsave("my_plot.pdf", plot = p, width = 8, height = 6)
+
+# Save as SVG (vector format, good for web)
+ggsave("my_plot.svg", plot = p, width = 8, height = 6)</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Data Visualization Best Practices</h3>
+        <p>True or False: Using rainbow color palettes is generally recommended for most data visualizations.</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="best-q1" id="best1" value="true">
+          <label for="best1">True</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="best-q1" id="best2" value="false">
+          <label for="best2">False</label>
+        </div>
+        
+        <button onclick="checkAnswer('best-q1', 'false')">Check Answer</button>
+        <div id="best-q1-result" class="result"></div>
+        
+        <p style="margin-top: 15px">What's the most appropriate plot type for showing how a continuous variable is distributed?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="best-q2" id="best3" value="a">
+          <label for="best3">Pie chart</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="best-q2" id="best4" value="b">
+          <label for="best4">Histogram or density plot</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="best-q2" id="best5" value="c">
+          <label for="best5">Bar chart</label>
+        </div>
+        
+        <button onclick="checkAnswer('best-q2', 'b')">Check Answer</button>
+        <div id="best-q2-result" class="result"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>HARP Team R Training © 2025 | Created by Daryn Sutton</p>
+    </div>
+  </footer>
+
+  <script>
+    function checkAnswer(questionId, correctAnswer) {
+      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+      const resultDiv = document.getElementById(`${questionId}-result`);
+      
+      if (!selectedOption) {
+        resultDiv.textContent = "Please select an answer.";
+        resultDiv.className = "result incorrect";
+        resultDiv.style.display = "block";
+        return;
+      }
+      
+      if (selectedOption.value === correctAnswer) {
+        resultDiv.textContent = "Correct! Well done.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
+        resultDiv.className = "result incorrect";
+      }
+      
+      resultDiv.style.display = "block";
+    }
+    
+    function checkGgplotQuiz() {
+      const q1Answer = document.querySelector('input[name="ggplot-q1"]:checked');
+      const q2Answer = document.querySelector('input[name="ggplot-q2"]:checked');
+      const resultDiv = document.getElementById('ggplot-quiz-result');
+      
+      if (!q1Answer || !q2Answer) {
+        resultDiv.textContent = "Please answer all questions.";
+        resultDiv.className = "result incorrect";
+        resultDiv.style.display = "block";
+        return;
+      }
+      
+      const correctQ1 = "b";
+      const correctQ2 = "b";
+      
+      if (q1Answer.value === correctQ1 && q2Answer.value === correctQ2) {
+        resultDiv.textContent = "All correct! The ggplot() function creates a coordinate system, and aes() maps data to visual properties.";
+        resultDiv.className = "result correct";
+      } else if (q1Answer.value === correctQ1) {
+        resultDiv.textContent = "First answer is correct, but second is wrong. The aes() function maps variables to visual properties.";
+        resultDiv.className = "result incorrect";
+      } else if (q2Answer.value === correctQ2) {
+        resultDiv.textContent = "Second answer is correct, but first is wrong. The ggplot() function creates a coordinate system.";
+        resultDiv.className = "result incorrect";
+      } else {
+        resultDiv.textContent = "Both answers are incorrect. Please review the material and try again.";
+        resultDiv.className = "result incorrect";
+      }
+      
+      resultDiv.style.display = "block";
+    }
+    
+    function checkBasicPlotExercise() {
+      const userCode = document.getElementById("basic-plot-exercise").value.trim();
+      const resultDiv = document.getElementById("basic-plot-exercise-result");
+      
+      // Check various correct answers
+      const correctPattern = /ggplot\s*\(\s*data\s*=\s*iris\s*,\s*aes\s*\(\s*x\s*=\s*Sepal\.Length\s*,\s*y\s*=\s*Petal\.Length\s*,\s*color\s*=\s*Species\s*\)\s*\)\s*\+\s*geom_point\s*\(\s*\)/i;
+      
+      if (correctPattern.test(userCode)) {
+        resultDiv.textContent = "Correct! This code will create a scatter plot of Sepal.Length vs Petal.Length colored by Species.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. The correct answer should map Sepal.Length to x, Petal.Length to y, and Species to color.";
+        resultDiv.className = "result incorrect";
+      }
+      
+      resultDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>
