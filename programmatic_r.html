@@ -127,6 +127,50 @@
       padding: 20px 0;
       margin-top: 50px;
     }
+    .tip {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .warning {
+      background-color: #f8d7da;
+      border-left: 4px solid #dc3545;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .note {
+      background-color: #d1ecf1;
+      border-left: 4px solid #17a2b8;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 15px;
+    }
+    .tab {
+      padding: 10px 15px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-bottom: none;
+      margin-bottom: -1px;
+    }
+    .tab.active {
+      background-color: white;
+      border-color: #ddd;
+      border-radius: 4px 4px 0 0;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -142,6 +186,24 @@
   <div class="container">
     <a href="index.html" class="home-link">← Back to Course Index</a>
 
+    <div class="section" id="introduction">
+      <h2>Introduction to R Automation</h2>
+      <p>Automation in R allows you to create repeatable workflows, reduce manual work, and increase efficiency. This module covers key programming constructs that enable effective automation.</p>
+      
+      <div class="note">
+        <strong>Why Automation?</strong> Automating repetitive tasks not only saves time but also reduces the chance of human error. In data science workflows, automation is essential for reproducibility.
+      </div>
+      
+      <h3>Key Automation Components</h3>
+      <ul>
+        <li><strong>Control Structures</strong>: Loops and conditional statements</li>
+        <li><strong>Functions</strong>: Reusable code blocks</li>
+        <li><strong>Functional Programming</strong>: Working with vector operations</li>
+        <li><strong>Error Handling</strong>: Creating robust scripts</li>
+        <li><strong>Scheduling</strong>: Running R scripts automatically</li>
+      </ul>
+    </div>
+
     <div class="section" id="loops">
       <h2>Loops</h2>
       <p>Loops allow you to repeat tasks multiple times.</p>
@@ -156,6 +218,19 @@ for (i in 1:5) {
 numbers <- c(10, 20, 30)
 for (num in numbers) {
   print(num * 2)
+}
+
+# Nested for loops
+for (i in 1:3) {
+  for (j in 1:2) {
+    print(paste("i =", i, "j =", j))
+  }
+}
+
+# Loop with index access
+fruits <- c("apple", "banana", "cherry")
+for (i in seq_along(fruits)) {
+  print(paste("Fruit", i, "is", fruits[i]))
 }</code></pre>
 
       <h3>While Loops</h3>
@@ -164,7 +239,42 @@ count <- 1
 while (count <= 5) {
   print(count)
   count <- count + 1
+}
+
+# While loop with break
+i <- 1
+while (TRUE) {
+  print(i)
+  i <- i + 1
+  if (i > 5) {
+    break  # Exit loop when condition is met
+  }
+}
+
+# While loop with next (skip iteration)
+i <- 0
+while (i < 10) {
+  i <- i + 1
+  if (i %% 2 == 0) {
+    next  # Skip even numbers
+  }
+  print(i)  # Only print odd numbers
 }</code></pre>
+
+      <h3>Repeat Loops</h3>
+      <pre><code># Basic repeat loop (less commonly used)
+count <- 1
+repeat {
+  print(count)
+  count <- count + 1
+  if (count > 5) {
+    break  # Must include a break condition
+  }
+}</code></pre>
+
+      <div class="tip">
+        <p><strong>Performance Tip</strong>: For loops in R are often slower than vectorized operations. When possible, use vectorized functions like <code>apply()</code>, <code>lapply()</code>, or functions from the <code>purrr</code> package.</p>
+      </div>
 
       <div class="exercise">
         <h3>Exercise: Loops</h3>
@@ -174,6 +284,16 @@ while (count <= 5) {
 
         <button onclick="checkLoopsExercise()">Check Answer</button>
         <div id="loops-exercise-result" class="result"></div>
+      </div>
+
+      <div class="exercise">
+        <h3>Exercise: Advanced Loops</h3>
+        <p>Write a nested loop that creates a multiplication table for the numbers 1-5 (each row should multiply one number by all numbers 1-5).</p>
+
+        <textarea class="code-input" id="nested-loops-exercise"></textarea>
+
+        <button onclick="checkNestedLoopsExercise()">Check Answer</button>
+        <div id="nested-loops-exercise-result" class="result"></div>
       </div>
     </div>
 
@@ -188,6 +308,33 @@ if (x > 5) {
   print("x is greater than 5")
 } else {
   print("x is less than or equal to 5")
+}
+
+# Multiple conditions with else if
+score <- 85
+if (score >= 90) {
+  print("Grade: A")
+} else if (score >= 80) {
+  print("Grade: B")
+} else if (score >= 70) {
+  print("Grade: C")
+} else if (score >= 60) {
+  print("Grade: D")
+} else {
+  print("Grade: F")
+}
+
+# Nested conditional statements
+age <- 25
+income <- 50000
+if (age > 18) {
+  if (income > 30000) {
+    print("Eligible for premium account")
+  } else {
+    print("Eligible for standard account")
+  }
+} else {
+  print("Not eligible")
 }</code></pre>
 
       <h3>Case When</h3>
@@ -202,7 +349,42 @@ data <- tibble(
     score >= 60 ~ "D",
     TRUE ~ "F"
   )
+)
+
+# Multiple conditions in case_when
+employees <- tibble(
+  name = c("Alice", "Bob", "Charlie", "David"),
+  department = c("Sales", "IT", "Sales", "HR"),
+  years_service = c(3, 5, 2, 7),
+  bonus = case_when(
+    department == "Sales" & years_service >= 3 ~ 5000,
+    department == "IT" & years_service >= 5 ~ 6000,
+    department == "HR" & years_service >= 5 ~ 4500,
+    TRUE ~ 2000
+  )
 )</code></pre>
+
+      <h3>Switch Statement</h3>
+      <pre><code># Basic switch statement
+day <- "Monday"
+result <- switch(day,
+  Monday = "Start of work week",
+  Friday = "End of work week",
+  Saturday = "Weekend",
+  Sunday = "Weekend",
+  "Weekday"  # Default value
+)
+print(result)
+
+# Switch with numeric index (less common)
+index <- 2
+result <- switch(as.character(index),
+  "1" = "First option",
+  "2" = "Second option",
+  "3" = "Third option",
+  "Default option"
+)
+print(result)</code></pre>
 
       <div class="exercise">
         <h3>Exercise: Conditional Statements</h3>
@@ -212,6 +394,90 @@ data <- tibble(
 
         <button onclick="checkConditionalStatementsExercise()">Check Answer</button>
         <div id="conditional-statements-exercise-result" class="result"></div>
+      </div>
+
+      <div class="exercise">
+        <h3>Exercise: Case When Statement</h3>
+        <p>Write a case_when statement to categorize temperatures: "Freezing" (below 32°F), "Cold" (32-50°F), "Mild" (50-70°F), "Warm" (70-85°F), and "Hot" (above 85°F).</p>
+
+        <textarea class="code-input" id="case-when-exercise"></textarea>
+
+        <button onclick="checkCaseWhenExercise()">Check Answer</button>
+        <div id="case-when-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="functions">
+      <h2>Creating Custom Functions</h2>
+      <p>Functions allow you to package code for reuse, making your automation more modular and maintainable.</p>
+
+      <h3>Basic Function Structure</h3>
+      <pre><code># Simple function
+greet <- function(name) {
+  paste("Hello,", name, "!")
+}
+
+# Call the function
+greet("Alice")
+
+# Function with default arguments
+calculate_total <- function(price, tax_rate = 0.08, discount = 0) {
+  subtotal <- price * (1 - discount)
+  total <- subtotal * (1 + tax_rate)
+  return(total)
+}
+
+# Call with different arguments
+calculate_total(100)  # Use defaults
+calculate_total(100, tax_rate = 0.05)  # Override tax_rate
+calculate_total(100, discount = 0.1, tax_rate = 0.06)  # Override both</code></pre>
+
+      <h3>Return Values</h3>
+      <pre><code># Explicit return statement
+square <- function(x) {
+  return(x^2)
+}
+
+# Implicit return (last evaluated expression)
+cube <- function(x) {
+  x^3  # No explicit return needed
+}
+
+# Returning multiple values using a list
+analyze_numbers <- function(numbers) {
+  list(
+    mean = mean(numbers),
+    median = median(numbers),
+    min = min(numbers),
+    max = max(numbers),
+    sd = sd(numbers)
+  )
+}
+
+# Using the returned list
+results <- analyze_numbers(c(10, 25, 8, 15, 32))
+print(results$mean)  # Access specific elements
+print(results$max)</code></pre>
+
+      <h3>Functions with Variable Arguments</h3>
+      <pre><code># Using ... for variable arguments
+sum_all <- function(...) {
+  args <- list(...)
+  sum(unlist(args))
+}
+
+sum_all(1, 2, 3)  # 6
+sum_all(1, 2, 3, 4, 5)  # 15
+sum_all(c(1, 2), c(3, 4))  # 10</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Creating Functions</h3>
+        <p>Write a function called <code>calculate_bmi</code> that takes height (in meters) and weight (in kg) as parameters and returns the BMI (weight / height²). Round the result to one decimal place.</p>
+
+        <textarea class="code-input" id="function-exercise"></textarea>
+
+        <button onclick="checkFunctionExercise()">Check Answer</button>
+        <div id="function-exercise-result" class="result"></div>
       </div>
     </div>
 
@@ -223,13 +489,76 @@ data <- tibble(
       <pre><code># Apply a function to each element of a list
 library(purrr)
 numbers <- list(1, 2, 3, 4, 5)
-squared <- map(numbers, ~ .x^2)</code></pre>
+squared <- map(numbers, ~ .x^2)
+
+# Using map with named functions
+numbers <- 1:5
+sqrt_numbers <- map(numbers, sqrt)
+
+# Different output types
+# map_dbl() returns a numeric vector
+map_dbl(numbers, sqrt)
+
+# map_chr() returns a character vector
+map_chr(numbers, ~ paste("Number:", .x))
+
+# map_lgl() returns a logical vector
+map_lgl(numbers, ~ .x > 3)</code></pre>
 
       <h3>Using map2()</h3>
       <pre><code># Apply a function to pairs of elements from two lists
 list1 <- list(1, 2, 3)
 list2 <- list(10, 20, 30)
-sums <- map2(list1, list2, ~ .x + .y)</code></pre>
+sums <- map2(list1, list2, ~ .x + .y)
+
+# Named function with map2
+multiply <- function(x, y) {
+  x * y
+}
+products <- map2(list1, list2, multiply)
+
+# Using map2 with multiple parameters
+names <- c("Alice", "Bob", "Charlie")
+scores <- c(92, 85, 78)
+results <- map2_chr(names, scores, ~ paste(.x, "scored", .y, "points"))</code></pre>
+
+      <h3>More purrr Functions</h3>
+      <pre><code># pmap - apply function to multiple parameter vectors
+prices <- c(100, 200, 300)
+tax_rates <- c(0.05, 0.07, 0.06)
+discounts <- c(0.1, 0, 0.15)
+
+pmap_dbl(list(price = prices, tax = tax_rates, disc = discounts), 
+  function(price, tax, disc) {
+    (price * (1 - disc)) * (1 + tax)
+  }
+)
+
+# reduce - combine elements using a binary function
+reduce(c(1, 2, 3, 4), `+`)  # 1 + 2 + 3 + 4 = 10
+reduce(c(1, 2, 3, 4), `*`)  # 1 * 2 * 3 * 4 = 24
+
+# accumulate - returns all intermediate results
+accumulate(c(1, 2, 3, 4), `+`)  # c(1, 1+2, 1+2+3, 1+2+3+4)
+
+# keep and discard - filter elements
+keep(1:10, ~ .x %% 2 == 0)  # Keep even numbers
+discard(1:10, ~ .x %% 2 == 0)  # Discard even numbers</code></pre>
+
+      <h3>Error Handling with purrr</h3>
+      <pre><code># safely - returns result and error
+safe_log <- safely(log)
+safe_log(10)  # Returns list with $result and $error
+safe_log(-5)  # Error is caught, returns list with NULL result and error
+
+# possibly - returns default value on error
+possible_log <- possibly(log, otherwise = NA)
+possible_log(10)  # Returns 2.302585
+possible_log(-5)  # Returns NA
+
+# Apply to a vector
+numbers <- c(10, -1, 0, 5)
+map_dbl(numbers, possible_log)</code></pre>
 
       <div class="exercise">
         <h3>Exercise: Functional Programming</h3>
@@ -240,6 +569,341 @@ sums <- map2(list1, list2, ~ .x + .y)</code></pre>
         <button onclick="checkFunctionalProgrammingExercise()">Check Answer</button>
         <div id="functional-programming-exercise-result" class="result"></div>
       </div>
+
+      <div class="exercise">
+        <h3>Exercise: Advanced purrr</h3>
+        <p>Use <code>pmap</code> to calculate the final prices for products with varying prices, tax rates, and discounts:</p>
+        <pre><code>products <- list(
+  list(name = "Product A", price = 100, tax = 0.05, discount = 0.1),
+  list(name = "Product B", price = 200, tax = 0.07, discount = 0),
+  list(name = "Product C", price = 150, tax = 0.06, discount = 0.15)
+)</code></pre>
+
+        <textarea class="code-input" id="pmap-exercise"></textarea>
+
+        <button onclick="checkPmapExercise()">Check Answer</button>
+        <div id="pmap-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="error-handling">
+      <h2>Error Handling</h2>
+      <p>Robust automation requires proper error handling to ensure scripts can handle unexpected situations.</p>
+
+      <h3>Try-Catch with tryCatch()</h3>
+      <pre><code># Basic error handling
+result <- tryCatch(
+  {
+    # Code that might fail
+    1 / 0
+  },
+  error = function(e) {
+    # What to do if there's an error
+    message("Error occurred: ", e$message)
+    return(NA)  # Return a default value
+  }
+)
+
+# More comprehensive error handling
+process_data <- function(file_path) {
+  tryCatch(
+    {
+      # Attempt to read and process the file
+      data <- read.csv(file_path)
+      result <- sum(data$value)
+      return(result)
+    },
+    error = function(e) {
+      # Handle errors (file not found, incorrect format, etc.)
+      message("Error processing file: ", e$message)
+      return(NA)
+    },
+    warning = function(w) {
+      # Handle warnings
+      message("Warning during processing: ", w$message)
+      # Continue execution
+    },
+    finally = {
+      # Code that runs regardless of success or failure
+      message("Processing attempt completed for ", file_path)
+    }
+  )
+}</code></pre>
+
+      <h3>Multiple Conditions</h3>
+      <pre><code># Handling specific error types
+validate_input <- function(x) {
+  if (!is.numeric(x)) {
+    stop("Input must be numeric")
+  }
+  if (any(x < 0)) {
+    warning("Negative values detected")
+  }
+  return(x)
+}
+
+# Using the function with error handling
+result <- tryCatch(
+  {
+    validate_input(c(1, 2, -3))
+  },
+  error = function(e) {
+    message("Validation error: ", e$message)
+    return(NULL)
+  },
+  warning = function(w) {
+    message("Validation warning: ", w$message)
+    # Continue execution despite warning
+  }
+)</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Error Handling</h3>
+        <p>Write a function that safely computes the logarithm of each element in a vector, returning NA for invalid inputs (negative numbers or zero).</p>
+
+        <textarea class="code-input" id="error-handling-exercise"></textarea>
+
+        <button onclick="checkErrorHandlingExercise()">Check Answer</button>
+        <div id="error-handling-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="file-operations">
+      <h2>File Operations</h2>
+      <p>Automating file operations is a common requirement in data processing workflows.</p>
+
+      <h3>Reading and Writing Files</h3>
+      <pre><code># List files in a directory
+files <- list.files(path = "data/", pattern = "*.csv", full.names = TRUE)
+
+# Read multiple files
+library(purrr)
+library(dplyr)
+
+# Read and combine multiple CSV files
+all_data <- map_df(files, read.csv)
+
+# Read with error handling
+safe_read <- possibly(read.csv, otherwise = NULL)
+all_data <- files %>%
+  map(safe_read) %>%
+  compact() %>%  # Remove NULL results
+  bind_rows()    # Combine data frames
+
+# Write multiple files
+data_list <- split(iris, iris$Species)
+file_paths <- paste0("data/iris_", names(data_list), ".csv")
+walk2(data_list, file_paths, write.csv)</code></pre>
+
+      <h3>Working with Directories</h3>
+      <pre><code># Create directories
+dir.create("output", showWarnings = FALSE)
+dir.create("output/processed", recursive = TRUE, showWarnings = FALSE)
+
+# Check if directory exists
+if (!dir.exists("data")) {
+  dir.create("data")
+}
+
+# List and filter directories
+all_dirs <- list.dirs(path = ".", recursive = FALSE)
+
+# Copy and move files
+file.copy("data/original.csv", "backup/original_backup.csv")
+file.rename("temp.csv", "processed/final.csv")
+
+# Delete files with safeguards
+if (file.exists("temp.txt")) {
+  file.remove("temp.txt")
+}</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: File Processing</h3>
+        <p>Write a script that would read all CSV files in a directory, combine them, and write a summary report that shows the count, mean, and sum of a column called "value" grouped by a column called "category".</p>
+
+        <textarea class="code-input" id="file-processing-exercise"></textarea>
+
+        <button onclick="checkFileProcessingExercise()">Check Answer</button>
+        <div id="file-processing-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="scheduling">
+      <h2>Scheduling and Automation</h2>
+      <p>Running R scripts automatically at specified times or intervals.</p>
+
+      <h3>Using cronR for macOS/Linux</h3>
+      <pre><code># Install and load cronR
+# install.packages("cronR")
+library(cronR)
+
+# Create a new cron job that runs daily at 7 AM
+cmd <- cron_rscript("daily_report.R")
+cron_add(cmd, frequency = "daily", at = "7AM")
+
+# List all scheduled jobs
+cron_ls()
+
+# Remove a specific job
+cron_rm(id = 1)</code></pre>
+
+      <h3>Using taskscheduleR for Windows</h3>
+      <pre><code># Install and load taskscheduleR
+# install.packages("taskscheduleR")
+library(taskscheduleR)
+
+# Schedule an R script
+taskscheduler_create(
+  taskname = "DailyReport",
+  rscript = "C:/path/to/daily_report.R",
+  schedule = "DAILY",
+  starttime = "07:00"
+)
+
+# List scheduled tasks
+taskscheduler_ls()
+
+# Delete task
+taskscheduler_delete("DailyReport")</code></pre>
+
+      <h3>Parameterized Rmd Reports</h3>
+      <pre><code># Create a script to generate reports for different parameters
+library(rmarkdown)
+
+# Define parameters
+months <- c("January", "February", "March")
+years <- c(2022, 2023)
+
+# Generate all combinations
+for (year in years) {
+  for (month in months) {
+    render(
+      "report_template.Rmd",
+      output_file = paste0("report_", month, "_", year, ".pdf"),
+      params = list(month = month, year = year)
+    )
+  }
+}</code></pre>
+
+      <div class="tip">
+        <p><strong>Production Tip</strong>: For critical automation tasks, consider implementing logging and notification systems to alert you of failures or issues.</p>
+      </div>
+    </div>
+
+    <div class="section" id="best-practices">
+      <h2>Best Practices for R Automation</h2>
+      <p>Guidelines to ensure your automation scripts are robust, maintainable, and efficient.</p>
+
+      <h3>Code Organization</h3>
+      <ul>
+        <li><strong>Modularize Code</strong>: Break down complex tasks into smaller functions</li>
+        <li><strong>Use Source Files</strong>: Organize related functions in separate files and use <code>source()</code> to include them</li>
+        <li><strong>Create Packages</strong>: For complex automation, consider creating an R package</li>
+      </ul>
+
+      <h3>Error Handling</h3>
+      <ul>
+        <li><strong>Validate Inputs</strong>: Check inputs before processing</li>
+        <li><strong>Use tryCatch</strong>: Wrap critical operations in error handling</li>
+        <li><strong>Implement Logging</strong>: Record errors and important events</li>
+      </ul>
+
+      <h3>Performance Considerations</h3>
+      <ul>
+        <li><strong>Vectorize Operations</strong>: Use vector operations instead of loops when possible</li>
+        <li><strong>Preallocate Memory</strong>: Create objects of the final size before filling them</li>
+        <li><strong>Use Efficient Data Structures</strong>: Choose appropriate data structures for your tasks</li>
+      </ul>
+
+      <div class="note">
+        <p><strong>Documentation Note</strong>: Always document your automation scripts thoroughly, including purpose, inputs, outputs, and any dependencies.</p>
+      </div>
+    </div>
+
+    <div class="section" id="real-world-examples">
+      <h2>Real-World Automation Examples</h2>
+      <p>Common scenarios where R automation can be applied effectively.</p>
+
+      <h3>Data Processing Pipeline</h3>
+      <pre><code># Example data processing pipeline
+process_data_pipeline <- function(input_dir, output_dir) {
+  # Step 1: List files to process
+  files <- list.files(path = input_dir, pattern = "*.csv", full.names = TRUE)
+  
+  # Step 2: Read and transform files
+  processed_data <- files %>%
+    map(possibly(read.csv, otherwise = NULL)) %>%
+    compact() %>%
+    bind_rows() %>%
+    mutate(
+      date = as.Date(date),
+      value = as.numeric(value),
+      category = factor(category)
+    ) %>%
+    filter(!is.na(value)) %>%
+    arrange(date)
+  
+  # Step 3: Perform analysis
+  summary_data <- processed_data %>%
+    group_by(category) %>%
+    summarize(
+      count = n(),
+      mean_value = mean(value, na.rm = TRUE),
+      median_value = median(value, na.rm = TRUE),
+      total_value = sum(value, na.rm = TRUE)
+    )
+  
+  # Step 4: Write results
+  if (!dir.exists(output_dir)) {
+    dir.create(output_dir, recursive = TRUE)
+  }
+  
+  write.csv(processed_data, file.path(output_dir, "processed_data.csv"), row.names = FALSE)
+  write.csv(summary_data, file.path(output_dir, "summary_data.csv"), row.names = FALSE)
+  
+  # Return path to output files
+  return(list(
+    processed = file.path(output_dir, "processed_data.csv"),
+    summary = file.path(output_dir, "summary_data.csv")
+  ))
+}</code></pre>
+
+      <h3>Automated Reporting</h3>
+      <pre><code># Generate daily reports
+generate_daily_reports <- function() {
+  # Get yesterday's date
+  yesterday <- Sys.Date() - 1
+  
+  # Set up parameters
+  params <- list(
+    report_date = yesterday,
+    include_charts = TRUE,
+    departments = c("Sales", "Marketing", "Finance")
+  )
+  
+  # Create output directory
+  report_dir <- file.path("reports", format(yesterday, "%Y-%m"))
+  if (!dir.exists(report_dir)) {
+    dir.create(report_dir, recursive = TRUE)
+  }
+  
+  # Generate report
+  output_file <- file.path(report_dir, paste0("daily_report_", format(yesterday, "%Y-%m-%d"), ".pdf"))
+  
+  tryCatch({
+    rmarkdown::render(
+      "templates/daily_report.Rmd",
+      output_file = output_file,
+      params = params
+    )
+    message("Report generated successfully: ", output_file)
+  }, error = function(e) {
+    message("Error generating report: ", e$message)
+  })
+  
+  # Return path to report
+  return(output_file)
+}</code></pre>
     </div>
   </div>
 
@@ -265,15 +929,75 @@ sums <- map2(list1, list2, ~ .x + .y)</code></pre>
       resultDiv.style.display = "block";
     }
 
+    function checkNestedLoopsExercise() {
+      const userCode = document.getElementById("nested-loops-exercise").value.trim();
+      const resultDiv = document.getElementById("nested-loops-exercise-result");
+
+      if (userCode.includes("for (i in 1:5)") && 
+          userCode.includes("for (j in 1:5)") && 
+          userCode.includes("i * j")) {
+        resultDiv.textContent = "Correct! You've created a nested loop to generate a multiplication table.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure to use nested loops with 'i' and 'j' variables and calculate i * j.";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+
     function checkConditionalStatementsExercise() {
       const userCode = document.getElementById("conditional-statements-exercise").value.trim();
       const resultDiv = document.getElementById("conditional-statements-exercise-result");
 
-      if (userCode.includes("if (x %% 2 == 0)") && userCode.includes("print(\"even\")") && userCode.includes("else")) {
+      if ((userCode.includes("if (x %% 2 == 0)") || userCode.includes("if(x %% 2 == 0)")) && 
+          userCode.includes("else") && 
+          (userCode.includes("even") || userCode.includes("odd"))) {
         resultDiv.textContent = "Correct! You've written an if-else statement to check for even or odd numbers.";
         resultDiv.className = "result correct";
       } else {
-        resultDiv.textContent = "Not quite right. Make sure to use 'x %% 2 == 0' to check for even numbers.";
+        resultDiv.textContent = "Not quite right. Make sure to use 'x %% 2 == 0' to check for even numbers and include both if and else clauses.";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+
+    function checkCaseWhenExercise() {
+      const userCode = document.getElementById("case-when-exercise").value.trim();
+      const resultDiv = document.getElementById("case-when-exercise-result");
+
+      if (userCode.includes("case_when") && 
+          userCode.includes("< 32") && 
+          userCode.includes(">= 32") && 
+          userCode.includes(">= 50") && 
+          userCode.includes(">= 70") && 
+          userCode.includes("> 85")) {
+        resultDiv.textContent = "Correct! You've created a case_when statement with all the required temperature categories.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure to use case_when and include all temperature categories with proper conditions.";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+
+    function checkFunctionExercise() {
+      const userCode = document.getElementById("function-exercise").value.trim();
+      const resultDiv = document.getElementById("function-exercise-result");
+
+      if (userCode.includes("calculate_bmi") && 
+          userCode.includes("function") && 
+          userCode.includes("weight") && 
+          userCode.includes("height") && 
+          userCode.includes("weight / (height") && 
+          userCode.includes("^2") &&
+          userCode.includes("round")) {
+        resultDiv.textContent = "Correct! You've created a function to calculate BMI with proper rounding.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure your function is named calculate_bmi, takes height and weight parameters, and rounds the result.";
         resultDiv.className = "result incorrect";
       }
 
@@ -284,11 +1008,73 @@ sums <- map2(list1, list2, ~ .x + .y)</code></pre>
       const userCode = document.getElementById("functional-programming-exercise").value.trim();
       const resultDiv = document.getElementById("functional-programming-exercise-result");
 
-      if (userCode.includes("map(numbers, sqrt)")) {
+      if (userCode.includes("map(numbers, sqrt)") || 
+          userCode.includes("map(numbers, function") && userCode.includes("sqrt") || 
+          userCode.includes("map(numbers, ~ sqrt")) {
         resultDiv.textContent = "Correct! You've used map() to calculate the square root.";
         resultDiv.className = "result correct";
       } else {
-        resultDiv.textContent = "Not quite right. Make sure to use 'map(numbers, sqrt)' to apply the square root function.";
+        resultDiv.textContent = "Not quite right. Make sure to use 'map(numbers, sqrt)' or an equivalent lambda expression.";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+
+    function checkPmapExercise() {
+      const userCode = document.getElementById("pmap-exercise").value.trim();
+      const resultDiv = document.getElementById("pmap-exercise-result");
+
+      if (userCode.includes("pmap") && 
+          userCode.includes("price") && 
+          userCode.includes("tax") && 
+          userCode.includes("discount") && 
+          userCode.includes("1 - discount") && 
+          userCode.includes("1 + tax")) {
+        resultDiv.textContent = "Correct! You've used pmap to calculate final prices with the correct formula.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure to use pmap and apply the formula: (price * (1 - discount)) * (1 + tax).";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+
+    function checkErrorHandlingExercise() {
+      const userCode = document.getElementById("error-handling-exercise").value.trim();
+      const resultDiv = document.getElementById("error-handling-exercise-result");
+
+      if ((userCode.includes("tryCatch") || userCode.includes("possibly") || userCode.includes("safely")) && 
+          userCode.includes("log") && 
+          userCode.includes("NA")) {
+        resultDiv.textContent = "Correct! You've created a function that safely computes logarithms and handles invalid inputs.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure to use error handling (tryCatch or possibly) and return NA for invalid inputs.";
+        resultDiv.className = "result incorrect";
+      }
+
+      resultDiv.style.display = "block";
+    }
+
+    function checkFileProcessingExercise() {
+      const userCode = document.getElementById("file-processing-exercise").value.trim();
+      const resultDiv = document.getElementById("file-processing-exercise-result");
+
+      if (userCode.includes("list.files") && 
+          userCode.includes("read.csv") && 
+          userCode.includes("bind_rows") && 
+          userCode.includes("group_by") && 
+          userCode.includes("category") && 
+          userCode.includes("summarize") && 
+          userCode.includes("mean") && 
+          userCode.includes("sum") && 
+          userCode.includes("write.csv")) {
+        resultDiv.textContent = "Correct! Your script correctly reads, combines, groups, summarizes, and writes the data.";
+        resultDiv.className = "result correct";
+      } else {
+        resultDiv.textContent = "Not quite right. Make sure to list files, read CSVs, combine them, group by category, calculate statistics, and write the summary.";
         resultDiv.className = "result incorrect";
       }
 

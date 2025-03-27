@@ -1,0 +1,7 @@
+/lib
+/include
+/bin
+/plugins
+lib64
+pyenv.cfg
+

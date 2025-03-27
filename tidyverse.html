@@ -1,0 +1,3124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Tidyverse in R | Data Science Training</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2, h3, h4 {
+            color: #2c3e50;
+        }
+        h1 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 12px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            background-color: #f0f0f0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        .exercise {
+            background-color: #ebf5fb;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .exercise h4 {
+            margin-top: 0;
+            color: #2980b9;
+        }
+        .solution {
+            background-color: #eafaf1;
+            padding: 15px;
+            border-left: 4px solid #2ecc71;
+            margin: 10px 0;
+            display: none;
+            border-radius: 5px;
+        }
+        .check-answer {
+            color: #2980b9;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .back-link {
+            margin-bottom: 20px;
+        }
+        .note {
+            background-color: #fff9e6;
+            padding: 10px;
+            border-left: 4px solid #f1c40f;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .warning {
+            background-color: #fdedec;
+            padding: 10px;
+            border-left: 4px solid #e74c3c;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .tip {
+            background-color: #e8f8f5;
+            padding: 10px;
+            border-left: 4px solid #1abc9c;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .section-nav {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .section-nav ul {
+            list-style-type: none;
+            padding-left: 15px;
+        }
+        footer {
+            margin-top: 40px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Comprehensive Tidyverse in R | Data Science Training</h1>
+
+    <p>The Tidyverse is an ecosystem of R packages designed with common APIs and a shared philosophy. This guide provides an in-depth exploration of the major Tidyverse packages and how to leverage them for efficient data science workflows.</p>
+
+    <div class="back-link">
+        <a href="index.html">← Back to Course Index</a>
+    </div>
+
+    <div class="section-nav">
+        <h3>Quick Navigation</h3>
+        <ul>
+            <li><a href="#introduction">Introduction to the Tidyverse</a></li>
+            <li><a href="#tibble">Tibbles: Modern Data Frames</a></li>
+            <li><a href="#readr">Data Import with readr</a></li>
+            <li><a href="#dplyr">Data Manipulation with dplyr</a></li>
+            <li><a href="#tidyr">Data Reshaping with tidyr</a></li>
+            <li><a href="#stringr">String Manipulation with stringr</a></li>
+            <li><a href="#forcats">Working with Factors using forcats</a></li>
+            <li><a href="#lubridate">Date and Time Handling with lubridate</a></li>
+            <li><a href="#purrr">Functional Programming with purrr</a></li>
+            <li><a href="#ggplot2">Data Visualization with ggplot2</a></li>
+            <li><a href="#pipeline">Building Data Pipelines</a></li>
+            <li><a href="#comparison">Tidyverse vs Base R</a></li>
+            <li><a href="#performance">Performance Considerations</a></li>
+        </ul>
+    </div>
+
+    <h2 id="introduction">Introduction to the Tidyverse</h2>
+
+    <p>The Tidyverse is a collection of R packages that share an underlying design philosophy, grammar, and data structures. It was primarily developed by Hadley Wickham and the RStudio team to make data analysis more intuitive and efficient.</p>
+
+    <h3>Core Principles</h3>
+    <ul>
+        <li><strong>Tidy data</strong>: Each variable forms a column, each observation forms a row, each type of observational unit forms a table</li>
+        <li><strong>Consistency</strong>: Functions and arguments follow consistent naming patterns</li>
+        <li><strong>Pipe-friendly</strong>: Designed to work seamlessly with the pipe operator (%>%)</li>
+        <li><strong>Programming on data</strong>: Tools that help solve real data science challenges</li>
+    </ul>
+
+    <h3>Installing and Loading</h3>
+
+    <pre><code># Install the complete tidyverse
+install.packages("tidyverse")
+
+# Load the core tidyverse packages
+library(tidyverse)
+
+# Check which packages were loaded
+tidyverse_packages()
+
+# To load specific packages
+library(dplyr)
+library(ggplot2)</code></pre>
+
+    <div class="note">
+        <p><strong>Note:</strong> Loading the tidyverse with <code>library(tidyverse)</code> attaches the core packages (ggplot2, tibble, tidyr, readr, purrr, dplyr, stringr, forcats) but not all tidyverse packages. Others like lubridate need to be loaded separately.</p>
+    </div>
+
+    <h2 id="tibble">Tibbles: Modern Data Frames</h2>
+
+    <p>Tibbles are a modern reimagining of the data frame, keeping what works and addressing frustrations with base R data frames.</p>
+
+    <h3>Creating Tibbles</h3>
+
+    <pre><code># Create a tibble from scratch
+tbl <- tibble(
+  x = 1:5,
+  y = LETTERS[1:5],
+  z = x^2 + 1
+)
+
+# Convert a data frame to a tibble
+df_tbl <- as_tibble(mtcars)
+
+# Create a tibble from vectors
+tibble_data <- tibble(
+  id = 1:10,
+  name = c("John", "Jane", "Mary", "Bob", "Alice", "David", "Emma", "Peter", "Lisa", "Tom"),
+  score = runif(10, 50, 100)
+)</code></pre>
+
+    <h3>Key Differences from Data Frames</h3>
+    <ul>
+        <li>Tibbles show only the first 10 rows and all columns that fit on screen</li>
+        <li>Each column displays its data type</li>
+        <li>Tibbles have stricter subsetting rules</li>
+        <li>Tibbles don't change variable names or types</li>
+        <li>Tibbles don't support row names</li>
+    </ul>
+
+    <pre><code># Data frame vs tibble printing
+head(mtcars)
+as_tibble(mtcars)
+
+# Tibble subsetting
+# With data frames, this returns a vector if single column
+df <- data.frame(x = 1:3, y = letters[1:3])
+df$x
+# With tibbles, this always returns a tibble
+tbl <- tibble(x = 1:3, y = letters[1:3])
+tbl$x</code></pre>
+
+    <h3>Tribbles: Transposed Tibbles</h3>
+
+    <pre><code># Row-wise tibble creation
+tribble(
+  ~name, ~age, ~city,
+  "John", 25, "New York",
+  "Jane", 30, "Chicago",
+  "Bob", 28, "Los Angeles"
+)</code></pre>
+
+    <div class="exercise">
+        <h4>Exercise: Working with Tibbles</h4>
+        <p>Create a tibble with the following columns:</p>
+        <ul>
+            <li><code>product_id</code>: Numbers 1 through 5</li>
+            <li><code>product_name</code>: Five product names of your choice</li>
+            <li><code>price</code>: Random prices between $10 and $100</li>
+            <li><code>is_available</code>: Logical values (TRUE/FALSE)</li>
+            <li><code>rating</code>: Calculate as <code>price / 10 + sample(1:5, 5, replace=TRUE)</code></li>
+        </ul>
+        <p>Then, print your tibble and explain how the output differs from a standard data frame.</p>
+        <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
+        <div class="solution">
+            <pre><code># Creating the tibble
+set.seed(123) # For reproducibility
+product_tibble <- tibble(
+  product_id = 1:5,
+  product_name = c("Laptop", "Smartphone", "Headphones", "Monitor", "Keyboard"),
+  price = round(runif(5, 10, 100), 2),
+  is_available = c(TRUE, TRUE, FALSE, TRUE, FALSE),
+  rating = price / 10 + sample(1:5, 5, replace = TRUE)
+)
+
+# Print the tibble
+product_tibble
+
+# Differences from a standard data frame:
+# 1. The tibble output shows the dimensions and data types of each column
+# 2. Only the rows that fit on screen are shown, with a message indicating total rows
+# 3. Column types are displayed below column names
+# 4. The output is more compact and readable</code></pre>
+        </div>
+    </div>
+
+    <h2 id="readr">Data Import with readr</h2>
+
+    <p>readr provides fast and friendly ways to read rectangular data files like CSV, TSV, and fixed width files.</p>
+
+    <h3>Reading Data Files</h3>
+
+    <pre><code># Read a CSV file
+data_csv <- read_csv("data.csv")
+
+# Read a TSV file
+data_tsv <- read_tsv("data.tsv")
+
+# Read a fixed width file
+data_fw <- read_fwf(
+  "fixed-width-file.txt",
+  col_positions = fwf_widths(c(20, 10, 12), c("name", "age", "date"))
+)
+
+# Reading from a string
+data_from_string <- read_csv("
+  a,b,c
+  1,2,3
+  4,5,6
+")</code></pre>
+
+    <h3>Parsing Options</h3>
+
+    <pre><code># Specify column types
+data <- read_csv("data.csv",
+  col_types = cols(
+    id = col_integer(),
+    name = col_character(),
+    date = col_date(format = "%Y-%m-%d"),
+    amount = col_double(),
+    flag = col_logical()
+  )
+)
+
+# Handle missing values with na argument
+data <- read_csv("data.csv", 
+  na = c("", "NA", "N/A", "missing")
+)
+
+# Skip lines or use a subset of data
+data <- read_csv("data.csv",
+  skip = 2,             # Skip first two lines
+  n_max = 1000,         # Read only 1000 rows
+  comment = "#"         # Skip lines starting with #
+)</code></pre>
+
+    <h3>Writing Data Files</h3>
+
+    <pre><code># Write to CSV
+write_csv(data, "output.csv")
+
+# Write to TSV
+write_tsv(data, "output.tsv")
+
+# Control precision of numeric values
+write_csv(data, "output_precise.csv", 
+  na = "MISSING",      # Customize NA representation
+  append = FALSE,      # Overwrite existing file
+  quote = "needed"     # Quote only when needed
+)</code></pre>
+
+    <div class="tip">
+        <p><strong>Tip:</strong> readr is much faster than base R functions like <code>read.csv()</code> and automatically parses strings as character vectors (not factors), which often saves time in data cleaning.</p>
+    </div>
+
+    <div class="exercise">
+        <h4>Exercise: Importing and Handling Data</h4>
+        <p>Given the following CSV data, create a code snippet that:</p>
+        <pre>name,age,hire_date,department,salary
+John Smith,34,2018-05-12,IT,78500
+Jane Doe,28,2019-11-03,HR,65000
+,42,2015-03-25,Finance,92000
+Mike Johnson,31,NOT AVAILABLE,Marketing,68500
+Sarah Williams,39,2017-08-14,IT,81200</pre>
+        <ol>
+            <li>Imports the data correctly specifying column types</li>
+            <li>Handles the missing values appropriately</li>
+            <li>Converts the salary to a numeric value in thousands (e.g., 78.5 instead of 78500)</li>
+            <li>Adds a new column showing years of service based on the hire date and current date</li>
+        </ol>
+        <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
+        <div class="solution">
+            <pre><code># Create a temporary CSV file
+temp_csv <- tempfile(fileext = ".csv")
+writeLines("name,age,hire_date,department,salary
+John Smith,34,2018-05-12,IT,78500
+Jane Doe,28,2019-11-03,HR,65000
+,42,2015-03-25,Finance,92000
+Mike Johnson,31,NOT AVAILABLE,Marketing,68500
+Sarah Williams,39,2017-08-14,IT,81200", temp_csv)
+
+# Import and process the data
+library(tidyverse)
+library(lubridate)
+
+employee_data <- read_csv(temp_csv,
+  col_types = cols(
+    name = col_character(),
+    age = col_integer(),
+    hire_date = col_character(),  # Read as character first
+    department = col_character(),
+    salary = col_double()
+  ),
+  na = ""  # Treat empty strings as NA
+) %>%
+  # Process hire_date
+  mutate(
+    # Convert hire_date to proper date, with NAs for invalid dates
+    hire_date = parse_date(hire_date, format = "%Y-%m-%d", na = "NOT AVAILABLE"),
+    # Create salary in thousands
+    salary_k = salary / 1000,
+    # Calculate years of service
+    years_of_service = case_when(
+      is.na(hire_date) ~ NA_real_,
+      TRUE ~ as.numeric(difftime(Sys.Date(), hire_date, units = "days")) / 365.25
+    ),
+    # Round to 1 decimal place
+    years_of_service = round(years_of_service, 1)
+  )
+
+# View the result
+employee_data
+
+# Clean up
+unlink(temp_csv)</code></pre>
+        </div>
+    </div>
+
+    <h2 id="dplyr">Data Manipulation with dplyr</h2>
+
+    <p>dplyr is the workhorse of the tidyverse, providing a grammar of data manipulation with a set of verbs that help you solve common data manipulation challenges.</p>
+
+    <h3>Core dplyr Verbs</h3>
+
+    <pre><code># Sample data
+employees <- tibble(
+  id = 1:8,
+  name = c("Alice", "Bob", "Charlie", "Diana", "Eva", "Frank", "Grace", "Henry"),
+  department = c("IT", "HR", "IT", "Finance", "Marketing", "IT", "HR", "Finance"),
+  salary = c(72000, 65000, 78000, 87000, 65000, 83000, 71000, 92000),
+  years = c(5, 3, 7, 9, 2, 6, 4, 12)
+)</code></pre>
+
+    <h4>filter(): Subset Rows Based on Values</h4>
+
+    <pre><code># Single condition
+employees %>% filter(department == "IT")
+
+# Multiple conditions with AND
+employees %>% filter(department == "IT", salary > 75000)
+
+# Multiple conditions with OR
+employees %>% filter(department == "IT" | salary > 85000)
+
+# More complex conditions
+employees %>% filter(
+  (department == "IT" & years > 5) | 
+  (department == "Finance" & salary > 90000)
+)
+
+# Using %in% for multiple values
+employees %>% filter(department %in% c("IT", "HR"))
+
+# Excluding with negation
+employees %>% filter(!(department == "Marketing"))
+# Or more simply
+employees %>% filter(department != "Marketing")</code></pre>
+
+    <h4>select(): Choose Columns by Name</h4>
+
+    <pre><code># Select specific columns
+employees %>% select(name, department, salary)
+
+# Exclude columns
+employees %>% select(-id)
+
+# Select range of columns
+employees %>% select(id:department)
+
+# Rename columns while selecting
+employees %>% select(employee_id = id, employee_name = name, department, salary)</code></pre>
+
+    <h4>Helper Functions for select()</h4>
+
+    <pre><code># Select columns containing a string
+employees %>% select(contains("a"))
+
+# Select columns starting with a string
+employees %>% select(starts_with("s"))
+
+# Select columns ending with a string
+employees %>% select(ends_with("y"))
+
+# Select columns matching a regex
+employees %>% select(matches("^.{1,4}$"))  # Columns with 1-4 characters
+
+# Select columns by their position
+employees %>% select(1, 3, 5)  # First, third and fifth columns
+
+# Reorder columns
+employees %>% select(name, id, everything())</code></pre>
+
+    <h4>mutate(): Create or Transform Variables</h4>
+
+    <pre><code># Add a new column
+employees %>% mutate(bonus = salary * 0.1)
+
+# Add multiple columns
+employees %>% mutate(
+  bonus = salary * 0.1,
+  total_comp = salary + bonus,
+  high_earner = salary > 80000
+)
+
+# Transformations with existing variables
+employees %>% mutate(
+  salary_normalized = (salary - mean(salary)) / sd(salary),
+  salary_rank = rank(desc(salary))
+)
+
+# Window functions in mutate
+employees %>% 
+  group_by(department) %>%
+  mutate(
+    dept_avg = mean(salary),
+    salary_vs_dept = salary - dept_avg,
+    pct_of_dept_avg = salary / dept_avg * 100
+  )
+
+# Using conditionals in mutate
+employees %>% mutate(
+  salary_category = case_when(
+    salary < 70000 ~ "Low",
+    salary < 85000 ~ "Medium",
+    TRUE ~ "High"
+  )
+)</code></pre>
+
+    <h4>arrange(): Sort Rows</h4>
+
+    <pre><code># Arrange in ascending order
+employees %>% arrange(salary)
+
+# Arrange in descending order
+employees %>% arrange(desc(salary))
+
+# Arrange by multiple columns
+employees %>% arrange(department, desc(salary))
+
+# Arrange with missing values last (regardless of sort direction)
+# Useful if data has NA values
+employees %>% arrange(desc(salary), na_last = TRUE)</code></pre>
+
+    <h4>summarize(): Reduce Data to Summary</h4>
+
+    <pre><code># Basic summary statistics
+employees %>% summarize(
+  avg_salary = mean(salary),
+  total_employees = n(),
+  median_years = median(years),
+  min_salary = min(salary),
+  max_salary = max(salary)
+)
+
+# More complex summaries
+employees %>% summarize(
+  salary_range = max(salary) - min(salary),
+  pct_above_80k = mean(salary > 80000) * 100,
+  q25 = quantile(salary, 0.25),
+  q75 = quantile(salary, 0.75),
+  iqr = q75 - q25
+)</code></pre>
+
+    <h4>group_by(): Group Data for Operations</h4>
+
+    <pre><code># Group and summarize
+employees %>%
+  group_by(department) %>%
+  summarize(
+    avg_salary = mean(salary),
+    count = n(),
+    min_salary = min(salary),
+    max_salary = max(salary)
+  )
+
+# Multiple grouping variables
+employees %>%
+  mutate(exp_level = if_else(years > 5, "Senior", "Junior")) %>%
+  group_by(department, exp_level) %>%
+  summarize(
+    avg_salary = mean(salary),
+    count = n()
+  )
+
+# Grouped mutate operations
+employees %>%
+  group_by(department) %>%
+  mutate(
+    dept_avg = mean(salary),
+    diff_from_avg = salary - dept_avg,
+    salary_rank_in_dept = row_number(desc(salary))
+  )</code></pre>
+
+    <h3>Advanced dplyr Operations</h3>
+
+    <h4>Joins: Combining Tables</h4>
+
+    <pre><code># Sample data for joins
+dept_info <- tibble(
+  department = c("IT", "HR", "Finance", "Marketing", "Sales"),
+  location = c("Floor 3", "Floor 1", "Floor 2", "Floor 1", "Floor 4"),
+  manager = c("Smith", "Jones", "Wilson", "Taylor", "Brown")
+)
+
+# Inner join: Keep only matching rows in both tables
+employees %>% inner_join(dept_info, by = "department")
+
+# Left join: Keep all rows from the left table, add matching from right
+employees %>% left_join(dept_info, by = "department")
+
+# Right join: Keep all rows from the right table, add matching from left
+employees %>% right_join(dept_info, by = "department")
+
+# Full join: Keep all rows from both tables
+employees %>% full_join(dept_info, by = "department")
+
+# Semi join: Keep rows in left table that have a match in right table
+employees %>% semi_join(dept_info, by = "department")
+
+# Anti join: Keep rows in left table that don't have a match in right table
+employees %>% anti_join(dept_info, by = "department")
+
+# Join on different column names
+# If employees had dept_id and dept_info had department_id:
+# employees %>% inner_join(dept_info, by = c("dept_id" = "department_id"))</code></pre>
+
+    <h4>Working with Row Indices</h4>
+
+    <pre><code># Sample data
+transactions <- tibble(
+  id = 1:10,
+  customer = sample(LETTERS[1:5], 10, replace = TRUE),
+  amount = round(runif(10, 10, 200), 2),
+  date = sample(seq(as.Date("2023-01-01"), as.Date("2023-01-31"), by = "day"), 10)
+)
+
+# Get row positions (1, 2, 3, etc.)
+transactions %>% mutate(row_num = row_number())
+
+# Rank (handles ties)
+transactions %>% 
+  arrange(desc(amount)) %>%
+  mutate(
+    rank_standard = rank(-amount),                # Standard ranking (1, 2, 3, 3, 5)
+    rank_min = min_rank(-amount),                 # Min ranking (1, 2, 3, 3, 5)
+    rank_dense = dense_rank(-amount),             # Dense ranking (1, 2, 3, 3, 4)
+    rank_percent = percent_rank(-amount),         # Percent ranking (0, 0.25, 0.5, 0.5, 1)
+    rank_ntile = ntile(amount, 3)                 # Bin into n groups
+  )
+
+# Lag and lead for time series analysis
+transactions %>%
+  arrange(date) %>%
+  group_by(customer) %>%
+  mutate(
+    prev_amount = lag(amount),                    # Previous value
+    next_amount = lead(amount),                   # Next value
+    amount_change = amount - prev_amount,         # Change from previous
+    days_since_last = as.integer(date - lag(date)) # Days since last transaction
+  )</code></pre>
+
+    <h4>Conditional and Comparative Logic</h4>
+
+    <pre><code># if_else: vectorized if statement
+employees %>% mutate(
+  tax_rate = if_else(salary > 80000, 0.3, 0.25)
+)
+
+# case_when: vectorized switch statement
+employees %>% mutate(
+  tax_bracket = case_when(
+    salary < 60000 ~ "Low",
+    salary < 75000 ~ "Medium-Low",
+    salary < 90000 ~ "Medium-High",
+    TRUE ~ "High"  # Default case
+  )
+)
+
+# between: check if value is within range
+employees %>% filter(between(salary, 70000, 80000))
+
+# near: check if two values are nearly equal (handles floating point)
+employees %>% filter(near(salary / 1000, 65))</code></pre>
+
+    <h4>Advanced Selection and Transformation</h4>
+
+    <pre><code># across: apply same transformation to multiple columns
+employees %>%
+  mutate(across(c(salary, years), ~ scale(.)))
+
+# Create summary statistics for all numeric columns
+employees %>%
+  summarize(across(where(is.numeric), 
+                 list(avg = mean, med = median, sd = sd)))
+
+# Rename columns with a pattern
+employees %>%
+  rename_with(~ paste0("emp_", .), -department)
+
+# Use across with different functions for different columns
+employees %>%
+  summarize(across(c(salary), 
+                 list(min = min, max = max)),
+          across(c(years), 
+                 list(avg = mean, total = sum)))</code></pre>
+
+    <div class="exercise">
+        <h4>Exercise: Data Manipulation Challenge</h4>
+        <p>Using the following dataset of sales transactions:</p>
+        <pre><code>sales <- tibble(
+  date = c("2023-01-15", "2023-01-20", "2023-01-25", "2023-02-05", "2023-02-10", 
+           "2023-02-15", "2023-02-20", "2023-03-01", "2023-03-10", "2023-03-15"),
+  product = c("Laptop", "Phone", "Tablet", "Laptop", "Phone", 
+              "Monitor", "Tablet", "Phone", "Laptop", "Monitor"),
+  category = c("Electronics", "Electronics", "Electronics", "Electronics", "Electronics", 
+               "Accessories", "Electronics", "Electronics", "Electronics", "Accessories"),
+  region = c("North", "South", "East", "West", "North", 
+             "South", "West", "East", "North", "West"),
+  units = c(5, 10, 8, 12, 7, 15, 6, 9, 4, 11),
+  price = c(1200, 800, 300, 1200, 750, 200, 320, 780, 1100, 220)
+)</code></pre>
+        <p>Complete the following tasks:</p>
+        <ol>
+            <li>Convert the date column to a proper Date type</li>
+            <li>Add a column for total_revenue (units * price)</li>
+            <li>Add a month column extracted from the date</li>
+            <li>Find the total revenue by product and month</li>
+            <li>Identify which region had the highest average revenue per transaction</li>
+            <li>Create a column showing what percentage each transaction's revenue is of the total revenue for its product category</li>
+        </ol>
+        <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
+        <div class="solution">
+            <pre><code>library(tidyverse)
+library(lubridate)
+
+# Define the sales data
+sales <- tibble(
+  date = c("2023-01-15", "2023-01-20", "2023-01-25", "2023-02-05", "2023-02-10", 
+           "2023-02-15", "2023-02-20", "2023-03-01", "2023-03-10", "2023-03-15"),
+  product = c("Laptop", "Phone", "Tablet", "Laptop", "Phone", 
+              "Monitor", "Tablet", "Phone", "Laptop", "Monitor"),
+  category = c("Electronics", "Electronics", "Electronics", "Electronics", "Electronics", 
+               "Accessories", "Electronics", "Electronics", "Electronics", "Accessories"),
+  region = c("North", "South", "East", "West", "North", 
+             "South", "West", "East", "North", "West"),
+  units = c(5, 10, 8, 12, 7, 15, 6, 9, 4, 11),
+  price = c(1200, 800, 300, 1200, 750, 200, 320, 780, 1100, 220)
+)
+
+# 1. Convert date to proper Date type
+# 2. Add total_revenue column
+# 3. Add month column
+sales_processed <- sales %>%
+  mutate(
+    date = ymd(date),
+    total_revenue = units * price,
+    month = month(date, label = TRUE)
+  )
+
+# 4. Find total revenue by product and month
+product_month_revenue <- sales_processed %>%
+  group_by(product, month) %>%
+  summarize(
+    total_revenue = sum(total_revenue),
+    transactions = n(),
+    .groups = "drop"
+  ) %>%
+  arrange(month, desc(total_revenue))
+
+# 5. Identify region with highest average revenue per transaction
+region_avg_revenue <- sales_processed %>%
+  group_by(region) %>%
+  summarize(
+    total_revenue = sum(total_revenue),
+    transactions = n(),
+    avg_revenue_per_txn = total_revenue / transactions,
+    .groups = "drop"
+  ) %>%
+  arrange(desc(avg_revenue_per_txn))
+
+# Show the result for task 5
+region_avg_revenue
+
+# 6. Calculate percentage of category revenue
+sales_with_pct <- sales_processed %>%
+  group_by(category) %>%
+  mutate(
+    category_total_revenue = sum(total_revenue),
+    pct_of_category = total_revenue / category_total_revenue * 100
+  ) %>%
+  ungroup()
+
+# Display the results
+sales_with_pct %>%
+  select(date, product, category, total_revenue, category_total_revenue, pct_of_category) %>%
+  arrange(category, desc(pct_of_category))</code></pre>
+        </div>
+    </div>
+
+    <h2 id="tidyr">Data Reshaping with tidyr</h2>
+
+    <p>tidyr helps you create tidy data where each variable forms a column, each observation forms a row, and each type of observational unit forms a table.</p>
+
+    <h3>Pivoting Data</h3>
+
+    <h4>pivot_longer(): Wide to Long Format</h4>
+
+    <pre><code># Sample wide format data
+ratings_wide <- tibble(
+  name = c("Alice", "Bob", "Charlie"),
+  math = c(90, 85, 78),
+  english = c(85, 92, 88),
+  science = c(92, 78, 85)
+)
+
+# Basic pivot to long format
+ratings_long <- ratings_wide %>%
+  pivot_longer(
+    cols = c(math, english, science),
+    names_to = "subject",
+    values_to = "score"
+  )
+
+# Pivot with multiple value columns
+stocks <- tibble(
+  date = as.Date('2023-01-01') + 0:9,
+  AAPL_price = 150 + cumsum(rnorm(10)),
+  AAPL_volume = round(rnorm(10, 1000, 100)),
+  GOOG_price = 2500 + cumsum(rnorm(10)),
+  GOOG_volume = round(rnorm(10, 500, 50))
+)
+
+stocks_long <- stocks %>%
+  pivot_longer(
+    cols = -date,
+    names_to = c("symbol", "metric"),
+    names_sep = "_",
+    values_to = "value"
+  )
+
+# Pivot only certain columns and specify output types
+ratings_wide_extra <- ratings_wide %>%
+  mutate(id = row_number(), comment = c("Good", "Excellent", "Average"))
+
+ratings_wide_extra %>%
+  pivot_longer(
+    cols = c(math, english, science),
+    names_to = "subject",
+    values_to = "score",
+    names_transform = list(subject = as.factor),
+    values_transform = list(score = as.integer)
+  )</code></pre>
+
+    <h4>pivot_wider(): Long to Wide Format</h4>
+
+    <pre><code># Basic pivot to wide format
+ratings_wide2 <- ratings_long %>%
+  pivot_wider(
+    names_from = subject,
+    values_from = score
+  )
+
+# Pivot with multiple value columns
+measurements <- tibble(
+  id = rep(1:3, each = 2),
+  measurement = rep(c("weight", "height"), 3),
+  value = c(65, 170, 82, 185, 71, 175)
+)
+
+measurements %>%
+  pivot_wider(
+    names_from = measurement,
+    values_from = value
+  )
+
+# Handling duplicate combinations with summarization
+duplicate_data <- tibble(
+  id = c(1, 1, 2, 2, 3),
+  metric = c("A", "A", "B", "B", "A"),
+  value = c(10, 20, 30, 40, 50)
+)
+
+duplicate_data %>%
+  pivot_wider(
+    names_from = metric,
+    values_from = value,
+    values_fn = list(value = mean)
+  )</code></pre>
+
+    <h3>Handling Missing Values</h3>
+
+    <pre><code># Sample data with missing values
+employees_missing <- tibble(
+  id = 1:6,
+  name = c("Alice", "Bob", "Charlie", NA, "Eva", "Frank"),
+  department = c("IT", NA, "IT", "Finance", "Marketing", NA),
+  salary = c(72000, 65000, NA, 87000, 65000, 83000)
+)
+
+# Drop rows with missing values
+drop_na(employees_missing)
+
+# Drop rows with missing values in specific columns
+drop_na(employees_missing, name, department)
+
+# Fill missing values down (or up)
+fill(employees_missing, name)             # Fill down (LOCF)
+fill(employees_missing, name, .direction = "up")  # Fill up (NOCB)
+
+# Replace missing values
+employees_missing %>%
+  replace_na(list(
+    name = "Unknown",
+    department = "Unassigned",
+    salary = 0
+  ))
+
+# Complete: ensure combinations and handle missing values
+product_sales <- tibble(
+  product = c("A", "A", "B", "C"),
+  quarter = c(1, 2, 1, 2),
+  sales = c(100, 200, 150, 175)
+)
+
+complete(product_sales, 
+         product, 
+         quarter = 1:4,
+         fill = list(sales = 0))</code></pre>
+
+    <h3>Nesting and Unnesting Data</h3>
+
+    <pre><code># Sample data
+nested_example <- tibble(
+  group = c("A", "A", "B", "B", "B", "C"),
+  value1 = c(1, 2, 3, 4, 5, 6),
+  value2 = c(10, 20, 30, 40, 50, 60)
+)
+
+# Nest data by group
+nested_data <- nested_example %>%
+  group_by(group) %>%
+  nest()
+
+# Examine nested structure
+nested_data
+
+# Unnest data
+unnested_data <- nested_data %>%
+  unnest(data)
+
+# Working with nested data (common for modeling)
+library(broom)
+
+# Create nested data with linear models
+mtcars_nested <- mtcars %>%
+  group_by(cyl) %>%
+  nest() %>%
+  mutate(
+    # Fit a model to each group
+    model = map(data, ~ lm(mpg ~ wt + hp, data = .)),
+    # Extract model summaries
+    tidied = map(model, tidy),
+    # Extract model statistics
+    glanced = map(model, glance)
+  )
+
+# Extract results
+mtcars_nested %>%
+  unnest(tidied)</code></pre>
+
+    <h3>Separating and Uniting Columns</h3>
+
+    <pre><code># Separate a column into multiple columns
+names <- tibble(
+  name = c("John Smith", "Jane Doe", "Robert Johnson")
+)
+
+names %>%
+  separate(name, into = c("first_name", "last_name"))
+
+# Handling extra pieces
+complex_names <- tibble(
+  name = c("John A Smith", "Jane B Doe", "Robert C Johnson")
+)
+
+complex_names %>%
+  separate(name, 
+           into = c("first_name", "middle_initial", "last_name"),
+           sep = " ")
+
+# Custom separators
+dates <- tibble(
+  date_str = c("2023-01-15", "2023/02/20", "2023.03.25")
+)
+
+dates %>%
+  separate(date_str, 
+           into = c("year", "month", "day"),
+           sep = "[-.//]",  # Regular expression for -, ., or /
+           convert = TRUE)  # Convert to appropriate types
+
+# Unite columns
+parts <- tibble(
+  year = c(2023, 2023, 2023),
+  month = c(1, 2, 3),
+  day = c(15, 20, 25)
+)
+
+parts %>%
+  unite("date", year, month, day, sep = "-")</code></pre>
+
+    <div class="exercise">
+        <h4>Exercise: Reshaping Data</h4>
+        <p>Given the following dataset of quarterly sales by region:</p>
+        <pre><code>quarterly_sales <- tibble(
+  region = c("North", "South", "East", "West"),
+  Q1_2022 = c(120, 100, 90, 110),
+  Q2_2022 = c(140, 110, 95, 125),
+  Q3_2022 = c(130, 120, 100, 115),
+  Q4_2022 = c(150, 130, 105, 130),
+  Q1_2023 = c(145, 115, 100, 120),
+  Q2_2023 = c(160, 125, 110, 135)
+)</code></pre>
+        <p>Complete the following tasks:</p>
+        <ol>
+            <li>Reshape the data to long format with columns for region, quarter, year, and sales</li>
+            <li>Calculate the average sales per quarter across all regions</li>
+            <li>Find the year-over-year growth for Q1 and Q2 for each region</li>
+            <li>Create a summary showing for each region: total sales, average sales, and percentage of total sales across all regions</li>
+        </ol>
+        <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
+        <div class="solution">
+            <pre><code>library(tidyverse)
+
+# Define the data
+quarterly_sales <- tibble(
+  region = c("North", "South", "East", "West"),
+  Q1_2022 = c(120, 100, 90, 110),
+  Q2_2022 = c(140, 110, 95, 125),
+  Q3_2022 = c(130, 120, 100, 115),
+  Q4_2022 = c(150, 130, 105, 130),
+  Q1_2023 = c(145, 115, 100, 120),
+  Q2_2023 = c(160, 125, 110, 135)
+)
+
+# 1. Reshape to long format
+sales_long <- quarterly_sales %>%
+  pivot_longer(
+    cols = -region,
+    names_to = c("quarter", "year"),
+    names_sep = "_",
+    values_to = "sales"
+  )
+
+# 2. Calculate average sales per quarter across all regions
+quarter_avg_sales <- sales_long %>%
+  group_by(quarter, year) %>%
+  summarize(
+    avg_sales = mean(sales),
+    .groups = "drop"
+  ) %>%
+  arrange(year, quarter)
+
+# 3. Find year-over-year growth for Q1 and Q2
+yoy_growth <- sales_long %>%
+  filter(quarter %in% c("Q1", "Q2")) %>%
+  pivot_wider(
+    names_from = c(year),
+    values_from = sales
+  ) %>%
+  mutate(
+    yoy_growth = `2023` - `2022`,
+    yoy_growth_pct = (`2023` - `2022`) / `2022` * 100
+  ) %>%
+  arrange(quarter, desc(yoy_growth_pct))
+
+# 4. Create summary statistics by region
+region_summary <- sales_long %>%
+  group_by(region) %>%
+  summarize(
+    total_sales = sum(sales),
+    avg_sales = mean(sales),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    grand_total = sum(total_sales),
+    pct_of_total = total_sales / grand_total * 100
+  ) %>%
+  arrange(desc(total_sales))
+
+# Display the results
+list(
+  sales_long = head(sales_long),
+  quarter_avg_sales = quarter_avg_sales,
+  yoy_growth = yoy_growth,
+  region_summary = region_summary
+)</code></pre>
+        </div>
+    </div>
+
+    <h2 id="stringr">String Manipulation with stringr</h2>
+
+    <p>stringr provides a cohesive set of functions designed to make working with strings as easy as possible.</p>
+
+    <h3>Basic String Operations</h3>
+
+    <pre><code># Sample text data
+texts <- c(
+  "The quick brown fox jumps over the lazy dog.",
+  "Hello world! How are you today?",
+  "R programming is fun and powerful.",
+  "Contact me at john.doe@example.com or call 555-123-4567."
+)
+
+# String length
+str_length(texts)
+
+# Combining strings
+str_c("Hello", "World", sep = " ")
+str_c(c("A", "B", "C"), "_", 1:3)
+
+# Subsetting strings
+str_sub(texts, start = 1, end = 10)
+str_sub(texts, start = -10, end = -1)  # Last 10 characters</code></pre>
+
+    <h3>Pattern Matching</h3>
+
+    <pre><code># Detect patterns
+str_detect(texts, "fox")                      # Contains "fox"?
+str_detect(texts, "^The")                     # Starts with "The"?
+str_detect(texts, "\\.\\s*$")                 # Ends with period?
+
+# Count pattern occurrences
+str_count(texts, "[aeiou]")                   # Count vowels
+str_count(texts, "\\w+")                      # Count words
+
+# Extract patterns
+email_pattern <- "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b"
+phone_pattern <- "\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b"
+
+str_extract(texts, email_pattern)             # Extract first email
+str_extract_all(texts, "\\w+")                # Extract all words
+
+# Extract matched groups
+name_email <- c(
+  "John Smith (john.smith@example.com)",
+  "Jane Doe (jane.doe@company.org)"
+)
+str_match(name_email, "(\\w+ \\w+) \\((.+)\\)")  # Match name and email</code></pre>
+
+    <h3>String Manipulation</h3>
+
+    <pre><code># Replace patterns
+str_replace(texts, "fox", "cat")               # Replace first match
+str_replace_all(texts, "[0-9]", "#")           # Replace all digits with #
+
+# Convert case
+str_to_lower(texts)
+str_to_upper(texts)
+str_to_title(texts)
+str_to_sentence(texts)                         # First letter uppercase
+
+# Pad strings
+product_codes <- c("A1", "B23", "C456")
+str_pad(product_codes, width = 5, side = "left", pad = "0")
+
+# Trim whitespace
+whitespace_text <- c("  Hello", "World  ", "  How are you?  ")
+str_trim(whitespace_text)                      # Both sides
+str_trim(whitespace_text, side = "left")       # Left only</code></pre>
+
+    <h3>Working with Multiple Strings</h3>
+
+    <pre><code># Split strings
+str_split(texts, " ")                          # Split by space
+str_split(texts, "\\s+")                      # Split by any whitespace
+str_split_fixed(texts, " ", n = 3)            # Split into fixed number of pieces
+
+# Join strings
+words <- c("apple", "banana", "cherry")
+str_c(words, collapse = ", ")                 # Comma-separated list
+
+# Sort strings
+str_sort(c("Banana", "apple", "Cherry"), locale = "en")  # Case insensitive sort
+
+# String distance
+str_dist(c("kitten", "sitting"))              # Levenshtein distance</code></pre>
+
+    <h3>Regular Expressions in stringr</h3>
+
+    <pre><code># Regular expression basics
+patterns <- tribble(
+  ~pattern, ~description,
+  "\\d", "Matches any digit",
+  "\\w", "Matches any word character (letter, digit, underscore)",
+  "\\s", "Matches any whitespace",
+  "[aeiou]", "Matches any vowel",
+  "[^aeiou]", "Matches any non-vowel",
+  "^", "Matches start of string",
+  "$", "Matches end of string",
+  "\\b", "Matches word boundary"
+)
+
+# Character classes and quantifiers
+patterns2 <- tribble(
+  ~pattern, ~description,
+  "a+", "One or more 'a's",
+  "a*", "Zero or more 'a's",
+  "a?", "Zero or one 'a'",
+  "a{3}", "Exactly three 'a's",
+  "a{2,4}", "Between two and four 'a's",
+  "(abc)", "Group the pattern 'abc'",
+  "a|b", "Match 'a' or 'b'"
+)
+
+# Regex for common patterns
+common_patterns <- tribble(
+  ~pattern, ~description,
+  "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", "Email address",
+  "^\\d{3}-\\d{3}-\\d{4}$", "Phone number (XXX-XXX-XXXX)",
+  "^\\d{5}(-\\d{4})?$", "US ZIP code (with optional +4)",
+  "^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$", "URL"
+)
+
+# Testing patterns
+example_strings <- c(
+  "john.doe@example.com",
+  "invalid-email",
+  "123-456-7890",
+  "12345-6789",
+  "https://www.example.com/path/page.html"
+)
+
+# Test email pattern
+str_detect(example_strings, common_patterns$pattern[1])
+
+# Test phone pattern
+str_detect(example_strings, common_patterns$pattern[2])</code></pre>
+
+    <div class="exercise">
+        <h4>Exercise: String Processing</h4>
+        <p>Given the following dataset of customer information:</p>
+        <pre><code>customers <- tibble(
+  id = 1:6,
+  name = c("John Smith", "MARY JOHNSON", "bob williams", "Sarah Davis", "MICHAEL BROWN", "Jennifer wilson"),
+  email = c("john.smith@example.com", "mary.j@company.co.uk", "bob.williams@gmail.com", "sarah@website.net", "michael.brown@work.org", "jen_wilson@mail.info"),
+  phone = c("555-123-4567", "(555) 234-5678", "555.345.6789", "5554567890", "+1-555-567-8901", "555-678-9012 ext. 123")
+)</code></pre>
+        <p>Complete the following tasks:</p>
+        <ol>
+            <li>Standardize all names to title case (first letter of each word capitalized)</li>
+            <li>Extract the domain name from each email address (e.g., "example.com")</li>
+            <li>Standardize all phone numbers to the format XXX-XXX-XXXX (extract just the main number)</li>
+            <li>Create a new column with just the first name of each customer</li>
+            <li>Create a column indicating whether the email is a business email (not gmail, mail, etc.)</li>
+        </ol>
+        <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
+        <div class="solution">
+            <pre><code>library(tidyverse)
+
+# Define the customers data
+customers <- tibble(
+  id = 1:6,
+  name = c("John Smith", "MARY JOHNSON", "bob williams", "Sarah Davis", "MICHAEL BROWN", "Jennifer wilson"),
+  email = c("john.smith@example.com", "mary.j@company.co.uk", "bob.williams@gmail.com", "sarah@website.net", "michael.brown@work.org", "jen_wilson@mail.info"),
+  phone = c("555-123-4567", "(555) 234-5678", "555.345.6789", "5554567890", "+1-555-567-8901", "555-678-9012 ext. 123")
+)
+
+# Process the data
+customers_processed <- customers %>%
+  mutate(
+    # 1. Standardize names to title case
+    name_standardized = str_to_title(name),
+    
+    # 2. Extract domain from email
+    email_domain = str_extract(email, "@([^@]+)$") %>% 
+                   str_replace("@", ""),
+    
+    # 3. Standardize phone numbers
+    # First extract digits only
+    phone_digits = str_extract_all(phone, "\\d") %>% 
+                  map_chr(~ paste(., collapse = "")),
+    # Then format to XXX-XXX-XXXX (taking last 10 digits if more)
+    phone_standardized = str_sub(phone_digits, -10, -1) %>%
+                        str_replace(pattern = "(\\d{3})(\\d{3})(\\d{4})",
+                                   replacement = "\\1-\\2-\\3"),
+    
+    # 4. Extract first name
+    first_name = str_extract(name, "^\\S+"),
+    
+    # 5. Check if business email
+    is_business_email = !str_detect(email_domain, 
+                                   "gmail\\.com|yahoo\\.com|hotmail\\.com|mail\\.info|outlook\\.com|aol\\.com")
+  )
+
+# Display the results
+customers_processed %>%
+  select(
+    id,
+    original_name = name,
+    name_standardized,
+    email,
+    email_domain,
+    is_business_email,
+    original_phone = phone,
+    phone_standardized,
+    first_name
+  )</code></pre>
+        </div>
+    </div>
+
+    <h2 id="forcats">Working with Factors using forcats</h2>
+
+    <p>forcats provides tools for working with categorical variables (factors) in R, solving common problems with ordering, recoding, and manipulating factor levels.</p>
+
+    <h3>Creating and Examining Factors</h3>
+
+    <pre><code># Sample categorical data
+responses <- c("Agree", "Disagree", "Neutral", "Strongly Agree", "Neutral", 
+              "Disagree", "Strongly Disagree", "Agree", "Neutral")
+
+# Create a basic factor
+response_factor <- factor(responses)
+response_factor
+levels(response_factor)
+
+# Order factor levels manually
+ordered_response <- factor(
+  responses,
+  levels = c("Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"),
+  ordered = TRUE
+)
+ordered_response
+
+# Check if a factor is ordered
+is.ordered(ordered_response)
+
+# Get summary counts of factor levels
+fct_count(response_factor)</code></pre>
+
+    <h3>Manipulating Factor Levels</h3>
+
+    <pre><code># Reorder factor levels manually
+response_reorder <- fct_relevel(response_factor, 
+                               "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree")
+
+# Reverse factor levels
+response_rev <- fct_rev(response_reorder)
+
+# Reorder factors by frequency
+response_infreq <- fct_infreq(response_factor)  # Most frequent first
+response_inorder <- fct_inorder(response_factor)  # In order of appearance
+
+# Reorder by another variable
+set.seed(123)
+survey <- tibble(
+  response = sample(responses, 100, replace = TRUE),
+  score = rnorm(100)
+)
+
+# Reorder based on mean score
+survey$response_by_score <- fct_reorder(survey$response, survey$score, .fun = mean)
+
+# Reorder based on minimum of score
+survey$response_by_min <- fct_reorder(survey$response, survey$score, .fun = min)
+
+# For barcharts: reorder by count using fct_infreq
+ggplot(survey, aes(x = fct_infreq(response))) +
+  geom_bar() +
+  labs(x = "Response")</code></pre>
+
+    <h3>Modifying Factor Levels</h3>
+
+    <pre><code># Recode factor levels
+response_renamed <- fct_recode(response_factor,
+  "SD" = "Strongly Disagree",
+  "D" = "Disagree",
+  "N" = "Neutral",
+  "A" = "Agree", 
+  "SA" = "Strongly Agree"
+)
+
+# Collapse multiple levels into one
+response_collapsed <- fct_collapse(response_factor,
+  Positive = c("Strongly Agree", "Agree"),
+  Neutral = "Neutral",
+  Negative = c("Disagree", "Strongly Disagree")
+)
+
+# Combine infrequent levels
+product_ratings <- factor(c(rep("Excellent", 60), rep("Good", 30), 
+                          rep("Average", 5), rep("Poor", 3), rep("Terrible", 2)))
+
+# Lump together levels with fewer than 10 observations                    
+ratings_lumped <- fct_lump_min(product_ratings, min = 10, other_level = "Other")
+
+# Keep only the top n most frequent levels
+ratings_top3 <- fct_lump_n(product_ratings, n = 3, other_level = "Other")
+
+# Keep levels that represent a proportion of data
+ratings_prop <- fct_lump_prop(product_ratings, prop = 0.1, other_level = "Other")</code></pre>
+
+    <h3>Working with Missing Values in Factors</h3>
+
+    <pre><code># Sample data with NA values
+responses_na <- c("Agree", "Disagree", NA, "Strongly Agree", "Neutral", 
+                NA, "Strongly Disagree", "Agree", NA)
+response_factor_na <- factor(responses_na)
+
+# Explicitly set NA level
+response_with_na_level <- fct_explicit_na(response_factor_na, na_level = "Not Answered")
+
+# For replacing NA with a category after reordering
+ratings <- factor(c("Low", NA, "Medium", "High", NA, "Low", "Medium"))
+ratings_ordered <- fct_relevel(ratings, "Low", "Medium", "High")
+ratings_no_na <- fct_explicit_na(ratings_ordered)</code></pre>
+
+    <h3>Advanced Factor Operations</h3>
+
+    <pre><code># Convert from character to factor efficiently
+gender <- sample(c("Male", "Female", "Non-Binary"), 1000, replace = TRUE)
+gender_fct <- as_factor(gender)  # More efficient than factor()
+
+# Drop unused levels
+species <- factor(c("Dog", "Cat", "Bird"))
+species_subset <- species[1:2]  # Still has 3 levels
+species_dropped <- fct_drop(species_subset)  # Now only has 2 levels
+
+# Expand based on a model formula
+df <- tibble(
+  type = factor(c("A", "B", "A", "C")),
+  response = c(1, 4, 2, 3)
+)
+expanded <- expand_grid(
+  type = fct_unique(df$type),  # Get unique levels
+  predictor = 1:5
+)</code></pre>
+
+    <div class="exercise">
+        <h4>Exercise: Factor Manipulation</h4>
+        <p>Consider the following dataset of product reviews:</p>
+        <pre><code>reviews <- tibble(
+  product = c("Laptop", "Phone", "Tablet", "Laptop", "Phone", "Laptop", "Monitor", 
+             "Keyboard", "Mouse", "Headphones", "Speaker", "Tablet", "Phone", "Laptop", "Phone"),
+  rating = factor(c("Poor", "Good", "Average", "Excellent", "Good", "Average", 
+                   "Poor", "Average", "Good", "Excellent", "Good", "Poor", "Average", "Good", "Excellent")),
+  price_category = factor(c("High", "Medium", "Medium", "High", "High", "High",
+                           "Low", "Low", "Low", "Medium", "Medium", "Low", "High", "Medium", "High")),
+  verified_purchase = c(TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, 
+                       TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE)
+)</code></pre>
+        <p>Complete the following tasks:</p>
+        <ol>
+            <li>Order the rating factor from worst to best (Poor, Average, Good, Excellent)</li>
+            <li>Order the price_category factor from Low to High</li>
+            <li>Create a summary table showing the count of reviews for each product, ordered by frequency</li>
+            <li>For each product with at least 2 reviews, calculate the average rating (converting ratings to numeric: Poor=1, Average=2, Good=3, Excellent=4)</li>
+            <li>Create a new factor that collapses the ratings into "Negative" (Poor), "Neutral" (Average), and "Positive" (Good, Excellent)</li>
+        </ol>
+        <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
+        <div class="solution">
+            <pre><code>library(tidyverse)
+
+# Define the reviews data
+reviews <- tibble(
+  product = c("Laptop", "Phone", "Tablet", "Laptop", "Phone", "Laptop", "Monitor", 
+             "Keyboard", "Mouse", "Headphones", "Speaker", "Tablet", "Phone", "Laptop", "Phone"),
+  rating = factor(c("Poor", "Good", "Average", "Excellent", "Good", "Average", 
+                   "Poor", "Average", "Good", "Excellent", "Good", "Poor", "Average", "Good", "Excellent")),
+  price_category = factor(c("High", "Medium", "Medium", "High", "High", "High",
+                           "Low", "Low", "Low", "Medium", "Medium", "Low", "High", "Medium", "High")),
+  verified_purchase = c(TRUE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, 
+                       TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE)
+)
+
+# 1. Order the rating factor from worst to best
+reviews <- reviews %>%
+  mutate(
+    rating_ordered = fct_relevel(rating, "Poor", "Average", "Good", "Excellent")
+  )
+
+# 2. Order the price_category factor from Low to High
+reviews <- reviews %>%
+  mutate(
+    price_ordered = fct_relevel(price_category, "Low", "Medium", "High")
+  )
+
+# 3. Create a summary table showing count of reviews by product
+product_counts <- reviews %>%
+  count(product) %>%
+  arrange(desc(n)) %>%
+  mutate(
+    product = fct_reorder(product, n, .desc = TRUE)
+  )
+
+# 4. Calculate average rating for products with at least 2 reviews
+# First create a mapping for ratings to numeric values
+rating_values <- c("Poor" = 1, "Average" = 2, "Good" = 3, "Excellent" = 4)
+
+product_avg_ratings <- reviews %>%
+  # Add numeric rating
+  mutate(rating_value = rating_values[as.character(rating)]) %>%
+  # Group by product and calculate stats
+  group_by(product) %>%
+  summarize(
+    count = n(),
+    avg_rating = mean(rating_value),
+    .groups = "drop"
+  ) %>%
+  # Filter for products with at least 2 reviews
+  filter(count >= 2) %>%
+  # Order by average rating
+  arrange(desc(avg_rating))
+
+# 5. Create collapsed rating categories
+reviews <- reviews %>%
+  mutate(
+    rating_collapsed = fct_collapse(rating,
+      "Negative" = "Poor",
+      "Neutral" = "Average",
+      "Positive" = c("Good", "Excellent")
+    )
+  )
+
+# Display the results
+list(
+  ordered_factors = head(reviews %>% select(product, rating, rating_ordered, price_category, price_ordered)),
+  product_counts = product_counts,
+  product_avg_ratings = product_avg_ratings,
+  collapsed_ratings = table(reviews$rating_collapsed)
+)</code></pre>
+        </div>
+    </div>
+
+    <h2 id="lubridate">Date and Time Handling with lubridate</h2>
+
+    <p>lubridate simplifies working with dates and times in R, making it easier to parse, manipulate, and do calculations with temporal data.</p>
+
+    <h3>Parsing Dates and Times</h3>
+
+    <pre><code># Load the lubridate package
+library(lubridate)
+
+# Parse dates in various formats
+ymd("2023-01-15")               # Year-Month-Day
+mdy("01/15/2023")               # Month-Day-Year
+dmy("15.01.2023")               # Day-Month-Year
+
+# Parse date-times
+ymd_hms("2023-01-15 14:30:45")  # With hours, minutes, seconds
+mdy_hm("01/15/2023 14:30")      # With hours and minutes
+
+# Flexible parsing with parse_date_time
+parse_date_time("January 15, 2023", orders = "mdy")
+parse_date_time(c("2023/01/15", "15-Jan-2023"), orders = c("ymd", "dmy"))</code></pre>
+
+    <h3>Creating Dates and Times</h3>
+
+    <pre><code># Create from components
+date_from_parts <- make_date(year = 2023, month = 1, day = 15)
+datetime_from_parts <- make_datetime(year = 2023, month = 1, day = 15, hour = 14, min = 30, sec = 45)
+
+# Current date and time
+today()                          # Current date
+now()                            # Current date-time
+
+# Date-time from UNIX timestamp
+as_datetime(1673827200)          # Seconds since 1970-01-01</code></pre>
+
+    <h3>Extracting Components</h3>
+
+    <pre><code># Sample dates
+dates <- ymd(c("2023-01-15", "2023-02-28", "2023-05-10", "2023-12-25"))
+datetimes <- ymd_hms(c("2023-01-15 09:30:00", "2023-01-15 14:45:30"))
+
+# Extract date components
+year(dates)
+month(dates)
+month(dates, label = TRUE)       # Month as a factor
+month(dates, label = TRUE, abbr = FALSE) # Full month name
+day(dates)
+wday(dates)                      # Day of week (1-7)
+wday(dates, label = TRUE)        # Day of week as factor
+yday(dates)                      # Day of year (1-366)
+quarter(dates)                   # Quarter (1-4)
+
+# Extract time components
+hour(datetimes)
+minute(datetimes)
+second(datetimes)</code></pre>
+
+    <h3>Manipulating Dates and Times</h3>
+
+    <pre><code># Sample date
+date <- ymd("2023-01-15")
+
+# Add or subtract time periods
+date + days(10)
+date - months(2)
+date + years(1) - weeks(2)
+
+# More complex manipulations
+date %>%
+  add_days(5) %>%
+  add_months(1) %>%
+  add_years(-1)
+
+# Set components
+date %>% year(2024)              # Change year to 2024
+date %>% month(7)                # Change month to July
+date %>% day(1)                  # Change day to 1st of the month
+
+# Roll forward or backward
+date %>% ceiling_date("month")   # First day of next month
+date %>% floor_date("month")     # First day of current month
+date %>% round_date("week")      # Round to nearest week</code></pre>
+
+    <h3>Calculating Time Periods and Durations</h3>
+
+    <pre><code># Time spans
+start_date <- ymd("2023-01-01")
+end_date <- ymd("2023-12-31")
+
+# Difference between dates
+end_date - start_date            # Time difference in days
+
+# Using the interval
+interval <- interval(start_date, end_date)
+time_length(interval, "days")    # Length in days
+time_length(interval, "months")  # Length in months
+
+# Periods - calendar time spans
+days(2)                          # 2 day period
+months(3)                        # 3 month period
+years(1) + months(6) + days(15)  # Combined period
+
+# Durations - exact time spans in seconds
+ddays(2)                         # 2 days as duration
+dweeks(3)                        # 3 weeks as duration
+
+# Testing relationships
+start_date <= end_date
+date %within% interval</code></pre>
+
+    <h3>Working with Time Zones</h3>
+
+    <pre><code># Available time zones
+OlsonNames()[1:5]                # First 5 time zone names
+
+# Create date-time with time zone
+dt_nyc <- ymd_hms("2023-01-15 12:00:00", tz = "America/New_York")
+dt_paris <- ymd_hms("2023-01-15 12:00:00", tz = "Europe/Paris")
+
+# Converting between time zones
+with_tz(dt_nyc, "Europe/Paris")  # Same moment, different time zone
+force_tz(dt_nyc, "Europe/Paris") # Same clock time, different time zone
+
+# Get current time zone
+Sys.timezone()</code></pre>
+
+    <div class="exercise">
+        <h4>Exercise: Date and Time Analysis</h4>
+        <p>Given the following dataset of customer transactions:</p>
+        <pre><code>transactions <- tibble(
+  transaction_id = 1:12,
+  customer_id = sample(1:5, 12, replace = TRUE),
+  transaction_date = c(
+    "2023-01-10 09:20:30", "2023-01-15 14:45:00", "2023-01-25 11:30:15",
+    "2023-02-05 16:10:45", "2023-02-18 10:05:30", "2023-02-27 13:40:20",
+        "2023-03-08 08:55:10", "2023-03-19 15:30:45", "2023-03-28 12:15:30",
+    "2023-04-07 09:40:15", "2023-04-22 11:20:00", "2023-04-30 17:05:25"
+  ),
+  amount = round(runif(12, 10, 500), 2),
+  product_category = sample(c("Electronics", "Clothing", "Home", "Books"), 12, replace = TRUE)
+)</code></pre>
+        <p>Complete the following tasks using lubridate:</p>
+        <ol>
+            <li>Parse the transaction_date strings into proper date-time objects</li>
+            <li>Extract the month and day of week for each transaction</li>
+            <li>Calculate how many days elapsed between each customer's transactions</li>
+            <li>Determine which day of the week has the highest average transaction amount</li>
+            <li>Create a new column indicating whether the transaction occurred in the morning (before noon) or afternoon</li>
+            <li>Calculate the time difference between the first and last transaction for each customer</li>
+        </ol>
+        <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
+        <div class="solution">
+            <pre><code>library(tidyverse)
+library(lubridate)
+
+# Define the transactions data
+transactions <- tibble(
+  transaction_id = 1:12,
+  customer_id = sample(1:5, 12, replace = TRUE),
+  transaction_date = c(
+    "2023-01-10 09:20:30", "2023-01-15 14:45:00", "2023-01-25 11:30:15",
+    "2023-02-05 16:10:45", "2023-02-18 10:05:30", "2023-02-27 13:40:20",
+    "2023-03-08 08:55:10", "2023-03-19 15:30:45", "2023-03-28 12:15:30",
+    "2023-04-07 09:40:15", "2023-04-22 11:20:00", "2023-04-30 17:05:25"
+  ),
+  amount = round(runif(12, 10, 500), 2),
+  product_category = sample(c("Electronics", "Clothing", "Home", "Books"), 12, replace = TRUE)
+)
+
+# Set a seed for reproducibility
+set.seed(123)
+
+# 1. Parse transaction_date strings
+transactions <- transactions %>%
+  mutate(
+    datetime = ymd_hms(transaction_date)
+  )
+
+# 2. Extract month and day of week
+transactions <- transactions %>%
+  mutate(
+    transaction_month = month(datetime, label = TRUE),
+    transaction_day = wday(datetime, label = TRUE)
+  )
+
+# 3. Calculate days between transactions for each customer
+transactions_with_days_between <- transactions %>%
+  arrange(customer_id, datetime) %>%
+  group_by(customer_id) %>%
+  mutate(
+    prev_transaction = lag(datetime),
+    days_since_prev = as.integer(difftime(datetime, prev_transaction, units = "days"))
+  ) %>%
+  ungroup()
+
+# 4. Find day of week with highest average transaction
+day_avg_amount <- transactions %>%
+  group_by(transaction_day) %>%
+  summarize(
+    avg_amount = mean(amount),
+    transaction_count = n(),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(avg_amount))
+
+# 5. Add morning/afternoon indicator
+transactions <- transactions %>%
+  mutate(
+    time_of_day = if_else(hour(datetime) < 12, "Morning", "Afternoon")
+  )
+
+# 6. Calculate time difference between first and last transaction per customer
+customer_timespan <- transactions %>%
+  group_by(customer_id) %>%
+  summarize(
+    first_transaction = min(datetime),
+    last_transaction = max(datetime),
+    total_transactions = n(),
+    timespan_days = as.integer(difftime(last_transaction, first_transaction, units = "days")),
+    avg_days_between = if_else(total_transactions > 1, timespan_days / (total_transactions - 1), 0),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(timespan_days))
+
+# Display the results
+list(
+  parsed_dates = head(select(transactions, transaction_id, transaction_date, datetime)),
+  month_day = head(select(transactions, transaction_id, datetime, transaction_month, transaction_day)),
+  days_between = filter(transactions_with_days_between, !is.na(days_since_prev)),
+  day_avg_amount = day_avg_amount,
+  time_of_day = table(transactions$time_of_day),
+  customer_timespan = customer_timespan
+)</code></pre>
+        </div>
+    </div>
+
+    <h2 id="purrr">Functional Programming with purrr</h2>
+
+    <p>purrr enhances R's functional programming toolkit by providing tools for working with functions and vectors in a consistent, more intuitive way.</p>
+
+    <h3>Map Functions: Apply Functions to Each Element</h3>
+
+    <pre><code># Basic mapping with map
+numbers <- list(a = 1:3, b = 4:6, c = 7:9)
+map(numbers, sum)                  # Returns a list
+map_dbl(numbers, sum)              # Returns a numeric vector
+map_chr(numbers, paste, collapse = ",")  # Returns a character vector
+
+# Using formulas as anonymous functions
+map_dbl(numbers, ~ mean(.x))
+map_dbl(numbers, ~ sum(.x) / length(.x))
+
+# Working with data frames
+mtcars_list <- split(mtcars, mtcars$cyl)
+map_dbl(mtcars_list, ~ mean(.x$mpg))
+
+# Multiple inputs with map2
+x <- list(1, 10, 100)
+y <- list(1, 2, 3)
+map2(x, y, ~ .x + .y)
+
+# Multiple inputs with pmap
+params <- list(
+  list(mean = 0, sd = 1, n = 10),
+  list(mean = 5, sd = 2, n = 20),
+  list(mean = 10, sd = 3, n = 30)
+)
+pmap(params, rnorm)</code></pre>
+
+    <h3>Iteration with side effects</h3>
+
+    <pre><code># Walk functions for side effects (e.g., printing, plotting)
+files <- c("data1.csv", "data2.csv", "data3.csv")
+walk(files, ~ cat("Processing", .x, "\n"))
+
+# Create multiple plots
+plots <- mtcars_list %>%
+  map(~ ggplot(.x, aes(wt, mpg)) + 
+        geom_point() + 
+        ggtitle(paste("Cylinder:", unique(.x$cyl))))
+
+# Save plots to files
+paths <- paste0("plot_", names(mtcars_list), ".png")
+walk2(plots, paths, ggsave, width = 6, height = 4)</code></pre>
+
+    <h3>Handling Lists and Nested Data</h3>
+
+    <pre><code># Flatten nested lists
+nested_list <- list(a = 1, b = list(c = 2, d = list(e = 3)))
+flatten(nested_list)
+flatten_dbl(list(1, c(2, 3), 4))
+
+# Extract elements from a list
+l <- list(
+  list(a = 1, b = "one"),
+  list(a = 2, b = "two"),
+  list(a = 3, b = "three")
+)
+
+map_dbl(l, "a")                   # Extract element named "a" from each element
+map_chr(l, pluck, "b")            # Same but using pluck
+map_chr(l, ~ .x$b)                # Same using formula
+
+# Working with list-columns in data frames
+nested_df <- tibble(
+  group = c("A", "B", "C"),
+  data = list(
+    tibble(x = 1:3, y = 4:6),
+    tibble(x = 7:9, y = 10:12),
+    tibble(x = 13:15, y = 16:18)
+  )
+)
+
+# Apply functions to each data element
+nested_df %>%
+  mutate(
+    mean_x = map_dbl(data, ~ mean(.x$x)),
+    model = map(data, ~ lm(y ~ x, data = .x)),
+    coef = map(model, coef)
+  )</code></pre>
+
+    <h3>Manipulating and restructuring data</h3>
+
+    <pre><code># Keep/discard elements based on a predicate
+numbers <- list(a = c(1, 2, 3), b = c(4, 5, 6), c = c(7, 8, 9))
+keep(numbers, ~ any(.x > 5))      # Keep only elements with values > 5
+discard(numbers, ~ all(.x < 5))   # Discard elements where all values < 5
+
+# Modifying lists conditionally
+modify_if(numbers, ~ mean(.x) > 3, ~ .x * 2)  # Double elements with mean > 3
+
+# Find elements matching a condition
+detect(1:10, ~ .x > 5)            # First element > 5
+detect_index(1:10, ~ .x > 5)      # Index of first element > 5
+
+# Convert between array & list
+list_data <- list(a = 1:3, b = 4:6, c = 7:9)
+array_data <- array(1:27, dim = c(3, 3, 3))
+
+array_tree(list_data, 1)          # Convert list to array
+array_branch(array_data, 1)       # Convert array to list</code></pre>
+
+    <h3>Combining Functions</h3>
+
+    <pre><code># Compose functions with compose
+double_then_add_one <- compose(function(x) x + 1, function(x) x * 2)
+double_then_add_one(10)           # (10 * 2) + 1 = 21
+
+# Negate a predicate function
+is_even <- function(x) x %% 2 == 0
+is_odd <- negate(is_even)
+is_odd(c(1, 2, 3, 4))             # TRUE FALSE TRUE FALSE
+
+# Partial function application
+add <- function(x, y) x + y
+add_five <- partial(add, y = 5)
+add_five(10)                       # 15
+
+# Apply a list of functions to one input
+functions <- list(
+  sum = sum,
+  mean = mean,
+  median = median
+)
+invoke_map_dbl(functions, list(x = 1:10))</code></pre>
+
+    <div class="exercise">
+        <h4>Exercise: Functional Programming</h4>
+        <p>Given a list of data frames representing sales from different regions:</p>
+        <pre><code># Create sample data
+set.seed(123)
+regions <- c("North", "South", "East", "West")
+product_types <- c("Electronics", "Clothing", "Home", "Books")
+
+# Function to create a random sales dataframe
+create_sales_data <- function(region, n = 50) {
+  tibble(
+    region = region,
+    date = sample(seq(as.Date("2023-01-01"), as.Date("2023-06-30"), by = "day"), n, replace = TRUE),
+    product_type = sample(product_types, n, replace = TRUE),
+    units = sample(1:20, n, replace = TRUE),
+    unit_price = round(runif(n, 10, 500), 2),
+    total_price = units * unit_price
+  )
+}
+
+# Create a list of sales dataframes
+region_sales <- map(regions, create_sales_data)
+names(region_sales) <- regions</code></pre>
+        <p>Complete the following tasks using purrr functions:</p>
+        <ol>
+            <li>Calculate the total sales value for each region</li>
+            <li>Find the best-selling product type (by total value) in each region</li>
+            <li>For each region, create a monthly sales summary</li>
+            <li>Create a linear model for each region predicting total_price from units and unit_price</li>
+            <li>Extract the R-squared value from each model and create a summary tibble with region and R-squared</li>
+            <li>Create a function to identify outliers (sales more than 2 standard deviations from mean) and apply it to each region</li>
+        </ol>
+        <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
+        <div class="solution">
+            <pre><code>library(tidyverse)
+library(broom)
+
+# Create sample data
+set.seed(123)
+regions <- c("North", "South", "East", "West")
+product_types <- c("Electronics", "Clothing", "Home", "Books")
+
+# Function to create a random sales dataframe
+create_sales_data <- function(region, n = 50) {
+  tibble(
+    region = region,
+    date = sample(seq(as.Date("2023-01-01"), as.Date("2023-06-30"), by = "day"), n, replace = TRUE),
+    product_type = sample(product_types, n, replace = TRUE),
+    units = sample(1:20, n, replace = TRUE),
+    unit_price = round(runif(n, 10, 500), 2),
+    total_price = units * unit_price
+  )
+}
+
+# Create a list of sales dataframes
+region_sales <- map(regions, create_sales_data)
+names(region_sales) <- regions
+
+# 1. Calculate total sales value for each region
+region_totals <- map_dbl(region_sales, ~ sum(.x$total_price))
+region_total_df <- tibble(
+  region = names(region_totals),
+  total_sales = region_totals
+) %>%
+  arrange(desc(total_sales))
+
+# 2. Find best-selling product type in each region
+best_product_by_region <- map(region_sales, function(df) {
+  df %>%
+    group_by(product_type) %>%
+    summarize(
+      total_value = sum(total_price),
+      .groups = "drop"
+    ) %>%
+    arrange(desc(total_value)) %>%
+    slice(1)
+})
+
+best_products_df <- map_dfr(best_product_by_region, ~.x, .id = "region")
+
+# 3. Create monthly sales summary for each region
+add_month <- function(df) {
+  df %>% mutate(month = format(date, "%Y-%m"))
+}
+
+monthly_summaries <- map(region_sales, function(df) {
+  df %>%
+    add_month() %>%
+    group_by(month) %>%
+    summarize(
+      total_sales = sum(total_price),
+      average_sale = mean(total_price),
+      transaction_count = n(),
+      .groups = "drop"
+    ) %>%
+    arrange(month)
+})
+
+# 4. Create linear models for each region
+region_models <- map(region_sales, ~ lm(total_price ~ units + unit_price, data = .x))
+
+# 5. Extract R-squared from each model
+model_summary <- map_dfr(region_models, glance, .id = "region") %>%
+  select(region, r.squared, adj.r.squared, p.value) %>%
+  arrange(desc(r.squared))
+
+# 6. Create and apply function to identify outliers
+find_outliers <- function(df) {
+  mean_price <- mean(df$total_price)
+  sd_price <- sd(df$total_price)
+  threshold <- 2 * sd_price
+  
+  df %>%
+    mutate(
+      is_outlier = abs(total_price - mean_price) > threshold,
+      outlier_level = if_else(
+        is_outlier,
+        if_else(total_price > mean_price, "High", "Low"),
+        "Normal"
+      )
+    ) %>%
+    arrange(desc(is_outlier), desc(total_price))
+}
+
+region_with_outliers <- map(region_sales, find_outliers)
+
+# Count outliers in each region
+outlier_counts <- map_dfr(region_with_outliers, function(df) {
+  tibble(
+    outlier_count = sum(df$is_outlier),
+    outlier_percent = mean(df$is_outlier) * 100,
+    total_rows = nrow(df)
+  )
+}, .id = "region")
+
+# Display results
+list(
+  region_totals = region_total_df,
+  best_products = best_products_df,
+  monthly_summary_example = monthly_summaries$North,
+  model_summary = model_summary,
+  outlier_counts = outlier_counts,
+  outlier_example = head(filter(region_with_outliers$North, is_outlier), 3)
+)</code></pre>
+        </div>
+    </div>
+
+    <h2 id="ggplot2">Data Visualization with ggplot2</h2>
+
+    <p>ggplot2 is a system for declaratively creating graphics based on The Grammar of Graphics. It provides a powerful and flexible way to visualize your data.</p>
+
+    <h3>Grammar of Graphics Basics</h3>
+
+    <pre><code># Load ggplot2
+library(ggplot2)
+
+# Basic components:
+# 1. Data
+# 2. Aesthetic mappings (aes)
+# 3. Geometric objects (geom)
+# 4. Statistical transformations (stat)
+# 5. Scales
+# 6. Coordinate systems
+# 7. Facets
+# 8. Themes
+
+# Basic plot structure
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>), stat = <STAT>, position = <POSITION>) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION> +
+  <SCALE_FUNCTION> +
+  <THEME_FUNCTION></code></pre>
+
+    <h3>Creating Basic Plots</h3>
+
+    <pre><code># Sample data
+diamonds_sample <- diamonds %>% sample_n(1000)
+mpg_sample <- mpg
+
+# Scatter plot
+ggplot(diamonds_sample, aes(x = carat, y = price)) +
+  geom_point()
+
+# Add color mapping
+ggplot(diamonds_sample, aes(x = carat, y = price, color = cut)) +
+  geom_point(alpha = 0.7)
+
+# Bar chart
+ggplot(diamonds_sample, aes(x = cut)) +
+  geom_bar()
+
+# Bar chart with counts
+ggplot(diamonds_sample, aes(x = cut, fill = clarity)) +
+  geom_bar()
+
+# Line plot
+ggplot(economics, aes(x = date, y = unemploy)) +
+  geom_line()
+
+# Box plot
+ggplot(mpg_sample, aes(x = class, y = hwy)) +
+  geom_boxplot()
+
+# Histogram
+ggplot(diamonds_sample, aes(x = price)) +
+  geom_histogram(bins = 30)
+
+# Density plot
+ggplot(diamonds_sample, aes(x = price)) +
+  geom_density()</code></pre>
+
+    <h3>Customizing Plots</h3>
+
+    <pre><code># Customizing aesthetics
+ggplot(diamonds_sample, aes(x = carat, y = price, color = cut)) +
+  geom_point(alpha = 0.7, size = 3, shape = 21)
+
+# Adding labels and title
+ggplot(mpg_sample, aes(x = displ, y = hwy, color = class)) +
+  geom_point() +
+  labs(
+    title = "Fuel Efficiency vs. Engine Displacement",
+    subtitle = "Grouped by vehicle class",
+    x = "Engine Displacement (L)",
+    y = "Highway MPG",
+    color = "Vehicle Class",
+    caption = "Source: EPA Fuel Economy Data"
+  )
+
+# Customizing scales
+ggplot(diamonds_sample, aes(x = carat, y = price, color = cut)) +
+  geom_point(alpha = 0.7) +
+  scale_color_brewer(palette = "Set1") +
+  scale_x_continuous(breaks = seq(0, 5, 0.5)) +
+  scale_y_continuous(labels = scales::dollar)
+
+# Applying themes
+ggplot(mpg_sample, aes(x = class, y = hwy, fill = class)) +
+  geom_boxplot() +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "none"
+  )</code></pre>
+
+    <h3>Multiple Plots and Faceting</h3>
+
+    <pre><code># Faceting
+ggplot(mpg_sample, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~ class)
+
+# Grid layout faceting
+ggplot(mpg_sample, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_grid(rows = vars(year), cols = vars(drv))
+
+# Combining multiple geoms
+ggplot(economics, aes(x = date, y = unemploy)) +
+  geom_line() +
+  geom_smooth(method = "loess", se = FALSE, color = "red")
+
+# Multiple plots with patchwork
+library(patchwork)
+
+p1 <- ggplot(mpg_sample, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  ggtitle("Plot 1")
+
+p2 <- ggplot(mpg_sample, aes(x = hwy)) + 
+  geom_histogram(bins = 20) + 
+  ggtitle("Plot 2")
+
+p3 <- ggplot(mpg_sample, aes(x = class, y = hwy)) + 
+  geom_boxplot() + 
+  ggtitle("Plot 3")
+
+# Arrange plots
+p1 + p2 + p3  # Side by side
+p1 / (p2 + p3)  # Custom layout</code></pre>
+
+    <h3>Advanced Plotting Techniques</h3>
+
+    <pre><code># Custom coordinate systems
+ggplot(mpg_sample, aes(x = class, fill = class)) +
+  geom_bar() +
+  coord_flip() +
+  theme(legend.position = "none")
+
+# Polar coordinates
+ggplot(diamonds_sample %>% count(cut), aes(x = "", y = n, fill = cut)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y") +
+  labs(title = "Pie Chart of Diamond Cuts")
+
+# Annotations
+ggplot(economics, aes(x = date, y = unemploy)) +
+  geom_line() +
+  geom_vline(xintercept = as.Date("2008-09-15"), linetype = "dashed", color = "red") +
+  geom_text(aes(x = as.Date("2008-09-15"), y = 15000, label = "2008 Financial Crisis"), 
+            hjust = -0.1)
+
+# Custom scales
+ggplot(diamonds_sample, aes(x = carat, y = price, color = price)) +
+  geom_point(alpha = 0.7) +
+  scale_color_gradient2(
+    low = "blue", 
+    mid = "white", 
+    high = "red", 
+    midpoint = 10000
+  )
+
+# Log scales
+ggplot(diamonds_sample, aes(x = carat, y = price)) +
+  geom_point(alpha = 0.7) +
+  scale_y_log10()
+
+# Saving plots
+# ggsave("my_plot.png", width = 8, height = 6, dpi = 300)</code></pre>
+
+    <div class="exercise">
+        <h4>Exercise: Data Visualization</h4>
+        <p>Using the diamonds dataset from ggplot2, create the following visualizations:</p>
+        <ol>
+            <li>A scatterplot showing the relationship between carat and price, with points colored by clarity</li>
+            <li>A set of box plots showing price distribution by cut, with fill colors indicating cut quality</li>
+            <li>A histogram of diamond prices with suitable bins and a density overlay</li>
+            <li>A faceted plot showing the relationship between carat and price for each combination of cut and color</li>
+            <li>A custom visualization that shows the average price for each combination of cut and clarity using a heatmap or tile plot</li>
+        </ol>
+        <p>Make sure to include appropriate titles, labels, and theme customizations for clarity.</p>
+        <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
+        <div class="solution">
+            <pre><code>library(tidyverse)
+
+# Use a subset of diamonds for faster plotting
+set.seed(123)
+diamonds_sample <- diamonds %>% sample_n(5000)
+
+# 1. Scatterplot of carat vs price, colored by clarity
+plot1 <- ggplot(diamonds_sample, aes(x = carat, y = price, color = clarity)) +
+  geom_point(alpha = 0.7) +
+  scale_color_viridis_d() + # Use colorblind-friendly palette
+  labs(
+    title = "Diamond Price vs. Carat",
+    subtitle = "Colored by Clarity",
+    x = "Carat (weight)",
+    y = "Price (USD)",
+    color = "Clarity"
+  ) +
+  theme_minimal()
+
+# 2. Box plots of price by cut, filled by cut
+plot2 <- ggplot(diamonds_sample, aes(x = cut, y = price, fill = cut)) +
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Blues") +
+  labs(
+    title = "Diamond Price Distribution by Cut",
+    x = "Cut Quality",
+    y = "Price (USD)"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+
+# 3. Histogram of diamond prices with density overlay
+plot3 <- ggplot(diamonds_sample, aes(x = price)) +
+  geom_histogram(aes(y = ..density..), bins = 30, fill = "lightblue", color = "darkblue", alpha = 0.7) +
+  geom_density(color = "red", size = 1) +
+  labs(
+    title = "Distribution of Diamond Prices",
+    x = "Price (USD)",
+    y = "Density"
+  ) +
+  scale_x_continuous(labels = scales::dollar) +
+  theme_minimal()
+
+# 4. Faceted plot of carat vs price by cut and color
+plot4 <- ggplot(diamonds_sample, aes(x = carat, y = price)) +
+  geom_point(alpha = 0.5, size = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, color = "red", linewidth = 0.5) +
+  facet_grid(color ~ cut) +
+  labs(
+    title = "Relationship between Carat and Price",
+    subtitle = "Faceted by Diamond Color and Cut",
+    x = "Carat (weight)",
+    y = "Price (USD)"
+  ) +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray"),
+    strip.text = element_text(face = "bold")
+  )
+
+# 5. Heatmap of average price by cut and clarity
+plot5 <- diamonds_sample %>%
+  group_by(cut, clarity) %>%
+  summarize(
+    avg_price = mean(price),
+    count = n(),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x = clarity, y = cut, fill = avg_price)) +
+  geom_tile() +
+  geom_text(aes(label = scales::dollar(round(avg_price, -2))), 
+            color = "white", fontface = "bold") +
+  scale_fill_viridis_c() +
+  labs(
+    title = "Average Diamond Price by Cut and Clarity",
+    x = "Clarity",
+    y = "Cut",
+    fill = "Avg. Price"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+
+# Display plots (assuming RStudio environment)
+# For HTML output, you would need to include a way to display the plots
+# If using knitr/rmarkdown, these would display automatically
+print(plot1)
+print(plot2)
+print(plot3)
+print(plot4)
+print(plot5)
+
+# Using patchwork to arrange multiple plots
+library(patchwork)
+
+# Create a combined layout
+combined_plot <- (plot1 | plot2) / 
+                 (plot3) / 
+                 (plot5)
+
+# Add a title to the combined plot
+combined_plot + 
+  plot_annotation(
+    title = "Diamond Analysis Dashboard",
+    caption = "Source: diamonds dataset from ggplot2"
+  )</code></pre>
+        </div>
+    </div>
+
+    <h2 id="pipeline">Building Data Pipelines</h2>
+
+    <p>One of the Tidyverse's greatest strengths is the ability to build clear, readable data pipelines that take raw data through multiple transformation steps to produce meaningful results.</p>
+
+    <h3>The Pipe Operator</h3>
+
+    <pre><code># The pipe operator: %>% 
+# Takes the output of one function and passes it as the first argument to the next function
+
+# Without the pipe
+head(arrange(filter(mutate(mtcars, power_to_weight = hp/wt), 
+                    power_to_weight > 50), 
+             desc(power_to_weight)))
+
+# With the pipe
+mtcars %>%
+  mutate(power_to_weight = hp/wt) %>%
+  filter(power_to_weight > 50) %>%
+  arrange(desc(power_to_weight)) %>%
+  head()
+
+# In R 4.1+, there's also a native pipe: |>
+# mtcars |>
+#   mutate(power_to_weight = hp/wt) |>
+#   filter(power_to_weight > 50) |>
+#   arrange(desc(power_to_weight)) |>
+#   head()</code></pre>
+
+    <h3>End-to-End Data Pipeline Examples</h3>
+
+    <pre><code># Example 1: Summary statistics by group
+diamonds %>%
+  # Prepare data
+  mutate(
+    price_per_carat = price / carat,
+    size_category = case_when(
+      carat < 0.5 ~ "Small",
+      carat < 1.0 ~ "Medium",
+      carat < 2.0 ~ "Large",
+      TRUE ~ "Very Large"
+    )
+  ) %>%
+  # Group and analyze
+  group_by(cut, size_category) %>%
+  summarize(
+    count = n(),
+    avg_price = mean(price),
+    median_price = median(price),
+    min_price = min(price),
+    max_price = max(price),
+    price_range = max_price - min_price,
+    .groups = "drop"
+  ) %>%
+  # Final preparation for presentation
+  arrange(cut, size_category) %>%
+  mutate(
+    across(c(avg_price, median_price, min_price, max_price), ~ round(., 0))
+  )
+
+# Example 2: Data clean-up, analysis and visualization
+mpg %>%
+  # Data cleaning
+  filter(!is.na(hwy), !is.na(cty)) %>%
+  mutate(
+    # Create ratio of hwy to city MPG
+    mpg_ratio = hwy / cty,
+    # Classify vehicles
+    size_type = paste(class, drv, sep = "_"),
+    # Create model year as factor
+    year = as.factor(year)
+  ) %>%
+  # Analysis
+  group_by(manufacturer, year) %>%
+  summarize(
+    models = n_distinct(model),
+    avg_hwy = mean(hwy),
+    avg_cty = mean(cty),
+    avg_ratio = mean(mpg_ratio),
+    .groups = "drop"
+  ) %>%
+  # Visualization
+  ggplot(aes(x = manufacturer, y = avg_hwy, fill = year)) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  labs(
+    title = "Average Highway MPG by Manufacturer",
+    subtitle = "Comparing 1999 vs. 2008 Models",
+    x = NULL,
+    y = "Average Highway MPG"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+# Example 3: Multi-stage pipeline with output at different steps
+diamonds_analysis <- diamonds %>%
+  # Create analysis variables
+  mutate(
+    price_per_carat = price / carat,
+    volume = x * y * z
+  )
+
+# Extract summary by cut
+cut_summary <- diamonds_analysis %>%
+  group_by(cut) %>%
+  summarize(
+    avg_price = mean(price),
+    avg_price_per_carat = mean(price_per_carat),
+    avg_volume = mean(volume, na.rm = TRUE),
+    count = n(),
+    .groups = "drop"
+  )
+
+# Extract summary by clarity
+clarity_summary <- diamonds_analysis %>%
+  group_by(clarity) %>%
+  summarize(
+    avg_price = mean(price),
+    avg_price_per_carat = mean(price_per_carat),
+    avg_volume = mean(volume, na.rm = TRUE),
+    count = n(),
+    .groups = "drop"
+  )
+
+# Create visualization
+ggplot(cut_summary, aes(x = cut, y = avg_price, fill = cut)) +
+  geom_col() +
+  geom_text(aes(label = scales::dollar(round(avg_price, 0))), 
+            vjust = -0.5) +
+  labs(
+    title = "Average Diamond Price by Cut",
+    x = NULL,
+    y = "Average Price (USD)"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")</code></pre>
+
+    <h3>Best Practices for Data Pipelines</h3>
+
+    <pre><code># 1. Use meaningful variable names
+diamonds %>%
+  # Good: descriptive names
+  mutate(
+    price_per_carat = price / carat,
+    is_expensive = price > mean(price)
+  )
+
+# 2. Add comments for complex steps
+diamonds %>%
+  # Filter to focus on higher quality diamonds
+  filter(cut %in% c("Premium", "Ideal")) %>%
+  # Calculate value metrics
+  mutate(
+    # Price per unit volume as a proxy for value
+    value_metric = price / (x * y * z)
+  )
+
+# 3. Break long pipelines into logical segments
+# Start with raw data cleaning
+clean_data <- raw_data %>%
+  filter(!is.na(key_column)) %>%
+  mutate(clean_date = as.Date(date_column))
+
+# Perform analysis on clean data
+analysis_result <- clean_data %>%
+  group_by(category) %>%
+  summarize(metric = mean(value))
+
+# 4. Align steps for readability
+diamonds %>%
+  filter(carat >= 0.5)       %>%  # Only larger diamonds
+  filter(price < 10000)      %>%  # Under $10k
+  filter(cut %in% c("Ideal", 
+                    "Premium")) %>%  # Higher quality only
+  group_by(cut, clarity)     %>%  # Group for analysis
+  summarize(avg_price = mean(price))
+
+# 5. Use view() for debugging
+# diamonds %>%
+#   mutate(new_var = complicated_calculation) %>%
+#   view() %>%  # Check intermediate result
+#   filter(new_var > threshold)
+
+# 6. Handle grouped data carefully
+diamonds %>%
+  group_by(cut) %>%
+  summarize(
+    avg_price = mean(price),
+    n = n()
+  ) %>%
+  ungroup() %>%  # Don't forget to ungroup when done!
+  mutate(
+    pct = n / sum(n) * 100
+  )
+
+# 7. Save intermediate results for complex analyses
+large_diamonds <- diamonds %>% filter(carat > 1)
+small_diamonds <- diamonds %>% filter(carat <= 1)
+
+large_summary <- large_diamonds %>% group_by(cut) %>% summarize(avg = mean(price))
+small_summary <- small_diamonds %>% group_by(cut) %>% summarize(avg = mean(price))
+
+comparison <- left_join(large_summary, small_summary, 
+                        by = "cut", suffix = c("_large", "_small"))</code></pre>
+
+    <div class="exercise">
+        <h4>Exercise: Building an End-to-End Pipeline</h4>
+        <p>Your task is to build a comprehensive data analysis pipeline using the NYC flights dataset (<code>nycflights13::flights</code>).</p>
+        <p>Your pipeline should:</p>
+        <ol>
+            <li>Clean the data by removing flights with missing arrival or departure times</li>
+            <li>Add calculated columns for:
+                <ul>
+                    <li>Flight duration in hours</li>
+                    <li>Whether the flight was delayed (arrival delay > 0)</li>
+                    <li>Time of day category (morning: 5-11, afternoon: 12-17, evening: 18-23, night: 0-4)</li>
+                </ul>
+            </li>
+            <li>Create a summary by airline showing:
+                <ul>
+                    <li>Total number of flights</li>
+                    <li>Percentage of delayed flights</li>
+                    <li>Average delay duration (for delayed flights)</li>
+                    <li>Average flight duration</li>
+                </ul>
+            </li>
+            <li>Create a summary by origin airport and month showing how delay percentages changed throughout the year</li>
+            <li>Visualize:
+                <ul>
+                    <li>The relationship between departure time and delay probability</li>
+                    <li>The top 10 airline-destination pairs with the worst delay records</li>
+                </ul>
+            </li>
+            <li>Create a final report tibble combining key metrics for executive review</li>
+        </ol>
+        <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
+        <div class="solution">
+            <pre><code>library(tidyverse)
+library(nycflights13)
+
+# Load the flights data
+flights_data <- nycflights13::flights
+
+# Also load airlines data for carrier names
+airlines_data <- nycflights13::airlines
+
+# 1. Clean the data
+clean_flights <- flights_data %>%
+  # Remove flights with missing arrival or departure times
+  filter(!is.na(arr_time), !is.na(dep_time)) %>%
+  # Add airline name
+  left_join(airlines_data, by = c("carrier"))
+
+# 2. Add calculated columns
+processed_flights <- clean_flights %>%
+  mutate(
+    # Flight duration in hours (air_time is in minutes)
+    flight_duration_hrs = air_time / 60,
+    
+    # Whether the flight was delayed
+    is_delayed = arr_delay > 0,
+    
+    # Delay category
+    delay_category = case_when(
+      arr_delay <= 0 ~ "On Time",
+      arr_delay <= 15 ~ "Slight Delay",
+      arr_delay <= 60 ~ "Moderate Delay",
+      arr_delay <= 180 ~ "Significant Delay",
+      TRUE ~ "Severe Delay"
+    ),
+    
+    # Time of day category based on scheduled departure time
+    hour = dep_time %/% 100,  # Extract hour from dep_time
+    time_of_day = case_when(
+      hour >= 5 & hour < 12 ~ "Morning",
+      hour >= 12 & hour < 18 ~ "Afternoon",
+      hour >= 18 & hour < 24 ~ "Evening",
+      TRUE ~ "Night"
+    )
+  )
+
+# 3. Create summary by airline
+airline_summary <- processed_flights %>%
+  group_by(carrier, name) %>%
+  summarize(
+    total_flights = n(),
+    delayed_flights = sum(is_delayed),
+    pct_delayed = mean(is_delayed) * 100,
+    avg_delay_duration = mean(arr_delay[is_delayed], na.rm = TRUE),
+    avg_flight_duration = mean(flight_duration_hrs, na.rm = TRUE),
+    median_delay = median(arr_delay[is_delayed], na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(pct_delayed))
+
+# 4. Create summary by origin airport and month
+monthly_delay_by_origin <- processed_flights %>%
+  group_by(origin, month) %>%
+  summarize(
+    total_flights = n(),
+    pct_delayed = mean(is_delayed, na.rm = TRUE) * 100,
+    avg_delay = mean(arr_delay[is_delayed], na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(origin, month)
+
+# 5a. Visualize: relationship between departure time and delay probability
+time_delay_viz <- processed_flights %>%
+  mutate(
+    # Round hour to nearest hour for grouping
+    hour_rounded = hour
+  ) %>%
+  group_by(hour_rounded) %>%
+  summarize(
+    total_flights = n(),
+    pct_delayed = mean(is_delayed, na.rm = TRUE) * 100,
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x = hour_rounded, y = pct_delayed)) +
+  geom_line(color = "steelblue", size = 1) +
+  geom_point(color = "steelblue", size = 3) +
+  geom_smooth(method = "loess", se = FALSE, color = "red", linetype = "dashed") +
+  labs(
+    title = "Flight Delay Probability by Hour of Departure",
+    subtitle = "Percentage of flights delayed by scheduled departure hour",
+    x = "Hour of Day (24-hour)",
+    y = "Percentage of Flights Delayed"
+  ) +
+  scale_x_continuous(breaks = seq(0, 23, by = 2)) +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  theme_minimal() +
+  theme(
+    panel.grid.minor = element_blank()
+  )
+
+# 5b. Top 10 airline-destination pairs with worst delay records
+# (for routes with at least 100 flights)
+worst_routes <- processed_flights %>%
+  group_by(name, dest) %>%
+  summarize(
+    total_flights = n(),
+    pct_delayed = mean(is_delayed, na.rm = TRUE) * 100,
+    avg_delay = mean(arr_delay[is_delayed], na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  filter(total_flights >= 100) %>%
+  arrange(desc(pct_delayed)) %>%
+  head(10)
+
+worst_routes_viz <- ggplot(worst_routes, aes(x = reorder(paste(name, "-", dest), pct_delayed), y = pct_delayed, fill = avg_delay)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_viridis_c() +
+  labs(
+    title = "Top 10 Routes with Highest Delay Percentages",
+    subtitle = "For routes with at least 100 flights",
+    x = NULL,
+    y = "Percentage of Flights Delayed",
+    fill = "Avg Delay (min)"
+  ) +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  theme_minimal()
+
+# 6. Create a final report tibble for executive review
+executive_summary <- tibble(
+  # Overall statistics
+  total_flights = nrow(processed_flights),
+  total_airlines = n_distinct(processed_flights$carrier),
+  overall_delay_pct = mean(processed_flights$is_delayed, na.rm = TRUE) * 100,
+  avg_delay_duration = mean(processed_flights$arr_delay[processed_flights$is_delayed], na.rm = TRUE),
+  
+  # Best performing airline
+  best_airline = airline_summary %>% arrange(pct_delayed) %>% pull(name) %>% first(),
+  best_airline_delay_pct = airline_summary %>% arrange(pct_delayed) %>% pull(pct_delayed) %>% first(),
+  
+  # Worst performing airline
+  worst_airline = airline_summary %>% arrange(desc(pct_delayed)) %>% pull(name) %>% first(),
+  worst_airline_delay_pct = airline_summary %>% arrange(desc(pct_delayed)) %>% pull(pct_delayed) %>% first(),
+  
+  # Best time of day to fly
+  best_time = processed_flights %>% 
+    group_by(time_of_day) %>% 
+    summarize(pct_delayed = mean(is_delayed) * 100) %>% 
+    arrange(pct_delayed) %>% 
+    pull(time_of_day) %>% 
+    first(),
+  
+  # Worst month to fly
+  worst_month = processed_flights %>% 
+    group_by(month) %>% 
+    summarize(pct_delayed = mean(is_delayed) * 100) %>% 
+    arrange(desc(pct_delayed)) %>% 
+    pull(month) %>% 
+    first()
+)
+
+# Display the results
+list(
+  airline_summary = head(airline_summary, 5),
+  monthly_delay_example = filter(monthly_delay_by_origin, origin == "JFK"),
+  time_delay_viz = time_delay_viz,
+  worst_routes = worst_routes,
+  worst_routes_viz = worst_routes_viz,
+  executive_summary = executive_summary
+)</code></pre>
+        </div>
+    </div>
+
+    <h2 id="comparison">Tidyverse vs Base R</h2>
+
+    <p>The Tidyverse provides an alternative approach to many operations that can be accomplished with base R functions. Understanding the differences and when to use each can help you write more effective R code.</p>
+
+    <h3>Conceptual Differences</h3>
+    <ul>
+        <li><strong>Design Philosophy</strong>: Tidyverse emphasizes consistent interfaces, pipelines, and tidy data principles</li>
+        <li><strong>Learning Curve</strong>: Tidyverse can be more intuitive for beginners but requires learning a new set of functions</li>
+        <li><strong>Performance</strong>: Base R can sometimes be faster for simple operations, but tidyverse often leads to more readable and maintainable code</li>
+    </ul>
+
+    <h3>Common Operations Compared</h3>
+
+    <pre><code># Sample data
+set.seed(123)
+df <- data.frame(
+  id = 1:10,
+  group = rep(c("A", "B"), each = 5),
+  value1 = rnorm(10),
+  value2 = runif(10)
+)
+
+## Filtering rows
+# Base R
+df_filtered_base <- df[df$group == "A" & df$value1 > 0, ]
+
+# Tidyverse
+df_filtered_tidy <- df %>% filter(group == "A", value1 > 0)
+
+## Selecting columns
+# Base R
+df_selected_base <- df[, c("id", "value1")]
+
+# Tidyverse
+df_selected_tidy <- df %>% select(id, value1)
+
+## Creating new variables
+# Base R
+df$value3 <- df$value1 + df$value2
+df$value4 <- ifelse(df$group == "A", df$value1 * 2, df$value1)
+
+# Tidyverse
+df_mutated <- df %>%
+  mutate(
+    value3 = value1 + value2,
+    value4 = if_else(group == "A", value1 * 2, value1)
+  )
+
+## Sorting data
+# Base R
+df_sorted_base <- df[order(df$group, -df$value1), ]
+
+# Tidyverse
+df_sorted_tidy <- df %>% arrange(group, desc(value1))
+
+## Summarizing data
+# Base R
+aggregate(value1 ~ group, data = df, FUN = mean)
+
+# Tidyverse
+df %>%
+  group_by(group) %>%
+  summarize(mean_value = mean(value1))
+
+## Reshaping data
+# Base R: Wide to long
+library(stats)
+df_long_base <- reshape(
+  df,
+  direction = "long",
+  varying = list(c("value1", "value2")),
+  v.names = "value",
+  idvar = c("id", "group"),
+  timevar = "variable",
+  times = c("value1", "value2")
+)
+
+# Tidyverse: Wide to long
+df_long_tidy <- df %>%
+  pivot_longer(
+    cols = c(value1, value2),
+    names_to = "variable",
+    values_to = "value"
+  )
+
+## Handling missing values
+# Base R
+df_na <- df
+df_na$value1[c(2, 5)] <- NA
+df_na_complete_base <- df_na[complete.cases(df_na), ]
+
+# Tidyverse
+df_na_complete_tidy <- df_na %>% drop_na()</code></pre>
+
+    <h3>When to Use Each Approach</h3>
+    <div class="note">
+        <h4>Consider Using Base R When:</h4>
+        <ul>
+            <li>Working with simple, one-off operations</li>
+            <li>Performance is critical for a specific operation</li>
+            <li>Working in environments where adding packages is restricted</li>
+            <li>Needing to maintain backward compatibility with older R code</li>
+            <li>Working with basic data structures like vectors and matrices</li>
+        </ul>
+    </div>
+
+    <div class="note">
+        <h4>Consider Using Tidyverse When:</h4>
+        <ul>
+            <li>Building data processing pipelines with multiple steps</li>
+            <li>Working with tabular/rectangular data (data frames, tibbles)</li>
+            <li>Code readability and maintainability are important</li>
+            <li>Working with real-world, messy data that needs cleaning</li>
+            <li>Creating visualizations (ggplot2)</li>
+            <li>Working in a team environment where consistent style is valuable</li>
+        </ul>
+    </div>
+
+    <h2 id="performance">Performance Considerations</h2>
+
+    <p>While the Tidyverse prioritizes readability and consistency, there are techniques to ensure your code remains efficient.</p>
+
+    <h3>General Performance Tips</h3>
+
+    <pre><code># Profile your code to identify bottlenecks
+library(profvis)
+# profvis({
+#   # Your code here
+# })
+
+# For large datasets, consider using data.table
+# library(data.table)
+# dt <- as.data.table(big_df)
+# result <- dt[group == "A", .(mean_val = mean(value)), by = category]
+
+# Use bench to compare different approaches
+library(bench)
+comparison <- bench::mark(
+  tidyverse = diamonds %>% 
+    group_by(cut) %>% 
+    summarize(avg_price = mean(price)),
+  
+  base_r = aggregate(price ~ cut, 
+                    data = diamonds,
+                    FUN = mean),
+  
+  iterations = 100
+)
+comparison
+
+# Use type-specific functions when possible
+# map_dbl is faster than map for numeric results
+x <- 1:1000
+system.time(map(x, sqrt))
+system.time(map_dbl(x, sqrt))</code></pre>
+
+    <h3>Specific Optimizations</h3>
+
+    <pre><code># Precompute values used multiple times
+diamonds_expensive <- mean(diamonds$price) * 2
+
+result <- diamonds %>%
+  mutate(
+    # Store the result rather than recalculating
+    expensive = price > diamonds_expensive
+  )
+
+# Use vectorized operations
+# Slower (not vectorized):
+df %>%
+  mutate(new_val = map_dbl(value, function(x) x^2 + 3*x + 1))
+
+# Faster (vectorized):
+df %>%
+  mutate(new_val = value^2 + 3*value + 1)
+
+# Minimize grouping/ungrouping operations
+# Less efficient:
+df %>%
+  group_by(category) %>%
+  summarize(avg = mean(value1)) %>%
+  ungroup() %>%
+  group_by(category) %>%
+  mutate(centered = avg - mean(avg))
+
+# More efficient:
+df %>%
+  group_by(category) %>%
+  summarize(
+    avg = mean(value1),
+    centered = avg - mean(value1)
+  )
+
+# Be careful with joins on large datasets
+# Better: filter before joining
+small_filtered <- large_df1 %>% 
+  filter(year > 2020)
+
+result <- small_filtered %>%
+  left_join(large_df2, by = "id")</code></pre>
+
+    <h3>Memory Management</h3>
+
+    <pre><code># Check the size of objects
+lobstr::obj_size(diamonds)
+
+# Remove large intermediate objects when no longer needed
+big_result <- diamonds %>% 
+  group_by(cut, clarity) %>%
+  summarize(avg = mean(price))
+
+# If big_result is only needed for this next step:
+final_result <- big_result %>%
+  filter(avg > 5000)
+
+# Clean up to free memory
+rm(big_result)
+gc()  # Force garbage collection
+
+# Working with chunks for very large data
+# library(vroom)  # For fast reading of large files
+# process_chunk <- function(chunk) {
+#   chunk %>%
+#     mutate(x = x * 2) %>%
+#     filter(x > 10)
+# }
+# 
+# result <- vroom::vroom_write(
+#   vroom::vroom("large_file.csv", col_types = cols(), 
+#              n_max = Inf, 
+#              chunk_size = 10000) %>%
+#     dplyr::group_by(chunk_number) %>%
+#     dplyr::group_modify(~ process_chunk(.x))
+# )</code></pre>
+
+    <div class="exercise">
+        <h4>Exercise: Performance Optimization</h4>
+        <p>Below is a function that processes the diamonds dataset inefficiently. Optimize it to run faster while maintaining the same output:</p>
+        <pre><code>slow_diamond_processing <- function(data) {
+  # Create a new category
+  data <- data %>%
+    mutate(price_category = if_else(price > mean(price), "High", "Low"))
+  
+  # Process each color separately
+  result_list <- list()
+  for (color_val in unique(data$color)) {
+    color_data <- data %>% filter(color == color_val)
+    
+    # Calculate stats
+    for (cut_val in unique(color_data$cut)) {
+      cut_data <- color_data %>% filter(cut == cut_val)
+      
+      avg_price <- mean(cut_data$price)
+      avg_carat <- mean(cut_data$carat)
+      count <- nrow(cut_data)
+      
+      # Add to results
+      result_list[[paste(color_val, cut_val, sep = "_")]] <- data.frame(
+        color = color_val,
+        cut = cut_val,
+        avg_price = avg_price,
+        avg_carat = avg_carat,
+        count = count
+      )
+    }
+  }
+  
+  # Combine results
+  result <- do.call(rbind, result_list)
+  
+  # Add overall percentage
+  result$percent_of_total <- result$count / sum(result$count) * 100
+  
+  return(result)
+}</code></pre>
+        <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
+        <div class="solution">
+            <pre><code>library(tidyverse)
+
+# Optimized version of the function
+fast_diamond_processing <- function(data) {
+  # Precalculate the mean price once
+  mean_price <- mean(data$price)
+  total_count <- nrow(data)
+  
+  # Do everything in one pipeline with proper grouping
+  result <- data %>%
+    # Create the price category
+    mutate(price_category = if_else(price > mean_price, "High", "Low")) %>%
+    # Group and calculate all statistics at once
+    group_by(color, cut) %>%
+    summarize(
+      avg_price = mean(price),
+      avg_carat = mean(carat),
+      count = n(),
+      .groups = "drop"  # Important to drop the groups
+    ) %>%
+    # Add percentage calculation
+    mutate(percent_of_total = count / total_count * 100)
+  
+  return(result)
+}
+
+# Measure and compare performance
+library(bench)
+
+# Sample a subset of diamonds for quicker benchmarking
+set.seed(123)
+diamonds_sample <- diamonds %>% sample_n(5000)
+
+benchmark <- bench::mark(
+  slow = slow_diamond_processing(diamonds_sample),
+  fast = fast_diamond_processing(diamonds_sample),
+  check = FALSE,  # We'll verify equivalence separately
+  iterations = 10
+)
+
+# Show performance comparison
+benchmark %>%
+  select(expression, min, median, mem_alloc, gc) %>%
+  arrange(median)
+
+# Verify that both functions produce equivalent results
+# (after sorting to ensure comparison is valid)
+slow_result <- slow_diamond_processing(diamonds_sample) %>%
+  arrange(color, cut)
+fast_result <- fast_diamond_processing(diamonds_sample) %>%
+  arrange(color, cut)
+
+# Check if they're equivalent (allowing for tiny floating point differences)
+equivalent <- all.equal(
+  slow_result %>% select(color, cut, count, avg_price, avg_carat),
+  fast_result %>% select(color, cut, count, avg_price, avg_carat),
+  tolerance = 1e-10
+)
+
+# Explanation of improvements:
+improvements <- c(
+  "1. Precalculated mean price and total count only once instead of repeatedly",
+  "2. Used proper grouping with group_by() instead of nested for loops",
+  "3. Calculated all statistics in a single summarize() operation",
+  "4. Avoided building and combining intermediate data frames",
+  "5. Added percent_of_total in a single vectorized operation",
+  "6. Used proper pipeline structure for clarity and efficiency"
+)
+
+# Output results
+list(
+  benchmark = benchmark,
+  results_equivalent = equivalent,
+  improvements = improvements
+)</code></pre>
+        </div>
+    </div>
+
+    <footer>
+        HARP Team R Training © 2025 | Created by Daryn Sutton
+    </footer>
+
+    <script>
+        // Optional: JavaScript to toggle solutions visibility
+        document.addEventListener('DOMContentLoaded', function() {
+            var checkAnswerButtons = document.querySelectorAll('.check-answer');
+            checkAnswerButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var solution = this.nextElementSibling;
+                    if (solution.style.display === 'none' || solution.style.display === '') {
+                        solution.style.display = 'block';
+                        this.textContent = 'Hide Solution';
+                    } else {
+                        solution.style.display = 'none';
+                        this.textContent = 'Show Solution';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+ 
+
+_
