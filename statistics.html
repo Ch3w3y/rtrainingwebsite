@@ -38,6 +38,23 @@
     code {
       font-family: 'Consolas', 'Monaco', monospace;
     }
+    .topic-nav {
+      background-color: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .topic-nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .topic-nav li {
+      margin-right: 10px; /* Kept for potential spacing adjustments */
+    }
     .section {
       background-color: white;
       padding: 25px;
@@ -62,6 +79,7 @@
       padding: 10px 15px;
       border-radius: 4px;
       cursor: pointer;
+      margin-top: 10px; /* Added margin */
     }
     button:hover {
       background-color: #2980b9;
@@ -114,11 +132,18 @@
       margin: 10px 0;
     }
     .code-input {
-      width: 100%;
-      height: 100px;
+      width: 95%; /* Adjusted width */
+      height: 80px; /* Adjusted height */
       font-family: 'Consolas', 'Monaco', monospace;
       padding: 10px;
       margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+     .resources {
+      margin-top: 30px;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
     }
     footer {
       background-color: #2c3e50;
@@ -130,169 +155,592 @@
   </style>
 </head>
 <body>
+  <!-- Assuming auth.js handles authentication/redirection if needed -->
   <script src="auth.js"></script>
 
   <header>
     <div class="container">
       <h1>Statistical Analysis in R</h1>
-      <p>Performing statistical tests and modeling</p>
+      <p>Performing statistical tests and modeling (Intermediate)</p>
     </div>
   </header>
 
   <div class="container">
     <a href="index.html" class="home-link">← Back to Course Index</a>
 
+    <div class="topic-nav section">
+      <h3>In this module:</h3>
+      <ul>
+        <li><a href="#descriptive-stats">Descriptive Statistics</a></li>
+        <li><a href="#correlation">Correlation Analysis</a></li>
+        <li><a href="#hypothesis-testing">Hypothesis Testing</a></li>
+        <li><a href="#linear-regression">Linear Regression</a></li>
+        <!-- Add more links as sections are added -->
+      </ul>
+    </div>
+
     <div class="section" id="descriptive-stats">
       <h2>Descriptive Statistics</h2>
-      <p>Descriptive statistics summarize and describe the main features of a dataset.</p>
+      <p>Descriptive statistics summarize and describe the main features of a dataset, providing a quantitative overview.</p>
 
-      <h3>Basic Summary Statistics</h3>
-      <pre><code># Summary of a dataset
-summary(data)
+      <h4>Basic Summary Statistics</h4>
+      <p>The `summary()` function provides a quick overview for numeric variables (min, 1st quartile, median, mean, 3rd quartile, max) and frequency counts for factors/characters.</p>
+      <pre><code># Load example data
+data(iris) # Famous dataset about iris flowers
 
-# Mean, median, and standard deviation
-mean(data$column_name, na.rm = TRUE)
-median(data$column_name, na.rm = TRUE)
-sd(data$column_name, na.rm = TRUE)</code></pre>
+# Summary of the entire dataset
+summary(iris)
 
-      <h3>Quantiles</h3>
-      <pre><code># Calculate quantiles
-quantile(data$column_name, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)</code></pre>
+# Summary of a specific column
+summary(iris$Sepal.Length)</code></pre>
 
-      <h3>Frequency Tables</h3>
-      <pre><code># Frequency of values
-table(data$column_name)
+      <h4>Measures of Central Tendency</h4>
+      <p>Describe the center of your data.</p>
+      <pre><code># Assuming 'data' is your data frame and 'column_name' is the column of interest
+# Replace with your actual data and column names
 
-# Proportions
-prop.table(table(data$column_name))</code></pre>
+# Mean (average)
+mean(iris$Sepal.Length, na.rm = TRUE) # na.rm = TRUE ignores missing values (NA)
+
+# Median (middle value when sorted)
+median(iris$Sepal.Length, na.rm = TRUE)
+
+# Mode (most frequent value) - R doesn't have a built-in function, requires custom code or package
+# Example using a simple custom function:
+get_mode <- function(v) {
+  uniqv <- unique(v[!is.na(v)]) # Get unique non-NA values
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+get_mode(iris$Species) # Output: "setosa" (or whichever is most frequent)</code></pre>
+
+      <h4>Measures of Dispersion (Variability)</h4>
+      <p>Describe how spread out your data is.</p>
+      <pre><code># Standard Deviation (average distance from the mean)
+sd(iris$Sepal.Length, na.rm = TRUE)
+
+# Variance (average squared distance from the mean)
+var(iris$Sepal.Length, na.rm = TRUE)
+
+# Range (difference between max and min)
+range_vals <- range(iris$Sepal.Length, na.rm = TRUE) # Returns min and max
+diff(range_vals) # Calculates the difference
+
+# Minimum and Maximum
+min(iris$Sepal.Length, na.rm = TRUE)
+max(iris$Sepal.Length, na.rm = TRUE)
+
+# Quantiles (including Quartiles and Percentiles)
+# Quartiles divide data into 4 equal parts
+quantile(iris$Sepal.Length, na.rm = TRUE) # Default: 0%, 25%, 50%, 75%, 100%
+
+# Specific quantiles/percentiles
+quantile(iris$Sepal.Length, probs = c(0.1, 0.5, 0.9), na.rm = TRUE) # 10th, 50th, 90th percentiles
+
+# Interquartile Range (IQR): Difference between 75th and 25th percentiles
+IQR(iris$Sepal.Length, na.rm = TRUE)</code></pre>
+
+      <h4>Frequency Distributions</h4>
+      <p>Show how often different values or categories occur.</p>
+      <pre><code># Frequency table for a categorical variable (Factor)
+table(iris$Species)
+
+# Frequency table for a numeric variable (often less useful unless rounded/binned)
+# table(iris$Sepal.Length) # Shows count for each unique length
+
+# Proportions table (frequencies as percentages)
+prop.table(table(iris$Species))
+
+# Cross-tabulation (frequency table for two categorical variables)
+# Example: Create a categorical size variable first
+iris$Size <- ifelse(iris$Sepal.Length < median(iris$Sepal.Length), "Small", "Large")
+table(iris$Species, iris$Size)</code></pre>
+
+      <h4>Grouped Summaries (using dplyr)</h4>
+      <p>Often, you want summaries calculated for different groups within your data. The `dplyr` package is excellent for this.</p>
+      <pre><code>library(dplyr) # Make sure dplyr is installed and loaded
+
+iris %>%
+  group_by(Species) %>%
+  summarize(
+    Avg.Sepal.Length = mean(Sepal.Length, na.rm = TRUE),
+    Median.Petal.Width = median(Petal.Width, na.rm = TRUE),
+    SD.Sepal.Width = sd(Sepal.Width, na.rm = TRUE),
+    N = n() # Count number of observations in each group
+  )</code></pre>
 
       <div class="exercise">
         <h3>Exercise: Descriptive Statistics</h3>
-        <p>Write code to calculate the mean, median, and standard deviation of the column <code>score</code>, ignoring missing values.</p>
+        <p>Using the built-in `mtcars` dataset:</p>
+        <p>1. Calculate the mean, median, and standard deviation of the miles per gallon (`mpg`) column.</p>
+        <p>2. Find the 10th and 90th percentiles for the horsepower (`hp`) column.</p>
+        <p>3. Create a frequency table for the number of cylinders (`cyl`).</p>
+        <p>4. Using `dplyr`, calculate the average `mpg` and average weight (`wt`) for each cylinder group (`cyl`).</p>
+        <button onclick="toggleSolution('sol_desc_stats')">Show/Hide Solution Code</button>
+        <div class="result" id="sol_desc_stats" style="display: none; background-color: #f5f5f5;">
+            <pre><code># Load the dataset (already available in R)
+data(mtcars)
 
-        <textarea class="code-input" id="descriptive-stats-exercise"></textarea>
+# 1. Mean, Median, SD for mpg
+mean_mpg <- mean(mtcars$mpg, na.rm = TRUE)
+median_mpg <- median(mtcars$mpg, na.rm = TRUE)
+sd_mpg <- sd(mtcars$mpg, na.rm = TRUE)
+print(paste("Mean MPG:", round(mean_mpg, 2)))
+print(paste("Median MPG:", round(median_mpg, 2)))
+print(paste("SD MPG:", round(sd_mpg, 2)))
 
-        <button onclick="checkDescriptiveStatsExercise()">Check Answer</button>
-        <div id="descriptive-stats-exercise-result" class="result"></div>
+# 2. Percentiles for hp
+hp_percentiles <- quantile(mtcars$hp, probs = c(0.1, 0.9), na.rm = TRUE)
+print("Horsepower Percentiles (10th, 90th):")
+print(hp_percentiles)
+
+# 3. Frequency table for cyl
+cyl_table <- table(mtcars$cyl)
+print("Cylinder Frequency Table:")
+print(cyl_table)
+
+# 4. Grouped summary using dplyr
+library(dplyr)
+grouped_summary <- mtcars %>%
+  group_by(cyl) %>%
+  summarize(
+    Average_MPG = mean(mpg, na.rm = TRUE),
+    Average_Weight = mean(wt, na.rm = TRUE),
+    Count = n()
+  )
+print("Summary by Number of Cylinders:")
+print(grouped_summary)</code></pre>
+        </div>
       </div>
     </div>
 
     <div class="section" id="correlation">
       <h2>Correlation Analysis</h2>
-      <p>Correlation measures the strength and direction of the relationship between two variables.</p>
+      <p>Correlation measures the strength and direction of the linear relationship between two numeric variables. The correlation coefficient ranges from -1 to +1:</p>
+      <ul>
+        <li>+1: Perfect positive linear relationship</li>
+        <li>-1: Perfect negative linear relationship</li>
+        <li>0: No linear relationship</li>
+      </ul>
+      <p><strong>Important:</strong> Correlation does not imply causation!</p>
 
-      <h3>Calculating Correlation</h3>
-      <pre><code># Pearson correlation
-cor(data$x, data$y, method = "pearson")
+      <h4>Calculating Correlation Coefficients</h4>
+      <p>The `cor()` function calculates the correlation. Key methods include:</p>
+      <ul>
+        <li><strong>Pearson (default):</strong> Measures linear association. Assumes data is approximately normally distributed and the relationship is linear. Sensitive to outliers.</li>
+        <li><strong>Spearman:</strong> Measures monotonic association (whether one variable tends to increase as the other increases, not necessarily linearly). Rank-based, less sensitive to outliers, doesn't assume normality.</li>
+        <li><strong>Kendall:</strong> Also measures monotonic association using ranks. Often used for smaller datasets or data with many tied ranks.</li>
+      </ul>
+      <pre><code># Using iris dataset (selecting only numeric columns for correlation)
+iris_numeric <- iris[, 1:4] # Select Sepal.Length, Sepal.Width, Petal.Length, Petal.Width
+
+# Pearson correlation between two variables
+cor(iris_numeric$Sepal.Length, iris_numeric$Petal.Length, method = "pearson")
+# Or simply: cor(iris$Sepal.Length, iris$Petal.Length)
 
 # Spearman correlation
-cor(data$x, data$y, method = "spearman")
+cor(iris_numeric$Sepal.Length, iris_numeric$Petal.Length, method = "spearman")
 
 # Kendall correlation
-cor(data$x, data$y, method = "kendall")</code></pre>
+cor(iris_numeric$Sepal.Length, iris_numeric$Petal.Length, method = "kendall")
 
-      <h3>Correlation Matrix</h3>
-      <pre><code># Correlation matrix for multiple variables
-cor(data[, c("x", "y", "z")], use = "complete.obs")</code></pre>
+# Handling missing values in correlation
+# Option 1: use = "complete.obs" (removes rows with any NA in the pair)
+# cor(data$x, data$y, use = "complete.obs")
+# Option 2: use = "pairwise.complete.obs" (uses all available pairs for each calculation)
+# cor(data_frame_with_NAs, use = "pairwise.complete.obs")</code></pre>
+
+      <h4>Correlation Matrix</h4>
+      <p>Calculate correlations between multiple variables simultaneously.</p>
+      <pre><code># Correlation matrix for the numeric iris columns
+cor_matrix <- cor(iris_numeric, method = "pearson", use = "complete.obs")
+print(round(cor_matrix, 2)) # Round for readability</code></pre>
+
+      <h4>Visualizing Correlations</h4>
+      <p>Scatter plots are essential for visualizing the relationship between two variables. Correlation matrices can be visualized using packages like `corrplot` or `ggcorrplot`.</p>
+      <pre><code># Basic scatter plot
+plot(iris$Petal.Length, iris$Petal.Width,
+     main = "Petal Length vs. Petal Width",
+     xlab = "Petal Length (cm)",
+     ylab = "Petal Width (cm)",
+     pch = 19) # pch changes the plotting symbol
+
+# Correlation matrix visualization (requires installing packages)
+# install.packages("corrplot")
+library(corrplot)
+corrplot(cor_matrix, method = "circle") # Many methods available: "number", "color", etc.
+
+# install.packages("ggcorrplot")
+library(ggcorrplot)
+ggcorrplot(cor_matrix, hc.order = TRUE, type = "lower",
+           lab = TRUE, lab_size = 3, method="circle",
+           colors = c("blue", "white", "red"), title="Iris Correlation Matrix")</code></pre>
 
       <div class="exercise">
         <h3>Exercise: Correlation</h3>
-        <p>Write code to calculate the Pearson correlation between the columns <code>height</code> and <code>weight</code>.</p>
+        <p>Using the `mtcars` dataset:</p>
+        <p>1. Calculate the Pearson correlation coefficient between `mpg` (miles per gallon) and `wt` (weight).</p>
+        <p>2. Calculate the Spearman correlation coefficient between `hp` (horsepower) and `qsec` (1/4 mile time).</p>
+        <p>3. Generate a correlation matrix for the variables `mpg`, `wt`, `hp`, and `disp` (displacement).</p>
+        <p>4. Create a scatter plot of `mpg` vs `wt`.</p>
+        <button onclick="toggleSolution('sol_correlation')">Show/Hide Solution Code</button>
+        <div class="result" id="sol_correlation" style="display: none; background-color: #f5f5f5;">
+            <pre><code>data(mtcars)
 
-        <textarea class="code-input" id="correlation-exercise"></textarea>
+# 1. Pearson correlation mpg vs wt
+pearson_mpg_wt <- cor(mtcars$mpg, mtcars$wt, method = "pearson")
+print(paste("Pearson correlation (mpg vs wt):", round(pearson_mpg_wt, 3)))
 
-        <button onclick="checkCorrelationExercise()">Check Answer</button>
-        <div id="correlation-exercise-result" class="result"></div>
+# 2. Spearman correlation hp vs qsec
+spearman_hp_qsec <- cor(mtcars$hp, mtcars$qsec, method = "spearman")
+print(paste("Spearman correlation (hp vs qsec):", round(spearman_hp_qsec, 3)))
+
+# 3. Correlation matrix
+selected_vars <- mtcars[, c("mpg", "wt", "hp", "disp")]
+cor_matrix_mtcars <- cor(selected_vars, use = "complete.obs")
+print("Correlation Matrix (mpg, wt, hp, disp):")
+print(round(cor_matrix_mtcars, 2))
+
+# 4. Scatter plot mpg vs wt
+plot(mtcars$wt, mtcars$mpg,
+     main = "MPG vs. Weight",
+     xlab = "Weight (1000 lbs)",
+     ylab = "Miles per Gallon (MPG)",
+     pch = 19, col = "blue")
+# Add a regression line (optional)
+abline(lm(mpg ~ wt, data = mtcars), col = "red", lwd = 2)</code></pre>
+        </div>
       </div>
     </div>
 
     <div class="section" id="hypothesis-testing">
       <h2>Hypothesis Testing</h2>
-      <p>Hypothesis testing is used to determine whether there is enough evidence to reject a null hypothesis.</p>
+      <p>Hypothesis testing is a formal procedure for investigating ideas about the world using statistics. It involves setting up a null hypothesis (H₀, often stating no effect or no difference) and an alternative hypothesis (H₁, stating an effect or difference). We use sample data to determine if there's enough evidence to reject the null hypothesis.</p>
+      <p>Key concepts:</p>
+      <ul>
+        <li><strong>p-value:</strong> The probability of observing data as extreme as, or more extreme than, what was actually observed, *assuming the null hypothesis is true*.</li>
+        <li><strong>Significance Level (α):</strong> A threshold (commonly 0.05) used to make a decision. If p-value < α, we reject H₀.</li>
+        <li><strong>Rejecting H₀:</strong> Suggests evidence supports the alternative hypothesis.</li>
+        <li><strong>Failing to Reject H₀:</strong> Means there isn't enough evidence to support the alternative hypothesis (it doesn't prove H₀ is true).</li>
+      </ul>
 
-      <h3>t-Test</h3>
-      <pre><code># One-sample t-test
-t.test(data$column_name, mu = 0)
+      <h4>t-Tests</h4>
+      <p>Used to compare means.</p>
+      <ul>
+        <li><strong>One-Sample t-Test:</strong> Compares the mean of a single sample to a known population mean (or a hypothesized value).
+          <br><em>H₀: Sample mean = hypothesized mean (μ₀)</em></li>
+        <li><strong>Two-Sample t-Test (Independent):</strong> Compares the means of two independent groups. Assumes normality and equal variances (by default, Welch's correction is used if variances are unequal).
+          <br><em>H₀: Mean of group 1 = Mean of group 2</em></li>
+        <li><strong>Paired t-Test:</strong> Compares the means of the same subjects under two different conditions (e.g., before and after treatment).
+          <br><em>H₀: Mean difference between pairs = 0</em></li>
+      </ul>
+      <pre><code># Example data (replace with actual data)
+group1_scores <- rnorm(30, mean = 50, sd = 10)
+group2_scores <- rnorm(35, mean = 55, sd = 12)
+before_scores <- rnorm(25, mean = 100, sd = 15)
+after_scores <- before_scores + rnorm(25, mean = 5, sd = 5) # Simulate improvement
 
-# Two-sample t-test
-t.test(data$column_name ~ data$group)
+# One-sample t-test (Test if group1 mean is different from 48)
+t_result_one <- t.test(group1_scores, mu = 48)
+print(t_result_one)
+# Interpretation: Look at the p-value. If < 0.05, reject H0.
+# Look at the confidence interval for the mean. Does it contain 48?
 
-# Paired t-test
-t.test(data$before, data$after, paired = TRUE)</code></pre>
+# Two-sample t-test (Test if group1 and group2 means are different)
+t_result_two <- t.test(group1_scores, group2_scores) # Assumes unequal variances (Welch test)
+# To assume equal variances: t.test(group1_scores, group2_scores, var.equal = TRUE)
+print(t_result_two)
+# Interpretation: Look at p-value. If < 0.05, reject H0 (means are likely different).
 
-      <h3>Chi-Square Test</h3>
-      <pre><code># Chi-square test for independence
-chisq.test(table(data$column1, data$column2))</code></pre>
+# Paired t-test (Test if there's a difference between before and after)
+t_result_paired <- t.test(after_scores, before_scores, paired = TRUE)
+# Or equivalently: t.test(after_scores - before_scores, mu = 0)
+print(t_result_paired)
+# Interpretation: Look at p-value. If < 0.05, reject H0 (likely a significant difference).</code></pre>
+      <p><strong>Formula Notation for Two-Sample Test:</strong> You can also use formula notation, especially if your data is in a "long" format with a grouping variable.</p>
+      <pre><code># Example using iris data
+# Test if Sepal.Length differs between setosa and versicolor
+setosa_versicolor <- subset(iris, Species %in% c("setosa", "versicolor"))
+t.test(Sepal.Length ~ Species, data = setosa_versicolor)</code></pre>
 
-      <h3>ANOVA</h3>
-      <pre><code># One-way ANOVA
-aov_result <- aov(data$column_name ~ data$group)
-summary(aov_result)</code></pre>
+      <h4>Chi-Square Test (χ²)</h4>
+      <p>Used for analyzing categorical data.</p>
+      <ul>
+        <li><strong>Test for Independence:</strong> Determines if there is a significant association between two categorical variables.
+          <br><em>H₀: The two variables are independent.</em></li>
+        <li><strong>Goodness-of-Fit Test:</strong> Determines if sample proportions match hypothesized population proportions.
+          <br><em>H₀: Sample proportions = Hypothesized proportions.</em></li>
+      </ul>
+      <pre><code># Test for Independence (using the mtcars dataset's cyl and am columns)
+# Convert to factors if they aren't already
+mtcars$cyl_factor <- factor(mtcars$cyl)
+mtcars$am_factor <- factor(mtcars$am, labels = c("Automatic", "Manual"))
+
+contingency_table <- table(mtcars$cyl_factor, mtcars$am_factor)
+print(contingency_table)
+
+chisq_result <- chisq.test(contingency_table)
+print(chisq_result)
+# Interpretation: Look at p-value. If < 0.05, reject H0 (variables are likely associated).
+# Warning about expected counts might appear if counts are low (< 5).
+
+# Goodness-of-Fit Test (Example: Test if cylinder distribution matches 20%, 30%, 50%)
+observed_counts <- table(mtcars$cyl_factor)
+hypothesized_props <- c(0.2, 0.3, 0.5) # For 4, 6, 8 cylinders respectively
+chisq_gof_result <- chisq.test(observed_counts, p = hypothesized_props)
+print(chisq_gof_result)
+# Interpretation: Look at p-value. If < 0.05, reject H0 (sample distribution differs from hypothesized).</code></pre>
+
+      <h4>ANOVA (Analysis of Variance)</h4>
+      <p>Compares the means of three or more groups.</p>
+      <ul>
+        <li><strong>One-Way ANOVA:</strong> One categorical independent variable (factor) and one continuous dependent variable.
+          <br><em>H₀: The means of all groups are equal.</em></li>
+      </ul>
+      <pre><code># One-Way ANOVA using iris data (Compare Sepal.Length across the 3 Species)
+aov_result <- aov(Sepal.Length ~ Species, data = iris)
+summary(aov_result) # The summary shows the F-statistic and p-value
+# Interpretation: Look at the p-value ('Pr(>F)'). If < 0.05, reject H0 (at least one group mean is different).
+
+# If ANOVA is significant, use post-hoc tests to see which specific groups differ
+tukey_result <- TukeyHSD(aov_result)
+print(tukey_result)
+plot(tukey_result) # Visualize differences</code></pre>
+
+      <h4>Normality Tests</h4>
+      <p>Many statistical tests (like t-tests, ANOVA) assume data is normally distributed. The Shapiro-Wilk test is a common way to check this.</p>
+      <p><em>H₀: The data is normally distributed.</em></p>
+      <pre><code># Shapiro-Wilk test on iris Sepal.Length
+shapiro.test(iris$Sepal.Length)
+# Interpretation: If p-value < 0.05, reject H0 (data is likely not normally distributed).
+
+# Check normality within groups (important for ANOVA/t-tests)
+iris %>%
+  group_by(Species) %>%
+  summarize(shapiro_p_value = shapiro.test(Sepal.Length)$p.value)</code></pre>
 
       <div class="exercise">
         <h3>Exercise: Hypothesis Testing</h3>
-        <p>Write code to perform a two-sample t-test comparing the column <code>score</code> between two groups in the column <code>group</code>.</p>
+        <p>Using the `iris` dataset:</p>
+        <p>1. Perform a two-sample t-test to see if the mean `Petal.Width` is significantly different between the `versicolor` and `virginica` species.</p>
+        <p>2. Perform a one-way ANOVA to test if the mean `Sepal.Width` differs significantly across the three species.</p>
+        <p>3. Check if the `Petal.Length` for the `setosa` species appears to be normally distributed using the Shapiro-Wilk test.</p>
+        <button onclick="toggleSolution('sol_hypo_test')">Show/Hide Solution Code</button>
+        <div class="result" id="sol_hypo_test" style="display: none; background-color: #f5f5f5;">
+            <pre><code>data(iris)
+library(dplyr)
 
-        <textarea class="code-input" id="hypothesis-testing-exercise"></textarea>
+# 1. Two-sample t-test for Petal.Width (versicolor vs virginica)
+versi_virgi <- subset(iris, Species %in% c("versicolor", "virginica"))
+t_test_petal_width <- t.test(Petal.Width ~ Species, data = versi_virgi)
+print("T-test Result (Petal.Width: versicolor vs virginica):")
+print(t_test_petal_width)
+# Interpretation: Check the p-value. A small p-value (< 0.05) suggests a significant difference.
 
-        <button onclick="checkHypothesisTestingExercise()">Check Answer</button>
-        <div id="hypothesis-testing-exercise-result" class="result"></div>
+# 2. One-way ANOVA for Sepal.Width across Species
+aov_sepal_width <- aov(Sepal.Width ~ Species, data = iris)
+print("ANOVA Result (Sepal.Width ~ Species):")
+print(summary(aov_sepal_width))
+# Interpretation: Check the Pr(>F) value. A small p-value (< 0.05) suggests at least one species
+# has a different mean Sepal.Width. You could follow up with TukeyHSD().
+
+# 3. Shapiro-Wilk test for Petal.Length (setosa)
+setosa_petal_length <- subset(iris, Species == "setosa")$Petal.Length
+shapiro_test_setosa <- shapiro.test(setosa_petal_length)
+print("Shapiro-Wilk Test Result (Petal.Length for setosa):")
+print(shapiro_test_setosa)
+# Interpretation: Check the p-value. If > 0.05, we fail to reject the null hypothesis
+# of normality (i.e., it's plausible the data is normally distributed).</code></pre>
+        </div>
       </div>
     </div>
-  </div>
+
+    <div class="section" id="linear-regression">
+      <h2>Linear Regression</h2>
+      <p>Linear regression models the relationship between a continuous dependent variable (outcome) and one or more independent variables (predictors) by fitting a linear equation to the observed data.</p>
+      <p>The basic form is: Y = β₀ + β₁X₁ + β₂X₂ + ... + ε</p>
+      <ul>
+        <li>Y: Dependent variable</li>
+        <li>X₁, X₂,...: Independent variables</li>
+        <li>β₀: Intercept (value of Y when all X are 0)</li>
+        <li>β₁, β₂,...: Coefficients (change in Y for a one-unit change in X, holding others constant)</li>
+        <li>ε: Error term (variability not explained by the model)</li>
+      </ul>
+
+      <h4>Fitting a Linear Model (`lm`)</h4>
+      <p>The `lm()` function is used to fit linear models.</p>
+      <pre><code># Simple linear regression: Predict mpg from weight (wt) using mtcars
+model_simple <- lm(mpg ~ wt, data = mtcars)
+
+# Multiple linear regression: Predict mpg from weight (wt) and horsepower (hp)
+model_multiple <- lm(mpg ~ wt + hp, data = mtcars)
+
+# Regression with categorical predictors (R handles dummy coding automatically)
+# Predict mpg from weight (wt) and number of cylinders (cyl, treated as factor)
+model_factor <- lm(mpg ~ wt + factor(cyl), data = mtcars)</code></pre>
+
+      <h4>Interpreting Model Summary</h4>
+      <p>The `summary()` function provides detailed output about the fitted model.</p>
+      <pre><code># Get summary of the multiple regression model
+summary_multiple <- summary(model_multiple)
+print(summary_multiple)</code></pre>
+      <p>Key parts of the summary:</p>
+      <ul>
+        <li><strong>Call:</strong> Shows the formula used.</li>
+        <li><strong>Residuals:</strong> Summary statistics of the differences between observed and predicted values. Ideally centered around 0.</li>
+        <li><strong>Coefficients:</strong>
+          <ul>
+            <li>`Estimate`: The calculated values for β₀, β₁, etc.</li>
+            <li>`Std. Error`: The standard error of the coefficient estimates.</li>
+            <li>`t value`: The coefficient estimate divided by its standard error.</li>
+            <li>`Pr(>|t|)`: The p-value for the hypothesis test that the true coefficient is 0. Small p-values (< 0.05) suggest the predictor is significantly related to the outcome.</li>
+            <li>Signif. codes: Stars indicating significance levels (e.g., *** for p < 0.001).</li>
+          </ul>
+        </li>
+        <li><strong>Residual standard error:</strong> An estimate of the standard deviation of the error term (ε).</li>
+        <li><strong>R-squared (Multiple R-squared):</strong> The proportion of the variance in the dependent variable that is predictable from the independent variables (ranges from 0 to 1). Higher is generally better.</li>
+        <li><strong>Adjusted R-squared:</strong> R-squared adjusted for the number of predictors in the model. More suitable for comparing models with different numbers of predictors.</li>
+        <li><strong>F-statistic:</strong> Tests the overall significance of the model (H₀: All coefficients except the intercept are 0). A small p-value suggests the model is statistically significant overall.</li>
+      </ul>
+
+      <h4>Checking Model Assumptions</h4>
+      <p>Linear regression relies on several assumptions. Violations can invalidate the results. Common checks involve plotting residuals:</p>
+      <pre><code># Plot diagnostics for the multiple regression model
+par(mfrow = c(2, 2)) # Arrange plots in a 2x2 grid
+plot(model_multiple)
+par(mfrow = c(1, 1)) # Reset plotting layout</code></pre>
+      <p>Key diagnostic plots:</p>
+      <ul>
+        <li><strong>Residuals vs Fitted:</strong> Checks linearity and equal variance (homoscedasticity). Points should be randomly scattered around the horizontal line at 0, with no clear pattern (like a curve or funnel).</li>
+        <li><strong>Normal Q-Q:</strong> Checks if residuals are normally distributed. Points should fall approximately along the diagonal line.</li>
+        <li><strong>Scale-Location:</strong> Checks homoscedasticity again. Points should be randomly scattered with roughly constant spread.</li>
+        <li><strong>Residuals vs Leverage:</strong> Identifies influential points (outliers in X space that might unduly influence the regression line). Points outside Cook's distance lines might be problematic.</li>
+      </ul>
+
+      <h4>Making Predictions</h4>
+      <p>Use the `predict()` function to predict outcomes for new data.</p>
+      <pre><code># Create new data frame with values for predictors
+new_cars <- data.frame(
+  wt = c(2.5, 3.0, 3.5),
+  hp = c(100, 150, 200)
+)
+
+# Predict mpg for the new cars using the multiple regression model
+predicted_mpg <- predict(model_multiple, newdata = new_cars)
+print(predicted_mpg)
+
+# You can also get confidence or prediction intervals
+predict(model_multiple, newdata = new_cars, interval = "confidence") # Interval for the average mpg
+predict(model_multiple, newdata = new_cars, interval = "prediction") # Interval for a single new observation</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Linear Regression</h3>
+        <p>Using the `iris` dataset:</p>
+        <p>1. Fit a simple linear regression model predicting `Petal.Length` using `Sepal.Length` as the predictor.</p>
+        <p>2. Print the summary of the model. Is `Sepal.Length` a significant predictor of `Petal.Length`? What proportion of the variance in `Petal.Length` does the model explain?</p>
+        <p>3. Predict the `Petal.Length` for irises with `Sepal.Length` values of 5.0, 6.0, and 7.0.</p>
+        <p>4. (Optional) Plot the diagnostic plots for the model.</p>
+        <button onclick="toggleSolution('sol_regression')">Show/Hide Solution Code</button>
+        <div class="result" id="sol_regression" style="display: none; background-color: #f5f5f5;">
+            <pre><code>data(iris)
+
+# 1. Fit the linear model
+iris_model <- lm(Petal.Length ~ Sepal.Length, data = iris)
+
+# 2. Print and interpret summary
+model_summary <- summary(iris_model)
+print(model_summary)
+
+# Interpretation:
+# - Significance: Look at the p-value (Pr(>|t|)) for the Sepal.Length coefficient.
+#   If it's very small (typically < 0.05), then Sepal.Length is a significant predictor.
+# - Variance Explained: Look at the 'Multiple R-squared' value. This represents the
+#   proportion of variance explained (e.g., 0.75 means 75% of the variance in
+#   Petal.Length is explained by Sepal.Length in this model).
+
+# 3. Predict Petal.Length
+new_sepal_lengths <- data.frame(Sepal.Length = c(5.0, 6.0, 7.0))
+predicted_petal_lengths <- predict(iris_model, newdata = new_sepal_lengths)
+print("Predicted Petal Lengths:")
+print(predicted_petal_lengths)
+
+# 4. (Optional) Diagnostic plots
+par(mfrow = c(2, 2))
+plot(iris_model)
+par(mfrow = c(1, 1))</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="section resources">
+        <h3>Further Resources</h3>
+        <ul>
+            <li><a href="https://www.statmethods.net/stats/descriptives.html" target="_blank">Quick-R: Descriptive Statistics</a></li>
+            <li><a href="https://www.statmethods.net/stats/correlations.html" target="_blank">Quick-R: Correlations</a></li>
+            <li><a href="https://r4ds.had.co.nz/model-basics.html" target="_blank">R for Data Science: Model Basics (Intro to lm)</a></li>
+            <li><a href="https://www.statmethods.net/stats/regression.html" target="_blank">Quick-R: Regression</a></li>
+            <li><a href="https://www.statmethods.net/stats/ttest.html" target="_blank">Quick-R: t-Tests</a></li>
+            <li><a href="https://www.statmethods.net/stats/chisq.html" target="_blank">Quick-R: Chi-Square Tests</a></li>
+            <li><a href="https://www.statmethods.net/stats/anova.html" target="_blank">Quick-R: ANOVA</a></li>
+            <li><a href="https://data.library.virginia.edu/getting-started-with-hypothesis-testing-in-r/" target="_blank">UVA Library: Getting Started with Hypothesis Testing in R</a></li>
+            <li><a href="http://www.sthda.com/english/wiki/correlation-matrix-a-quick-start-guide-to-analyze-format-and-visualize-a-correlation-matrix-using-r-software" target="_blank">STHDA: Correlation Matrix Guide</a></li>
+             <li><a href="http://www.sthda.com/english/articles/39-regression-analysis/161-linear-regression-essentials-in-r/" target="_blank">STHDA: Linear Regression Essentials in R</a></li>
+        </ul>
+    </div>
+
+  </div> <!-- /container -->
 
   <footer>
     <div class="container">
-      <p>HARP Team R Training © 2025 | Created by Daryn Sutton</p>
+      <p>HARP Team R Training &copy; 2025 | Created by Daryn Sutton</p>
     </div>
   </footer>
 
   <script>
-    function checkDescriptiveStatsExercise() {
-      const userCode = document.getElementById("descriptive-stats-exercise").value.trim();
-      const resultDiv = document.getElementById("descriptive-stats-exercise-result");
+    function checkAnswer(questionId, correctAnswer) {
+      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+      const resultDiv = document.getElementById(`${questionId}-result`);
 
-      if (userCode.includes("mean(score, na.rm = TRUE)") &&
-          userCode.includes("median(score, na.rm = TRUE)") &&
-          userCode.includes("sd(score, na.rm = TRUE)")) {
-        resultDiv.textContent = "Correct! You've calculated the mean, median, and standard deviation.";
+      if (!selectedOption) {
+        resultDiv.textContent = "Please select an answer.";
+        resultDiv.className = "result incorrect";
+        resultDiv.style.display = "block";
+        return;
+      }
+
+      if (selectedOption.value === correctAnswer) {
+        resultDiv.textContent = "Correct! Well done.";
         resultDiv.className = "result correct";
       } else {
-        resultDiv.textContent = "Not quite right. Make sure to use 'na.rm = TRUE' to ignore missing values.";
+        resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
         resultDiv.className = "result incorrect";
       }
 
       resultDiv.style.display = "block";
     }
 
-    function checkCorrelationExercise() {
-      const userCode = document.getElementById("correlation-exercise").value.trim();
-      const resultDiv = document.getElementById("correlation-exercise-result");
-
-      if (userCode.includes("cor(height, weight, method = \"pearson\")")) {
-        resultDiv.textContent = "Correct! You've calculated the Pearson correlation.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to use 'method = \"pearson\"' for Pearson correlation.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
+    // Simple toggle function for solution code blocks
+    function toggleSolution(id) {
+        var element = document.getElementById(id);
+        if (element.style.display === "none") {
+            element.style.display = "block";
+        } else {
+            element.style.display = "none";
+        }
     }
 
-    function checkHypothesisTestingExercise() {
-      const userCode = document.getElementById("hypothesis-testing-exercise").value.trim();
-      const resultDiv = document.getElementById("hypothesis-testing-exercise-result");
-
-      if (userCode.includes("t.test(score ~ group)")) {
-        resultDiv.textContent = "Correct! You've performed a two-sample t-test.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to use 't.test(score ~ group)' for a two-sample t-test.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
+    // Placeholder for potential code checking functions if needed later
+    function checkCodeExercise(inputId, resultId /*, validationLogic */) {
+       const userCode = document.getElementById(inputId).value.trim();
+       const resultDiv = document.getElementById(resultId);
+       // Basic feedback for now
+       if (userCode) {
+           resultDiv.textContent = "Code submitted (validation logic not implemented in this example).";
+           resultDiv.className = "result correct"; // Assume correct for demo
+       } else {
+           resultDiv.textContent = "Please enter some code.";
+           resultDiv.className = "result incorrect";
+       }
+       resultDiv.style.display = "block";
     }
   </script>
 </body>

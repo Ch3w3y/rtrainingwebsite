@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Dashboards with Shiny | HARP Team R Training</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #f5f5f5;
+      border-left: 4px solid #3498db;
+      padding: 15px;
+      margin: 20px 0;
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    code {
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+    .topic-nav {
+      background-color: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .topic-nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .topic-nav li {
+      margin-right: 10px; /* Kept for potential spacing adjustments */
+    }
+    .section {
+      background-color: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .exercise {
+      background-color: #e8f4fc;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+    .exercise h3 {
+      margin-top: 0;
+      color: #2980b9;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px; /* Added margin */
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .home-link {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .quiz-option {
+      margin: 10px 0;
+    }
+    .code-input {
+      width: 95%; /* Adjusted width */
+      height: 80px; /* Adjusted height */
+      font-family: 'Consolas', 'Monaco', monospace;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+     .resources {
+      margin-top: 30px;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+    .shiny-app-note {
+        background-color: #fff3cd;
+        border-left: 4px solid #ffeeba;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Assuming auth.js handles authentication/redirection if needed -->
+  <script src="auth.js"></script>
+
+  <header>
+    <div class="container">
+      <h1>Interactive Dashboards with Shiny</h1>
+      <p>Building web applications directly from R (Advanced)</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="home-link">← Back to Course Index</a>
+
+    <div class="topic-nav section">
+      <h3>In this module:</h3>
+      <ul>
+        <li><a href="#intro-shiny">What is Shiny?</a></li>
+        <li><a href="#app-structure">Basic App Structure</a></li>
+        <li><a href="#inputs">Input Widgets</a></li>
+        <li><a href="#outputs">Output Elements</a></li>
+        <li><a href="#reactivity">Reactivity Basics</a></li>
+        <li><a href="#layouts">Layouts</a></li>
+        <li><a href="#example">Complete Example</a></li>
+        <li><a href="#deployment">Deployment</a></li>
+      </ul>
+    </div>
+
+    <div class="section" id="intro-shiny">
+      <h2>What is Shiny?</h2>
+      <p>Shiny is an R package that makes it easy to build interactive web applications (apps) straight from R. You can host standalone apps on a webpage or embed them in R Markdown documents or build dashboards. With Shiny, you can turn your analyses into interactive web applications without needing to know HTML, CSS, or JavaScript (though you can incorporate them if you wish).</p>
+      <h4>Why use Shiny?</h4>
+      <ul>
+        <li>Allows users to interact with your R code and data visualizations.</li>
+        <li>Enables exploration of data and model results without needing R expertise.</li>
+        <li>Facilitates communication of complex findings.</li>
+        <li>Integrates seamlessly with R's plotting and analysis capabilities.</li>
+      </ul>
+      <pre><code># Install Shiny (if you haven't already)
+# install.packages("shiny")
+
+# Load the library
+library(shiny)
+library(ggplot2) # Often used for plotting
+library(dplyr)   # Often used for data manipulation</code></pre>
+      <div class="shiny-app-note">
+          <strong>Note:</strong> Shiny apps typically consist of at least two files (`ui.R` and `server.R`) or a single file (`app.R`) containing both components. To run a Shiny app from RStudio, open one of these files and click "Run App". The examples below use the single-file `app.R` structure for simplicity.
+      </div>
+    </div>
+
+    <div class="section" id="app-structure">
+      <h2>Basic App Structure (`app.R`)</h2>
+      <p>A Shiny app has two main components:</p>
+      <ol>
+        <li><strong>User Interface (UI):</strong> Defines the layout and appearance of the app – what the user sees. It's created using functions like `fluidPage()`, `sidebarLayout()`, input functions (`sliderInput()`, etc.), and output functions (`plotOutput()`, etc.).</li>
+        <li><strong>Server Function:</strong> Contains the instructions to build and rebuild the R objects displayed in the UI. It takes `input` and `output` arguments and defines how outputs react to changes in inputs.</li>
+      </ol>
+      <pre><code># Basic app.R structure
+
+library(shiny)
+
+# Define UI
+ui <- fluidPage(
+  # UI elements go here (Inputs and Outputs)
+  titlePanel("My Simple Shiny App"), # App title
+  # ... more UI elements
+)
+
+# Define Server logic
+server <- function(input, output) {
+  # Server code goes here (reactive logic)
+  # ... instructions to build outputs based on inputs
+}
+
+# Run the application
+shinyApp(ui = ui, server = server)</code></pre>
+    </div>
+
+    <div class="section" id="inputs">
+      <h2>Input Widgets</h2>
+      <p>Input functions create widgets that allow users to send values from the browser to the server function. Each input has an `inputId` (used to access its value on the server) and a `label` (displayed to the user).</p>
+      <h4>Common Input Widgets:</h4>
+      <ul>
+        <li>`sliderInput()`: A slider to select a numeric value or range.</li>
+        <li>`selectInput()` / `selectizeInput()`: A dropdown list to select one or more items.</li>
+        <li>`numericInput()`: A field for entering numbers.</li>
+        <li>`textInput()`: A field for entering text.</li>
+        <li>`checkboxInput()`: A single checkbox (TRUE/FALSE).</li>
+        <li>`checkboxGroupInput()`: Multiple checkboxes.</li>
+        <li>`radioButtons()`: Radio buttons for selecting one option.</li>
+        <li>`dateInput()` / `dateRangeInput()`: Calendars for selecting dates.</li>
+        <li>`actionButton()`: A button to trigger actions.</li>
+      </ul>
+      <pre><code># Example UI with inputs
+
+ui <- fluidPage(
+  titlePanel("Shiny Input Examples"),
+
+  sidebarLayout(
+    sidebarPanel(
+      h4("Controls"),
+      sliderInput(inputId = "bins",
+                  label = "Number of histogram bins:",
+                  min = 1,
+                  max = 50,
+                  value = 30), # Default value
+
+      selectInput(inputId = "dataset",
+                  label = "Choose a dataset:",
+                  choices = c("iris", "mtcars", "faithful")),
+
+      numericInput(inputId = "obs",
+                   label = "Number of observations to view:",
+                   value = 10, min = 1, max = 100),
+
+      actionButton(inputId = "goButton", label = "Update View")
+    ),
+    mainPanel(
+      h4("Outputs will appear here")
+      # Output elements will go here later
+    )
+  )
+)
+
+# Basic server (does nothing yet)
+server <- function(input, output) {
+  # Access input values using input$inputId
+  # Example: print(input$bins)
+}
+
+# shinyApp(ui = ui, server = server) # To run this basic structure</code></pre>
+    </div>
+
+    <div class="section" id="outputs">
+      <h2>Output Elements</h2>
+      <p>Output functions create placeholders in the UI where R objects (plots, tables, text) generated by the server will be displayed. Each output has an `outputId`.</p>
+      <h4>Common Output Functions (UI side):</h4>
+      <ul>
+        <li>`plotOutput()`: Displays plots (ggplot2, base R).</li>
+        <li>`tableOutput()` / `dataTableOutput()`: Displays tables (static or interactive).</li>
+        <li>`textOutput()` / `verbatimTextOutput()`: Displays text (regular or fixed-width).</li>
+        <li>`uiOutput()`: Displays dynamically generated UI elements.</li>
+      </ul>
+      <h4>Render Functions (Server side):</h4>
+      <p>On the server side, you assign code blocks to `output$outputId` using `render*` functions. These functions specify *how* to build the R object that will be displayed in the corresponding UI output placeholder. The code inside `render*` functions is automatically re-run when the inputs it depends on change (reactivity).</p>
+      <ul>
+        <li>`renderPlot()`: Code generates a plot.</li>
+        <li>`renderTable()` / `renderDataTable()`: Code generates a data frame for a table.</li>
+        <li>`renderText()` / `renderPrint()`: Code generates text. `renderPrint` captures console output.</li>
+        <li>`renderUI()`: Code generates UI elements.</li>
+      </ul>
+      <pre><code># Example UI with inputs and outputs
+
+ui <- fluidPage(
+  titlePanel("Histogram App"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput(inputId = "bins",
+                  label = "Number of bins:",
+                  min = 1, max = 50, value = 30)
+    ),
+    mainPanel(
+      plotOutput(outputId = "distPlot") # Placeholder for the plot
+    )
+  )
+)
+
+# Example Server generating the output
+server <- function(input, output) {
+
+  # Render function for the plot
+  output$distPlot <- renderPlot({
+    # Code inside renderPlot() is reactive
+    # It depends on input$bins
+
+    x    <- faithful[, 2] # Old Faithful geyser data
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+    # Draw the histogram
+    hist(x, breaks = bins, col = 'darkgray', border = 'white',
+         xlab = 'Waiting time to next eruption (in mins)',
+         main = 'Histogram of waiting times')
+  }) # End renderPlot
+}
+
+# shinyApp(ui = ui, server = server) # Run the app</code></pre>
+    </div>
+
+    <div class="section" id="reactivity">
+      <h2>Reactivity Basics</h2>
+      <p>Reactivity is the core magic of Shiny. It automatically tracks dependencies between inputs and outputs. When an input value changes, only the outputs that depend on that input are automatically re-rendered.</p>
+      <ul>
+        <li><strong>Reactive Sources:</strong> Primarily `input` values (e.g., `input$bins`).</li>
+        <li><strong>Reactive Endpoints:</strong> Primarily `output` objects (e.g., `output$distPlot`).</li>
+        <li><strong>Reactive Conductors (`reactive()`):</strong> Used to create intermediate reactive values or expressions. Code inside `reactive({...})` is re-run only when its reactive sources change. Access the value using `()` (e.g., `myReactiveValue()`). This avoids redundant calculations if multiple outputs depend on the same intermediate result.</li>
+        <li><strong>Observers (`observe()`, `observeEvent()`):</strong> Used for actions with side effects (e.g., printing to console, saving files, updating inputs) triggered by reactive changes, rather than producing output for the UI. `observeEvent()` is triggered only when a specific event (like an `actionButton` press or an input changing) occurs.</li>
+      </ul>
+      <pre><code># Server example using reactive() and observeEvent()
+
+server <- function(input, output) {
+
+  # Reactive expression to get the selected dataset
+  # Re-runs only when input$dataset changes
+  selected_data <- reactive({
+    switch(input$dataset,
+           "iris" = iris,
+           "mtcars" = mtcars,
+           "faithful" = faithful)
+  })
+
+  # Render a summary table based on the reactive dataset
+  # Re-runs when selected_data() changes (which happens when input$dataset changes)
+  output$summaryTable <- renderTable({
+    summary(selected_data())
+  })
+
+  # Render a plot based on the reactive dataset and slider input
+  output$dataPlot <- renderPlot({
+    # Depends on selected_data() and input$numPoints
+    data_to_plot <- head(selected_data(), input$numPoints) # Use slider value
+    # Simple plot (adapt based on dataset)
+    if (input$dataset == "iris") {
+        ggplot(data_to_plot, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + geom_point()
+    } else {
+        plot(data_to_plot) # Generic plot
+    }
+  })
+
+  # Observer to print message when button is clicked
+  observeEvent(input$goButton, {
+    print(paste("Button clicked! Showing", input$obs, "observations from", input$dataset))
+  })
+}
+
+# Corresponding UI would need inputs "dataset", "numPoints", "goButton"
+# and outputs "summaryTable", "dataPlot"</code></pre>
+    </div>
+
+    <div class="section" id="layouts">
+        <h2>Layouts</h2>
+        <p>Shiny provides functions to organize UI elements.</p>
+        <ul>
+            <li>`fluidPage()`: Creates a flexible layout that adjusts to the browser window size.</li>
+            <li>`sidebarLayout()`: A common two-column layout with a `sidebarPanel()` (usually for inputs) and a `mainPanel()` (usually for outputs).</li>
+            <li>`fluidRow()` / `column()`: Creates a grid system (based on Bootstrap) for more complex layouts. Rows contain columns, and column widths must add up to 12 within a row.</li>
+            <li>`tabsetPanel()` / `tabPanel()`: Creates tabbed interfaces.</li>
+            <li>`navbarPage()`: Creates an app with a navigation bar at the top.</li>
+        </ul>
+        <pre><code># Example using fluidRow and column
+
+ui <- fluidPage(
+  titlePanel("Grid Layout Example"),
+  fluidRow(
+    column(width = 4, # Width out of 12
+           h4("Column 1 (Inputs)"),
+           sliderInput("slider1", "Slider:", min=0, max=100, value=50)
+           # ... more inputs
+    ),
+    column(width = 8,
+           h4("Column 2 (Outputs)"),
+           plotOutput("plot1")
+           # ... more outputs
+    )
+  ), # End fluidRow
+  fluidRow(
+      column(width = 12,
+             h4("Full Width Row"),
+             tableOutput("table1")
+      )
+  )
+)
+# Server would define output$plot1 and output$table1</code></pre>
+    </div>
+
+    <div class="section" id="example">
+        <h2>Complete Example: `mtcars` Explorer</h2>
+        <p>This app allows selecting variables from `mtcars` for a scatter plot.</p>
+        <pre><code># app.R
+library(shiny)
+library(ggplot2)
+library(dplyr)
+
+# Define UI
+ui <- fluidPage(
+    titlePanel("mtcars Explorer"),
+    sidebarLayout(
+        sidebarPanel(
+            selectInput(inputId = "x_var",
+                        label = "Select X Variable:",
+                        choices = names(mtcars),
+                        selected = "wt"), # Default selection
+            selectInput(inputId = "y_var",
+                        label = "Select Y Variable:",
+                        choices = names(mtcars),
+                        selected = "mpg"),
+            selectInput(inputId = "color_var",
+                        label = "Select Color Variable (Factor):",
+                        # Filter for potential factor-like columns
+                        choices = c("None", names(mtcars)[sapply(mtcars, function(col) length(unique(col)) < 10)]),
+                        selected = "cyl")
+        ),
+        mainPanel(
+           plotOutput(outputId = "scatterPlot")
+        )
+    )
+)
+
+# Define Server logic
+server <- function(input, output) {
+
+    output$scatterPlot <- renderPlot({
+        # Use aes_string to handle variable names passed as strings
+        # Or use the newer tidy evaluation with !!sym()
+        
+        p <- ggplot(mtcars, aes(x = .data[[input$x_var]], y = .data[[input$y_var]]))
+
+        # Add color mapping if selected
+        if (input$color_var != "None") {
+             # Ensure the color variable is treated as a factor for discrete colors
+             p <- p + geom_point(aes(color = factor(.data[[input$color_var]])), size = 3, alpha = 0.7) +
+                  labs(color = input$color_var) # Update legend title
+        } else {
+             p <- p + geom_point(size = 3, alpha = 0.7)
+        }
+
+        p + labs(
+              title = paste("Scatter Plot:", input$y_var, "vs", input$x_var),
+              x = input$x_var,
+              y = input$y_var
+            ) +
+            theme_minimal()
+
+    }) # End renderPlot
+}
+
+# Run the application
+# shinyApp(ui = ui, server = server)</code></pre>
+    </div>
+
+     <div class="section" id="deployment">
+        <h2>Deployment</h2>
+        <p>Once your app is built, you need to host it somewhere for others to access. Options include:</p>
+        <ul>
+            <li><strong>shinyapps.io:</strong> An easy-to-use hosting service from Posit (formerly RStudio). Offers free and paid tiers. Deployment is simple using the `rsconnect` package.</li>
+            <li><strong>Posit Connect / Shiny Server Pro:</strong> Commercial products for hosting Shiny apps within an organization, offering more control, security, and scalability.</li>
+            <li><strong>Shiny Server (Open Source):</strong> A free server option you can host on your own Linux server. Requires server administration knowledge.</li>
+            <li><strong>Docker Containers:</strong> Package your app and its dependencies into a container for deployment on various cloud platforms (AWS, Azure, Google Cloud) or servers.</li>
+        </ul>
+        <pre><code># Example deployment to shinyapps.io (after setting up account)
+# install.packages('rsconnect')
+library(rsconnect)
+
+# Set up account info (only need to do this once per computer)
+# rsconnect::setAccountInfo(name='your-account-name', token='your-token', secret='your-secret')
+
+# Deploy the app (run from the app's directory)
+# rsconnect::deployApp()</code></pre>
+    </div>
+
+    <div class="exercise">
+        <h3>Exercise: Simple Shiny App</h3>
+        <p>Create a Shiny app that:</p>
+        <p>1. Has a `numericInput` widget allowing the user to enter a number (let's call the inputId `user_num`, default value 5).</p>
+        <p>2. Has a `verbatimTextOutput` placeholder (outputId `squared_output`).</p>
+        <p>3. The server function should calculate the square of the number entered by the user.</p>
+        <p>4. The `renderPrint` function should display the result in the `squared_output` placeholder, perhaps with a descriptive message like "The square is: [result]".</p>
+        <button onclick="toggleSolution('sol_shiny_ex')">Show/Hide Solution Code</button>
+        <div class="result" id="sol_shiny_ex" style="display: none; background-color: #f5f5f5;">
+            <pre><code># app.R
+library(shiny)
+
+# Define UI
+ui <- fluidPage(
+    titlePanel("Number Squarer"),
+    sidebarLayout(
+        sidebarPanel(
+            numericInput(inputId = "user_num",
+                         label = "Enter a number:",
+                         value = 5) # Default value
+        ),
+        mainPanel(
+           h4("Result:"),
+           verbatimTextOutput(outputId = "squared_output")
+        )
+    )
+)
+
+# Define Server logic
+server <- function(input, output) {
+
+    output$squared_output <- renderPrint({
+        # Ensure input is numeric before squaring
+        num <- input$user_num
+        if (is.numeric(num)) {
+            squared_value <- num ^ 2
+            print(paste("The square of", num, "is:", squared_value))
+        } else {
+            print("Please enter a valid number.")
+        }
+    }) # End renderPrint
+}
+
+# Run the application
+# shinyApp(ui = ui, server = server)</code></pre>
+        </div>
+      </div>
+
+    <div class="section resources">
+        <h3>Further Resources</h3>
+        <ul>
+            <li><a href="https://shiny.posit.co/" target="_blank">Shiny Website (Posit)</a> (Official documentation, gallery, tutorials)</li>
+            <li><a href="https://shiny.posit.co/r/getstarted/" target="_blank">Shiny Get Started Guide</a></li>
+            <li><a href="https://mastering-shiny.org/" target="_blank">Book: Mastering Shiny</a> by Hadley Wickham</li>
+            <li><a href="https://shiny.posit.co/r/gallery/" target="_blank">Shiny Gallery</a> (Examples of apps)</li>
+            <li><a href="https://shiny.posit.co/r/articles/" target="_blank">Shiny Articles</a> (In-depth explanations of specific topics)</li>
+        </ul>
+    </div>
+
+  </div> <!-- /container -->
+
+  <footer>
+    <div class="container">
+      <p>HARP Team R Training &copy; 2025 | Created by Daryn Sutton</p>
+    </div>
+  </footer>
+
+  <script>
+    // Simple toggle function for solution code blocks
+    function toggleSolution(id) {
+        var element = document.getElementById(id);
+        if (element.style.display === "none") {
+            element.style.display = "block";
+        } else {
+            element.style.display = "none";
+        }
+    }
+
+    // Placeholder for potential quiz/code checking functions if needed
+    function checkAnswer(questionId, correctAnswer) {
+      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+      const resultDiv = document.getElementById(`${questionId}-result`);
+      // Basic feedback logic
+      if(selectedOption && selectedOption.value === correctAnswer) {
+          resultDiv.textContent = "Correct!";
+          resultDiv.className = "result correct";
+      } else if (selectedOption) {
+          resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
+          resultDiv.className = "result incorrect";
+      } else {
+          resultDiv.textContent = "Please select an answer.";
+          resultDiv.className = "result incorrect";
+      }
+      resultDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>

@@ -38,6 +38,23 @@
     code {
       font-family: 'Consolas', 'Monaco', monospace;
     }
+    .topic-nav {
+      background-color: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .topic-nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .topic-nav li {
+      margin-right: 10px; /* Kept for potential spacing adjustments */
+    }
     .section {
       background-color: white;
       padding: 25px;
@@ -62,6 +79,7 @@
       padding: 10px 15px;
       border-radius: 4px;
       cursor: pointer;
+      margin-top: 10px; /* Added margin */
     }
     button:hover {
       background-color: #2980b9;
@@ -114,11 +132,18 @@
       margin: 10px 0;
     }
     .code-input {
-      width: 100%;
-      height: 100px;
+      width: 95%; /* Adjusted width */
+      height: 80px; /* Adjusted height */
       font-family: 'Consolas', 'Monaco', monospace;
       padding: 10px;
       margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+     .resources {
+      margin-top: 30px;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
     }
     footer {
       background-color: #2c3e50;
@@ -130,175 +155,453 @@
   </style>
 </head>
 <body>
+  <!-- Assuming auth.js handles authentication/redirection if needed -->
   <script src="auth.js"></script>
 
   <header>
     <div class="container">
       <h1>Data Cleaning and Wrangling</h1>
-      <p>Preparing data for analysis</p>
+      <p>Master techniques for cleaning messy data and preparing it for analysis (Intermediate)</p>
     </div>
   </header>
 
   <div class="container">
     <a href="index.html" class="home-link">← Back to Course Index</a>
 
+    <div class="topic-nav section">
+      <h3>In this module:</h3>
+      <ul>
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#missing-values">Handling Missing Values</a></li>
+        <li><a href="#duplicates">Handling Duplicate Rows</a></li>
+        <li><a href="#data-types">Handling Data Types</a></li>
+        <li><a href="#outliers">Outlier Detection & Handling</a></li>
+        <li><a href="#string-cleaning">String Cleaning</a></li>
+        <li><a href="#validation">Data Validation</a></li>
+        <li><a href="#profiling">Data Profiling</a></li>
+      </ul>
+    </div>
+
+    <div class="section" id="intro">
+        <h2>Introduction: Why Clean Data?</h2>
+        <p>Real-world data is often messy, inconsistent, and incomplete. "Garbage in, garbage out" is a common saying in data analysis – if your input data is flawed, your analysis results will be unreliable. Data cleaning and wrangling involve transforming raw data into a tidy, consistent format suitable for analysis and visualization.</p>
+        <p>This module covers common data cleaning tasks in R, primarily using functions from base R and the `tidyverse`.</p>
+        <pre><code># Load necessary libraries (install if needed)
+# install.packages("tidyverse")
+library(tidyverse)
+library(lubridate) # For date/time handling</code></pre>
+        <pre><code># Sample messy data for examples
+messy_data <- tibble(
+  id = c(1, 2, 3, 4, 2, 5, 6, 7),
+  name = c("Alice", "Bob", "Charlie ", " David", "Bob", "Eve", NA, "Frank"),
+  score = c(85, 92, 78, 88, 92, 95, 500, 75), # 500 looks like an outlier
+  date_joined = c("2023-01-15", "2023/02/10", "2023-03-05", "2023-04-20", "2023/02/10", "2023-05-15", "2023-06-01", "Unknown"),
+  category = c("A", "B", " A", "C", "B", " C ", "B", "A"),
+  value_text = c("10.5", "22", "$15.0", "30.2 ", "22", "18.9", "N/A", "12")
+)
+print("Original Messy Data:")
+print(messy_data)</code></pre>
+    </div>
+
     <div class="section" id="missing-values">
-      <h2>Handling Missing Values</h2>
-      <p>Missing values are common in datasets. R provides several ways to handle them.</p>
+      <h2>Handling Missing Values (NA)</h2>
+      <p>Missing values (`NA`) are common. R provides several ways to identify and handle them.</p>
 
-      <h3>Identifying Missing Values</h3>
-      <pre><code># Check for missing values
-is.na(data)  # Returns TRUE for missing values
+      <h4>Identifying Missing Values</h4>
+      <pre><code># Check for NAs in the entire data frame
+is.na(messy_data) # Returns a logical matrix
 
-# Count missing values in each column
-colSums(is.na(data))
+# Count NAs in each column
+colSums(is.na(messy_data))
 
-# Check if any missing values exist
-any(is.na(data))</code></pre>
+# Check if any NAs exist in the data frame
+any(is.na(messy_data))
 
-      <h3>Removing Missing Values</h3>
-      <pre><code># Remove rows with missing values
-data_cleaned <- na.omit(data)
+# Filter rows with NAs in a specific column
+messy_data %>% filter(is.na(name))</code></pre>
 
-# Remove rows with missing values in specific columns
-data_cleaned <- data[!is.na(data$column_name), ]</code></pre>
+      <h4>Removing Missing Values</h4>
+      <pre><code># Remove rows with *any* NA (use with caution!)
+data_complete_rows <- na.omit(messy_data)
+# Alternative using tidyr:
+# data_complete_rows <- messy_data %>% drop_na()
+print("Data after na.omit():")
+print(data_complete_rows)
 
-      <h3>Replacing Missing Values</h3>
-      <pre><code># Replace missing values with a specific value
-data$column_name[is.na(data$column_name)] <- 0
+# Remove rows with NAs in specific columns
+data_name_complete <- messy_data %>% drop_na(name) # Keep rows where 'name' is not NA
+print("Data after drop_na(name):")
+print(data_name_complete)</code></pre>
 
-# Replace missing values with the column mean
-data$column_name[is.na(data$column_name)] <- mean(data$column_name, na.rm = TRUE)</code></pre>
+      <h4>Replacing Missing Values (Imputation)</h4>
+      <p>Replacing NAs is often preferred over removing rows, especially if missingness is limited. Common strategies include replacing with a specific value (0, "Unknown"), the mean, median, or mode.</p>
+      <pre><code># Replace NA in 'name' with "Unknown"
+data_imputed_name <- messy_data %>%
+  mutate(name = replace_na(name, "Unknown"))
+print("Data with NA names replaced:")
+print(data_imputed_name)
+
+# Replace NA in a numeric column (e.g., 'score') with the column mean
+# Note: Be careful imputing outliers like 500 before calculating mean/median
+# Let's imagine 'score' didn't have the outlier for this example
+# data_imputed_score <- messy_data %>%
+#   mutate(score = replace_na(score, mean(score, na.rm = TRUE)))
+
+# Using tidyr::fill() to fill NAs based on previous/next value (useful for time series)
+# fill(messy_data, name, .direction = "down") # Fills NA with the value above it</code></pre>
 
       <div class="exercise">
         <h3>Exercise: Missing Values</h3>
-        <p>Write code to replace missing values in the column <code>score</code> with the median of the column.</p>
+        <p>Using the `messy_data` example:</p>
+        <p>1. Count the total number of `NA` values in the entire `messy_data` tibble.</p>
+        <p>2. Create a new tibble `messy_data_filled` where the `NA` value in the `name` column is replaced with "Unknown".</p>
+        <button onclick="toggleSolution('sol_missing')">Show/Hide Solution Code</button>
+        <div class="result" id="sol_missing" style="display: none; background-color: #f5f5f5;">
+            <pre><code># 1. Count total NAs
+total_na <- sum(is.na(messy_data))
+print(paste("Total NA values:", total_na)) # Should be 1
 
-        <textarea class="code-input" id="missing-exercise"></textarea>
-
-        <button onclick="checkMissingExercise()">Check Answer</button>
-        <div id="missing-exercise-result" class="result"></div>
+# 2. Replace NA in name
+messy_data_filled <- messy_data %>%
+  mutate(name = replace_na(name, "Unknown"))
+print("Data with NA name replaced:")
+print(messy_data_filled)</code></pre>
+        </div>
       </div>
     </div>
 
     <div class="section" id="duplicates">
       <h2>Handling Duplicate Rows</h2>
-      <p>Duplicate rows can skew analysis results. R provides tools to identify and remove duplicates.</p>
+      <p>Duplicate rows can skew analysis results and should usually be identified and removed.</p>
 
-      <h3>Identifying Duplicates</h3>
-      <pre><code># Check for duplicate rows
-duplicated(data)
+      <h4>Identifying Duplicates</h4>
+      <pre><code># Check for duplicate rows (returns logical vector)
+duplicated(messy_data)
 
-# View duplicate rows
-data[duplicated(data), ]</code></pre>
+# View the duplicate rows (shows the second, third, etc., occurrences)
+messy_data[duplicated(messy_data), ]
 
-      <h3>Removing Duplicates</h3>
-      <pre><code># Remove duplicate rows
-data_cleaned <- data[!duplicated(data), ]</code></pre>
+# View all sets of duplicate rows (including the first occurrence)
+messy_data[duplicated(messy_data) | duplicated(messy_data, fromLast = TRUE), ]</code></pre>
+
+      <h4>Removing Duplicates</h4>
+      <pre><code># Remove duplicate rows, keeping the first occurrence
+data_distinct <- distinct(messy_data)
+# Base R alternative: data_distinct <- messy_data[!duplicated(messy_data), ]
+print("Data after removing duplicates:")
+print(data_distinct)
+
+# Remove duplicates based on specific columns
+# Keeps the first unique combination of id and name
+data_distinct_subset <- distinct(messy_data, id, name, .keep_all = TRUE)
+print("Data after removing duplicates based on id and name:")
+print(data_distinct_subset)</code></pre>
 
       <div class="exercise">
         <h3>Exercise: Duplicates</h3>
-        <p>Write code to remove duplicate rows from the dataset <code>sales_data</code>.</p>
+        <p>Using the `messy_data` example:</p>
+        <p>1. Identify which rows are duplicates based *only* on the `id` column.</p>
+        <p>2. Create a new tibble `unique_data` containing only the unique rows from `messy_data`.</p>
+        <button onclick="toggleSolution('sol_duplicates')">Show/Hide Solution Code</button>
+        <div class="result" id="sol_duplicates" style="display: none; background-color: #f5f5f5;">
+            <pre><code># 1. Identify duplicates based on 'id'
+duplicate_ids_logical <- duplicated(messy_data$id)
+print("Logical vector indicating duplicate IDs (second occurrence onwards):")
+print(duplicate_ids_logical)
+print("Rows with duplicate IDs (including first occurrence):")
+print(messy_data[messy_data$id %in% messy_data$id[duplicate_ids_logical], ])
 
-        <textarea class="code-input" id="duplicates-exercise"></textarea>
-
-        <button onclick="checkDuplicatesExercise()">Check Answer</button>
-        <div id="duplicates-exercise-result" class="result"></div>
+# 2. Create tibble with unique rows
+unique_data <- distinct(messy_data)
+# Or: unique_data <- messy_data[!duplicated(messy_data), ]
+print("Tibble with only unique rows:")
+print(unique_data)</code></pre>
+        </div>
       </div>
     </div>
 
     <div class="section" id="data-types">
       <h2>Handling Data Types</h2>
-      <p>Understanding and managing data types is crucial for effective data cleaning and manipulation.</p>
+      <p>Ensuring columns have the correct data type is crucial for analysis and visualization.</p>
 
-      <h3>Checking Data Types</h3>
-      <pre><code># Check the type of a variable
-class(data$column_name)
+      <h4>Checking Data Types</h4>
+      <pre><code># Check the structure and types of all columns
+str(messy_data)
+glimpse(messy_data) # tidyverse alternative
 
-# Check the structure of the dataset
-str(data)</code></pre>
+# Check the type of a specific column
+class(messy_data$score)
+class(messy_data$date_joined)</code></pre>
 
-      <h3>Converting Data Types</h3>
-      <pre><code># Convert to numeric
-data$column_name <- as.numeric(data$column_name)
+      <h4>Converting Data Types</h4>
+      <p>Use `as.*` functions (e.g., `as.numeric`, `as.character`, `as.Date`, `as.factor`) or `parse_*` functions from `readr` (often more robust).</p>
+      <pre><code># Convert value_text to numeric (handle N/A and currency symbols)
+# Use readr::parse_number for flexibility
+data_typed <- messy_data %>%
+  mutate(
+    value_numeric = parse_number(value_text), # Handles '$' and potential errors gracefully
+    # Alternative base R (less robust): as.numeric(gsub("[^0-9.]", "", value_text))
+  )
+print("Data with value_text converted:")
+glimpse(data_typed)
 
-# Convert to character
-data$column_name <- as.character(data$column_name)
+# Convert date_joined to Date type (handle different formats and errors)
+data_typed <- data_typed %>%
+  mutate(
+    date_obj = parse_date(date_joined, format = "%Y-%m-%d", na = c("", "NA", "Unknown")),
+    # Try another format if the first fails (more robust parsing)
+    date_obj = if_else(is.na(date_obj),
+                       parse_date(date_joined, format = "%Y/%m/%d", na = c("", "NA", "Unknown")),
+                       date_obj)
+    # lubridate::parse_date_time can handle multiple formats:
+    # date_obj = parse_date_time(date_joined, orders = c("ymd", "y/m/d"), quiet = TRUE)
+  )
+print("Data with date_joined converted:")
+glimpse(data_typed)
+print(data_typed$date_obj)
 
-# Convert to factor
-data$column_name <- as.factor(data$column_name)</code></pre>
-
-      <h3>Working with Factors</h3>
-      <pre><code># View levels of a factor
-levels(data$column_name)
-
-# Reorder levels
-data$column_name <- factor(data$column_name, levels = c("Low", "Medium", "High"))
-
-# Add new levels
-data$column_name <- factor(data$column_name, levels = c(levels(data$column_name), "Very High"))</code></pre>
+# Convert category to factor
+data_typed <- data_typed %>%
+  mutate(category_factor = as.factor(str_trim(category))) # Trim whitespace first!
+print("Data with category converted to factor:")
+glimpse(data_typed)
+levels(data_typed$category_factor)</code></pre>
 
       <div class="exercise">
         <h3>Exercise: Data Types</h3>
-        <p>Write code to convert the column <code>category</code> to a factor and reorder its levels to "Basic", "Intermediate", "Advanced".</p>
+        <p>Using the `data_typed` tibble created above:</p>
+        <p>1. Check the data type of the `value_numeric` column.</p>
+        <p>2. Convert the `id` column to be character type instead of numeric.</p>
+        <button onclick="toggleSolution('sol_types_ex')">Show/Hide Solution Code</button>
+        <div class="result" id="sol_types_ex" style="display: none; background-color: #f5f5f5;">
+            <pre><code># Assuming 'data_typed' exists from the previous code block
 
-        <textarea class="code-input" id="data-types-exercise"></textarea>
+# 1. Check type of value_numeric
+print(paste("Class of value_numeric:", class(data_typed$value_numeric))) # Should be numeric
 
-        <button onclick="checkDataTypesExercise()">Check Answer</button>
-        <div id="data-types-exercise-result" class="result"></div>
+# 2. Convert id to character
+data_typed_id_char <- data_typed %>%
+  mutate(id = as.character(id))
+
+print("Data with id converted to character:")
+glimpse(data_typed_id_char)
+print(paste("Class of id column now:", class(data_typed_id_char$id))) # Should be character</code></pre>
+        </div>
       </div>
     </div>
-  </div>
+
+    <div class="section" id="outliers">
+      <h2>Outlier Detection & Handling</h2>
+      <p>Outliers are data points that differ significantly from other observations. They can be genuine extreme values or errors. They can heavily influence statistical analyses (like means, correlations, regressions).</p>
+
+      <h4>Identifying Outliers</h4>
+      <ul>
+        <li><strong>Visual Methods:</strong> Box plots are excellent for visualizing potential outliers (points beyond the whiskers). Histograms and scatter plots can also reveal extreme values.</li>
+        <li><strong>Statistical Methods:</strong>
+          <ul>
+            <li><strong>Z-Score:</strong> Measures how many standard deviations a point is from the mean. Values above a threshold (e.g., |Z| > 3) are often considered outliers. Assumes data is approximately normal.</li>
+            <li><strong>IQR Method:</strong> Identifies points falling below Q1 - 1.5*IQR or above Q3 + 1.5*IQR (this is what box plot whiskers often represent). More robust to non-normal data than Z-scores.</li>
+          </ul>
+        </li>
+      </ul>
+      <pre><code># Visual identification using boxplot
+ggplot(messy_data, aes(y = score)) +
+  geom_boxplot() +
+  ggtitle("Boxplot of Scores (showing potential outlier)")
+
+# Identification using Z-score
+messy_data_outliers <- messy_data %>%
+  mutate(score_z = scale(score)) %>% # scale() calculates Z-scores
+  filter(abs(score_z) > 3) # Example threshold
+print("Outliers based on Z-score (> 3):")
+print(messy_data_outliers)
+
+# Identification using IQR method
+Q1 <- quantile(messy_data$score, 0.25, na.rm = TRUE)
+Q3 <- quantile(messy_data$score, 0.75, na.rm = TRUE)
+IQR_score <- IQR(messy_data$score, na.rm = TRUE)
+lower_bound <- Q1 - 1.5 * IQR_score
+upper_bound <- Q3 + 1.5 * IQR_score
+
+messy_data_outliers_iqr <- messy_data %>%
+  filter(score < lower_bound | score > upper_bound)
+print("Outliers based on IQR method:")
+print(messy_data_outliers_iqr)</code></pre>
+
+      <h4>Handling Outliers</h4>
+      <p>The appropriate action depends on the cause and context:</p>
+      <ul>
+        <li><strong>Investigate:</strong> Are they data entry errors? If so, correct them if possible.</li>
+        <li><strong>Remove:</strong> If they are clearly errors and cannot be corrected. Use with caution, document removal.</li>
+        <li><strong>Transform:</strong> Apply transformations (e.g., log, square root) to reduce the influence of extreme values.</li>
+        <li><strong>Cap/Winsorize:</strong> Replace outliers with the nearest "acceptable" value (e.g., the 99th percentile value).</li>
+        <li><strong>Use Robust Methods:</strong> Employ statistical techniques less sensitive to outliers (e.g., median instead of mean, robust regression).</li>
+      </ul>
+      <pre><code># Example: Removing the outlier row identified by IQR
+data_no_outliers <- messy_data %>%
+  filter(score >= lower_bound & score <= upper_bound)
+print("Data after removing score outliers:")
+print(data_no_outliers)
+
+# Example: Capping outliers (replace values outside bounds with the bound value)
+data_capped <- messy_data %>%
+  mutate(
+    score_capped = case_when(
+      score > upper_bound ~ upper_bound,
+      score < lower_bound ~ lower_bound,
+      TRUE ~ score # Keep values within bounds as they are
+    )
+  )
+print("Data with scores capped:")
+print(data_capped)</code></pre>
+    </div>
+
+    <div class="section" id="string-cleaning">
+        <h2>String Cleaning</h2>
+        <p>Text data often requires cleaning, such as removing extra whitespace, changing case, or extracting specific patterns. The `stringr` package (part of tidyverse) is very helpful.</p>
+        <pre><code>library(stringr)
+
+# Remove leading/trailing whitespace
+messy_data_cleaned <- messy_data %>%
+  mutate(
+    name = str_trim(name),
+    category = str_trim(category)
+  )
+print("Data after trimming whitespace:")
+print(messy_data_cleaned$name)
+print(messy_data_cleaned$category)
+
+# Change case
+messy_data_cleaned <- messy_data_cleaned %>%
+  mutate(
+    name_lower = str_to_lower(name),
+    category_upper = str_to_upper(category)
+  )
+print("Data with case changes:")
+glimpse(messy_data_cleaned)
+
+# Replace patterns (e.g., remove symbols from value_text before conversion)
+# Already handled by parse_number, but showing str_replace_all
+messy_data_cleaned <- messy_data_cleaned %>%
+  mutate(
+    value_text_cleaned = str_replace_all(value_text, "[\\$\\s]", "") # Remove $ and spaces
+  )
+print("Value text after removing symbols:")
+print(messy_data_cleaned$value_text_cleaned)
+
+# Extract patterns (e.g., extract first name)
+messy_data_cleaned <- messy_data_cleaned %>%
+  mutate(first_name = str_extract(name, "^\\w+")) # Extract word characters from start
+print("Data with first name extracted:")
+print(messy_data_cleaned %>% select(name, first_name))</code></pre>
+        <p>Regular expressions are powerful tools for pattern matching within strings. Learning regex basics significantly enhances string cleaning capabilities.</p>
+    </div>
+
+     <div class="section" id="validation">
+        <h2>Data Validation</h2>
+        <p>Data validation involves checking if data meets certain rules or constraints (e.g., values within a range, correct format, uniqueness).</p>
+        <p>You can perform checks manually using `dplyr::filter` or `stopifnot()`, or use dedicated packages like `assertr`.</p>
+        <pre><code># Manual checks
+# Check if all scores are positive (after handling outliers/NA)
+if(any(data_no_outliers$score < 0, na.rm = TRUE)) {
+  warning("Negative scores found!")
+}
+
+# Check if IDs are unique
+if(any(duplicated(messy_data$id))) {
+  warning("Duplicate IDs found!")
+}
+
+# Using stopifnot (stops execution if condition is FALSE)
+stopifnot("All scores must be numeric" = is.numeric(messy_data$score))
+# stopifnot("IDs must be unique" = !any(duplicated(messy_data$id))) # This would stop
+
+# Using assertr package (provides expressive validation pipelines)
+# install.packages("assertr")
+library(assertr)
+
+# Example validation pipeline
+validated_data <- messy_data %>%
+  assert(not_na, id, name) %>% # Assert id and name are not NA
+  assert(within_bounds(0, 100, allow.na = TRUE), score) %>% # Assert score is between 0-100 (ignoring NA)
+  assert_uniq(id) # Assert id is unique
+
+# If assertions fail, an error is thrown.</code></pre>
+    </div>
+
+     <div class="section" id="profiling">
+        <h2>Data Profiling</h2>
+        <p>Data profiling involves generating summary statistics and visualizations to get a quick understanding of the data's structure, quality, and distributions. Packages like `skimr` and `DataExplorer` are excellent for this.</p>
+        <pre><code># Using skimr for quick summaries
+# install.packages("skimr")
+library(skimr)
+skim(messy_data) # Provides detailed summary statistics by data type
+
+# Using DataExplorer for automated reports
+# install.packages("DataExplorer")
+library(DataExplorer)
+
+# Create an automated HTML report (opens in browser)
+# create_report(messy_data)
+
+# Generate specific plots
+# plot_intro(messy_data)
+# plot_missing(messy_data)
+# plot_histogram(messy_data)
+# plot_bar(messy_data)</code></pre>
+    </div>
+
+    <div class="section resources">
+        <h3>Further Resources</h3>
+        <ul>
+            <li><a href="https://r4ds.had.co.nz/tidy-data.html" target="_blank">R for Data Science: Tidy Data</a></li>
+            <li><a href="https://r4ds.had.co.nz/transform.html" target="_blank">R for Data Science: Data Transformation (dplyr)</a></li>
+            <li><a href="https://r4ds.had.co.nz/strings.html" target="_blank">R for Data Science: Strings (stringr)</a></li>
+            <li><a href="https://r4ds.had.co.nz/dates-and-times.html" target="_blank">R for Data Science: Dates and Times (lubridate)</a></li>
+            <li><a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html" target="_blank">Tidyr Vignette: Tidy Data</a></li>
+            <li><a href="https://stringr.tidyverse.org/" target="_blank">stringr Package Website</a></li>
+            <li><a href="https://lubridate.tidyverse.org/" target="_blank">lubridate Package Website</a></li>
+            <li><a href="https://cran.r-project.org/web/packages/assertr/vignettes/assertr.html" target="_blank">assertr Vignette</a></li>
+            <li><a href="https://docs.ropensci.org/skimr/" target="_blank">skimr Package Website</a></li>
+            <li><a href="https://boxuancui.github.io/DataExplorer/" target="_blank">DataExplorer Package Website</a></li>
+            <li><a href="https://socviz.co/datacleaning.html" target="_blank">Data Visualization: A Practical Introduction - Data Cleaning</a></li>
+        </ul>
+    </div>
+
+  </div> <!-- /container -->
 
   <footer>
     <div class="container">
-      <p>HARP Team R Training © 2025 | Created by Daryn Sutton</p>
+      <p>HARP Team R Training &copy; 2025 | Created by Daryn Sutton</p>
     </div>
   </footer>
 
   <script>
-    function checkMissingExercise() {
-      const userCode = document.getElementById("missing-exercise").value.trim();
-      const resultDiv = document.getElementById("missing-exercise-result");
-
-      if (userCode.includes("median(data$score, na.rm = TRUE)")) {
-        resultDiv.textContent = "Correct! You've replaced missing values with the column median.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to use 'median(data$score, na.rm = TRUE)' to calculate the median.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
+    // Simple toggle function for solution code blocks
+    function toggleSolution(id) {
+        var element = document.getElementById(id);
+        if (element.style.display === "none") {
+            element.style.display = "block";
+        } else {
+            element.style.display = "none";
+        }
     }
 
-    function checkDuplicatesExercise() {
-      const userCode = document.getElementById("duplicates-exercise").value.trim();
-      const resultDiv = document.getElementById("duplicates-exercise-result");
-
-      if (userCode.includes("!duplicated(sales_data)")) {
-        resultDiv.textContent = "Correct! You've removed duplicate rows from the dataset.";
-        resultDiv.className = "result correct";
+    // Placeholder for potential quiz/code checking functions if needed
+    function checkAnswer(questionId, correctAnswer) {
+      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+      const resultDiv = document.getElementById(`${questionId}-result`);
+      // Basic feedback logic
+      if(selectedOption && selectedOption.value === correctAnswer) {
+          resultDiv.textContent = "Correct!";
+          resultDiv.className = "result correct";
+      } else if (selectedOption) {
+          resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
+          resultDiv.className = "result incorrect";
       } else {
-        resultDiv.textContent = "Not quite right. Make sure to use '!duplicated(sales_data)' to filter out duplicates.";
-        resultDiv.className = "result incorrect";
+          resultDiv.textContent = "Please select an answer.";
+          resultDiv.className = "result incorrect";
       }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkDataTypesExercise() {
-      const userCode = document.getElementById("data-types-exercise").value.trim();
-      const resultDiv = document.getElementById("data-types-exercise-result");
-
-      if (userCode.includes("factor(category, levels = c(\"Basic\", \"Intermediate\", \"Advanced\"))")) {
-        resultDiv.textContent = "Correct! You've converted the column to a factor and reordered its levels.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to use 'factor(category, levels = c(\"Basic\", \"Intermediate\", \"Advanced\"))' to reorder levels.";
-        resultDiv.className = "result incorrect";
-      }
-
       resultDiv.style.display = "block";
     }
   </script>

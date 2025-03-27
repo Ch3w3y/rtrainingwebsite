@@ -53,7 +53,7 @@
       gap: 10px;
     }
     .topic-nav li {
-      margin-right: 10px;
+      margin-right: 10px; /* Kept for potential spacing adjustments */
     }
     .section {
       background-color: white;
@@ -79,6 +79,7 @@
       padding: 10px 15px;
       border-radius: 4px;
       cursor: pointer;
+      margin-top: 10px; /* Added margin */
     }
     button:hover {
       background-color: #2980b9;
@@ -131,11 +132,18 @@
       margin: 10px 0;
     }
     .code-input {
-      width: 100%;
-      height: 100px;
+      width: 95%; /* Adjusted width */
+      height: 80px; /* Adjusted height */
       font-family: 'Consolas', 'Monaco', monospace;
       padding: 10px;
       margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .resources {
+      margin-top: 30px;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
     }
     footer {
       background-color: #2c3e50;
@@ -147,194 +155,468 @@
   </style>
 </head>
 <body>
+  <!-- Assuming auth.js handles authentication/redirection if needed -->
   <script src="auth.js"></script>
-  
+
   <header>
     <div class="container">
       <h1>R Data Types and Structures</h1>
-      <p>Understanding the fundamental building blocks in R</p>
+      <p>Understanding the fundamental building blocks in R (Beginner)</p>
     </div>
   </header>
 
   <div class="container">
     <a href="index.html" class="home-link">← Back to Course Index</a>
-    
+
     <div class="topic-nav section">
       <h3>In this module:</h3>
       <ul>
         <li><a href="#basic-types">Basic Data Types</a></li>
         <li><a href="#vectors">Vectors</a></li>
-        <li><a href="#matrices">Matrices</a></li>
+        <li><a href="#matrices">Matrices & Arrays</a></li>
         <li><a href="#lists">Lists</a></li>
         <li><a href="#dataframes">Data Frames</a></li>
         <li><a href="#factors">Factors</a></li>
-        <li><a href="#missing-values">Missing Values</a></li>
-        <li><a href="#type-conversion">Type Conversion</a></li>
+        <li><a href="#missing-values">NA & NULL</a></li>
+        <!-- Add link for Type Conversion later if needed -->
       </ul>
     </div>
 
     <div class="section" id="basic-types">
-      <h2>Basic Data Types in R</h2>
-      <p>R has several basic data types that are fundamental to understanding how data is represented and manipulated:</p>
-      
-      <h3>Numeric</h3>
-      <p>Numeric values are the default computational data type in R. They include both integers and double-precision floating-point numbers.</p>
-      
+      <h2>Basic Data Types (Atomic Types)</h2>
+      <p>These are the simplest types of data in R.</p>
+
+      <h4>Numeric</h4>
+      <p>The default numerical type, representing real numbers (including decimals). Internally, these are usually stored as double-precision floating-point numbers.</p>
       <pre><code># Numeric examples
-x <- 42     # Integer
-y <- 3.14   # Decimal
-z <- 2e3    # Scientific notation (2000)
+x <- 42.5      # Decimal
+y <- 100       # Appears as integer, but stored as numeric by default
+z <- 2e3       # Scientific notation (2 * 10^3 = 2000)
 
-# Check the type
-class(x)  # "numeric"
-class(y)  # "numeric"
-class(z)  # "numeric"
+class(x) # Output: "numeric"
+class(y) # Output: "numeric"
+is.numeric(x) # Output: TRUE</code></pre>
 
-# Force an integer type
-a <- 42L   # The L suffix creates an integer
-class(a)  # "integer"</code></pre>
+      <h4>Integer</h4>
+      <p>Represents whole numbers. To explicitly create an integer, append an `L` to the number.</p>
+      <pre><code># Integer examples
+a <- 42L
+b <- -10L
 
-      <h3>Character</h3>
-      <p>Character data types store text values. In R, character strings can be created using either single or double quotes.</p>
-      
+class(a) # Output: "integer"
+is.integer(a) # Output: TRUE
+is.numeric(a) # Output: TRUE (Integers are also considered numeric)
+
+# Converting numeric to integer (truncates decimal)
+c <- as.integer(42.9)
+print(c) # Output: 42
+class(c) # Output: "integer"</code></pre>
+
+      <h4>Character</h4>
+      <p>Represents text strings. Enclose text in either double (`"`) or single (`'`) quotes.</p>
       <pre><code># Character examples
 name <- "Alice"
 greeting <- 'Hello, world!'
+empty_string <- ""
 
-# Character operations
-nchar(name)      # 5 (number of characters)
-paste(greeting, name)  # "Hello, world! Alice"
-toupper(name)    # "ALICE"</code></pre>
+class(name) # Output: "character"
+is.character(greeting) # Output: TRUE
 
-      <h3>Logical (Boolean)</h3>
-      <p>Logical values represent true/false conditions. R uses TRUE and FALSE as built-in constants.</p>
-      
+# Combining strings
+full_greeting <- paste(greeting, name, sep = " ") # sep adds a space between elements
+print(full_greeting) # Output: "Hello, world! Alice"</code></pre>
+
+      <h4>Logical</h4>
+      <p>Represents Boolean values: `TRUE` or `FALSE`. Often the result of comparisons. You can abbreviate them as `T` and `F`, but this is generally discouraged as `T` and `F` can be reassigned.</p>
       <pre><code># Logical examples
-x <- TRUE
-y <- FALSE
+is_valid <- TRUE
+has_error <- FALSE
+
+class(is_valid) # Output: "logical"
+is.logical(has_error) # Output: TRUE
+
+# Result of comparisons
+result1 <- 5 > 3
+print(result1) # Output: TRUE
+class(result1) # Output: "logical"
+
+result2 <- 10 == 20 # Equality check
+print(result2) # Output: FALSE
 
 # Logical operations
-!x         # NOT: FALSE
-x & y      # AND: FALSE
-x | y      # OR: TRUE
+TRUE & FALSE  # AND: Output: FALSE
+TRUE | FALSE  # OR: Output: TRUE
+!TRUE         # NOT: Output: FALSE</code></pre>
 
-# Logical results from comparisons
-5 > 3      # TRUE
-10 == 10   # TRUE
-"a" == "b" # FALSE</code></pre>
+      <h4>Complex</h4>
+      <p>Represents complex numbers with real and imaginary parts.</p>
+      <pre><code># Complex examples
+comp_num <- 3 + 4i
+class(comp_num) # Output: "complex"
+Re(comp_num) # Real part: Output: 3
+Im(comp_num) # Imaginary part: Output: 4</code></pre>
+
+      <h4>Raw</h4>
+      <p>Holds raw bytes. Less commonly used in typical data analysis.</p>
+      <pre><code># Raw examples
+raw_vec <- charToRaw("Hello")
+print(raw_vec) # Output: 48 65 6c 6c 6f
+class(raw_vec) # Output: "raw"</code></pre>
 
       <div class="exercise">
         <h3>Exercise: Basic Data Types</h3>
-        <p>What will the following R code return?</p>
-        <pre><code>result <- 10 > 5 & 3 == 3</code></pre>
-        
-        <div class="quiz-option">
-          <input type="radio" name="basic-types-q1" id="opt1" value="TRUE">
-          <label for="opt1">TRUE</label>
+        <p>1. Create a variable `my_age` and assign it the integer value 30.</p>
+        <p>2. Create a variable `my_name` and assign it your name as a character string.</p>
+        <p>3. Create a variable `is_beginner` and assign it the logical value `TRUE`.</p>
+        <p>4. What is the result of `(5 * 3) >= 15`? What data type is the result?</p>
+        <p>5. Use the `class()` function to check the type of each variable you created.</p>
+        <button onclick="toggleSolution('sol_types')">Show/Hide Solution Code</button>
+        <div id="sol_types" class="result" style="display: none; background-color: #f5f5f5;">
+            <pre><code># 1. Create my_age
+my_age <- 30L
+print(my_age)
+class(my_age) # Should be "integer"
+
+# 2. Create my_name
+my_name <- "Your Name Here" # Replace with your actual name
+print(my_name)
+class(my_name) # Should be "character"
+
+# 3. Create is_beginner
+is_beginner <- TRUE
+print(is_beginner)
+class(is_beginner) # Should be "logical"
+
+# 4. Evaluate expression
+result <- (5 * 3) >= 15
+print(result) # Output: TRUE
+class(result) # Output: "logical"
+
+# 5. Check classes (already done above for demonstration)
+class(my_age)
+class(my_name)
+class(is_beginner)</code></pre>
         </div>
-        <div class="quiz-option">
-          <input type="radio" name="basic-types-q1" id="opt2" value="FALSE">
-          <label for="opt2">FALSE</label>
-        </div>
-        <div class="quiz-option">
-          <input type="radio" name="basic-types-q1" id="opt3" value="Error">
-          <label for="opt3">Error</label>
-        </div>
-        
-        <button onclick="checkAnswer('basic-types-q1', 'TRUE')">Check Answer</button>
-        <div id="basic-types-q1-result" class="result"></div>
       </div>
     </div>
 
     <div class="section" id="vectors">
       <h2>Vectors</h2>
-      <p>Vectors are the most basic data structure in R. They are one-dimensional arrays that can hold data of the same type.</p>
-      
+      <p>The most fundamental data structure. A vector is a sequence of elements, **all of the same basic data type**. You create vectors using the `c()` (combine) function.</p>
       <pre><code># Creating vectors
-numeric_vector <- c(1, 2, 3, 4, 5)
-character_vector <- c("apple", "banana", "cherry")
-logical_vector <- c(TRUE, FALSE, TRUE, TRUE)
+numeric_vec <- c(1, 2, 3.5, 10)
+integer_vec <- c(1L, 5L, -2L)
+char_vec <- c("apple", "banana", "cherry")
+logical_vec <- c(TRUE, FALSE, TRUE, TRUE)
 
-# Vector operations
-numeric_vector + 10         # Add 10 to each element
-numeric_vector * 2          # Multiply each element by 2
-length(character_vector)    # 3 (number of elements)
-sum(logical_vector)         # 3 (TRUE counts as 1, FALSE as 0)
+# Check type (type of elements within the vector)
+class(numeric_vec) # Output: "numeric"
+typeof(numeric_vec) # Output: "double" (more specific internal type)
+class(char_vec) # Output: "character"
 
-# Vector indexing (1-based, not 0-based)
-numeric_vector[1]           # 1 (first element)
-character_vector[2:3]       # c("banana", "cherry") (elements 2 through 3)
-logical_vector[c(1, 4)]     # c(TRUE, TRUE) (first and fourth elements)
+# Vector properties
+length(numeric_vec) # Output: 4
+is.vector(numeric_vec) # Output: TRUE
 
-# Negative indexing excludes elements
-numeric_vector[-3]          # c(1, 2, 4, 5) (all except the third element)</code></pre>
+# Coercion: If you combine different types, R coerces them to the most flexible type
+mixed_vec <- c(1, "hello", TRUE)
+print(mixed_vec) # Output: "1" "hello" "TRUE"
+class(mixed_vec) # Output: "character" (character is most flexible here)</code></pre>
 
-      <h3>Vector Recycling</h3>
-      <p>When performing operations with vectors of different lengths, R will recycle the shorter vector to match the length of the longer one.</p>
-      
-      <pre><code># Vector recycling example
-x <- c(1, 2, 3, 4, 5)
-y <- c(10, 20)
+      <h4>Vector Indexing (1-based)</h4>
+      <p>Access elements using square brackets `[]`. R uses 1-based indexing (the first element is at index 1).</p>
+      <pre><code># Indexing examples
+my_vector <- c(10, 20, 30, 40, 50)
 
-# y will be recycled to c(10, 20, 10, 20, 10)
-x + y   # c(11, 22, 13, 24, 15)</code></pre>
+my_vector[1]       # First element: Output: 10
+my_vector[3]       # Third element: Output: 30
+my_vector[c(1, 4)] # First and fourth elements: Output: 10 40
+my_vector[2:4]     # Elements 2 through 4: Output: 20 30 40
+my_vector[-3]      # All elements EXCEPT the third: Output: 10 20 40 50
+my_vector[my_vector > 25] # Elements greater than 25: Output: 30 40 50</code></pre>
 
-      <img src="images/vector-operations.png" alt="Vector operations visualization" width="600">
+      <h4>Vectorized Operations</h4>
+      <p>Operations in R are often vectorized, meaning they apply element-wise to entire vectors without needing explicit loops. This is efficient.</p>
+      <pre><code># Vectorized operations
+vec1 <- c(1, 2, 3)
+vec2 <- c(10, 20, 30)
+
+vec1 + 5      # Add 5 to each element: Output: 6 7 8
+vec1 * vec2   # Element-wise multiplication: Output: 10 40 90
+vec1 > 1.5    # Element-wise comparison: Output: FALSE TRUE TRUE
+sqrt(vec1)    # Square root of each element
+
+# Vector Recycling: If vectors have different lengths, R recycles the shorter one.
+# A warning is issued if the longer length is not a multiple of the shorter one.
+vec1 + c(10, 20) # Output: 11 22 13 (c(10, 20) recycled to c(10, 20, 10))
+# Warning message: longer object length is not a multiple of shorter object length</code></pre>
 
       <div class="exercise">
-        <h3>Exercise: Vector Operations</h3>
-        <p>Fix the following code to create a vector containing the values 2, 4, 6, 8, 10:</p>
-        
-        <textarea class="code-input" id="vector-exercise">seq(from = 2, by = 2, to = 10</textarea>
-        
-        <button onclick="checkVectorExercise()">Check Answer</button>
-        <div id="vector-exercise-result" class="result"></div>
+        <h3>Exercise: Vectors</h3>
+        <p>1. Create a numeric vector named `temps` containing the values: 25.1, 28.3, 22.0, 31.5.</p>
+        <p>2. Create a character vector named `days` containing: "Monday", "Tuesday", "Wednesday", "Thursday".</p>
+        <p>3. Access the temperature for "Wednesday".</p>
+        <p>4. Create a new vector `temps_fahrenheit` by converting the `temps` vector from Celsius to Fahrenheit (F = C * 9/5 + 32).</p>
+        <p>5. What happens if you try `c(temps, days)`? What is the resulting vector's type?</p>
+        <button onclick="toggleSolution('sol_vectors')">Show/Hide Solution Code</button>
+        <div class="result" id="sol_vectors" style="display: none; background-color: #f5f5f5;">
+            <pre><code># 1. Create temps vector
+temps <- c(25.1, 28.3, 22.0, 31.5)
+print(temps)
+
+# 2. Create days vector
+days <- c("Monday", "Tuesday", "Wednesday", "Thursday")
+print(days)
+
+# 3. Access Wednesday's temperature (assuming order matches)
+# Method 1: By index
+wednesday_temp_index <- temps[3]
+print(wednesday_temp_index) # Output: 22.0
+
+# Method 2: Using logical indexing (more robust if order might change)
+wednesday_temp_logical <- temps[days == "Wednesday"]
+print(wednesday_temp_logical) # Output: 22.0
+
+# 4. Convert to Fahrenheit
+temps_fahrenheit <- temps * 9/5 + 32
+print(temps_fahrenheit)
+
+# 5. Combine numeric and character vectors
+combined_vec <- c(temps, days)
+print(combined_vec) # All elements become characters
+class(combined_vec) # Output: "character"</code></pre>
+        </div>
       </div>
     </div>
 
-    <!-- More sections would go here -->
+    <div class="section" id="matrices">
+      <h2>Matrices & Arrays</h2>
+      <h4>Matrices</h4>
+      <p>A matrix is a two-dimensional rectangular data structure. Importantly, like vectors, **all elements in a matrix must be of the same basic data type**.</p>
+      <pre><code># Creating a matrix
+# By default, fills by column
+mat1 <- matrix(1:12, nrow = 3, ncol = 4)
+print(mat1)
+
+# Filling by row
+mat2 <- matrix(1:12, nrow = 3, ncol = 4, byrow = TRUE)
+print(mat2)
+
+# Matrix properties
+dim(mat1)      # Dimensions (rows, columns): Output: 3 4
+nrow(mat1)      # Number of rows: Output: 3
+ncol(mat1)      # Number of columns: Output: 4
+class(mat1)    # Output: "matrix" "array"
+
+# Matrix indexing: [row, column]
+mat2[1, 3]     # Element at row 1, column 3: Output: 3
+mat2[2, ]      # All elements in row 2: Output: 5 6 7 8
+mat2[, 4]      # All elements in column 4: Output: 4 8 12
+mat2[1:2, 3:4] # Submatrix: rows 1-2, columns 3-4
+
+# Matrix operations (often element-wise or standard linear algebra)
+mat1 * 2       # Multiply each element by 2
+mat1 + mat2    # Element-wise addition (if dimensions match)
+mat1 %*% t(mat1) # Matrix multiplication (t() is transpose)</code></pre>
+
+      <h4>Arrays</h4>
+      <p>Arrays extend matrices to more than two dimensions. All elements must be of the same type.</p>
+      <pre><code># Creating an array (3 rows, 4 columns, 2 layers)
+arr <- array(1:24, dim = c(3, 4, 2))
+print(arr)
+
+# Indexing: [row, column, layer]
+arr[1, 2, 1] # Element at row 1, col 2, layer 1: Output: 4</code></pre>
+    </div>
+
+    <div class="section" id="lists">
+      <h2>Lists</h2>
+      <p>Lists are a very flexible data structure because their elements **can be of different types**, including other lists, vectors, matrices, data frames, or functions.</p>
+      <pre><code># Creating a list
+my_list <- list(
+    name = "Alice",
+    age = 30L,
+    scores = c(85, 92, 78),
+    is_student = TRUE,
+    details = list(city = "New York", id = "A123") # Nested list
+)
+print(my_list)
+class(my_list) # Output: "list"
+str(my_list)   # Structure of the list
+
+# List indexing
+# Using double square brackets [[]] to extract a single element
+my_list[[1]]       # First element (the name vector): Output: "Alice"
+my_list[["age"]]   # Element named "age": Output: 30
+my_list$name       # Using $ for named elements: Output: "Alice"
+my_list[[5]][["city"]] # Accessing nested element: Output: "New York"
+my_list$details$city   # Alternative for nested: Output: "New York"
+
+# Using single square brackets [] to extract a sub-list
+sub_list <- my_list[c("name", "age")]
+print(sub_list)
+class(sub_list) # Output: "list"</code></pre>
+    </div>
+
+    <div class="section" id="dataframes">
+      <h2>Data Frames</h2>
+      <p>The most common structure for storing tabular data in R. A data frame is essentially a list of vectors **of equal length**. Each vector represents a column, and they can be of different data types (numeric, character, logical, etc.).</p>
+      <pre><code># Creating a data frame
+df <- data.frame(
+    ID = 1:4,
+    Name = c("Alice", "Bob", "Charlie", "David"),
+    Score = c(85, 92, 78, 88),
+    Passed = c(TRUE, TRUE, TRUE, TRUE)
+)
+print(df)
+class(df) # Output: "data.frame"
+str(df)   # Structure: shows column types
+
+# Data frame properties
+nrow(df) # Number of rows: Output: 4
+ncol(df) # Number of columns: Output: 4
+dim(df)  # Dimensions: Output: 4 4
+names(df) # Column names
+rownames(df) # Row names (often just sequence numbers)
+
+# Data frame indexing
+df$Name        # Access column 'Name' using $: Output: "Alice" "Bob" "Charlie" "David"
+df[["Score"]]  # Access column 'Score' using [[]]: Output: 85 92 78 88
+df[, "Passed"] # Access column 'Passed' using [, "colname"]: Output: TRUE TRUE TRUE TRUE
+df[1, ]        # Access first row (returns a data frame)
+df[df$Score > 85, ] # Access rows where Score > 85
+
+# Note: By default, data.frame() converts strings to factors. Use stringsAsFactors = FALSE
+df_no_factors <- data.frame(
+    Name = c("Alice", "Bob"),
+    stringsAsFactors = FALSE
+)
+class(df_no_factors$Name) # Output: "character"
+
+# Tibbles (from the tidyverse) are modern data frames with improved printing and subsetting.
+# library(tibble)
+# tbl <- tibble(ID = 1:3, Value = rnorm(3))</code></pre>
+    </div>
+
+    <div class="section" id="factors">
+      <h2>Factors</h2>
+      <p>Factors are used to represent categorical data. They are stored internally as integers, with associated character labels (levels). Useful for statistical modeling and ensuring categories are treated correctly.</p>
+      <pre><code># Creating a factor
+directions <- c("North", "East", "South", "North", "West")
+factor_directions <- factor(directions)
+print(factor_directions)
+# Output: [1] North East  South North West
+# Levels: East North South West (Levels are sorted alphabetically by default)
+
+class(factor_directions) # Output: "factor"
+levels(factor_directions) # Output: "East" "North" "South" "West"
+as.integer(factor_directions) # Internal integer representation: Output: 2 1 3 2 4
+
+# Ordered factors
+ratings <- c("Low", "Medium", "High", "Medium", "Low")
+ordered_ratings <- factor(ratings, levels = c("Low", "Medium", "High"), ordered = TRUE)
+print(ordered_ratings)
+# Output: [1] Low    Medium High   Medium Low
+# Levels: Low < Medium < High
+
+ordered_ratings[1] < ordered_ratings[3] # Comparison works: Output: TRUE
+
+# See the 'forcats' package in the Tidyverse module for more powerful factor manipulation.</code></pre>
+
+      <div class="exercise">
+        <h3>Exercise: Structures</h3>
+        <p>1. Create a 2x3 matrix named `mat_data` containing the numbers 10 to 15, filling by row.</p>
+        <p>2. Extract the element in the second row, first column of `mat_data`.</p>
+        <p>3. Create a list named `student_record` containing a name (character), an ID (integer), and a vector of 3 test scores (numeric).</p>
+        <p>4. Access the second test score from the `student_record` list.</p>
+        <p>5. Create a data frame named `product_info` with columns `product_name` (character: "Widget A", "Widget B") and `inventory` (numeric: 150, 220). Ensure product names are characters, not factors.</p>
+        <p>6. Access the `inventory` column of the `product_info` data frame.</p>
+        <button onclick="toggleSolution('sol_structures')">Show/Hide Solution Code</button>
+        <div class="result" id="sol_structures" style="display: none; background-color: #f5f5f5;">
+            <pre><code># 1. Create matrix
+mat_data <- matrix(10:15, nrow = 2, ncol = 3, byrow = TRUE)
+print(mat_data)
+
+# 2. Extract element
+element <- mat_data[2, 1]
+print(element) # Output: 13
+
+# 3. Create list
+student_record <- list(
+    name = "Bob",
+    id = 12345L,
+    scores = c(75, 88, 91)
+)
+print(student_record)
+
+# 4. Access second score
+second_score <- student_record$scores[2]
+# or student_record[["scores"]][2]
+print(second_score) # Output: 88
+
+# 5. Create data frame
+product_info <- data.frame(
+    product_name = c("Widget A", "Widget B"),
+    inventory = c(150, 220),
+    stringsAsFactors = FALSE # Ensure characters remain characters
+)
+print(product_info)
+
+# 6. Access inventory column
+inventory_col <- product_info$inventory
+# or product_info[["inventory"]] or product_info[, "inventory"]
+print(inventory_col) # Output: 150 220</code></pre>
+        </div>
+      </div>
+    </div>
 
     <div class="section" id="missing-values">
-      <h2>Missing Values in R</h2>
-      <p>R has two special values for representing missing or undefined data: NA and NULL.</p>
-      
-      <h3>NA (Not Available)</h3>
-      <p>NA represents a missing value or a value that is not available. NAs are contagious in calculations.</p>
-      
-      <pre><code># Working with NA values
+      <h2>Special Values: NA and NULL</h2>
+      <p>R uses special values to represent missing or absent data.</p>
+
+      <h4>NA (Not Available)</h4>
+      <p>`NA` represents missing or undefined values within a vector or other data structure. `NA` values are "contagious" in calculations – operations involving `NA` often result in `NA` unless specifically handled.</p>
+      <pre><code># Working with NA
 x <- c(1, 2, NA, 4, 5)
+is.na(x)      # Check for NA: Output: FALSE FALSE TRUE FALSE FALSE
+any(is.na(x)) # Check if any NA exists: Output: TRUE
+sum(is.na(x)) # Count NA values: Output: 1
 
-# NA propagates in calculations
-sum(x)               # NA
-mean(x)              # NA
+# NA propagation
+sum(x)        # Output: NA
+mean(x)       # Output: NA
 
-# Use na.rm parameter to remove NAs in calculations
-sum(x, na.rm = TRUE) # 12
-mean(x, na.rm = TRUE) # 3
+# Handling NA in calculations
+sum(x, na.rm = TRUE)  # na.rm = TRUE removes NA before calculation: Output: 12
+mean(x, na.rm = TRUE) # Output: 3
 
-# Check for NA values
-is.na(x)             # c(FALSE, FALSE, TRUE, FALSE, FALSE)
-any(is.na(x))        # TRUE
-sum(is.na(x))        # 1 (count of NA values)</code></pre>
+# Different types of NA exist internally (NA_integer_, NA_real_, NA_character_)
+# but usually behave similarly.</code></pre>
 
-      <h3>NULL</h3>
-      <p>NULL represents the absence of a value or an undefined value. Unlike NA, NULL has no type and length zero.</p>
-      
+      <h4>NULL</h4>
+      <p>`NULL` represents the absence of an object or an empty object. It is fundamentally different from `NA`. `NULL` has no type and zero length. It is often removed when combined into vectors or lists.</p>
       <pre><code># Working with NULL
 y <- NULL
+is.null(y)      # Check for NULL: Output: TRUE
+length(y)       # Output: 0
+typeof(y)       # Output: "NULL"
 
-# NULL behaves differently than NA
-length(y)           # 0
-typeof(y)           # "NULL"
+# NULL vs NA
+is.null(NA)     # Output: FALSE
+is.na(NULL)     # Output: logical(0) (an empty logical vector)
 
-# NULL in vectors
-c(1, 2, NULL, 4)    # c(1, 2, 4) - NULL is removed
+# NULL in vectors/lists
+c(1, 2, NULL, 4) # NULL is removed: Output: 1 2 4
+list(a = 1, b = NULL, c = 3) # NULL element is kept in lists
+# Output:
+# $a
+# [1] 1
+# $b
+# NULL
+# $c
+# [1] 3</code></pre>
 
-# Checking for NULL
-is.null(y)          # TRUE
-is.null(NA)         # FALSE</code></pre>
-
-      <h3>Key Differences between NA and NULL</h3>
+      <h4>Key Differences: NA vs NULL</h4>
       <table>
         <tr>
           <th>Feature</th>
@@ -369,11 +651,11 @@ is.null(NA)         # FALSE</code></pre>
       </table>
 
       <div class="exercise">
-        <h3>Exercise: Missing Values</h3>
+        <h3>Exercise: NA and NULL</h3>
         <p>What will the following code return?</p>
         <pre><code>vec <- c(10, NA, 30, NULL, 50)
 sum(vec, na.rm = TRUE)</code></pre>
-        
+
         <div class="quiz-option">
           <input type="radio" name="na-null-q1" id="na1" value="90">
           <label for="na1">90</label>
@@ -383,21 +665,37 @@ sum(vec, na.rm = TRUE)</code></pre>
           <label for="na2">NA</label>
         </div>
         <div class="quiz-option">
-          <input type="radio" name="na-null-q1" id="na3" value="error">
+          <input type="radio" name="na-null-q1" id="na3" value="Error">
           <label for="na3">Error</label>
         </div>
-        
+
         <button onclick="checkAnswer('na-null-q1', '90')">Check Answer</button>
         <div id="na-null-q1-result" class="result"></div>
+        <p style="margin-top: 15px;">Explanation: `c(10, NA, 30, NULL, 50)` creates the vector `c(10, NA, 30, 50)` because `NULL` is removed. `sum(..., na.rm = TRUE)` then removes the `NA` and sums the remaining elements (10 + 30 + 50 = 90).</p>
       </div>
     </div>
 
-    <!-- Additional sections would continue -->
-  </div>
+    <div class="section resources">
+        <h3>Further Resources</h3>
+        <ul>
+            <li><a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Objects" target="_blank">R Introduction: Objects</a></li>
+            <li><a href="https://r4ds.had.co.nz/vectors.html" target="_blank">R for Data Science: Vectors</a></li>
+            <li><a href="https://adv-r.hadley.nz/vectors-chap.html" target="_blank">Advanced R: Vectors</a></li>
+            <li><a href="https://adv-r.hadley.nz/vectors-chap.html#matrices-and-arrays" target="_blank">Advanced R: Matrices and Arrays</a></li>
+            <li><a href="https://adv-r.hadley.nz/vectors-chap.html#lists" target="_blank">Advanced R: Lists</a></li>
+            <li><a href="https://r4ds.had.co.nz/tibbles.html#data-frames" target="_blank">R for Data Science: Data Frames</a></li>
+             <li><a href="https://r4ds.had.co.nz/factors.html" target="_blank">R for Data Science: Factors</a></li>
+            <li><a href="https://adv-r.hadley.nz/factors.html" target="_blank">Advanced R: Factors</a></li>
+            <li><a href="https://adv-r.hadley.nz/vectors-chap.html#missing-values" target="_blank">Advanced R: Missing Values (NA)</a></li>
+             <li><a href="https://adv-r.hadley.nz/vectors-chap.html#null" target="_blank">Advanced R: NULL</a></li>
+        </ul>
+    </div>
+
+  </div> <!-- /container -->
 
   <footer>
     <div class="container">
-      <p>HARP Team R Training © 2025 | Created by Daryn Sutton</p>
+      <p>HARP Team R Training &copy; 2025 | Created by Daryn Sutton</p>
     </div>
   </footer>
 
@@ -405,14 +703,14 @@ sum(vec, na.rm = TRUE)</code></pre>
     function checkAnswer(questionId, correctAnswer) {
       const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
       const resultDiv = document.getElementById(`${questionId}-result`);
-      
+
       if (!selectedOption) {
         resultDiv.textContent = "Please select an answer.";
         resultDiv.className = "result incorrect";
         resultDiv.style.display = "block";
         return;
       }
-      
+
       if (selectedOption.value === correctAnswer) {
         resultDiv.textContent = "Correct! Well done.";
         resultDiv.className = "result correct";
@@ -420,32 +718,47 @@ sum(vec, na.rm = TRUE)</code></pre>
         resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
         resultDiv.className = "result incorrect";
       }
-      
+
       resultDiv.style.display = "block";
     }
-    
+
     function checkVectorExercise() {
+      // This is a placeholder for checking code input.
+      // A real implementation would likely need server-side execution or a JS R interpreter.
+      // For now, we'll just provide feedback based on common patterns.
       const userCode = document.getElementById("vector-exercise").value.trim();
       const resultDiv = document.getElementById("vector-exercise-result");
-      
-      // Check if the code is correct (multiple solutions possible)
-      const correctAnswers = [
-        "seq(from = 2, by = 2, to = 10)",
-        "seq(2, 10, 2)",
-        "seq(2, 10, by = 2)",
-        "seq(from = 2, to = 10, by = 2)",
-        "c(2, 4, 6, 8, 10)"
+
+      // Simple check for common correct patterns
+      const correctPatterns = [
+        /seq\(\s*from\s*=\s*2\s*,\s*to\s*=\s*10\s*,\s*by\s*=\s*2\s*\)/,
+        /seq\(\s*2\s*,\s*10\s*,\s*2\s*\)/,
+        /seq\(\s*2\s*,\s*10\s*,\s*by\s*=\s*2\s*\)/,
+        /c\(\s*2\s*,\s*4\s*,\s*6\s*,\s*8\s*,\s*10\s*\)/
       ];
-      
-      if (correctAnswers.some(answer => userCode.replace(/\s+/g, '') === answer.replace(/\s+/g, ''))) {
-        resultDiv.textContent = "Correct! This code will generate the vector c(2, 4, 6, 8, 10).";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Try again or check the hint: you need to close the parentheses.";
-        resultDiv.className = "result incorrect";
+
+      if (correctPatterns.some(pattern => pattern.test(userCode))) {
+         resultDiv.textContent = "Looks correct! This code should generate the vector c(2, 4, 6, 8, 10).";
+         resultDiv.className = "result correct";
+      } else if (userCode.includes("seq") && !userCode.includes(")")) {
+         resultDiv.textContent = "Looks like you might be missing a closing parenthesis ')' in your seq() function.";
+         resultDiv.className = "result incorrect";
       }
-      
+       else {
+         resultDiv.textContent = "Not quite right, or not in a recognized format. Common ways are using seq(2, 10, by=2) or c(2, 4, 6, 8, 10).";
+         resultDiv.className = "result incorrect";
+      }
       resultDiv.style.display = "block";
+    }
+
+    // Simple toggle function for solution code blocks
+    function toggleSolution(id) {
+        var element = document.getElementById(id);
+        if (element.style.display === "none") {
+            element.style.display = "block";
+        } else {
+            element.style.display = "none";
+        }
     }
   </script>
 </body>

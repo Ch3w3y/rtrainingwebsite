@@ -144,6 +144,76 @@
       padding: 20px 0;
       margin-top: 50px;
     }
+    .tip-box {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .note-box {
+      background-color: #e2f0f9;
+      border-left: 4px solid #17a2b8;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .warning-box {
+      background-color: #f8d7da;
+      border-left: 4px solid #dc3545;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .code-output {
+      background-color: #f8f9fa;
+      border: 1px solid #eaeaea;
+      border-radius: 4px;
+      padding: 10px;
+      margin: 10px 0;
+      font-family: 'Consolas', 'Monaco', monospace;
+      white-space: pre-wrap;
+    }
+    .comparison-table td {
+      text-align: center;
+    }
+    .comparison-table th:first-child,
+    .comparison-table td:first-child {
+      text-align: left;
+    }
+    .tab-container {
+      margin: 20px 0;
+    }
+    .tab-nav {
+      display: flex;
+      gap: 2px;
+      border-bottom: 1px solid #dee2e6;
+    }
+    .tab-btn {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-bottom: none;
+      border-radius: 4px 4px 0 0;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background-color: white;
+      border-bottom: 1px solid white;
+      margin-bottom: -1px;
+    }
+    .tab-content {
+      border: 1px solid #dee2e6;
+      border-top: none;
+      padding: 15px;
+      background-color: white;
+    }
+    .tab-pane {
+      display: none;
+    }
+    .tab-pane.active {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -165,66 +235,325 @@
         <li><a href="#what-is-r">What is R?</a></li>
         <li><a href="#installation">Installing R and RStudio</a></li>
         <li><a href="#rstudio-interface">RStudio Interface</a></li>
+        <li><a href="#data-types">R Data Types</a></li>
         <li><a href="#basic-operations">Basic Operations</a></li>
+        <li><a href="#data-structures">Data Structures</a></li>
         <li><a href="#packages">Working with Packages</a></li>
         <li><a href="#help">Getting Help</a></li>
         <li><a href="#scripts">R Scripts</a></li>
+        <li><a href="#control-structures">Control Structures</a></li>
+        <li><a href="#functions">Functions</a></li>
+        <li><a href="#importing-data">Importing Data</a></li>
       </ul>
     </div>
 
     <div class="section" id="what-is-r">
       <h2>What is R?</h2>
-      <p>R is a programming language and free software environment for statistical computing and graphics. It was created by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand, and is currently developed by the R Development Core Team.</p>
+      <p>R is a programming language and free software environment for statistical computing and graphics. It was created by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand, in the early 1990s, and is currently developed by the R Development Core Team.</p>
+      
+      <h3>History and Evolution</h3>
+      <p>R is an implementation of the S programming language combined with lexical scoping semantics inspired by Scheme. The S language was developed at Bell Laboratories by John Chambers and colleagues in the 1970s. R was officially released in 1995 and has since grown to become one of the most widely used tools for statistical analysis and data science.</p>
+      
+      <p>Major milestones in R's development:</p>
+      <ul>
+        <li><strong>1992-1995:</strong> Initial development of R by Ross Ihaka and Robert Gentleman</li>
+        <li><strong>1997:</strong> Formation of the R Core Team</li>
+        <li><strong>2000:</strong> R 1.0.0 released</li>
+        <li><strong>2004:</strong> Creation of the Comprehensive R Archive Network (CRAN)</li>
+        <li><strong>2011:</strong> Formation of the R Consortium</li>
+        <li><strong>2014:</strong> Release of the tidyverse collection of packages</li>
+      </ul>
       
       <h3>Key Features of R</h3>
       <ul>
-        <li><strong>Statistical Focus:</strong> Designed specifically for data analysis and statistics</li>
-        <li><strong>Graphics Capabilities:</strong> Excellent tools for data visualization</li>
-        <li><strong>Open Source:</strong> Free to use and modify</li>
-        <li><strong>Community Packages:</strong> Extensive ecosystem of user-contributed packages</li>
+        <li><strong>Statistical Focus:</strong> Designed specifically for data analysis, statistics, and visualization</li>
+        <li><strong>Graphics Capabilities:</strong> Excellent tools for creating publication-quality data visualizations</li>
+        <li><strong>Extensibility:</strong> Easily extended through user-created packages</li>
+        <li><strong>Open Source:</strong> Free to use, modify, and distribute</li>
+        <li><strong>Community Packages:</strong> Extensive ecosystem with over 18,000 packages on CRAN</li>
         <li><strong>Cross-Platform:</strong> Runs on Windows, macOS, and Linux</li>
+        <li><strong>Reproducibility:</strong> Supports literate programming with R Markdown</li>
+        <li><strong>Statistical Correctness:</strong> Designed to prioritize statistical validity</li>
       </ul>
+
+      <h3>R vs. Other Data Science Languages</h3>
+      <p>How does R compare to other popular languages used in data science?</p>
       
+      <table class="comparison-table">
+        <tr>
+          <th>Feature</th>
+          <th>R</th>
+          <th>Python</th>
+          <th>SAS</th>
+          <th>SPSS</th>
+        </tr>
+        <tr>
+          <td>Primary Use</td>
+          <td>Statistics, Data Analysis</td>
+          <td>General Programming, Data Science</td>
+          <td>Enterprise Analytics</td>
+          <td>Statistical Analysis</td>
+        </tr>
+        <tr>
+          <td>Learning Curve</td>
+          <td>Moderate</td>
+          <td>Gentle</td>
+          <td>Steep</td>
+          <td>Gentle</td>
+        </tr>
+        <tr>
+          <td>Cost</td>
+          <td>Free</td>
+          <td>Free</td>
+          <td>Expensive</td>
+          <td>Expensive</td>
+        </tr>
+        <tr>
+          <td>Statistical Capabilities</td>
+          <td>Excellent</td>
+          <td>Good</td>
+          <td>Excellent</td>
+          <td>Good</td>
+        </tr>
+        <tr>
+          <td>Visualization</td>
+          <td>Excellent</td>
+          <td>Very Good</td>
+          <td>Good</td>
+          <td>Good</td>
+        </tr>
+        <tr>
+          <td>Big Data Handling</td>
+          <td>Limited (requires packages)</td>
+          <td>Good</td>
+          <td>Very Good</td>
+          <td>Limited</td>
+        </tr>
+        <tr>
+          <td>Community Support</td>
+          <td>Strong</td>
+          <td>Very Strong</td>
+          <td>Moderate</td>
+          <td>Limited</td>
+        </tr>
+      </table>
+
       <h3>When to Use R</h3>
       <p>R is particularly useful for:</p>
       <ul>
-        <li>Statistical analysis</li>
-        <li>Data visualization</li>
-        <li>Data cleaning and preparation</li>
-        <li>Machine learning</li>
-        <li>Scientific research</li>
+        <li><strong>Statistical analysis:</strong> Advanced statistical methods, hypothesis testing, modeling</li>
+        <li><strong>Data visualization:</strong> Creating complex, publication-quality graphics</li>
+        <li><strong>Data cleaning and preparation:</strong> Transforming and reshaping data</li>
+        <li><strong>Machine learning:</strong> Building and evaluating predictive models</li>
+        <li><strong>Academic and scientific research:</strong> Reproducible research with R Markdown</li>
+        <li><strong>Custom statistical methods:</strong> Implementing specialized techniques not available elsewhere</li>
       </ul>
+      
+      <h3>R's Strengths and Limitations</h3>
+      
+      <div class="note-box">
+        <h4>Strengths:</h4>
+        <ul>
+          <li>Vast collection of statistical and data visualization packages</li>
+          <li>Strong community support, especially in academia and research</li>
+          <li>Excellent for exploratory data analysis</li>
+          <li>Direct access to cutting-edge statistical methods</li>
+          <li>Powerful data visualization capabilities with ggplot2</li>
+          <li>Reproducible research with R Markdown</li>
+        </ul>
+      </div>
+      
+      <div class="warning-box">
+        <h4>Limitations:</h4>
+        <ul>
+          <li>Performance challenges with very large datasets (though packages like data.table help)</li>
+          <li>Memory management (by default, R loads data into memory)</li>
+          <li>Steeper learning curve compared to point-and-click statistical software</li>
+          <li>Less suitable for general-purpose programming</li>
+          <li>Package inconsistencies in syntax and behavior</li>
+        </ul>
+      </div>
+      
+      <div class="exercise">
+        <h3>Exercise: R's Strengths</h3>
+        <p>Which of the following is NOT generally considered a strength of R compared to other data science tools?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="r-strengths-q1" id="r-str1" value="stats">
+          <label for="r-str1">Statistical analysis capabilities</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="r-strengths-q1" id="r-str2" value="viz">
+          <label for="r-str2">Data visualization</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="r-strengths-q1" id="r-str3" value="bigdata">
+          <label for="r-str3">Native handling of extremely large datasets</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="r-strengths-q1" id="r-str4" value="packages">
+          <label for="r-str4">Extensive package ecosystem</label>
+        </div>
+        
+        <button onclick="checkAnswer('r-strengths-q1', 'bigdata')">Check Answer</button>
+        <div id="r-strengths-q1-result" class="result"></div>
+      </div>
       
       <img src="images/r-ecosystem.png" alt="R Ecosystem" width="600">
     </div>
 
     <div class="section" id="installation">
       <h2>Installing R and RStudio</h2>
-      <p>To get started with R, you'll need to install both R itself and RStudio, a powerful integrated development environment (IDE) for R.</p>
+      <p>To get started with R, you'll need to install both R itself and RStudio, a powerful integrated development environment (IDE) that makes working with R much more efficient.</p>
+      
+      <h3>System Requirements</h3>
+      <table>
+        <tr>
+          <th>Operating System</th>
+          <th>Minimum Requirements</th>
+          <th>Recommended</th>
+        </tr>
+        <tr>
+          <td>Windows</td>
+          <td>Windows 7 or later, 1GB RAM</td>
+          <td>Windows 10/11, 8GB+ RAM, SSD</td>
+        </tr>
+        <tr>
+          <td>macOS</td>
+          <td>macOS 10.12 (Sierra) or later, 1GB RAM</td>
+          <td>macOS 11+, 8GB+ RAM, SSD</td>
+        </tr>
+        <tr>
+          <td>Linux</td>
+          <td>Modern Linux distribution, 1GB RAM</td>
+          <td>Ubuntu 20.04+, 8GB+ RAM, SSD</td>
+        </tr>
+      </table>
+      
+      <div class="tip-box">
+        <p><strong>Tip:</strong> If you plan to work with larger datasets (millions of rows), consider having at least 16GB of RAM for optimal performance.</p>
+      </div>
       
       <h3>Step 1: Install R</h3>
-      <ol>
-        <li>Go to the <a href="https://cran.r-project.org/" target="_blank">CRAN (Comprehensive R Archive Network)</a> website</li>
-        <li>Select your operating system:
-          <ul>
-            <li>Windows: Click "Download R for Windows" → "base" → "Download R x.x.x for Windows"</li>
-            <li>macOS: Click "Download R for macOS" and select the appropriate package</li>
-            <li>Linux: Click "Download R for Linux" and follow instructions for your distribution</li>
-          </ul>
-        </li>
-        <li>Run the installer and follow the default installation options</li>
-      </ol>
+      
+      <div class="tab-container">
+        <div class="tab-nav">
+          <button class="tab-btn active" onclick="showTab('windows-install')">Windows</button>
+          <button class="tab-btn" onclick="showTab('mac-install')">macOS</button>
+          <button class="tab-btn" onclick="showTab('linux-install')">Linux</button>
+        </div>
+        
+        <div class="tab-content">
+          <div id="windows-install" class="tab-pane active">
+            <ol>
+              <li>Go to the <a href="https://cran.r-project.org/" target="_blank">CRAN (Comprehensive R Archive Network)</a> website</li>
+              <li>Click on "Download R for Windows"</li>
+              <li>Click on "base"</li>
+              <li>Click on the download link for the latest version (e.g., "Download R-4.3.2 for Windows")</li>
+              <li>Run the downloaded installer (.exe file)</li>
+              <li>Accept the default installation options (unless you have specific preferences):
+                <ul>
+                  <li>Default installation location is typically C:\Program Files\R\R-x.x.x\</li>
+                  <li>Select "Customized startup options" if you want to adjust default memory limits</li>
+                  <li>Choose 32-bit or 64-bit versions (prefer 64-bit unless you have an older system)</li>
+                </ul>
+              </li>
+              <li>Complete the installation</li>
+            </ol>
+          </div>
+          
+          <div id="mac-install" class="tab-pane">
+            <ol>
+              <li>Go to the <a href="https://cran.r-project.org/" target="_blank">CRAN website</a></li>
+              <li>Click on "Download R for macOS"</li>
+              <li>For Intel-based Macs, download the latest .pkg file for your macOS version</li>
+              <li>For Apple Silicon Macs (M1/M2/M3), download the appropriate ARM-based package</li>
+              <li>Open the downloaded .pkg file</li>
+              <li>Follow the installation prompts, accepting the license agreement</li>
+              <li>The default installation location will be /Library/Frameworks/R.framework</li>
+              <li>Enter your administrator password when prompted</li>
+              <li>Complete the installation</li>
+            </ol>
+            <div class="note-box">
+              <p><strong>Note for Apple Silicon (M1/M2/M3) users:</strong> Make sure to download the ARM build of R for optimal performance. The Intel version will still work through Rosetta 2, but will be slower.</p>
+            </div>
+          </div>
+          
+          <div id="linux-install" class="tab-pane">
+            <h4>Ubuntu/Debian</h4>
+            <pre><code># Add R repository
+sudo apt update
+sudo apt install --no-install-recommends software-properties-common dirmngr
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+
+# Install R
+sudo apt update
+sudo apt install r-base r-base-dev</code></pre>
+
+            <h4>Fedora/RHEL/CentOS</h4>
+            <pre><code># Add R repository
+sudo dnf install dnf-plugins-core
+sudo dnf config-manager --add-repo https://cloud.r-project.org/bin/linux/fedora/$(rpm -E %fedora)/
+
+# Install R
+sudo dnf install R</code></pre>
+            
+            <p>For other distributions, visit the <a href="https://cran.r-project.org/bin/linux/" target="_blank">CRAN Linux page</a> for specific instructions.</p>
+          </div>
+        </div>
+      </div>
       
       <h3>Step 2: Install RStudio</h3>
       <ol>
         <li>Go to the <a href="https://posit.co/download/rstudio-desktop/" target="_blank">RStudio Desktop Download</a> page</li>
-        <li>Click "Download RStudio" for your operating system</li>
-        <li>Run the installer and follow the default installation options</li>
+        <li>Scroll down and click on the download button for your operating system</li>
+        <li>Run the downloaded installer</li>
+        <li>Follow the installation prompts, accepting the default options</li>
+        <li>Complete the installation</li>
       </ol>
+      
+      <div class="tip-box">
+        <p><strong>Tip:</strong> RStudio will automatically detect your R installation. If you have multiple versions of R installed, you can select which one to use in RStudio by going to Tools → Global Options → General → R version.</p>
+      </div>
+      
+      <h3>Configuring Your Installation</h3>
+      
+      <h4>Setting Up the CRAN Mirror</h4>
+      <p>When you install packages, R needs to download them from a CRAN mirror (a server hosting R packages). It's good practice to set a default mirror close to your location:</p>
+      
+      <pre><code># In R or RStudio console
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
+# To make this setting permanent, add it to your .Rprofile file
+# You can edit this file in RStudio: File → New File → Text File
+# Save it as .Rprofile in your home directory</code></pre>
+      
+      <h4>Setting Up Library Paths</h4>
+      <p>By default, R installs packages in the system library. If you don't have admin privileges, you might want to set up a personal library:</p>
+      
+      <pre><code># View current library paths
+.libPaths()
+
+# Add a personal library path
+# Replace "path/to/your/R/library" with your preferred location
+.libPaths(c("path/to/your/R/library", .libPaths()))</code></pre>
+      
+      <h4>Setting Memory Limits</h4>
+      <p>If you work with large datasets, you might want to increase R's memory allocation:</p>
+      
+      <pre><code># Check current memory limit (in bytes)
+memory.limit()
+
+# Set memory limit (in MB) - Windows only
+memory.limit(size = 8000)  # Set to 8GB
+
+# On Mac/Linux, you can control memory through environment variables
+# Add to .Renviron file: R_MAX_VSIZE=32Gb</code></pre>
       
       <div class="exercise">
         <h3>Exercise: Installation Check</h3>
-        <p>After installing R and RStudio, which of the following statements is TRUE?</p>
+        <p>After installing R and RStudio, which statement is most accurate?</p>
         
         <div class="quiz-option">
           <input type="radio" name="install-q1" id="install1" value="r-only">
@@ -238,51 +567,210 @@
           <input type="radio" name="install-q1" id="install3" value="both">
           <label for="install3">You need to install R first, then RStudio, and you'll typically use RStudio for your work</label>
         </div>
+        <div class="quiz-option">
+          <input type="radio" name="install-q1" id="install4" value="either">
+          <label for="install4">It doesn't matter which one you install first, they work independently</label>
+        </div>
         
         <button onclick="checkAnswer('install-q1', 'both')">Check Answer</button>
         <div id="install-q1-result" class="result"></div>
       </div>
+      
+      <div class="note-box">
+        <h4>Verifying Your Installation</h4>
+        <p>After installing both R and RStudio, open RStudio and run the following code in the console to verify everything is working properly:</p>
+        <pre><code>R.version.string  # Should show your installed R version
+getRversion()     # Another way to check R version
+version           # Full version information</code></pre>
+      </div>
     </div>
-
     <div class="section" id="rstudio-interface">
       <h2>RStudio Interface</h2>
-      <p>RStudio provides a user-friendly interface divided into four main panes:</p>
+      <p>RStudio provides a powerful and user-friendly interface that makes working with R much more productive. Let's explore the different components and how to use them effectively.</p>
       
       <img src="images/rstudio-interface.png" alt="RStudio Interface" width="700">
       
-      <h3>The Four Panes</h3>
+      <h3>The Four Main Panes</h3>
       <ol>
-        <li><strong>Source Editor (top-left):</strong> Where you write and edit your R scripts</li>
-        <li><strong>Console (bottom-left):</strong> Where you can type commands and see results immediately</li>
-        <li><strong>Environment/History (top-right):</strong>
+        <li>
+          <strong>Source Editor (top-left):</strong>
           <ul>
-            <li>Environment tab: Shows all objects currently in memory</li>
-            <li>History tab: List of previously executed commands</li>
+            <li>Where you write, edit, and save R scripts, R Markdown documents, and other files</li>
+            <li>Features syntax highlighting, code completion, and automatic indentation</li>
+            <li>Supports multiple open tabs for different files</li>
+            <li>Includes a document outline navigator for longer scripts</li>
           </ul>
         </li>
-        <li><strong>Files/Plots/Packages/Help (bottom-right):</strong>
+        <li>
+          <strong>Console (bottom-left):</strong>
           <ul>
-            <li>Files tab: File browser</li>
-            <li>Plots tab: View graphical output</li>
-            <li>Packages tab: Manage installed packages</li>
-            <li>Help tab: Access documentation</li>
+            <li>Where you can type commands and see results immediately</li>
+            <li>Shows the command history (use up/down arrow keys to navigate)</li>
+            <li>Displays error messages and warnings</li>
+            <li>Supports multi-line input with automatic continuation</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Environment/History/Connections/Tutorial (top-right):</strong>
+          <ul>
+            <li><em>Environment tab:</em> Shows all objects currently in memory, their types, and dimensions</li>
+            <li><em>History tab:</em> List of previously executed commands</li>
+            <li><em>Connections tab:</em> Manage connections to databases and other data sources</li>
+            <li><em>Tutorial tab:</em> Interactive tutorials for learning R</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Files/Plots/Packages/Help/Viewer (bottom-right):</strong>
+          <ul>
+            <li><em>Files tab:</em> File browser for navigating your file system</li>
+            <li><em>Plots tab:</em> View and navigate through graphical output</li>
+            <li><em>Packages tab:</em> Install, update, and load R packages</li>
+            <li><em>Help tab:</em> Access documentation and help pages</li>
+            <li><em>Viewer tab:</em> Display HTML content, such as interactive visualizations or reports</li>
           </ul>
         </li>
       </ol>
       
-      <h3>Customizing RStudio</h3>
-      <p>You can customize the RStudio interface by going to Tools → Global Options. Some useful settings to adjust:</p>
+      <h3>Essential RStudio Features</h3>
+      
+      <h4>Projects</h4>
+      <p>RStudio Projects help organize your work and ensure reproducibility:</p>
       <ul>
-        <li>Appearance: Change color themes and font size</li>
-        <li>Code: Adjust code completion and display options</li>
-        <li>Pane Layout: Change the arrangement of the panes</li>
+        <li>Create a new project: File → New Project</li>
+        <li>Each project has its own working directory, workspace, and history</li>
+        <li>Projects help maintain file organization and make collaboration easier</li>
+        <li>Projects can be integrated with version control systems like Git</li>
       </ul>
+      
+      <h4>Code Execution</h4>
+      <p>There are several ways to execute code in RStudio:</p>
+      <table>
+        <tr>
+          <th>Action</th>
+          <th>Windows/Linux</th>
+          <th>macOS</th>
+        </tr>
+        <tr>
+          <td>Run current line</td>
+          <td>Ctrl + Enter</td>
+          <td>Cmd + Enter</td>
+        </tr>
+        <tr>
+          <td>Run selected code</td>
+          <td>Select code + Ctrl + Enter</td>
+          <td>Select code + Cmd + Enter</td>
+        </tr>
+        <tr>
+          <td>Run current script</td>
+          <td>Ctrl + Shift + Enter</td>
+          <td>Cmd + Shift + Enter</td>
+        </tr>
+        <tr>
+          <td>Interrupt execution</td>
+          <td>Esc or Ctrl + C</td>
+          <td>Esc or Cmd + C</td>
+        </tr>
+      </table>
+      
+      <h4>Code Completion</h4>
+      <p>RStudio provides code completion to help you write code more efficiently:</p>
+      <ul>
+        <li>Start typing a function or object name and press Tab</li>
+        <li>RStudio will show a list of matching options</li>
+        <li>For functions, it will also show parameter hints</li>
+        <li>Press Tab again to complete the current suggestion</li>
+      </ul>
+      
+      <h4>Keyboard Shortcuts</h4>
+      <p>Learning keyboard shortcuts can greatly improve your productivity in RStudio:</p>
+      <ul>
+        <li>View all shortcuts: Tools → Keyboard Shortcuts Help (Alt + Shift + K)</li>
+        <li>Customize shortcuts: Tools → Modify Keyboard Shortcuts</li>
+      </ul>
+      
+      <table>
+        <tr>
+          <th>Action</th>
+          <th>Windows/Linux</th>
+          <th>macOS</th>
+        </tr>
+        <tr>
+          <td>New script</td>
+          <td>Ctrl + Shift + N</td>
+          <td>Cmd + Shift + N</td>
+        </tr>
+        <tr>
+          <td>Save current document</td>
+          <td>Ctrl + S</td>
+          <td>Cmd + S</td>
+        </tr>
+        <tr>
+          <td>Comment/uncomment lines</td>
+          <td>Ctrl + Shift + C</td>
+          <td>Cmd + Shift + C</td>
+        </tr>
+        <tr>
+          <td>Insert pipe operator (%>%)</td>
+          <td>Ctrl + Shift + M</td>
+          <td>Cmd + Shift + M</td>
+        </tr>
+        <tr>
+          <td>Reformat selected code</td>
+          <td>Ctrl + Shift + A</td>
+          <td>Cmd + Shift + A</td>
+        </tr>
+        <tr>
+          <td>Find and replace</td>
+          <td>Ctrl + F</td>
+          <td>Cmd + F</td>
+        </tr>
+      </table>
+      
+      <h3>Customizing RStudio</h3>
+      <p>You can customize the RStudio interface to suit your preferences:</p>
+      <ol>
+        <li>
+          <strong>General Appearance:</strong> Tools → Global Options → Appearance
+          <ul>
+            <li>Change theme (light or dark)</li>
+            <li>Adjust font size and type</li>
+            <li>Customize editor colors</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Code Editing:</strong> Tools → Global Options → Code
+          <ul>
+            <li>Enable/disable code completion</li>
+            <li>Set indentation preferences</li>
+            <li>Configure code diagnostics</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Pane Layout:</strong> Tools → Global Options → Pane Layout
+          <ul>
+            <li>Rearrange the four main panes</li>
+            <li>Customize which tabs appear in each pane</li>
+          </ul>
+        </li>
+        <li>
+          <strong>R Session:</strong> Tools → Global Options → R General
+          <ul>
+            <li>Choose R version (if multiple installed)</li>
+            <li>Set working directory behavior</li>
+            <li>Configure workspace saving options</li>
+          </ul>
+        </li>
+      </ol>
+      
+      <div class="tip-box">
+        <p><strong>Productivity Tip:</strong> In Global Options → Code → Display, check "Show line numbers" and "Highlight selected line" for easier code navigation, especially in longer scripts.</p>
+      </div>
       
       <div class="exercise">
         <h3>Exercise: RStudio Interface</h3>
-        <p>Match the RStudio pane with its primary function:</p>
+        <p>Match the following tasks with the most appropriate pane or tab in RStudio:</p>
         
-        <p>1. Where do graphical plots appear?</p>
+        <p>1. Where would you go to see a list of all variables you've created in your current session?</p>
         <div class="quiz-option">
           <input type="radio" name="interface-q1" id="int1a" value="source">
           <label for="int1a">Source Editor pane</label>
@@ -292,69 +780,597 @@
           <label for="int1b">Console pane</label>
         </div>
         <div class="quiz-option">
-          <input type="radio" name="interface-q1" id="int1c" value="plots">
-          <label for="int1c">Plots tab (bottom-right pane)</label>
+          <input type="radio" name="interface-q1" id="int1c" value="environment">
+          <label for="int1c">Environment tab</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="interface-q1" id="int1d" value="files">
+          <label for="int1d">Files tab</label>
         </div>
         
-        <button onclick="checkAnswer('interface-q1', 'plots')">Check Answer</button>
+        <button onclick="checkAnswer('interface-q1', 'environment')">Check Answer</button>
         <div id="interface-q1-result" class="result"></div>
+        
+        <p>2. Where would you look to find documentation about a specific R function?</p>
+        <div class="quiz-option">
+          <input type="radio" name="interface-q2" id="int2a" value="packages">
+          <label for="int2a">Packages tab</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="interface-q2" id="int2b" value="help">
+          <label for="int2b">Help tab</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="interface-q2" id="int2c" value="console">
+          <label for="int2c">Console pane</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="interface-q2" id="int2d" value="history">
+          <label for="int2d">History tab</label>
+        </div>
+        
+        <button onclick="checkAnswer('interface-q2', 'help')">Check Answer</button>
+        <div id="interface-q2-result" class="result"></div>
       </div>
     </div>
 
-    <div class="section" id="basic-operations">
-      <h2>Basic Operations in R</h2>
-      <p>Let's start with some fundamental operations in R.</p>
+    <div class="section" id="data-types">
+      <h2>R Data Types</h2>
+      <p>Understanding data types is fundamental to programming in R. Each value in R has a specific type that determines how it behaves in operations.</p>
       
-      <h3>R as a Calculator</h3>
-      <p>You can use R for basic arithmetic operations:</p>
+      <h3>Basic Data Types</h3>
+      <p>R has five basic atomic data types:</p>
       
-      <pre><code># Addition
-5 + 3  # 8
-
-# Subtraction
-10 - 4  # 6
-
-# Multiplication
-6 * 7  # 42
-
-# Division
-20 / 4  # 5
-
-# Exponentiation
-2 ^ 3  # 8 (2 raised to the power of 3)
-
-# Modulo (remainder after division)
-17 %% 5  # 2
-
-# Integer division
-17 %/% 5  # 3 (how many complete times 5 goes into 17)</code></pre>
-
-      <h3>Variables and Assignment</h3>
-      <p>You can store values in variables using the assignment operator (<code>&lt;-</code>):</p>
+      <table>
+        <tr>
+          <th>Data Type</th>
+          <th>Description</th>
+          <th>Example</th>
+          <th>Check Function</th>
+        </tr>
+        <tr>
+          <td>Numeric (Double)</td>
+          <td>Real numbers (decimal values)</td>
+          <td><code>3.14, 2.0, -7.5</code></td>
+          <td><code>is.numeric()</code></td>
+        </tr>
+        <tr>
+          <td>Integer</td>
+          <td>Whole numbers (with L suffix)</td>
+          <td><code>2L, 0L, -5L</code></td>
+          <td><code>is.integer()</code></td>
+        </tr>
+        <tr>
+          <td>Character</td>
+          <td>Text strings</td>
+          <td><code>"hello", 'R'</code></td>
+          <td><code>is.character()</code></td>
+        </tr>
+        <tr>
+          <td>Logical</td>
+          <td>Boolean values</td>
+          <td><code>TRUE, FALSE</code></td>
+          <td><code>is.logical()</code></td>
+        </tr>
+        <tr>
+          <td>Complex</td>
+          <td>Complex numbers</td>
+          <td><code>1+2i, 3-4i</code></td>
+          <td><code>is.complex()</code></td>
+        </tr>
+      </table>
       
-      <pre><code># Assign a value to a variable
-x <- 10
+      <h4>Working with Numeric Values</h4>
+      <pre><code># Numeric values (double precision by default)
+x <- 10.5
 y <- 5
 
-# Perform operations with variables
-z <- x + y  # z is now 15
+# Check if a value is numeric
+is.numeric(x)  # TRUE
 
-# Print a variable's value (several ways)
-z           # 15
-print(z)    # 15
-cat("The value of z is", z, "\n")  # The value of z is 15
+# Convert to integer
+z <- as.integer(x)
+z  # 10 (decimal part is truncated)
+is.integer(z)  # TRUE
 
-# R also allows = for assignment, but <- is preferred
-a = 20      # Works, but not recommended
-b <- 30     # Preferred style</code></pre>
+# Special numeric values
+1/0  # Inf (Infinity)
+0/0  # NaN (Not a Number)
+sqrt(-1)  # NaN (without using complex numbers)
 
+# Check for special values
+is.finite(1/0)  # FALSE
+is.infinite(1/0)  # TRUE
+is.nan(0/0)  # TRUE</code></pre>
+      
+      <h4>Working with Character Data</h4>
+      <pre><code># Creating character values
+name <- "John"
+greeting <- 'Hello, World!'
+
+# Concatenating strings
+full_greeting <- paste(greeting, "My name is", name)
+full_greeting  # "Hello, World! My name is John"
+
+# Alternative with paste0 (no spaces between elements)
+email <- paste0(name, "@example.com")
+email  # "John@example.com"
+
+# String operations
+nchar(name)  # 4 (number of characters)
+toupper(name)  # "JOHN"
+tolower(greeting)  # "hello, world!"
+
+# Substring extraction
+substr(greeting, 1, 5)  # "Hello"
+
+# String replacement
+gsub("World", "R User", greeting)  # "Hello, R User!"
+
+# Pattern matching
+grepl("Hello", greeting)  # TRUE (checks if pattern exists in string)</code></pre>
+      
+      <h4>Working with Logical Values</h4>
+      <pre><code># Creating logical values
+is_student <- TRUE
+has_experience <- FALSE
+
+# Logical operations
+is_student & has_experience  # AND: FALSE
+is_student | has_experience  # OR: TRUE
+!is_student  # NOT: FALSE
+
+# Logical values in arithmetic
+sum(c(TRUE, FALSE, TRUE))  # 2 (TRUE converts to 1, FALSE to 0)
+
+# Comparison operators create logical values
+x <- a5
+y <- 10
+x < y  # TRUE
+x == y  # FALSE
+x != y  # TRUE
+x <= y  # TRUE
+
+# is.na() checks for missing values
+is.na(NA)  # TRUE</code></pre>
+      
+      <h4>Type Conversion</h4>
+      <p>You can convert between data types using the <code>as.*</code> family of functions:</p>
+      
+      <pre><code># Convert numeric to character
+num <- 42
+num_char <- as.character(num)
+num_char  # "42"
+is.character(num_char)  # TRUE
+
+# Convert character to numeric
+char_num <- "123.45"
+as.numeric(char_num)  # 123.45
+
+# Convert logical to numeric
+as.numeric(TRUE)  # 1
+as.numeric(FALSE)  # 0
+
+# Convert numeric to logical (0 is FALSE, everything else is TRUE)
+as.logical(0)  # FALSE
+as.logical(1)  # TRUE
+as.logical(42)  # TRUE
+
+# Be careful with invalid conversions
+as.numeric("hello")  # NA with warning
+as.logical("TRUE")  # NA (strings don't automatically convert to logical)</code></pre>
+      
+      <div class="note-box">
+        <p><strong>Note:</strong> When R encounters a value it can't convert, it typically produces an <code>NA</code> value (representing missing data) and may generate a warning.</p>
+      </div>
+      
+      <h4>Checking and Coercing Types</h4>
+      <pre><code># Check the type of an object
+x <- 10
+typeof(x)  # "double"
+class(x)   # "numeric"
+
+# The 'is' family of functions
+is.numeric(x)  # TRUE
+is.character(x)  # FALSE
+is.logical(x)  # FALSE
+
+# Getting more information
+str(x)  # Compact display of an object's structure</code></pre>
+      
+      <h3>Factors</h3>
+      <p>Factors are a special data type in R for categorical variables:</p>
+      
+      <pre><code># Create a factor
+gender <- factor(c("male", "female", "male", "female", "female"))
+gender  # Levels: female male
+
+# View factor levels
+levels(gender)  # "female" "male"
+
+# Create factor with specific levels and order
+blood_type <- factor(
+  c("O", "AB", "A", "B", "O", "A"),
+  levels = c("O", "A", "B", "AB"),
+  ordered = TRUE
+)
+
+# Ordered factors can use comparison operators
+blood_type[1] < blood_type[2]  # TRUE if "O" is before "AB" in levels
+
+# Convert factor to numeric (gives level indices, not the original values)
+as.numeric(gender)  # 2 1 2 1 1 
+
+# Convert factor to character
+as.character(gender)  # "male" "female" "male" "female" "female"</code></pre>
+      
+      <div class="tip-box">
+        <p><strong>Tip:</strong> In data analysis, factors are often used for modeling and plotting where categorical variables are involved. They're especially useful with the <code>ggplot2</code> package.</p>
+      </div>
+      
+      <h3>Dates and Times</h3>
+      <p>R has several data types for working with dates and times:</p>
+      
+      <pre><code># Get current date
+today <- Sys.Date()
+today  # Displays current date (e.g., "2023-08-15")
+class(today)  # "Date"
+
+# Create a date from a string
+my_date <- as.Date("2023-01-15")
+my_date  # "2023-01-15"
+
+# Specify format (for non-standard formats)
+custom_date <- as.Date("15/01/2023", format = "%d/%m/%Y")
+custom_date  # "2023-01-15"
+
+# Date arithmetic
+today - my_date  # Difference in days
+today + 30  # Date 30 days from today
+
+# POSIXct for date-times
+now <- Sys.time()
+now  # Current date and time with timezone
+class(now)  # "POSIXct" "POSIXt"
+
+# Create a specific date-time
+event_time <- as.POSIXct("2023-01-15 14:30:00")
+event_time  # "2023-01-15 14:30:00"
+
+# Time zone handling
+event_time_utc <- as.POSIXct("2023-01-15 14:30:00", tz = "UTC")
+format(event_time_utc, tz = "America/New_York")  # Convert to New York time</code></pre>
+      
+      <div class="note-box">
+        <p><strong>Note:</strong> The <code>lubridate</code> package provides more intuitive functions for working with dates and times in R, making many common tasks simpler.</p>
+      </div>
+      
+      <div class="exercise">
+        <h3>Exercise: Data Types</h3>
+        <p>What will be the result of the following operations?</p>
+        
+        <pre><code>x <- "42"
+y <- 7
+result <- as.numeric(x) + y</code></pre>
+        
+        <div class="quiz-option">
+          <input type="radio" name="types-q1" id="types1a" value="error">
+          <label for="types1a">Error: non-numeric argument to binary operator</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="types-q1" id="types1b" value="427">
+          <label for="types1b">427 (string concatenation)</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="types-q1" id="types1c" value="49">
+          <label for="types1c">49 (numeric addition)</label>
+        </div>
+        
+        <button onclick="checkAnswer('types-q1', '49')">Check Answer</button>
+        <div id="types-q1-result" class="result"></div>
+        
+        <p>What data type is the result of the following expression?</p>
+        <pre><code>result <- c(TRUE, 2, "hello")</code></pre>
+        
+        <div class="quiz-option">
+          <input type="radio" name="types-q2" id="types2a" value="logical">
+          <label for="types2a">Logical</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="types-q2" id="types2b" value="numeric">
+          <label for="types2b">Numeric</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="types-q2" id="types2c" value="character">
+          <label for="types2c">Character</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="types-q2" id="types2d" value="mixed">
+          <label for="types2d">Mixed type (combination of all three)</label>
+        </div>
+        
+        <button onclick="checkAnswer('types-q2', 'character')">Check Answer</button>
+        <div id="types-q2-result" class="result"></div>
+      </div>
+    </div>
+    <div class="section" id="basic-operations">
+      <h2>Basic Operations in R</h2>
+      <p>R provides a robust set of operators and functions for performing calculations and manipulating data.</p>
+      
+      <h3>Arithmetic Operators</h3>
+      <p>These operators perform basic mathematical calculations:</p>
+      
+      <table>
+        <tr>
+          <th>Operator</th>
+          <th>Description</th>
+          <th>Example</th>
+          <th>Result</th>
+        </tr>
+        <tr>
+          <td>+</td>
+          <td>Addition</td>
+          <td><code>5 + 3</code></td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <td>-</td>
+          <td>Subtraction</td>
+          <td><code>10 - 4</code></td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td>*</td>
+          <td>Multiplication</td>
+          <td><code>6 * 7</code></td>
+          <td>42</td>
+        </tr>
+        <tr>
+          <td>/</td>
+          <td>Division</td>
+          <td><code>20 / 4</code></td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>^</td>
+          <td>Exponentiation</td>
+          <td><code>2 ^ 3</code></td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <td>%%</td>
+          <td>Modulo (remainder)</td>
+          <td><code>17 %% 5</code></td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>%/%</td>
+          <td>Integer division</td>
+          <td><code>17 %/% 5</code></td>
+          <td>3</td>
+        </tr>
+      </table>
+      
+      <pre><code># Examples of arithmetic operations
+a <- 15
+b <- 4
+
+# Basic arithmetic
+a + b   # Addition: 19
+a - b   # Subtraction: 11
+a * b   # Multiplication: 60
+a / b   # Division: 3.75
+a ^ b   # Exponentiation: 50625
+a %% b  # Modulo (remainder): 3
+a %/% b # Integer division: 3
+
+# Order of operations follows standard mathematical rules (PEMDAS)
+result <- 10 + 5 * 2   # 20, not 30
+result2 <- (10 + 5) * 2  # 30
+
+# Using built-in mathematical functions
+sqrt(16)      # Square root: 4
+abs(-7)       # Absolute value: 7
+log(10)       # Natural logarithm: 2.302585
+log10(100)    # Base-10 logarithm: 2
+exp(1)        # e raised to power: 2.718282
+sin(pi/2)     # Sine of pi/2: 1</code></pre>
+      
+      <h3>Assignment Operators</h3>
+      <p>R provides multiple ways to assign values to variables:</p>
+      
+      <pre><code># Standard assignment
+x <- 10       # Preferred in R
+y = 20        # Works but not recommended for variable assignment
+30 -> z       # Reverse assignment (less common)
+
+# Compound assignment (modifies the variable in place)
+x <- x + 5    # Add 5 to x (now x is 15)
+
+# Multiple assignments
+x <- y <- z <- 0  # Assigns 0 to all three variables</code></pre>
+      
+      <div class="note-box">
+        <p><strong>Style Note:</strong> In the R community, the <code>&lt;-</code> operator is generally preferred over <code>=</code> for assignment. The equals sign is more commonly used for specifying function arguments.</p>
+      </div>
+      
+      <h3>Comparison Operators</h3>
+      <p>These operators compare values and return logical results:</p>
+      
+      <table>
+        <tr>
+          <th>Operator</th>
+          <th>Description</th>
+          <th>Example</th>
+          <th>Result</th>
+        </tr>
+        <tr>
+          <td>==</td>
+          <td>Equal to</td>
+          <td><code>5 == 5</code></td>
+          <td>TRUE</td>
+        </tr>
+        <tr>
+          <td>!=</td>
+          <td>Not equal to</td>
+          <td><code>5 != 3</code></td>
+          <td>TRUE</td>
+        </tr>
+        <tr>
+          <td>></td>
+          <td>Greater than</td>
+          <td><code>7 > 2</code></td>
+          <td>TRUE</td>
+        </tr>
+        <tr>
+          <td><</td>
+          <td>Less than</td>
+          <td><code>4 < 10</code></td>
+          <td>TRUE</td>
+        </tr>
+        <tr>
+          <td>>=</td>
+          <td>Greater than or equal to</td>
+          <td><code>5 >= 5</code></td>
+          <td>TRUE</td>
+        </tr>
+        <tr>
+          <td><=</td>
+          <td>Less than or equal to</td>
+          <td><code>6 <= 3</code></td>
+          <td>FALSE</td>
+        </tr>
+      </table>
+      
+      <pre><code># Comparison examples
+x <- 10
+y <- 15
+
+x == y   # Equal to: FALSE
+x != y   # Not equal to: TRUE
+x > y    # Greater than: FALSE
+x < y    # Less than: TRUE
+x >= 10  # Greater than or equal to: TRUE
+y <= 5   # Less than or equal to: FALSE
+
+# String comparisons
+"apple" == "apple"  # TRUE
+"apple" != "orange" # TRUE
+"apple" < "banana"  # FALSE (alphabetical comparison)
+
+# Comparing vectors
+c(1, 2, 3) == c(1, 2, 4)  # FALSE TRUE FALSE (element-wise comparison)</code></pre>
+      
+      <h3>Logical Operators</h3>
+      <p>These operators combine logical values:</p>
+      
+      <table>
+        <tr>
+          <th>Operator</th>
+          <th>Description</th>
+          <th>Example</th>
+          <th>Result</th>
+        </tr>
+        <tr>
+          <td>&</td>
+          <td>Element-wise AND</td>
+          <td><code>c(TRUE, TRUE, FALSE) & c(TRUE, FALSE, FALSE)</code></td>
+          <td>TRUE FALSE FALSE</td>
+        </tr>
+        <tr>
+          <td>|</td>
+          <td>Element-wise OR</td>
+          <td><code>c(TRUE, TRUE, FALSE) | c(TRUE, FALSE, FALSE)</code></td>
+          <td>TRUE TRUE FALSE</td>
+        </tr>
+        <tr>
+          <td>!</td>
+          <td>NOT</td>
+          <td><code>!c(TRUE, FALSE)</code></td>
+          <td>FALSE TRUE</td>
+        </tr>
+        <tr>
+          <td>&&</td>
+          <td>Scalar AND</td>
+          <td><code>TRUE && FALSE</code></td>
+          <td>FALSE</td>
+        </tr>
+        <tr>
+          <td>||</td>
+          <td>Scalar OR</td>
+          <td><code>TRUE || FALSE</code></td>
+          <td>TRUE</td>
+        </tr>
+      </table>
+      
+      <pre><code># Logical operators
+x <- 5
+y <- 10
+
+# Combining conditions
+x > 0 & y < 20   # TRUE (both conditions are true)
+x > 0 | y > 20   # TRUE (at least one condition is true)
+!(x == y)        # TRUE (negating FALSE gives TRUE)
+
+# Difference between & and &&
+c(TRUE, FALSE) & c(FALSE, FALSE)   # Element-wise: FALSE FALSE
+c(TRUE, FALSE) && c(FALSE, FALSE)  # Only evaluates first element: FALSE
+
+# Short-circuit evaluation with && and ||
+x > 0 && 1/x > 0  # Safe, because second part only evaluates if x > 0
+x <= 0 || 1/x > 0 # Safe, because second part only evaluates if x <= 0 is FALSE</code></pre>
+      
+      <h3>Special Operators</h3>
+      <p>R has some special operators for specific operations:</p>
+      
+      <pre><code># %in% operator (membership)
+5 %in% c(1, 3, 5, 7, 9)  # TRUE
+"banana" %in% c("apple", "orange", "pear")  # FALSE
+
+# %*% operator (matrix multiplication)
+matrix1 <- matrix(1:4, nrow = 2)
+matrix2 <- matrix(5:8, nrow = 2)
+matrix1 %*% matrix2
+
+# : operator (sequence generation)
+1:5  # Creates sequence: 1 2 3 4 5
+7:3  # Descending sequence: 7 6 5 4 3
+
+# %>% operator (pipe operator from magrittr/tidyverse)
+# Requires library(magrittr) or library(dplyr)
+# data %>% filter(x > 5) %>% select(a, b, c)</code></pre>
+      
+      <h3>Working with Missing Values</h3>
+      <p>R uses <code>NA</code> to represent missing values:</p>
+      
+      <pre><code># Create a vector with missing values
+x <- c(10, NA, 15, 20, NA)
+
+# Operations with NA generally result in NA
+mean(x)  # Returns NA
+sum(x)   # Returns NA
+
+# Functions often have na.rm parameter to remove NA values
+mean(x, na.rm = TRUE)  # 15
+sum(x, na.rm = TRUE)   # 45
+
+# Testing for NA
+is.na(x)  # FALSE TRUE FALSE FALSE TRUE
+
+# Removing NA values
+na.omit(x)  # 10 15 20
+
+# Replacing NA values
+x[is.na(x)] <- 0
+x  # 10 0 15 20 0</code></pre>
+      
       <h3>Variable Naming Rules</h3>
       <p>When naming variables in R, follow these rules:</p>
       <ul>
         <li>Names can contain letters, numbers, underscores (_) and periods (.)</li>
-        <li>Names must start with a letter or a period</li>
-        <li>If a name starts with a period, it cannot be followed by a number</li>
-        <li>Names are case-sensitive (age, Age, and AGE are different variables)</li>
+        <li>Names must start with a letter or a period (if starting with a period, the second character cannot be a number)</li>
+        <li>Names are case-sensitive (<code>age</code>, <code>Age</code>, and <code>AGE</code> are different variables)</li>
+        <li>Reserved words cannot be used as variable names (e.g., <code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>)</li>
       </ul>
       
       <pre><code># Valid variable names
@@ -362,15 +1378,22 @@ my_variable <- 10
 myVariable <- 20
 my.variable <- 30
 .hidden_var <- 40
+variable2 <- 50
 
 # Invalid variable names (would cause errors)
-# 2nd_var <- 50       # Cannot start with a number
-# my-variable <- 60   # Cannot contain hyphens
-# .2var <- 70         # Cannot start with period followed by number</code></pre>
+# 2nd_var <- 60       # Cannot start with a number
+# my-variable <- 70   # Cannot contain hyphens
+# .2var <- 80         # Cannot start with period followed by number
+# if <- 90            # Cannot use reserved words
 
+# Recommended naming conventions
+# Use snake_case or camelCase consistently
+avg_salary <- 50000     # snake_case (common in tidyverse)
+avgSalary <- 50000      # camelCase</code></pre>
+      
       <div class="exercise">
-        <h3>Exercise: Basic R Operations</h3>
-        <p>What will be the value of the variable 'result' after running the following code?</p>
+        <h3>Exercise: Basic Operations</h3>
+        <p>Calculate the result of the following code:</p>
         <pre><code>x <- 15
 y <- 4
 result <- (x %% y) * 2 + (x %/% y)</code></pre>
@@ -384,27 +1407,429 @@ result <- (x %% y) * 2 + (x %/% y)</code></pre>
           <label for="ops2">7</label>
         </div>
         <div class="quiz-option">
-          <input type="radio" name="ops-q1" id="ops3" value="11">
-          <label for="ops3">11</label>
+          <input type="radio" name="ops-q1" id="ops3" value="9">
+          <label for="ops3">9</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="ops-q1" id="ops4" value="11">
+          <label for="ops4">11</label>
         </div>
         
-        <button onclick="checkAnswer('ops-q1', '7')">Check Answer</button>
+        <button onclick="checkAnswer('ops-q1', '9')">Check Answer</button>
         <div id="ops-q1-result" class="result"></div>
+        
+        <p>What will be returned by the following logical operation?</p>
+        <pre><code>(5 > 3) & (4 == 4) | !(6 <= 6)</code></pre>
+        
+        <div class="quiz-option">
+          <input type="radio" name="ops-q2" id="ops2a" value="true">
+          <label for="ops2a">TRUE</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="ops-q2" id="ops2b" value="false">
+          <label for="ops2b">FALSE</label>
+        </div>
+        
+        <button onclick="checkAnswer('ops-q2', 'true')">Check Answer</button>
+        <div id="ops-q2-result" class="result"></div>
       </div>
     </div>
 
+    <div class="section" id="data-structures">
+      <h2>Data Structures in R</h2>
+      <p>R has several data structures for organizing and storing data. Understanding these structures is essential for effective data analysis.</p>
+      
+      <h3>Vectors</h3>
+      <p>Vectors are the most basic data structure in R and contain elements of the same type.</p>
+      
+      <pre><code># Creating vectors
+numeric_vector <- c(1, 2, 3, 4, 5)
+character_vector <- c("apple", "banana", "cherry")
+logical_vector <- c(TRUE, FALSE, TRUE, TRUE)
+
+# Creating vectors with shortcuts
+sequence <- 1:10                    # 1 2 3 4 5 6 7 8 9 10
+sequence2 <- seq(from = 0, to = 1, by = 0.1)  # 0.0 0.1 0.2 ... 1.0
+repeat_vector <- rep(c(1, 2), times = 3)      # 1 2 1 2 1 2
+repeat_each <- rep(c(1, 2), each = 3)         # 1 1 1 2 2 2
+
+# Vector length
+length(numeric_vector)  # 5
+
+# Accessing vector elements (indexing starts at 1, not 0)
+numeric_vector[1]       # First element: 1
+numeric_vector[c(1, 3, 5)]  # Elements 1, 3, and 5: 1 3 5
+numeric_vector[2:4]     # Elements 2 through 4: 2 3 4
+
+# Negative indices remove elements
+numeric_vector[-1]      # All except first element: 2 3 4 5
+numeric_vector[-(1:3)]  # All except first three elements: 4 5
+
+# Named vectors
+named_vector <- c(apple = 10, banana = 20, cherry = 30)
+named_vector["banana"]  # 20
+
+# Alternative way to name vectors
+ages <- c(25, 30, 35)
+names(ages) <- c("John", "Mary", "Bob")
+ages["Mary"]  # 30
+
+# Vector operations (vectorized)
+numeric_vector * 2      # 2 4 6 8 10
+numeric_vector + c(10, 20, 30, 40, 50)  # 11 22 33 44 55
+numeric_vector > 3      # FALSE FALSE FALSE TRUE TRUE
+
+# Vector functions
+sum(numeric_vector)     # 15
+mean(numeric_vector)    # 3
+median(numeric_vector)  # 3
+range(numeric_vector)   # 1 5
+sort(numeric_vector)    # 1 2 3 4 5
+sort(numeric_vector, decreasing = TRUE)  # 5 4 3 2 1
+rev(numeric_vector)     # 5 4 3 2 1</code></pre>
+      
+      <div class="tip-box">
+        <p><strong>Vectorization Tip:</strong> R is designed to work with entire vectors at once. Vectorized operations are much faster than looping through elements one at a time. When possible, use vector operations instead of loops.</p>
+      </div>
+      
+      <h3>Matrices</h3>
+      <p>Matrices are two-dimensional arrays where all elements have the same data type.</p>
+      
+      <pre><code># Creating matrices
+matrix1 <- matrix(1:12, nrow = 3, ncol = 4)  # Fill by column
+matrix1
+#      [,1] [,2] [,3] [,4]
+# [1,]    1    4    7   10
+# [2,]    2    5    8   11
+# [3,]    3    6    9   12
+
+matrix2 <- matrix(1:12, nrow = 3, ncol = 4, byrow = TRUE)  # Fill by row
+matrix2
+#      [,1] [,2] [,3] [,4]
+# [1,]    1    2    3    4
+# [2,]    5    6    7    8
+# [3,]    9   10   11   12
+
+# Matrix dimensions
+dim(matrix1)      # 3 4
+nrow(matrix1)     # 3
+ncol(matrix1)     # 4
+
+# Naming rows and columns
+row_names <- c("Row1", "Row2", "Row3")
+col_names <- c("Col1", "Col2", "Col3", "Col4")
+dimnames(matrix1) <- list(row_names, col_names)
+matrix1
+#      Col1 Col2 Col3 Col4
+# Row1    1    4    7   10
+# Row2    2    5    8   11
+# Row3    3    6    9   12
+
+# Alternative way to name rows and columns
+rownames(matrix2) <- row_names
+colnames(matrix2) <- col_names
+
+# Accessing elements
+matrix1[1, 3]     # Element at row 1, column 3: 7
+matrix1[2, ]      # Entire row 2: 2 5 8 11
+matrix1[, 4]      # Entire column 4: 10 11 12
+matrix1[1:2, 3:4] # Submatrix (rows 1-2, columns 3-4)
+
+# Matrix operations
+matrix1 + 100     # Add 100 to each element
+matrix1 * 2       # Multiply each element by 2
+matrix1 + matrix2 # Element-wise addition
+
+# Matrix multiplication
+A <- matrix(1:4, nrow = 2)
+B <- matrix(5:8, nrow = 2)
+A %*% B           # Matrix multiplication
+
+# Other matrix functions
+t(matrix1)        # Transpose
+diag(A)           # Diagonal elements
+sum(matrix1)      # Sum of all elements
+rowSums(matrix1)  # Sum of each row
+colMeans(matrix1) # Mean of each column</code></pre>
+      
+      <h3>Arrays</h3>
+      <p>Arrays are multi-dimensional data structures where all elements have the same data type.</p>
+      
+      <pre><code># Create a 2x3x2 array (2 rows, 3 columns, 2 layers)
+array_data <- array(1:12, dim = c(2, 3, 2))
+array_data
+# , , 1
+#      [,1] [,2] [,3]
+# [1,]    1    3    5
+# [2,]    2    4    6
+#
+# , , 2
+#      [,1] [,2] [,3]
+# [1,]    7    9   11
+# [2,]    8   10   12
+
+# Naming dimensions
+dimnames(array_data) <- list(
+  c("Row1", "Row2"),
+  c("Col1", "Col2", "Col3"),
+  c("Layer1", "Layer2")
+)
+
+# Accessing elements
+array_data[1, 2, 2]  # Element at Row1, Col2, Layer2: 9
+array_data[, , 1]    # Entire first layer (returns a matrix)
+array_data[1, , ]    # All elements in first row across all layers</code></pre>
+      
+      <h3>Lists</h3>
+      <p>Lists are versatile data structures that can contain elements of different types, including other lists.</p>
+      
+      <pre><code># Creating a list
+my_list <- list(
+  name = "John",
+  age = 30,
+  scores = c(85, 90, 78),
+  passed = TRUE,
+  address = list(
+  street = "123 Main St",
+  city = "Boston",
+  zip = 12345
+  )
+)
+
+# Accessing list elements
+my_list$name            # Access by name: "John"
+my_list[["age"]]        # Alternative access by name: 30
+my_list[[3]]            # Access by position: c(85, 90, 78)
+my_list[[3]][2]         # Second element of the third component: 90
+my_list$address$city    # Nested list access: "Boston"
+
+# Getting list information
+length(my_list)         # Number of top-level components: 5
+names(my_list)          # Names of list components
+str(my_list)            # Compact display of structure
+
+# Adding or modifying elements
+my_list$email <- "john@example.com"  # Add new element
+my_list$age <- 31                    # Modify existing element
+
+# Removing elements
+my_list$passed <- NULL    # Remove an element
+
+# Combining lists
+list1 <- list(a = 1, b = 2)
+list2 <- list(c = 3, d = 4)
+combined_list <- c(list1, list2)  # Combines into a single list
+
+# Converting lists
+unlist(list1)  # Simplifies to a vector if possible</code></pre>
+      
+      <div class="note-box">
+        <p><strong>Note:</strong> Lists are incredibly versatile and are used extensively in R, especially for storing the results of statistical functions and for creating complex data structures.</p>
+      </div>
+      
+      <h3>Data Frames</h3>
+      <p>Data frames are table-like structures that store different types of data in columns. They are one of the most commonly used data structures for data analysis in R.</p>
+      
+      <pre><code># Creating a data frame
+df <- data.frame(
+  name = c("Alice", "Bob", "Charlie", "David"),
+  age = c(25, 30, 35, 40),
+  salary = c(50000, 60000, 75000, 90000),
+  department = c("HR", "IT", "Finance", "Marketing"),
+  stringsAsFactors = FALSE  # Prevents string columns from becoming factors
+)
+
+# Viewing data frame
+df         # Print the entire data frame
+head(df)   # First 6 rows
+tail(df)   # Last 6 rows
+str(df)    # Structure
+summary(df) # Summary statistics
+
+# Dimensions
+dim(df)    # 4 4
+nrow(df)   # 4
+ncol(df)   # 4
+names(df)  # Column names
+
+# Accessing columns
+df$name               # Character vector of names
+df["age"]             # Data frame with just the age column
+df[c("name", "salary")] # Data frame with name and salary columns
+
+# Accessing rows
+df[1, ]               # First row
+df[2:3, ]             # Rows 2 and 3
+df[df$age > 30, ]     # Rows where age > 30
+
+# Accessing specific cells
+df[2, 3]              # Row 2, Column 3: 60000
+df[1, "department"]   # Row 1, "department" column: "HR"
+
+# Adding a new column
+df$bonus <- c(1000, 2000, 1500, 3000)
+
+# Adding a new row
+new_row <- data.frame(
+  name = "Eve",
+  age = 28,
+  salary = 55000,
+  department = "IT",
+  bonus = 1200
+)
+df <- rbind(df, new_row)
+
+# Removing columns
+df$bonus <- NULL                # Remove bonus column
+df <- df[, -which(names(df) == "department")]  # Alternative way
+
+# Sorting a data frame
+df_sorted <- df[order(df$age), ]               # Sort by age ascending
+df_sorted <- df[order(df$salary, decreasing = TRUE), ]  # Sort by salary descending
+df_sorted <- df[order(df$department, df$age), ]  # Sort by department, then age
+
+# Filtering data
+subset(df, age > 30)               # Rows where age > 30
+subset(df, department == "IT")     # Rows where department is "IT"
+subset(df, age > 25 & salary > 60000)  # Multiple conditions
+
+# Updating values
+df$salary[df$name == "Bob"] <- 65000  # Update Bob's salary
+
+# Applying functions to columns
+df$salary_thousands <- df$salary / 1000  # Create derived column
+
+# Summarizing data
+mean(df$age)                  # Mean age
+aggregate(salary ~ department, data = df, mean)  # Mean salary by department</code></pre>
+      
+      <h3>Tibbles</h3>
+      <p>Tibbles are a modern reimagining of data frames from the tidyverse package. They have some improvements over traditional data frames.</p>
+      
+      <pre><code># Load the tibble package
+# install.packages("tibble") # Uncomment to install
+library(tibble)
+
+# Create a tibble
+tbl <- tibble(
+  name = c("Alice", "Bob", "Charlie", "David"),
+  age = c(25, 30, 35, 40),
+  salary = c(50000, 60000, 75000, 90000)
+)
+
+# Differences from data frames:
+# 1. Tibbles show only the first 10 rows by default
+# 2. Tibbles show column types
+# 3. Tibbles don't convert strings to factors
+# 4. Tibbles don't change column names
+# 5. Subsetting with $ gives a warning if column doesn't exist
+
+# Convert data frame to tibble
+tbl_from_df <- as_tibble(df)
+
+# Convert tibble to data frame
+df_from_tbl <- as.data.frame(tbl)</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Data Structures</h3>
+        <p>Consider the following R code:</p>
+        
+        <pre><code>employees <- data.frame(
+  id = 1:5,
+  name = c("John", "Lisa", "Mark", "Sarah", "James"),
+  department = c("HR", "IT", "Finance", "IT", "Marketing"),
+  salary = c(55000, 68000, 75000, 67000, 62000)
+)
+
+result <- employees[employees$department == "IT", c("name", "salary")]</code></pre>
+        
+        <p>What will be the content and structure of the 'result' variable?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="struct-q1" id="struct1a" value="vector">
+          <label for="struct1a">A character vector with values "Lisa" and "Sarah"</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="struct-q1" id="struct1b" value="df1">
+          <label for="struct1b">A data frame with 2 rows and 4 columns (all original columns)</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="struct-q1" id="struct1c" value="df2">
+          <label for="struct1c">A data frame with 2 rows and 2 columns (name and salary)</label>
+        </div>
+        
+        <button onclick="checkAnswer('struct-q1', 'df2')">Check Answer</button>
+        <div id="struct-q1-result" class="result"></div>
+        
+        <p>Which of the following statements about vectors in R is FALSE?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="struct-q2" id="struct2a" value="elements">
+          <label for="struct2a">Vectors can contain elements of different data types</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="struct-q2" id="struct2b" value="dimension">
+          <label for="struct2b">Vectors are one-dimensional data structures</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="struct-q2" id="struct2c" value="index">
+          <label for="struct2c">Vector indexing in R starts at 1, not 0</label>
+        </div>
+        
+        <button onclick="checkAnswer('struct-q2', 'elements')">Check Answer</button>
+        <div id="struct-q2-result" class="result"></div>
+      </div>
+    </div>
     <div class="section" id="packages">
       <h2>Working with Packages</h2>
-      <p>R's functionality can be extended with packages, which are collections of functions, data, and documentation.</p>
+      <p>R's functionality can be extended with packages, which are collections of functions, data, and documentation. The R ecosystem has thousands of packages for various tasks.</p>
+      
+      <h3>Understanding R Packages</h3>
+      <p>R packages are collections of R functions, data, and compiled code organized in a systematic way. They extend the functionality of base R and provide specialized tools for data analysis, visualization, and more.</p>
+      
+      <h4>Types of Package Repositories</h4>
+      <ul>
+        <li><strong>CRAN (Comprehensive R Archive Network):</strong> The official repository with over 18,000 packages that have been reviewed and vetted</li>
+        <li><strong>Bioconductor:</strong> Specializes in packages for bioinformatics and computational biology</li>
+        <li><strong>GitHub:</strong> Many developers host their R packages on GitHub, often before submitting to CRAN</li>
+        <li><strong>R-Forge:</strong> Platform for R package developers to collaborate</li>
+        <li><strong>Private repositories:</strong> Organizations may maintain their own internal R package repositories</li>
+      </ul>
       
       <h3>Installing Packages</h3>
-      <p>You can install packages from CRAN (Comprehensive R Archive Network) using the <code>install.packages()</code> function:</p>
+      <p>You can install packages from CRAN using the <code>install.packages()</code> function:</p>
       
       <pre><code># Install a single package
 install.packages("dplyr")
 
 # Install multiple packages at once
-install.packages(c("ggplot2", "tidyr", "readr"))</code></pre>
+install.packages(c("ggplot2", "tidyr", "readr"))
+
+# Specify repository if needed
+install.packages("dplyr", repos = "https://cloud.r-project.org/")
+
+# Install from a specific version (for compatibility)
+# Requires the remotes package
+install.packages("remotes")
+remotes::install_version("dplyr", version = "1.0.0")
+
+# Install from GitHub
+# Requires the remotes or devtools package
+remotes::install_github("tidyverse/dplyr")
+# OR
+# devtools::install_github("tidyverse/dplyr")</code></pre>
+      
+      <h4>Installing from Bioconductor</h4>
+      <pre><code># Install BiocManager
+install.packages("BiocManager")
+
+# Install Bioconductor packages
+BiocManager::install("GenomicFeatures")
+BiocManager::install(c("GenomicRanges", "Biostrings"))</code></pre>
+      
+      <div class="tip-box">
+        <p><strong>Installation Tip:</strong> If you're working in a corporate environment or behind a firewall, you might need to configure proxy settings for package installation. Use <code>?download.file</code> to see options for setting proxies.</p>
+      </div>
       
       <h3>Loading Packages</h3>
       <p>After installing a package, you need to load it into your current R session to use its functions:</p>
@@ -412,9 +1837,37 @@ install.packages(c("ggplot2", "tidyr", "readr"))</code></pre>
       <pre><code># Load a package
 library(dplyr)
 
-# You can now use dplyr functions
-# For example, filter() from dplyr
-# Without loading the package, you would need to use dplyr::filter()</code></pre>
+# Alternative method (less common)
+require(dplyr)  # Issues a warning instead of an error if package is not available
+
+# Check if a package is installed before loading
+if (!requireNamespace("dplyr", quietly = TRUE)) {
+  install.packages("dplyr")
+}
+library(dplyr)
+
+# Load with namespace but don't attach
+dplyr::filter(my_data, x > 5)  # Use a function without loading the package</code></pre>
+      
+      <div class="note-box">
+        <p><strong>Note:</strong> The difference between <code>library()</code> and <code>require()</code> is that <code>library()</code> throws an error if the package is not installed, while <code>require()</code> returns FALSE and issues a warning.</p>
+      </div>
+      
+      <h4>Managing Package Namespaces</h4>
+      <p>When you load multiple packages, there can be conflicts if different packages have functions with the same name:</p>
+      
+      <pre><code># Check which packages are loaded
+search()
+
+# See conflicts
+conflicts()
+
+# Use a function from a specific package
+dplyr::filter()    # Use filter from dplyr
+stats::filter()    # Use filter from stats
+
+# Detach a package
+detach("package:dplyr", unload = TRUE)</code></pre>
       
       <h3>Checking Installed Packages</h3>
       <p>You can view all installed packages and their versions:</p>
@@ -423,7 +1876,16 @@ library(dplyr)
 installed.packages()
 
 # More readable way to check specific packages
-packageVersion("dplyr")  # Shows version of dplyr package</code></pre>
+packageVersion("dplyr")  # Shows version of dplyr package
+
+# List all loaded packages
+(.packages())
+
+# Check package dependencies
+packageDescription("dplyr")$Imports
+
+# Get package installation path
+find.package("dplyr")</code></pre>
       
       <h3>Updating Packages</h3>
       <p>It's a good practice to keep your packages up to date:</p>
@@ -431,42 +1893,157 @@ packageVersion("dplyr")  # Shows version of dplyr package</code></pre>
       <pre><code># Update all packages
 update.packages()
 
+# Update without asking for confirmation
+update.packages(ask = FALSE)
+
 # Update specific packages
-install.packages("dplyr")  # Reinstalling will update to the latest version</code></pre>
+install.packages("dplyr")  # Reinstalling will update to the latest version
+
+# Check for outdated packages
+old.packages()
+
+# Update packages from Bioconductor
+BiocManager::install(update = TRUE)</code></pre>
       
       <h3>Popular R Packages</h3>
+      <p>Here are some of the most widely used R packages organized by category:</p>
+      
+      <h4>Data Manipulation</h4>
       <table>
         <tr>
           <th>Package</th>
           <th>Description</th>
-          <th>Common Uses</th>
+          <th>Key Functions</th>
         </tr>
         <tr>
           <td>dplyr</td>
-          <td>Data manipulation</td>
-          <td>Filtering, selecting, mutating, summarizing data</td>
-        </tr>
-        <tr>
-          <td>ggplot2</td>
-          <td>Data visualization</td>
-          <td>Creating publication-quality graphics</td>
+          <td>Grammar of data manipulation</td>
+          <td>filter(), select(), mutate(), summarize(), arrange(), group_by()</td>
         </tr>
         <tr>
           <td>tidyr</td>
-          <td>Data tidying</td>
-          <td>Reshaping data between wide and long formats</td>
+          <td>Tools for data tidying</td>
+          <td>pivot_longer(), pivot_wider(), separate(), unite()</td>
+        </tr>
+        <tr>
+          <td>data.table</td>
+          <td>Fast data manipulation</td>
+          <td>High-performance version of data.frame</td>
+        </tr>
+        <tr>
+          <td>purrr</td>
+          <td>Functional programming tools</td>
+          <td>map(), reduce(), walk(), every(), some()</td>
+        </tr>
+      </table>
+      
+      <h4>Data Import/Export</h4>
+      <table>
+        <tr>
+          <th>Package</th>
+          <th>Description</th>
+          <th>Key Functions</th>
         </tr>
         <tr>
           <td>readr</td>
-          <td>Data import</td>
-          <td>Reading CSV, TSV, and other delimited files</td>
+          <td>Fast reading of tabular data</td>
+          <td>read_csv(), read_tsv(), read_delim()</td>
         </tr>
         <tr>
-          <td>lubridate</td>
-          <td>Date and time handling</td>
-          <td>Parsing, manipulating, and calculating with dates</td>
+          <td>readxl</td>
+          <td>Read Excel files</td>
+          <td>read_excel(), read_xlsx(), read_xls()</td>
+        </tr>
+        <tr>
+          <td>haven</td>
+          <td>Import from SAS, SPSS, Stata</td>
+          <td>read_sas(), read_spss(), read_stata()</td>
+        </tr>
+        <tr>
+          <td>DBI</td>
+          <td>Database interface</td>
+          <td>dbConnect(), dbSendQuery(), dbGetQuery()</td>
         </tr>
       </table>
+      
+      <h4>Data Visualization</h4>
+      <table>
+        <tr>
+          <th>Package</th>
+          <th>Description</th>
+          <th>Key Functions</th>
+        </tr>
+        <tr>
+          <td>ggplot2</td>
+          <td>Grammar of graphics</td>
+          <td>ggplot(), geom_*(), aes(), facet_*()</td>
+        </tr>
+        <tr>
+          <td>plotly</td>
+          <td>Interactive visualizations</td>
+          <td>plot_ly(), ggplotly()</td>
+        </tr>
+        <tr>
+          <td>lattice</td>
+          <td>Trellis graphics</td>
+          <td>xyplot(), bwplot(), levelplot()</td>
+        </tr>
+        <tr>
+          <td>leaflet</td>
+          <td>Interactive maps</td>
+          <td>leaflet(), addTiles(), addMarkers()</td>
+        </tr>
+      </table>
+      
+      <h4>Statistics and Modeling</h4>
+      <table>
+        <tr>
+          <th>Package</th>
+          <th>Description</th>
+          <th>Key Functions</th>
+        </tr>
+        <tr>
+          <td>stats</td>
+          <td>Base statistical functions</td>
+          <td>lm(), glm(), t.test(), cor()</td>
+        </tr>
+        <tr>
+          <td>caret</td>
+          <td>Machine learning</td>
+          <td>train(), createDataPartition(), predict()</td>
+        </tr>
+        <tr>
+          <td>lme4</td>
+          <td>Mixed-effects models</td>
+          <td>lmer(), glmer()</td>
+        </tr>
+        <tr>
+          <td>survival</td>
+          <td>Survival analysis</td>
+          <td>Surv(), survfit(), coxph()</td>
+        </tr>
+      </table>
+      
+      <h4>Tidyverse: An Integrated Collection</h4>
+      <p>The tidyverse is a collection of R packages designed to work together for data science:</p>
+      
+      <pre><code># Install the entire tidyverse
+install.packages("tidyverse")
+
+# Load the core tidyverse packages
+library(tidyverse)</code></pre>
+      
+      <p>Core tidyverse packages include:</p>
+      <ul>
+        <li><strong>dplyr:</strong> Data manipulation</li>
+        <li><strong>tidyr:</strong> Data tidying</li>
+        <li><strong>ggplot2:</strong> Data visualization</li>
+        <li><strong>readr:</strong> Data import</li>
+        <li><strong>purrr:</strong> Functional programming</li>
+        <li><strong>tibble:</strong> Modern data frames</li>
+        <li><strong>stringr:</strong> String manipulation</li>
+        <li><strong>forcats:</strong> Factor handling</li>
+      </ul>
       
       <div class="exercise">
         <h3>Exercise: R Packages</h3>
@@ -477,17 +2054,39 @@ library(readxl)</textarea>
         
         <button onclick="checkPackageExercise()">Check Answer</button>
         <div id="package-exercise-result" class="result"></div>
+        
+        <p>Which of the following tidyverse packages would be most appropriate for converting data from wide to long format?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="pkg-q1" id="pkg1a" value="dplyr">
+          <label for="pkg1a">dplyr</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="pkg-q1" id="pkg1b" value="ggplot2">
+          <label for="pkg1b">ggplot2</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="pkg-q1" id="pkg1c" value="tidyr">
+          <label for="pkg1c">tidyr</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="pkg-q1" id="pkg1d" value="readr">
+          <label for="pkg1d">readr</label>
+        </div>
+        
+        <button onclick="checkAnswer('pkg-q1', 'tidyr')">Check Answer</button>
+        <div id="pkg-q1-result" class="result"></div>
       </div>
     </div>
 
     <div class="section" id="help">
       <h2>Getting Help in R</h2>
-      <p>R has a comprehensive built-in help system that can assist you when you're stuck or need information about functions.</p>
+      <p>R has a comprehensive built-in help system and a supportive community that can assist you when you're stuck or need information about functions.</p>
       
-      <h3>Accessing Help Documentation</h3>
-      <p>There are several ways to access help in R:</p>
+      <h3>Built-in Help System</h3>
+      <p>There are several ways to access help documentation in R:</p>
       
-      <pre><code># Get help for a specific function using ?
+      <pre><code># Get help for a specific function
 ?mean
 help(mean)  # Alternative syntax
 
@@ -495,18 +2094,25 @@ help(mean)  # Alternative syntax
 help(package = "dplyr")
 
 # Search for help on a topic
-??correlation  # Searches for "correlation" in all documentation</code></pre>
+??correlation  # Searches for "correlation" in all documentation
+help.search("correlation")  # Alternative syntax</code></pre>
       
       <h3>Help Page Structure</h3>
       <p>A typical R help page contains these sections:</p>
       <ul>
-        <li><strong>Description</strong>: Brief description of the function</li>
-        <li><strong>Usage</strong>: The function's syntax</li>
-        <li><strong>Arguments</strong>: Explanation of each parameter</li>
-        <li><strong>Details</strong>: Additional information about how the function works</li>
-        <li><strong>Value</strong>: What the function returns</li>
-        <li><strong>Examples</strong>: Working examples of the function</li>
+        <li><strong>Title:</strong> Brief name of the function</li>
+        <li><strong>Description:</strong> Short description of what the function does</li>
+        <li><strong>Usage:</strong> Function's syntax and default arguments</li>
+        <li><strong>Arguments:</strong> Detailed explanation of each parameter</li>
+        <li><strong>Details:</strong> Additional information about how the function works</li>
+        <li><strong>Value:</strong> What the function returns</li>
+        <li><strong>See Also:</strong> Related functions</li>
+        <li><strong>Examples:</strong> Working examples showing how to use the function</li>
       </ul>
+      
+      <div class="tip-box">
+        <p><strong>Tip:</strong> The Examples section in help pages is particularly useful. You can run the examples directly in RStudio by clicking the "Run Examples" button at the bottom of the help window.</p>
+      </div>
       
       <h3>Function Arguments and Examples</h3>
       <p>You can quickly check a function's arguments:</p>
@@ -515,18 +2121,95 @@ help(package = "dplyr")
 args(mean)  # function (x, ..., na.rm = FALSE, trim = 0)
 
 # View function code (for non-primitive functions)
-mean
+mean  # Displays the function definition
 
 # Get examples for a function
-example(mean)</code></pre>
+example(mean)  # Runs the examples from the help page</code></pre>
+      
+      <h3>Vignettes</h3>
+      <p>Vignettes are long-form documentation that provide detailed tutorials on using packages:</p>
+      
+      <pre><code># List all available vignettes
+vignette()
+
+# List vignettes for a specific package
+vignette(package = "dplyr")
+
+# Open a specific vignette
+vignette("dplyr")  # Opens the main dplyr vignette</code></pre>
+      
+      <h3>Interactive Help</h3>
+      <p>RStudio provides several interactive help features:</p>
+      <ul>
+        <li><strong>Tab Completion:</strong> Start typing a function name and press Tab to see completions</li>
+        <li><strong>Function Tooltips:</strong> Type a function name followed by an opening parenthesis to see arguments</li>
+        <li><strong>Help Panel:</strong> Search and browse help documentation in the Help tab</li>
+      </ul>
+      
+      <h3>Getting Information About Objects</h3>
+      <pre><code># Basic information about an object
+x <- c(1, 2, 3, NA, 5)
+class(x)    # "numeric"
+typeof(x)   # "double"
+str(x)      # Compact display of structure
+length(x)   # Number of elements
+summary(x)  # Summary statistics
+
+# For data frames
+df <- data.frame(a = 1:5, b = letters[1:5])
+dim(df)     # Dimensions
+names(df)   # Column names
+head(df)    # First few rows
+glimpse(df) # Compact view (from dplyr)</code></pre>
+      
+      <h3>Debugging and Error Messages</h3>
+      <p>When you encounter errors, there are several tools to help diagnose the problem:</p>
+      
+      <pre><code># Print the call stack after an error
+options(error = traceback)
+
+# Interactive debugging
+debug(function_name)  # Start debugger when the function is called
+undebug(function_name)  # Turn off debugging
+
+# Debug a specific call
+debugonce(function_name)
+
+# Browser function for debugging inside functions
+# Add browser() in your function where you want to pause execution
+
+# View warnings
+warnings()  # Shows recent warnings
+
+# Capture and store error information
+tryCatch(
+  {
+    # Code that might error
+    1 / 0
+  },
+  error = function(e) {
+    # What to do with the error
+    message("An error occurred: ", e$message)
+  }
+)</code></pre>
       
       <h3>Online Resources</h3>
       <p>Beyond R's built-in help, these resources are invaluable:</p>
       <ul>
         <li><a href="https://www.rdocumentation.org/" target="_blank">RDocumentation</a>: Searchable interface for R package documentation</li>
         <li><a href="https://stackoverflow.com/questions/tagged/r" target="_blank">Stack Overflow</a>: Q&A for programming problems</li>
+        <li><a href="https://stats.stackexchange.com/" target="_blank">Cross Validated</a>: Q&A for statistical and machine learning questions</li>
+        <li><a href="https://community.rstudio.com/" target="_blank">RStudio Community</a>: Discussion forum for RStudio products and R programming</li>
         <li><a href="https://www.r-bloggers.com/" target="_blank">R-bloggers</a>: Collection of R-related blogs</li>
         <li><a href="https://rdrr.io/" target="_blank">rdrr.io</a>: R package documentation, search and code execution</li>
+        <li><a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.html" target="_blank">Official R Documentation</a>: Comprehensive R language guide</li>
+      </ul>
+      
+      <h3>R Cheatsheets</h3>
+      <p>RStudio provides downloadable cheatsheets for many common R tasks and packages:</p>
+      <ul>
+        <li>Access in RStudio: Help → Cheatsheets</li>
+        <li>Download from <a href="https://posit.co/resources/cheatsheets/" target="_blank">RStudio Cheatsheets page</a></li>
       </ul>
       
       <div class="exercise">
@@ -545,15 +2228,50 @@ example(mean)</code></pre>
           <input type="radio" name="help-q1" id="help3" value="help-filter">
           <label for="help3">help(filter)</label>
         </div>
+        <div class="quiz-option">
+          <input type="radio" name="help-q1" id="help4" value="help-dplyr-filter">
+          <label for="help4">help("filter", package = "dplyr")</label>
+        </div>
         
         <button onclick="checkAnswer('help-q1', 'dplyr-filter')">Check Answer</button>
         <div id="help-q1-result" class="result"></div>
+        
+        <p>Which of the following is NOT a good way to learn about a new R package?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="help-q2" id="help2a" value="vignette">
+          <label for="help2a">Reading the package vignettes</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="help-q2" id="help2b" value="install">
+          <label for="help2b">Reading the installation error messages</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="help-q2" id="help2c" value="examples">
+          <label for="help2c">Running the examples in the help pages</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="help-q2" id="help2d" value="help">
+          <label for="help2d">Using help(package = "package_name")</label>
+        </div>
+        
+        <button onclick="checkAnswer('help-q2', 'install')">Check Answer</button>
+        <div id="help-q2-result" class="result"></div>
       </div>
     </div>
-
     <div class="section" id="scripts">
       <h2>R Scripts</h2>
-      <p>While you can type commands directly in the console, for more complex analyses, you'll want to save your code in R scripts.</p>
+      <p>While you can type commands directly in the console, for more complex analyses, you'll want to save your code in R scripts to make your work reproducible and easier to maintain.</p>
+      
+      <h3>What Is an R Script?</h3>
+      <p>An R script is a text file containing R commands, usually with a .R extension. Scripts allow you to:</p>
+      <ul>
+        <li>Save your work for later use</li>
+        <li>Share your analysis with others</li>
+        <li>Build more complex programs</li>
+        <li>Make your work reproducible</li>
+        <li>Document your analytical process</li>
+      </ul>
       
       <h3>Creating and Running Scripts</h3>
       <p>In RStudio, you can create a new script by clicking File → New File → R Script, or pressing Ctrl+Shift+N (Cmd+Shift+N on Mac).</p>
@@ -564,46 +2282,256 @@ example(mean)</code></pre>
 setwd("C:/Users/YourName/Documents/R_Projects")  # Windows example
 # setwd("/Users/YourName/Documents/R_Projects")  # Mac example
 
-# Load packages
+# Load required packages
 library(dplyr)
 library(ggplot2)
 
-# Create some data
-x <- 1:10
-y <- x^2
+# Read data
+data <- read.csv("my_data.csv")
 
-# Make a data frame
-data <- data.frame(x = x, y = y)
+# Explore the data
+head(data)
+summary(data)
+str(data)
 
-# Print the data
-print(data)
+# Data manipulation
+clean_data <- data %>%
+  filter(!is.na(value)) %>%
+  mutate(new_col = value * 2) %>%
+  group_by(category) %>%
+  summarize(avg_value = mean(value))
 
-# Create a plot
-plot(x, y, main = "Square Function", 
-     xlab = "x", ylab = "y = x^2", 
-     type = "b", col = "blue")
+# Create a visualization
+ggplot(clean_data, aes(x = category, y = avg_value)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  labs(title = "Average Values by Category",
+       x = "Category",
+       y = "Average Value") +
+  theme_minimal()
 
-# Save the plot to a file
-# pdf("my_plot.pdf")
-# plot(x, y)
-# dev.off()</code></pre>
+# Save results
+write.csv(clean_data, "results.csv", row.names = FALSE)
+
+# Save the plot
+ggsave("plot.png", width = 8, height = 6)</code></pre>
       
       <h3>Running Code from Scripts</h3>
       <p>You can execute code from your script in several ways:</p>
-      <ul>
-        <li>Run the current line: Ctrl+Enter (Cmd+Enter on Mac)</li>
-        <li>Run selected lines: Select code + Ctrl+Enter</li>
-        <li>Run the entire script: Ctrl+Shift+Enter or click the "Source" button</li>
-      </ul>
+      <table>
+        <tr>
+          <th>Action</th>
+          <th>Windows/Linux</th>
+          <th>macOS</th>
+        </tr>
+        <tr>
+          <td>Run current line</td>
+          <td>Ctrl+Enter</td>
+          <td>Cmd+Enter</td>
+        </tr>
+        <tr>
+          <td>Run selected lines</td>
+          <td>Select code + Ctrl+Enter</td>
+          <td>Select code + Cmd+Enter</td>
+        </tr>
+        <tr>
+          <td>Run the entire script</td>
+          <td>Ctrl+Shift+Enter or "Source" button</td>
+          <td>Cmd+Shift+Enter or "Source" button</td>
+        </tr>
+        <tr>
+          <td>Run from beginning to current line</td>
+          <td>Ctrl+Alt+B</td>
+          <td>Cmd+Option+B</td>
+        </tr>
+        <tr>
+          <td>Run from current line to end</td>
+          <td>Ctrl+Alt+E</td>
+          <td>Cmd+Option+E</td>
+        </tr>
+      </table>
       
       <h3>Script Best Practices</h3>
+      
+      <h4>1. Organization and Structure</h4>
+      <pre><code># ============================================
+# SCRIPT TITLE: Data Analysis for Project X
+# AUTHOR: Your Name
+# DATE: 2023-08-15
+# ============================================
+
+# 1. Setup ------------------------------
+# Load libraries
+library(tidyverse)
+library(lubridate)
+
+# Set working directory
+setwd("path/to/project")
+
+# 2. Import Data -----------------------
+data <- read.csv("data.csv")
+
+# 3. Data Cleaning --------------------
+# Remove missing values
+# Transform variables
+# etc.
+
+# 4. Analysis -------------------------
+# Statistical tests
+# Modeling
+# etc.
+
+# 5. Visualization --------------------
+# Create plots
+
+# 6. Export Results -------------------
+# Save output files</code></pre>
+      
+      <h4>2. Commenting</h4>
       <ul>
-        <li><strong>Comments</strong>: Use # to add comments explaining your code</li>
-        <li><strong>Organization</strong>: Group related code together with clear section headers</li>
-        <li><strong>Documentation</strong>: Document data sources, assumptions, and goals at the top</li>
-        <li><strong>Readability</strong>: Use consistent indentation and spacing</li>
-        <li><strong>Modularity</strong>: Break complex tasks into smaller, manageable functions</li>
+        <li>Use <code>#</code> to add comments explaining your code</li>
+        <li>Include a header with title, author, date, and purpose</li>
+        <li>Comment on non-obvious operations</li>
+        <li>Use section dividers for longer scripts</li>
+        <li>Explain the "why" behind complex operations, not just the "what"</li>
       </ul>
+      
+      <h4>3. Code Style</h4>
+      <pre><code># Use consistent spacing
+x <- 10 + 5  # Good
+x<-10+5      # Harder to read
+
+# Use meaningful variable names
+avg_temperature <- mean(temperature_data)  # Good
+at <- mean(td)                             # Less clear
+
+# Indentation for readability
+if (condition) {
+  # Indented code block
+  perform_action()
+} else {
+  # Indented else block
+  do_something_else()
+}
+
+# Line length: aim for 80 characters per line
+# Break long lines at logical points
+long_function_call(argument1, argument2,
+                  argument3, argument4)</code></pre>
+      
+      <div class="tip-box">
+        <p><strong>Tip:</strong> You can use the <code>styler</code> package to automatically format your code according to a style guide:</p>
+        <pre><code>install.packages("styler")
+library(styler)
+style_file("my_script.R")</code></pre>
+      </div>
+      
+      <h4>4. Error Handling</h4>
+      <pre><code># Check if a file exists before trying to read it
+if (file.exists("data.csv")) {
+  data <- read.csv("data.csv")
+} else {
+  stop("Data file not found. Please check the file path.")
+}
+
+# Use try-catch for error handling
+result <- tryCatch(
+  {
+    # Code that might produce an error
+    read.csv("data.csv")
+  },
+  error = function(e) {
+    # What to do if an error occurs
+    message("Error reading file: ", e$message)
+    return(NULL)  # Return a default value
+  },
+  warning = function(w) {
+    # What to do if a warning occurs
+    message("Warning: ", w$message)
+    # Proceed anyway
+  },
+  finally = {
+    # Code that runs regardless of whether there was an error
+    message("Attempted to read data file.")
+  }
+)</code></pre>
+      
+      <h4>5. Modular Code</h4>
+      <pre><code># Define reusable functions
+clean_data <- function(data) {
+  # Data cleaning operations
+  data %>%
+    filter(!is.na(value)) %>%
+    mutate(new_col = value * 2)
+}
+
+# Use the function
+clean_df <- clean_data(raw_data)
+
+# Source other script files for larger projects
+source("helper_functions.R")</code></pre>
+      
+      <h3>R Script vs. R Markdown</h3>
+      <p>While R scripts (.R files) are great for coding, R Markdown (.Rmd files) combines code, results, and narrative text:</p>
+      
+      <table>
+        <tr>
+          <th>Feature</th>
+          <th>R Script (.R)</th>
+          <th>R Markdown (.Rmd)</th>
+        </tr>
+        <tr>
+          <td>Primary purpose</td>
+          <td>Code storage and execution</td>
+          <td>Literate programming, reporting</td>
+        </tr>
+        <tr>
+          <td>Output format</td>
+          <td>Code only</td>
+          <td>HTML, PDF, Word, etc.</td>
+        </tr>
+        <tr>
+          <td>Text formatting</td>
+          <td>Only comments</td>
+          <td>Rich text with Markdown</td>
+        </tr>
+        <tr>
+          <td>Code execution</td>
+          <td>Entire script or selections</td>
+          <td>Code chunks, can cache results</td>
+        </tr>
+        <tr>
+          <td>Best for</td>
+          <td>Development, data processing</td>
+          <td>Reports, documentation, publications</td>
+        </tr>
+      </table>
+      
+      <div class="note-box">
+        <p><strong>Note:</strong> For reproducible reports that combine analysis, results, and interpretation, consider using R Markdown instead of or in addition to R scripts.</p>
+      </div>
+      
+      <h3>Working Directory</h3>
+      <p>The working directory is the default location where R looks for files and saves output:</p>
+      
+      <pre><code># Check current working directory
+getwd()
+
+# Set working directory
+setwd("C:/Users/YourName/Documents/R_Projects")  # Windows
+setwd("/Users/YourName/Documents/R_Projects")    # Mac/Linux
+
+# List files in working directory
+list.files()
+
+# Create a directory
+dir.create("output_folder")
+
+# Project-relative paths (if using RStudio Projects)
+read.csv("data/raw_data.csv")  # Relative to project root</code></pre>
+      
+      <div class="tip-box">
+        <p><strong>Best Practice:</strong> Instead of using <code>setwd()</code>, consider using RStudio Projects which automatically set the working directory to the project folder. This makes your code more portable and reproducible.</p>
+      </div>
       
       <div class="exercise">
         <h3>Exercise: R Scripts</h3>
@@ -629,56 +2557,1029 @@ print("The mean is", result)</code></pre>
         
         <button onclick="checkAnswer('script-q1', 'both')">Check Answer</button>
         <div id="script-q1-result" class="result"></div>
+        
+        <p>What is the primary advantage of using an R script rather than typing commands directly in the console?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="script-q2" id="script2a" value="speed">
+          <label for="script2a">R scripts execute faster than console commands</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="script-q2" id="script2b" value="memory">
+          <label for="script2b">R scripts use less memory than console commands</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="script-q2" id="script2c" value="reproducible">
+          <label for="script2c">R scripts are saved and can be rerun, making work reproducible</label>
+        </div>
+        
+        <button onclick="checkAnswer('script-q2', 'reproducible')">Check Answer</button>
+        <div id="script-q2-result" class="result"></div>
       </div>
     </div>
-  </div>
 
-  <footer>
-    <div class="container">
-      <p>HARP Team R Training © 2025 | Created by Daryn Sutton</p>
+    <div class="section" id="control-structures">
+      <h2>Control Structures</h2>
+      <p>Control structures allow you to control the flow of execution in your R code based on conditions or to repeat operations multiple times.</p>
+      
+      <h3>Conditional Statements</h3>
+      <p>Conditional statements allow you to execute code based on whether certain conditions are true or false.</p>
+      
+      <h4>if-else Statements</h4>
+      <pre><code># Basic if statement
+x <- 10
+if (x > 5) {
+  print("x is greater than 5")
+}
+
+# if-else statement
+y <- 3
+if (y > 5) {
+  print("y is greater than 5")
+} else {
+  print("y is not greater than 5")
+}
+
+# Multiple conditions with else if
+z <- 5
+if (z > 10) {
+  print("z is greater than 10")
+} else if (z > 5) {
+  print("z is greater than 5 but not greater than 10")
+} else if (z == 5) {
+  print("z is exactly 5")
+} else {
+  print("z is less than 5")
+}
+
+# Nested if statements
+score <- 85
+if (score >= 60) {
+  print("Passed")
+  if (score >= 90) {
+    print("Excellent")
+  } else if (score >= 80) {
+    print("Good")
+  } else {
+    print("Satisfactory")
+  }
+} else {
+  print("Failed")
+}</code></pre>
+      
+      <h4>Vectorized if: ifelse()</h4>
+      <p>For applying conditions to vectors, use <code>ifelse()</code> instead of <code>if-else</code>:</p>
+      
+      <pre><code># ifelse for vectors
+ages <- c(15, 25, 42, 8, 32)
+status <- ifelse(ages >= 18, "Adult", "Child")
+status  # "Child" "Adult" "Adult" "Child" "Adult"
+
+# Nested ifelse
+scores <- c(85, 92, 78, 65, 45)
+grades <- ifelse(scores >= 90, "A",
+            ifelse(scores >= 80, "B",
+              ifelse(scores >= 70, "C",
+                ifelse(scores >= 60, "D", "F"))))
+grades  # "B" "A" "C" "D" "F"
+
+# dplyr::case_when() is often clearer than nested ifelse
+library(dplyr)
+grades <- case_when(
+  scores >= 90 ~ "A",
+  scores >= 80 ~ "B",
+  scores >= 70 ~ "C",
+  scores >= 60 ~ "D",
+  TRUE ~ "F"  # Default case
+)</code></pre>
+      
+      <h4>The switch() Function</h4>
+      <p>The <code>switch()</code> function is useful when you need to select from multiple alternatives based on a single value:</p>
+      
+      <pre><code># Basic switch
+day_type <- function(day) {
+  switch(day,
+    Monday = "Weekday",
+    Tuesday = "Weekday",
+    Wednesday = "Weekday",
+    Thursday = "Weekday",
+    Friday = "Weekday",
+    Saturday = "Weekend",
+    Sunday = "Weekend",
+    "Unknown day"  # Default if no match
+  )
+}
+
+day_type("Monday")    # "Weekday"
+day_type("Saturday")  # "Weekend"
+day_type("Holiday")   # "Unknown day"</code></pre>
+      
+      <h3>Loops</h3>
+      <p>Loops are used to repeat code multiple times. However, in R, vectorized operations are often preferred over loops for better performance.</p>
+      
+      <h4>for Loops</h4>
+      <pre><code># Basic for loop
+for (i in 1:5) {
+  print(paste("Iteration", i))
+}
+
+# Loop through a vector
+fruits <- c("apple", "banana", "cherry")
+for (fruit in fruits) {
+  print(paste("I like", fruit))
+}
+
+# Loop with index
+for (i in 1:length(fruits)) {
+  print(paste(i, ":", fruits[i]))
+}
+
+# Nested for loops
+for (i in 1:3) {
+  for (j in 1:2) {
+    print(paste("i =", i, ", j =", j))
+  }
+}</code></pre>
+      
+      <h4>while Loops</h4>
+      <pre><code># Basic while loop
+i <- 1
+while (i <= 5) {
+  print(paste("Iteration", i))
+  i <- i + 1
+}
+
+# Example: Keep generating random numbers until one exceeds 0.9
+set.seed(123)  # For reproducibility
+x <- 0
+count <- 0
+while (x <= 0.9) {
+  x <- runif(1)  # Generate a random number between 0 and 1
+  count <- count + 1
+  print(paste("Try", count, ":", x))
+}
+print(paste("It took", count, "attempts to exceed 0.9"))</code></pre>
+      
+      <div class="warning-box">
+        <p><strong>Warning:</strong> Be careful with while loops! Always ensure there's a condition that will eventually become FALSE, otherwise you'll create an infinite loop.</p>
+      </div>
+      
+      <h4>repeat Loops</h4>
+      <pre><code># repeat loop with break
+i <- 1
+repeat {
+  print(paste("Iteration", i))
+  if (i >= 5) {
+    break  # Exit the loop
+  }
+  i <- i + 1
+}</code></pre>
+      
+      <h4>Control Flow within Loops</h4>
+      <pre><code># break: exit the loop immediately
+for (i in 1:10) {
+  if (i > 5) {
+    break  # Exit when i > 5
+  }
+  print(i)
+}  # Prints 1 2 3 4 5
+
+# next: skip to the next iteration
+for (i in 1:10) {
+  if (i %% 2 == 0) {
+    next  # Skip even numbers
+  }
+  print(i)
+}  # Prints 1 3 5 7 9</code></pre>
+      
+      <h3>Apply Functions</h3>
+      <p>The apply family of functions provides a more R-idiomatic way to perform iterations, often more efficiently than explicit loops.</p>
+      
+      <h4>apply()</h4>
+      <p>For applying a function over margins of an array or matrix:</p>
+      
+      <pre><code># Create a matrix
+mat <- matrix(1:9, nrow = 3)
+mat
+#      [,1] [,2] [,3]
+# [1,]    1    4    7
+# [2,]    2    5    8
+# [3,]    3    6    9
+
+# Apply function to rows (margin = 1)
+apply(mat, 1, sum)  # 12 15 18
+
+# Apply function to columns (margin = 2)
+apply(mat, 2, mean)  # 2 5 8
+
+# Custom function with apply
+apply(mat, 1, function(x) max(x) - min(x))  # 6 6 6</code></pre>
+      
+      <h4>lapply(), sapply(), and vapply()</h4>
+      <p>For applying a function to each element of a list or vector:</p>
+      
+      <pre><code># lapply: returns a list
+numbers <- list(a = 1:5, b = 10:15, c = 20:23)
+lapply(numbers, sum)  # List of sums: 15, 75, 86
+
+# sapply: simplified return (vector, matrix, or array)
+sapply(numbers, sum)  # Named vector: a=15, b=75, c=86
+sapply(numbers, range)  # Matrix with min/max of each element
+
+# vapply: explicitly specify the return type (safer)
+vapply(numbers, sum, numeric(1))  # Same as sapply, but enforces numeric output</code></pre>
+      
+      <h4>tapply()</h4>
+      <p>For applying a function to subsets of a vector based on a factor:</p>
+      
+      <pre><code># Create sample data
+scores <- c(85, 92, 78, 90, 73, 88)
+groups <- c("A", "B", "A", "B", "C", "C")
+
+# Calculate mean by group
+tapply(scores, groups, mean)  # A: 81.5, B: 91.0, C: 80.5</code></pre>
+      
+      <h4>mapply()</h4>
+      <p>For applying a function to multiple lists or vectors in parallel:</p>
+      
+      <pre><code># Create input vectors
+first_names <- c("John", "Mary", "Robert")
+last_names <- c("Smith", "Johnson", "Williams")
+
+# Apply function to corresponding elements
+mapply(paste, first_names, last_names, MoreArgs = list(sep = " "))
+# "John Smith" "Mary Johnson" "Robert Williams"</code></pre>
+      
+      <h3>Functional Programming with purrr</h3>
+      <p>The purrr package provides enhanced functional programming tools for R:</p>
+      
+      <pre><code># Load the package
+library(purrr)
+
+# map functions (similar to lapply, sapply, etc.)
+map(numbers, sum)       # Returns a list
+map_dbl(numbers, sum)   # Returns a numeric vector
+map_chr(numbers, toString)  # Returns a character vector
+
+# Map with a custom function
+map_dbl(numbers, function(x) mean(x) * 2)
+
+# Shorthand notation
+map_dbl(numbers, ~ mean(.x) * 2)
+
+# Map with multiple inputs
+map2_chr(first_names, last_names, ~ paste(.x, .y))
+
+# Map over multiple inputs
+pmap_chr(
+  list(first = first_names, last = last_names, title = c("Mr.", "Ms.", "Dr.")),
+  function(first, last, title) paste(title, first, last)
+)</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Control Structures</h3>
+        <p>What will the following code print?</p>
+        
+        <pre><code>numbers <- c(3, 7, 2, 9, 4)
+for (num in numbers) {
+  if (num > 5) {
+    message <- paste(num, "is greater than 5")
+  } else if (num < 5) {
+    message <- paste(num, "is less than 5")
+  } else {
+    message <- paste(num, "is equal to 5")
+  }
+  print(message)
+}</code></pre>
+        
+        <div class="quiz-option">
+          <input type="radio" name="control-q1" id="control1a" value="op1">
+          <label for="control1a">It will only print the message for numbers greater than 5</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="control-q1" id="control1b" value="op2">
+          <label for="control1b">It will print all messages, but stop at the first number greater than 5</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="control-q1" id="control1c" value="op3">
+          <label for="control1c">It will print a message for each number indicating its relation to 5</label>
+        </div>
+        
+        <button onclick="checkAnswer('control-q1', 'op3')">Check Answer</button>
+        <div id="control-q1-result" class="result"></div>
+        
+        <p>Which of these approaches is typically most efficient in R for applying a function to each element of a vector?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="control-q2" id="control2a" value="for">
+          <label for="control2a">Using a for loop</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="control-q2" id="control2b" value="while">
+          <label for="control2b">Using a while loop</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="control-q2" id="control2c" value="vector">
+          <label for="control2c">Using vectorized operations or apply functions</label>
+        </div>
+        
+        <button onclick="checkAnswer('control-q2', 'vector')">Check Answer</button>
+        <div id="control-q2-result" class="result"></div>
+      </div>
     </div>
-  </footer>
+    <div class="section" id="functions">
+      <h2>Functions</h2>
+      <p>Functions are blocks of reusable code designed to perform specific tasks. They help make your code more modular, readable, and maintainable.</p>
+      
+      <h3>Function Basics</h3>
+      <p>The basic structure of an R function is:</p>
+      
+      <pre><code>function_name <- function(arg1, arg2, ...) {
+  # Function body: code that performs the task
+  # ...
+  # Return statement (optional)
+  return(result)
+}</code></pre>
+      
+      <h4>Creating Simple Functions</h4>
+      <pre><code># Function to calculate the mean of two numbers
+mean_of_two <- function(x, y) {
+  result <- (x + y) / 2
+  return(result)
+}
 
-  <script>
-    function checkAnswer(questionId, correctAnswer) {
-      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
-      const resultDiv = document.getElementById(`${questionId}-result`);
+# Call the function
+mean_of_two(10, 20)  # 15
+
+# Function to convert Celsius to Fahrenheit
+celsius_to_fahrenheit <- function(temp_c) {
+  temp_f <- temp_c * 9/5 + 32
+  return(temp_f)
+}
+
+# Call the function
+celsius_to_fahrenheit(0)    # 32
+celsius_to_fahrenheit(100)  # 212</code></pre>
       
-      if (!selectedOption) {
-        resultDiv.textContent = "Please select an answer.";
-        resultDiv.className = "result incorrect";
-        resultDiv.style.display = "block";
-        return;
-      }
+      <h3>Arguments</h3>
+      <p>Function arguments can be required or optional (with default values):</p>
       
-      if (selectedOption.value === correctAnswer) {
-        resultDiv.textContent = "Correct! Well done.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
-        resultDiv.className = "result incorrect";
-      }
+      <pre><code># Function with default arguments
+power <- function(x, exponent = 2) {
+  result <- x ^ exponent
+  return(result)
+}
+
+# Call with various arguments
+power(5)      # 25 (uses default exponent = 2)
+power(5, 3)   # 125 (uses specified exponent)
+
+# Named arguments (order doesn't matter)
+power(exponent = 3, x = 5)  # 125</code></pre>
       
-      resultDiv.style.display = "block";
-    }
+      <h4>The ... Argument</h4>
+      <p>The special <code>...</code> argument allows a function to accept any number of additional arguments:</p>
+      
+      <pre><code># Function that passes additional arguments to mean()
+custom_mean <- function(x, ...) {
+  mean(x, ...)
+}
+
+# Use with different arguments
+custom_mean(c(1, 2, NA, 4))           # NA (default behavior)
+custom_mean(c(1, 2, NA, 4), na.rm = TRUE)  # 2.333... (passed to mean)</code></pre>
+      
+      <h3>Return Values</h3>
+      <p>Functions can return different types of values:</p>
+      
+      <pre><code># Return a single value
+double <- function(x) {
+  return(x * 2)
+}
+
+# Return multiple values as a list
+stats <- function(x) {
+  result <- list(
+    mean = mean(x),
+    median = median(x),
+    sd = sd(x),
+    range = range(x)
+  )
+  return(result)
+}
+
+# Call the function and access results
+result <- stats(1:10)
+result$mean    # 5.5
+result$sd      # 3.027650...</code></pre>
+      
+      <div class="note-box">
+        <p><strong>Note:</strong> If you don't explicitly use <code>return()</code>, R automatically returns the value of the last expression evaluated in the function.</p>
+      </div>
+      
+      <h3>Scope</h3>
+      <p>Variables defined inside a function are local to that function:</p>
+      
+      <pre><code># Demonstrate variable scope
+x <- 10  # Global variable
+
+my_function <- function() {
+  x <- 5  # Local variable, different from global x
+  y <- 20 # Local variable
+  return(x + y)
+}
+
+result <- my_function()
+result  # 25
+x       # 10 (global x is unchanged)
+# y     # Error: y doesn't exist in the global environment</code></pre>
+      
+      <h4>Lexical Scoping</h4>
+      <pre><code># Lexical scoping example
+outer_function <- function() {
+  outer_var <- 5
+  
+  inner_function <- function() {
+    # inner_function can access outer_var
+    return(outer_var * 2)
+  }
+  
+  return(inner_function())
+}
+
+outer_function()  # 10</code></pre>
+      
+      <h3>Anonymous Functions</h3>
+      <p>You can create functions without naming them, which is useful for one-off operations:</p>
+      
+      <pre><code># Anonymous function in apply
+nums <- list(1:5, 6:10, 11:15)
+lapply(nums, function(x) sum(x) / length(x))
+
+# Anonymous function with filter
+data <- data.frame(
+  name = c("Alice", "Bob", "Charlie"),
+  score = c(85, 92, 78)
+)
+subset(data, score > (function(x) mean(x))(data$score))</code></pre>
+      
+      <h3>Function Documentation</h3>
+      <p>Good function documentation helps users understand how to use your function:</p>
+      
+      <pre><code>#' Calculate body mass index (BMI)
+#'
+#' @description
+#' This function calculates BMI from height and weight.
+#'
+#' @param weight Weight in kilograms
+#' @param height Height in meters
+#'
+#' @return BMI value (kg/m²)
+#'
+#' @examples
+#' bmi(weight = 70, height = 1.75)
+#'
+bmi <- function(weight, height) {
+  if (height <= 0) {
+    stop("Height must be positive")
+  }
+  if (weight <= 0) {
+    stop("Weight must be positive")
+  }
+  
+  bmi_value <- weight / (height ^ 2)
+  return(bmi_value)
+}</code></pre>
+      
+      <h3>Function Best Practices</h3>
+      <ol>
+        <li><strong>Single purpose:</strong> Each function should do one thing well</li>
+        <li><strong>Short and focused:</strong> Keep functions reasonably small</li>
+        <li><strong>Descriptive names:</strong> Function names should indicate what they do</li>
+        <li><strong>Consistent arguments:</strong> Use consistent argument names across functions</li>
+        <li><strong>Validate inputs:</strong> Check arguments for validity and handle errors gracefully</li>
+        <li><strong>Document:</strong> Add comments explaining purpose, arguments, and return values</li>
+        <li><strong>Return values:</strong> Be consistent in what your functions return</li>
+      </ol>
+      
+      <h3>Advanced Function Topics</h3>
+      
+      <h4>Closures</h4>
+      <p>A closure is a function that captures variables from its environment:</p>
+      
+      <pre><code># Create a function factory
+make_multiplier <- function(factor) {
+  # This returns a function that "remembers" the factor
+  function(x) {
+    x * factor
+  }
+}
+
+# Create specific multiplier functions
+double <- make_multiplier(2)
+triple <- make_multiplier(3)
+
+# Use the functions
+double(5)  # 10
+triple(5)  # 15</code></pre>
+      
+      <h4>Recursion</h4>
+      <p>Recursion is when a function calls itself:</p>
+      
+      <pre><code># Calculate factorial recursively
+factorial_recursive <- function(n) {
+  if (n <= 1) {
+    return(1)
+  } else {
+    return(n * factorial_recursive(n - 1))
+  }
+}
+
+factorial_recursive(5)  # 120</code></pre>
+      
+      <div class="warning-box">
+        <p><strong>Warning:</strong> R has a default recursion limit. For deep recursion, consider iterative alternatives.</p>
+      </div>
+      
+      <h4>Functional Programming</h4>
+      <pre><code># Higher-order functions (functions that take or return functions)
+library(purrr)
+
+# Create list of functions
+math_funcs <- list(
+  double = function(x) x * 2,
+  square = function(x) x ^ 2,
+  increment = function(x) x + 1
+)
+
+# Apply all functions to an input
+map_dbl(math_funcs, function(f) f(10))  # 20, 100, 11</code></pre>
+      
+      <div class="exercise">
+        <h3>Exercise: Functions</h3>
+        <p>What is wrong with the following function?</p>
+        
+        <pre><code>calculate_grade <- function(score) {
+  if (score >= 90) {
+    "A"
+  } else if (score >= 80) {
+    "B"
+  } else if (score >= 70) {
+    "C"
+  } else if (score >= 60) {
+    "D"
+  } else {
+    "F"
+  }
+}</code></pre>
+        
+        <div class="quiz-option">
+          <input type="radio" name="func-q1" id="func1a" value="missing-return">
+          <label for="func1a">Missing explicit return statements</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="func-q1" id="func1b" value="incorrect-logic">
+          <label for="func1b">The function logic is incorrect</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="func-q1" id="func1c" value="nothing">
+          <label for="func1c">Nothing is wrong with the function</label>
+        </div>
+        
+        <button onclick="checkAnswer('func-q1', 'nothing')">Check Answer</button>
+        <div id="func-q1-result" class="result"></div>
+        
+        <p>Write a function called <code>is_even</code> that takes a number as input and returns TRUE if the number is even and FALSE if it's odd.</p>
+        
+        <textarea class="code-input" id="func-exercise">
+# Write your function here
+        </textarea>
+        
+        <button onclick="checkFunctionExercise()">Check Answer</button>
+        <div id="func-exercise-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="importing-data">
+      <h2>Importing Data into R</h2>
+      <p>Data analysis typically begins with importing data from external sources. R provides various functions for reading data in different formats.</p>
+      
+      <h3>Reading CSV Files</h3>
+      <p>CSV (Comma-Separated Values) is one of the most common formats for data exchange:</p>
+      
+      <h4>Using Base R</h4>
+      <pre><code># Read a CSV file
+data <- read.csv("data.csv")
+
+# Common options
+data <- read.csv("data.csv", 
+                 header = TRUE,           # First row contains column names
+                 sep = ",",               # Column separator
+                 stringsAsFactors = FALSE, # Don't convert strings to factors
+                 na.strings = c("NA", "", "NULL"), # Values to treat as NA
+                 skip = 0,                # Number of lines to skip
+                 nrows = -1)              # Number of rows to read (-1 = all)
+
+# Check the imported data
+head(data)     # First 6 rows
+str(data)      # Structure
+summary(data)  # Summary statistics</code></pre>
+      
+      <h4>Using readr (tidyverse)</h4>
+      <pre><code># Load the readr package
+library(readr)
+
+# Read a CSV file
+data <- read_csv("data.csv")
+
+# Advantages of read_csv over read.csv:
+# 1. Faster for large files
+# 2. Doesn't convert strings to factors by default
+# 3. Better column type detection
+# 4. Progress bar for large files
+# 5. Returns a tibble instead of a data frame
+
+# Common options
+data <- read_csv("data.csv",
+                col_names = TRUE,    # First row contains column names
+                na = c("NA", "", "NULL"), # Values to treat as NA
+                skip = 0,            # Number of lines to skip
+                n_max = Inf,         # Max number of rows to read
+                col_types = cols())  # Manual column type specification</code></pre>
+      
+      <h3>Reading Excel Files</h3>
+      <p>For Excel files, you can use the readxl package:</p>
+      
+      <pre><code># Load the readxl package
+library(readxl)
+
+# Read an Excel file
+data <- read_excel("data.xlsx")
+
+# Common options
+data <- read_excel("data.xlsx",
+                  sheet = 1,          # Sheet number or name
+                  range = NULL,       # Cell range to read (e.g., "A1:C10")
+                  col_names = TRUE,   # First row contains column names
+                  na = "",            # Values to treat as NA
+                  skip = 0)           # Number of rows to skip
+
+# List all sheets in an Excel file
+excel_sheets("data.xlsx")</code></pre>
+      
+      <h3>Reading from Databases</h3>
+      <p>The DBI and odbc packages provide a unified interface to databases:</p>
+      
+      <pre><code># Load required packages
+library(DBI)
+library(odbc)  # or another database-specific package
+
+# Connect to a database
+con <- dbConnect(odbc(),
+                Driver = "SQL Server",
+                Server = "server_name",
+                Database = "database_name",
+                UID = "username",
+                PWD = "password")
+
+# List available tables
+dbListTables(con)
+
+# Read data from a table
+data <- dbReadTable(con, "table_name")
+
+# Execute a SQL query
+data <- dbGetQuery(con, "SELECT * FROM table_name WHERE column_name > 100")
+
+# Close the connection when done
+dbDisconnect(con)</code></pre>
+      
+      <div class="tip-box">
+        <p><strong>Security Tip:</strong> Never hard-code sensitive information like passwords in your scripts. Use environment variables, keyring packages, or prompt the user for input.</p>
+      </div>
+      
+      <h3>Reading Other Data Formats</h3>
+      
+      <h4>JSON</h4>
+      <pre><code># Load the jsonlite package
+library(jsonlite)
+
+# Read a JSON file
+data <- fromJSON("data.json")
+
+# Convert a JSON string
+json_string <- '{"name": "John", "age": 30, "city": "New York"}'
+data <- fromJSON(json_string)</code></pre>
+      
+      <h4>XML</h4>
+      <pre><code># Load the xml2 package
+library(xml2)
+
+# Read an XML file
+xml_data <- read_xml("data.xml")
+
+# Extract elements
+nodes <- xml_find_all(xml_data, "//elementname")
+values <- xml_text(nodes)</code></pre>
+      
+      <h4>Fixed-width Files</h4>
+      <pre><code># Using readr
+library(readr)
+
+# Read a fixed-width file
+data <- read_fwf("data.txt",
+                col_positions = fwf_widths(c(5, 10, 15),
+                                          c("id", "name", "description")))</code></pre>
+      
+      <h4>Web Data</h4>
+      <pre><code># Load required packages
+library(httr)
+library(rvest)
+
+# Read a table from a web page
+url <- "https://en.wikipedia.org/wiki/Population_of_London"
+webpage <- read_html(url)
+tables <- html_table(webpage)
+london_pop <- tables[[1]]  # First table on the page
+
+# API requests
+response <- GET("https://api.example.com/data",
+               query = list(param1 = "value1", param2 = "value2"))
+data <- content(response, "parsed")</code></pre>
+      
+      <h3>Handling Large Data</h3>
+      <p>For very large datasets, consider these approaches:</p>
+      
+      <pre><code># 1. Read just a sample to explore the structure
+data_sample <- read.csv("large_data.csv", nrows = 1000)
+
+# 2. Use data.table for faster importing
+library(data.table)
+data <- fread("large_data.csv")
+
+# 3. Read specific columns only
+data <- read.csv("large_data.csv", 
+                select = c("column1", "column2"))
+
+# 4. Process in chunks
+con <- file("large_data.csv", "r")
+header <- readLines(con, n = 1)  # Read header
+chunk_size <- 10000
+data_chunks <- list()
+
+repeat {
+  chunk <- read.csv(con, nrows = chunk_size)
+  if (nrow(chunk) == 0) break
+  
+  # Process each chunk
+  data_chunks[[length(data_chunks) + 1]] <- chunk
+}
+close(con)
+
+# 5. Use readr with chunked option
+library(readr)
+process_chunk <- function(chunk, pos) {
+  # Do something with each chunk
+  cat("Processing rows", pos, "to", pos + nrow(chunk) - 1, "\n")
+}
+
+read_csv_chunked("large_data.csv", 
+                callback = DataFrameCallback$new(process_chunk),
+                chunk_size = 10000)</code></pre>
+      
+      <h3>Data Import Tips</h3>
+      <ol>
+        <li><strong>Inspect data first:</strong> Use tools like Excel, text editors, or command-line tools to examine data before importing</li>
+        <li><strong>Check encoding:</strong> For text files, specify the correct encoding if you encounter special character issues</li>
+        <li><strong>Validate data:</strong> Always check a sample of the imported data to ensure it was read correctly</li>
+        <li><strong>Document data sources:</strong> Keep records of data origins and any transformations applied during import</li>
+        <li><strong>Consider reproducibility:</strong> Use relative file paths or projects to make data import reproducible</li>
+      </ol>
+      
+      <div class="exercise">
+        <h3>Exercise: Importing Data</h3>
+        <p>Which function would you use to read a CSV file most efficiently for a very large dataset?</p>
+        
+        <div class="quiz-option">
+          <input type="radio" name="import-q1" id="import1a" value="read.csv">
+          <label for="import1a">read.csv() from base R</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="import-q1" id="import1b" value="read_csv">
+          <label for="import1b">read_csv() from readr</label>
+        </div>
+        <div class="quiz-option">
+          <input type="radio" name="import-q1" id="import1c" value="fread">
+          <label for="import1c">fread() from data.table</label>
+        </div>
+        
+        <button onclick="checkAnswer('import-q1', 'fread')">Check Answer</button>
+        <div id="import-q1-result" class="result"></div>
+      </div>
+    </div>
+
+    <div class="section" id="exporting-data">
+      <h2>Exporting Data from R</h2>
+      <p>After analyzing or transforming data, you'll often need to export it for sharing or further processing.</p>
+      
+      <h3>Writing CSV Files</h3>
+      
+      <h4>Using Base R</h4>
+      <pre><code># Write a data frame to CSV
+write.csv(data, "output.csv", 
+         row.names = FALSE,   # Don't include row names
+         quote = TRUE,        # Quote strings
+         na = "NA")           # String to use for NA values
+
+# For better control of delimiters
+write.table(data, "output.csv", 
+           sep = ",",         # Separator
+           row.names = FALSE, 
+           col.names = TRUE)  # Include column names</code></pre>
+      
+      <h4>Using readr (tidyverse)</h4>
+      <pre><code># Load readr
+library(readr)
+
+# Write a data frame to CSV
+write_csv(data, "output.csv", 
+         na = "NA",           # String to use for NA values
+         append = FALSE)      # Whether to append to existing file
+
+# Write a delimited file with custom separator
+write_delim(data, "output.txt", 
+           delim = "\t")      # Tab-delimited</code></pre>
+      
+      <h3>Writing Excel Files</h3>
+      <pre><code># Load the writexl package
+library(writexl)
+
+# Write a data frame to Excel
+write_xlsx(data, "output.xlsx")
+
+# Write multiple sheets
+data_list <- list(
+  Sheet1 = data1,
+  Sheet2 = data2,
+  Sheet3 = data3
+)
+write_xlsx(data_list, "multiple_sheets.xlsx")</code></pre>
+      
+      <h3>Other Export Formats</h3>
+      
+      <h4>RDS (R Data Serialization)</h4>
+      <pre><code># Save a single R object
+saveRDS(data, "data.rds")
+
+# Read the object back
+data <- readRDS("data.rds")</code></pre>
+      
+      <h4>RData/RDA Files</h4>
+      <pre><code># Save multiple objects
+data1 <- 1:10
+data2 <- letters[1:10]
+save(data1, data2, file = "multiple_objects.RData")
+
+# Load the objects
+load("multiple_objects.RData")</code></pre>
+      
+      <h4>JSON</h4>
+      <pre><code># Load jsonlite
+library(jsonlite)
+
+# Convert data frame to JSON
+json_data <- toJSON(data, pretty = TRUE)
+
+# Write JSON to file
+write(json_data, "data.json")</code></pre>
+      
+      <h4>Databases</h4>
+      <pre><code># Load DBI
+library(DBI)
+library(odbc)
+
+# Connect to database
+con <- dbConnect(odbc(),
+                Driver = "SQL Server",
+                Server = "server_name",
+                Database = "database_name",
+                UID = "username",
+                PWD = "password")
+
+# Write data to a table
+dbWriteTable(con, "table_name", data,
+            overwrite = FALSE,
+            append = TRUE)
+
+# Execute SQL
+dbExecute(con, "DELETE FROM table_name WHERE value < 10")
+
+# Close connection
+dbDisconnect(con)</code></pre>
+      
+      <div class="note-box">
+        <p><strong>Note:</strong> When exporting data, always consider privacy and security implications. Avoid exporting sensitive data unnecessarily, and use secure methods for transferring sensitive information.</p>
+      </div>
+    </div>
     
-    function checkPackageExercise() {
-      const userCode = document.getElementById("package-exercise").value.trim();
-      const resultDiv = document.getElementById("package-exercise-result");
+    <div class="section" id="next-steps">
+      <h2>Next Steps in R</h2>
+      <p>Congratulations on learning the fundamentals of R programming! Here are some suggested paths for continuing your R journey:</p>
       
-      const correctCode = "install.packages(\"readxl\")\nlibrary(readxl)";
+      <h3>Data Visualization</h3>
+      <ul>
+        <li>Learn ggplot2 for creating publication-quality graphics</li>
+        <li>Explore interactive visualizations with plotly and shiny</li>
+        <li>Study effective data visualization principles</li>
+      </ul>
       
-      if (userCode.replace(/\s+/g, '').includes("install.packages(\"readxl\")") || 
-          userCode.replace(/\s+/g, '').includes("install.packages('readxl')")) {
-        resultDiv.textContent = "Correct! You've fixed the function name from 'packages.install' to 'install.packages'.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. The correct function to install packages is 'install.packages()' not 'packages.install()'.";
-        resultDiv.className = "result incorrect";
+      <h3>Advanced Data Manipulation</h3>
+      <ul>
+        <li>Master dplyr and tidyr for complex data transformations</li>
+        <li>Learn data.table for handling large datasets efficiently</li>
+        <li>Practice reshaping and joining complex datasets</li>
+      </ul>
+      
+      <h3>Statistical Analysis</h3>
+      <ul>
+        <li>Build statistical models (regression, classification, etc.)</li>
+        <li>Perform hypothesis testing and inference</li>
+        <li>Learn about experimental design and causal inference</li>
+      </ul>
+      
+      <h3>Machine Learning</h3>
+      <ul>
+        <li>Use caret or tidymodels for machine learning workflows</li>
+        <li>Explore various algorithms for prediction and classification</li>
+        <li>Learn about feature engineering and model evaluation</li>
+      </ul>
+      
+      <h3>R Programming Skills</h3>
+      <ul>
+        <li>Write more efficient R code</li>
+        <li>Create custom packages to share your work</li>
+        <li>Learn software development practices for data science</li>
+      </ul>
+      
+      <h3>Reporting and Communication</h3>
+      <ul>
+        <li>Create reproducible reports with R Markdown</li>
+        <li>Build interactive dashboards with Shiny</li>
+        <li>Generate automated reports and data products</li>
+      </ul>
+      
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="https://r4ds.had.co.nz/">R for Data Science</a> by Hadley Wickham & Garrett Grolemund</li>
+        <li><a href="https://adv-r.hadley.nz/">Advanced R</a> by Hadley Wickham</li>
+        <li><a href="https://bookdown.org/">Bookdown</a> - Collection of R books</li>
+        <li><a href="https://www.tidyverse.org/">Tidyverse</a> - Collection of R packages for data science</li>
+        <li><a href="https://www.rstudio.com/resources/cheatsheets/">RStudio Cheatsheets</a></li>
+      </ul>
+    </div>
+    
+    <footer>
+      <p>&copy; 2025 HARP R Training | Created by Daryn Sutton</p>
+    </footer>
+    
+    <script>
+      function checkAnswer(questionId, correctAnswer) {
+        const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+        const resultElement = document.getElementById(`${questionId}-result`);
+        
+        if (!selectedOption) {
+          resultElement.textContent = "Please select an answer.";
+          resultElement.className = "result warning";
+          return;
+        }
+        
+        if (selectedOption.value === correctAnswer) {
+          resultElement.textContent = "Correct!";
+          resultElement.className = "result success";
+        } else {
+          resultElement.textContent = "Incorrect. Try again!";
+          resultElement.className = "result error";
+        }
       }
       
-      resultDiv.style.display = "block";
-    }
-  </script>
-</body>
+      function checkFunctionExercise() {
+        const code = document.getElementById("func-exercise").value;
+        const resultElement = document.getElementById("func-exercise-result");
+        
+        // Simple check for a valid is_even function
+        if (code.includes("is_even") && 
+            (code.includes("%%") || code.includes("/ 2")) && 
+            (code.includes("TRUE") || code.includes("return(TRUE)")) &&
+            (code.includes("FALSE") || code.includes("return(FALSE)"))) {
+          resultElement.textContent = "Good job! Your function appears to be correct.";
+          resultElement.className = "result success";
+        } else {
+          resultElement.textContent = "Your function doesn't seem to meet all requirements. Check that it's named 'is_even', takes a number as input, and returns TRUE for even numbers and FALSE for odd numbers.";
+          resultElement.className = "result error";
+        }
+      }
+    </script>
+  </body>
 </html>
+
+

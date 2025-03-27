@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intro to Machine Learning with tidymodels | HARP Team R Training</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      color: #2c3e50;
+    }
+    pre {
+      background-color: #f5f5f5;
+      border-left: 4px solid #3498db;
+      padding: 15px;
+      margin: 20px 0;
+      overflow-x: auto;
+      border-radius: 4px;
+    }
+    code {
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+    .topic-nav {
+      background-color: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .topic-nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .topic-nav li {
+      margin-right: 10px; /* Kept for potential spacing adjustments */
+    }
+    .section {
+      background-color: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .exercise {
+      background-color: #e8f4fc;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+    .exercise h3 {
+      margin-top: 0;
+      color: #2980b9;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px; /* Added margin */
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .home-link {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .quiz-option {
+      margin: 10px 0;
+    }
+    .code-input {
+      width: 95%; /* Adjusted width */
+      height: 80px; /* Adjusted height */
+      font-family: 'Consolas', 'Monaco', monospace;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+     .resources {
+      margin-top: 30px;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Assuming auth.js handles authentication/redirection if needed -->
+  <script src="auth.js"></script>
+
+  <header>
+    <div class="container">
+      <h1>Introduction to Machine Learning with tidymodels</h1>
+      <p>A modern, tidy approach to modeling and machine learning in R (Intermediate/Advanced)</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="home-link">← Back to Course Index</a>
+
+    <div class="topic-nav section">
+      <h3>In this module:</h3>
+      <ul>
+        <li><a href="#intro-ml">What is Machine Learning?</a></li>
+        <li><a href="#intro-tidymodels">Introducing tidymodels</a></li>
+        <li><a href="#workflow">The Tidymodels Workflow</a></li>
+        <li><a href="#splitting">Data Splitting (rsample)</a></li>
+        <li><a href="#preprocessing">Preprocessing (recipes)</a></li>
+        <li><a href="#models">Model Specification (parsnip)</a></li>
+        <li><a href="#workflows">Bundling (workflows)</a></li>
+        <li><a href="#fitting">Fitting & Predicting</a></li>
+        <li><a href="#evaluation">Evaluation (yardstick)</a></li>
+        <li><a href="#example">Example: Classification</a></li>
+      </ul>
+    </div>
+
+    <div class="section" id="intro-ml">
+      <h2>What is Machine Learning?</h2>
+      <p>Machine Learning (ML) is a field of artificial intelligence focused on building systems that can learn from and make decisions based on data. Instead of being explicitly programmed for a specific task, ML algorithms learn patterns from training data to make predictions or decisions on new, unseen data.</p>
+      <h4>Common Types of ML Tasks:</h4>
+      <ul>
+        <li><strong>Supervised Learning:</strong> Learning from labeled data (data with known outcomes) to predict future outcomes.
+          <ul>
+            <li><strong>Regression:</strong> Predicting a continuous numerical value (e.g., predicting house prices, temperature).</li>
+            <li><strong>Classification:</strong> Predicting a categorical label (e.g., classifying emails as spam/not spam, identifying species).</li>
+          </ul>
+        </li>
+        <li><strong>Unsupervised Learning:</strong> Learning from unlabeled data to find hidden structures or patterns.
+          <ul>
+            <li><strong>Clustering:</strong> Grouping similar data points together (e.g., customer segmentation).</li>
+            <li><strong>Dimensionality Reduction:</strong> Reducing the number of variables while preserving important information (e.g., Principal Component Analysis - PCA).</li>
+          </ul>
+        </li>
+      </ul>
+      <p>This module focuses on supervised learning using the `tidymodels` framework.</p>
+    </div>
+
+    <div class="section" id="intro-tidymodels">
+      <h2>Introducing tidymodels</h2>
+      <p><code>tidymodels</code> is a collection of R packages for modeling and machine learning that share the underlying design philosophy, grammar, and data structures of the `tidyverse`. It provides a consistent, modular, and pipeable framework for the entire modeling process.</p>
+      <h4>Why use tidymodels?</h4>
+      <ul>
+        <li><strong>Consistency:</strong> Provides a unified interface for hundreds of modeling algorithms.</li>
+        <li><strong>Tidy Principles:</strong> Works seamlessly with `dplyr`, `ggplot2`, and other tidyverse tools.</li>
+        <li><strong>Modularity:</strong> Different packages handle specific parts of the workflow (splitting, preprocessing, modeling, evaluation), making it flexible.</li>
+        <li><strong>Focus on Good Practices:</strong> Encourages proper validation techniques like data splitting and resampling.</li>
+      </ul>
+      <pre><code># Install the core tidymodels package (includes several key packages)
+# install.packages("tidymodels")
+
+# Load the core tidymodels packages
+library(tidymodels)
+library(tidyverse) # Usually loaded alongside for data manipulation</code></pre>
+      <p>The core packages often used include: `rsample` (splitting), `recipes` (preprocessing), `parsnip` (model specification), `workflows` (bundling), `tune` (hyperparameter tuning), and `yardstick` (evaluation).</p>
+    </div>
+
+    <div class="section" id="workflow">
+        <h2>The Tidymodels Workflow</h2>
+        <p>A typical supervised machine learning project using `tidymodels` follows these steps:</p>
+        <ol>
+            <li><strong>Data Splitting:</strong> Divide the initial data into training and testing sets (`rsample`).</li>
+            <li><strong>Preprocessing:</strong> Define steps to prepare the data for modeling (e.g., imputation, scaling, dummy coding) using a `recipe` (`recipes`).</li>
+            <li><strong>Model Specification:</strong> Choose a model type (e.g., logistic regression, random forest) and its engine (the underlying package implementation) (`parsnip`).</li>
+            <li><strong>Bundling:</strong> Combine the preprocessing recipe and model specification into a `workflow` (`workflows`).</li>
+            <li><strong>Training (Fitting):</strong> Train the workflow using the *training* data (`fit`).</li>
+            <li><strong>Prediction:</strong> Use the trained workflow to make predictions on the *testing* data (or new data) (`predict`).</li>
+            <li><strong>Evaluation:</strong> Assess the model's performance on the *testing* data using appropriate metrics (`yardstick`).</li>
+            <li><strong>(Optional) Tuning:</strong> Optimize model hyperparameters using resampling techniques (`tune`).</li>
+            <li><strong>(Optional) Finalizing:</strong> Fit the final, best model on the entire dataset or just the training set, depending on the goal.</li>
+        </ol>
+    </div>
+
+    <div class="section" id="splitting">
+        <h2>1. Data Splitting (`rsample`)</h2>
+        <p>It's crucial to evaluate your model on data it hasn't seen during training. We split the data to simulate this.</p>
+        <ul>
+            <li><strong>Training Set:</strong> Used to train the model (fit parameters, learn patterns).</li>
+            <li><strong>Testing Set:</strong> Used to evaluate the final model's performance on unseen data.</li>
+        </ul>
+        <pre><code># Load example data
+data(iris)
+iris_tbl <- as_tibble(iris) # Convert to tibble for better printing
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Create an initial split (e.g., 75% training, 25% testing)
+# strata ensures proportions of the outcome variable (Species) are similar in both sets
+iris_split <- initial_split(iris_tbl, prop = 0.75, strata = Species)
+print(iris_split)
+
+# Extract the training and testing sets
+iris_train <- training(iris_split)
+iris_test <- testing(iris_split)
+
+# Check dimensions
+dim(iris_train)
+dim(iris_test)
+# Check proportions of Species
+table(iris_train$Species) %>% prop.table()
+table(iris_test$Species) %>% prop.table()
+
+# For more robust evaluation, especially with smaller datasets,
+# cross-validation (e.g., using vfold_cv()) is recommended for tuning/comparing models.
+# iris_folds <- vfold_cv(iris_train, v = 10, strata = Species)</code></pre>
+    </div>
+
+    <div class="section" id="preprocessing">
+        <h2>2. Preprocessing (`recipes`)</h2>
+        <p>Recipes define a sequence of steps to prepare data for modeling. This includes feature engineering tasks like:</p>
+        <ul>
+            <li>Imputing missing values (`step_impute_*`)</li>
+            <li>Transforming variables (e.g., log, scaling) (`step_log`, `step_normalize`, `step_scale`)</li>
+            <li>Creating dummy variables from categorical predictors (`step_dummy`)</li>
+            <li>Removing variables (`step_rm`)</li>
+            <li>Handling new factor levels (`step_novel`)</li>
+            <li>And many more...</li>
+        </ul>
+        <p>Recipes are defined *before* training and are applied consistently to training, testing, and new data.</p>
+        <pre><code># Define a simple recipe for the iris data
+# Predict Species using all other variables (.)
+iris_recipe <- recipe(Species ~ ., data = iris_train) %>%
+  # Example steps (not all strictly necessary for iris, but illustrative):
+  step_normalize(all_numeric_predictors()) %>% # Center and scale numeric predictors
+  step_dummy(all_nominal_predictors()) # Create dummy variables for factors (if any)
+
+# You can 'prep' the recipe with training data to learn necessary parameters (e.g., means, SDs)
+# trained_recipe <- prep(iris_recipe, training = iris_train)
+
+# Then 'bake' the recipe onto data (training, testing, or new) to apply the steps
+# baked_train_data <- bake(trained_recipe, new_data = iris_train)
+# baked_test_data <- bake(trained_recipe, new_data = iris_test)
+# glimpse(baked_train_data)
+
+# Usually, the recipe is included in a workflow, and prepping/baking happens automatically.</code></pre>
+    </div>
+
+     <div class="section" id="models">
+        <h2>3. Model Specification (`parsnip`)</h2>
+        <p>`parsnip` provides a tidy, unified interface for specifying models, regardless of the underlying R package that implements them.</p>
+        <ol>
+            <li>Choose the model **type** (e.g., `logistic_reg`, `rand_forest`, `linear_reg`).</li>
+            <li>Set the computational **engine** (the specific package/function to use, e.g., `"glm"`, `"ranger"`, `"lm"`).</li>
+            <li>Set the prediction **mode** (`"classification"` or `"regression"`).</li>
+            <li>(Optional) Set model **hyperparameters** (arguments that aren't learned from data, e.g., number of trees). Use `tune()` as a placeholder for tuning later.</li>
+        </ol>
+        <pre><code># Specify a logistic regression model for classification
+log_reg_spec <- logistic_reg() %>% # Model Type
+  set_engine("glm") %>%           # Engine (uses stats::glm)
+  set_mode("classification")      # Mode
+
+# Specify a random forest model for classification
+# Use tune() for hyperparameters we might want to optimize later
+rf_spec <- rand_forest(mtry = tune(), trees = 1000) %>% # Model Type with tunable mtry
+  set_engine("ranger", importance = "permutation") %>% # Engine (uses ranger package)
+  set_mode("classification")                           # Mode
+
+# Specify a linear regression model
+lm_spec <- linear_reg() %>%
+  set_engine("lm") %>%
+  set_mode("regression")
+
+print(log_reg_spec)
+print(rf_spec)</code></pre>
+    </div>
+
+    <div class="section" id="workflows">
+        <h2>4. Bundling (`workflows`)</h2>
+        <p>A `workflow` object bundles your preprocessing recipe and model specification together. This ensures that preprocessing is applied correctly and consistently during training, prediction, and resampling.</p>
+        <pre><code># Create a workflow with the recipe and logistic regression model
+log_reg_wf <- workflow() %>%
+  add_recipe(iris_recipe) %>% # Add the preprocessing steps
+  add_model(log_reg_spec)   # Add the model specification
+
+print(log_reg_wf)
+
+# Create another workflow for random forest
+rf_wf <- workflow() %>%
+  add_recipe(iris_recipe) %>%
+  add_model(rf_spec)</code></pre>
+    </div>
+
+    <div class="section" id="fitting">
+        <h2>5. Training (Fitting) & Predicting</h2>
+        <p>Use `fit()` to train your workflow on the training data. Then use `predict()` with the fitted workflow on new data (like the test set).</p>
+        <pre><code># Fit the logistic regression workflow to the training data
+log_reg_fit <- fit(log_reg_wf, data = iris_train)
+print(log_reg_fit)
+
+# Make predictions on the test data
+# Predict class labels
+log_reg_preds_class <- predict(log_reg_fit, new_data = iris_test)
+# Predict class probabilities
+log_reg_preds_prob <- predict(log_reg_fit, new_data = iris_test, type = "prob")
+
+# Combine predictions with the original test data
+iris_test_results <- iris_test %>%
+  select(Species) %>% # Select the true outcome
+  bind_cols(log_reg_preds_class) %>% # Add predicted class
+  bind_cols(log_reg_preds_prob)  # Add predicted probabilities
+
+head(iris_test_results)</code></pre>
+    </div>
+
+    <div class="section" id="evaluation">
+        <h2>6. Evaluation (`yardstick`)</h2>
+        <p>`yardstick` provides functions for measuring model performance using tidy principles.</p>
+        <pre><code># Define a set of metrics relevant for classification
+iris_metrics <- metric_set(accuracy, sens, spec, roc_auc) # sens=sensitivity, spec=specificity
+
+# Calculate metrics using the test set results
+# For metrics like roc_auc, you need class probabilities
+eval_results <- iris_metrics(iris_test_results,
+                             truth = Species,      # The column with the true outcome
+                             estimate = .pred_class, # The column with the predicted class
+                             .pred_setosa, .pred_versicolor, .pred_virginica, # Columns with probabilities for roc_auc
+                             event_level = "second") # Specify which level is "first" or "second" for sens/spec if needed
+
+print(eval_results)
+
+# Confusion Matrix
+conf_mat_results <- conf_mat(iris_test_results, truth = Species, estimate = .pred_class)
+print(conf_mat_results)
+# Visualize confusion matrix
+autoplot(conf_mat_results, type = "heatmap")</code></pre>
+    </div>
+
+    <div class="section" id="example">
+        <h2>Example: Iris Classification</h2>
+        <p>Let's put the basic steps together for logistic regression on the Iris dataset.</p>
+        <pre><code>library(tidymodels)
+library(tidyverse)
+
+# 1. Data and Splitting
+set.seed(123)
+iris_split <- initial_split(as_tibble(iris), prop = 0.75, strata = Species)
+iris_train <- training(iris_split)
+iris_test  <- testing(iris_split)
+
+# 2. Recipe (minimal preprocessing for this example)
+iris_recipe <- recipe(Species ~ ., data = iris_train) %>%
+  step_normalize(all_numeric_predictors()) # Normalize numeric features
+
+# 3. Model Specification
+log_reg_spec <- logistic_reg() %>%
+  set_engine("glm") %>%
+  set_mode("classification")
+
+# 4. Workflow
+log_reg_wf <- workflow() %>%
+  add_recipe(iris_recipe) %>%
+  add_model(log_reg_spec)
+
+# 5. Fitting
+log_reg_fit <- fit(log_reg_wf, data = iris_train)
+
+# 6. Predicting
+predictions <- predict(log_reg_fit, new_data = iris_test) %>%
+  bind_cols(predict(log_reg_fit, new_data = iris_test, type = "prob")) %>%
+  bind_cols(iris_test %>% select(Species)) # Add truth
+
+head(predictions)
+
+# 7. Evaluating
+accuracy(predictions, truth = Species, estimate = .pred_class)
+# roc_auc requires probabilities and handling multi-class (e.g., one-vs-all)
+roc_auc(predictions, truth = Species, .pred_setosa, .pred_versicolor, .pred_virginica)
+conf_mat(predictions, truth = Species, estimate = .pred_class) %>% autoplot(type = "heatmap")</code></pre>
+    </div>
+
+    <div class="exercise">
+        <h3>Exercise: Tidymodels Basics</h3>
+        <p>Using the `mtcars` dataset, build a workflow to predict whether a car has high miles per gallon (`mpg > 20`) using `wt` (weight) and `hp` (horsepower) as predictors.</p>
+        <p>1. Create a new binary outcome variable `high_mpg` (TRUE if `mpg > 20`, FALSE otherwise) in the `mtcars` dataset. Make sure it's a factor.</p>
+        <p>2. Split the modified `mtcars` data into 80% training and 20% testing sets, stratifying by `high_mpg`.</p>
+        <p>3. Define a recipe that uses `wt` and `hp` to predict `high_mpg` and includes a step to normalize `wt` and `hp`.</p>
+        <p>4. Specify a logistic regression model using the `"glm"` engine.</p>
+        <p>5. Create a workflow combining the recipe and model specification.</p>
+        <p>6. Fit the workflow to the training data.</p>
+        <p>7. Predict class labels on the test data.</p>
+        <p>8. Calculate the accuracy on the test data.</p>
+        <button onclick="toggleSolution('sol_tidymodels_ex')">Show/Hide Solution Code</button>
+        <div class="result" id="sol_tidymodels_ex" style="display: none; background-color: #f5f5f5;">
+            <pre><code>library(tidymodels)
+library(tidyverse)
+
+# 1. Prepare data
+mtcars_prepared <- mtcars %>%
+  as_tibble() %>%
+  mutate(high_mpg = factor(ifelse(mpg > 20, "Yes", "No"))) %>%
+  select(high_mpg, wt, hp) # Keep only relevant columns
+
+# 2. Split data
+set.seed(456)
+mtcars_split <- initial_split(mtcars_prepared, prop = 0.80, strata = high_mpg)
+mtcars_train <- training(mtcars_split)
+mtcars_test  <- testing(mtcars_split)
+
+# 3. Define recipe
+mtcars_recipe <- recipe(high_mpg ~ wt + hp, data = mtcars_train) %>%
+  step_normalize(all_numeric_predictors())
+
+# 4. Specify model
+log_spec <- logistic_reg() %>%
+  set_engine("glm") %>%
+  set_mode("classification")
+
+# 5. Create workflow
+log_wf <- workflow() %>%
+  add_recipe(mtcars_recipe) %>%
+  add_model(log_spec)
+
+# 6. Fit workflow
+log_fit <- fit(log_wf, data = mtcars_train)
+
+# 7. Predict on test data
+test_preds <- predict(log_fit, new_data = mtcars_test) %>%
+  bind_cols(mtcars_test %>% select(high_mpg)) # Add truth
+
+# 8. Calculate accuracy
+accuracy_result <- accuracy(test_preds, truth = high_mpg, estimate = .pred_class)
+
+print(accuracy_result)</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="section resources">
+        <h3>Further Resources</h3>
+        <ul>
+            <li><a href="https://www.tidymodels.org/" target="_blank">Tidymodels Website</a> (Official documentation, articles, examples)</li>
+            <li><a href="https://www.tidymodels.org/start/" target="_blank">Tidymodels: Get Started Guide</a></li>
+            <li><a href="https://r4ds.had.co.nz/model-intro.html" target="_blank">R for Data Science: Introduction to Modeling</a> (Uses tidymodels)</li>
+            <li><a href="https://recipes.tidymodels.org/" target="_blank">recipes Package Website</a></li>
+            <li><a href="https://parsnip.tidymodels.org/" target="_blank">parsnip Package Website</a></li>
+            <li><a href="https://workflows.tidymodels.org/" target="_blank">workflows Package Website</a></li>
+            <li><a href="https://yardstick.tidymodels.org/" target="_blank">yardstick Package Website</a></li>
+            <li>Book: <a href="https://www.tmwr.org/" target="_blank">Tidy Modeling with R</a> by Max Kuhn and Julia Silge</li>
+        </ul>
+    </div>
+
+  </div> <!-- /container -->
+
+  <footer>
+    <div class="container">
+      <p>HARP Team R Training &copy; 2025 | Created by Daryn Sutton</p>
+    </div>
+  </footer>
+
+  <script>
+    // Simple toggle function for solution code blocks
+    function toggleSolution(id) {
+        var element = document.getElementById(id);
+        if (element.style.display === "none") {
+            element.style.display = "block";
+        } else {
+            element.style.display = "none";
+        }
+    }
+
+    // Placeholder for potential quiz/code checking functions if needed
+    function checkAnswer(questionId, correctAnswer) {
+      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+      const resultDiv = document.getElementById(`${questionId}-result`);
+      // Basic feedback logic
+      if(selectedOption && selectedOption.value === correctAnswer) {
+          resultDiv.textContent = "Correct!";
+          resultDiv.className = "result correct";
+      } else if (selectedOption) {
+          resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
+          resultDiv.className = "result incorrect";
+      } else {
+          resultDiv.textContent = "Please select an answer.";
+          resultDiv.className = "result incorrect";
+      }
+      resultDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>

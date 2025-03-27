@@ -19,6 +19,7 @@
       color: white;
       padding: 20px 0;
       text-align: center;
+      position: relative; /* Needed for absolute positioning of logout button */
     }
 
     .container {
@@ -43,6 +44,8 @@
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex; /* Use flexbox for better structure */
+      flex-direction: column; /* Stack content vertically */
     }
 
     .course-card:hover {
@@ -52,7 +55,20 @@
 
     .card-content {
       padding: 20px;
+      flex-grow: 1; /* Allow content to fill space */
+      display: flex;
+      flex-direction: column;
     }
+
+    .card-content h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    .card-content p:first-of-type { /* Target the description paragraph */
+        flex-grow: 1; /* Allow description to push level/link down */
+        margin-bottom: 15px;
+    }
+
 
     .card-image {
       height: 160px;
@@ -68,7 +84,9 @@
       padding: 4px 8px;
       border-radius: 4px;
       font-size: 14px;
-      margin-top: 10px;
+      margin-top: 10px; /* Adjusted margin */
+      margin-bottom: 10px; /* Added margin */
+      align-self: flex-start; /* Align level tag to the start */
     }
 
     .beginner {
@@ -81,7 +99,23 @@
       color: #388e3c;
     }
 
-    a {
+    .advanced { /* Added style for advanced */
+      background-color: #fff3e0; /* Light orange */
+      color: #ef6c00; /* Dark orange */
+    }
+
+    .start-learning { /* Style for the link itself */
+        display: inline-block;
+        margin-top: auto; /* Push link to the bottom */
+        color: #3498db;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .start-learning:hover {
+        text-decoration: underline;
+    }
+
+    a { /* General link styling */
       text-decoration: none;
       color: #3498db;
     }
@@ -143,124 +177,162 @@
         <li>Detailed explanations with examples</li>
         <li>Code snippets with thorough comments</li>
         <li>Interactive exercises to test your understanding</li>
-        <li>Data visualization examples</li>
+        <li>Links to further resources</li>
       </ul>
       <p>Select a topic below to begin learning!</p>
     </section>
 
     <h2>Course Modules</h2>
     <div class="course-grid">
+      <!-- R Basics -->
       <div class="course-card">
         <div class="card-image" style="background-image: url('images/r-basics.jpg');"></div>
         <div class="card-content">
           <h3>R Basics: Getting Started</h3>
           <p>Learn about R's interface, installing packages, and basic operations.</p>
           <span class="level beginner">Beginner</span>
-          <p><a href="r-basics.html">Start Learning →</a></p>
+          <a href="r-basics.html" class="start-learning">Start Learning →</a>
         </div>
       </div>
 
+      <!-- Data Types -->
       <div class="course-card">
         <div class="card-image" style="background-image: url('images/data-types.jpg');"></div>
         <div class="card-content">
           <h3>R Data Types and Structures</h3>
           <p>Explore R's various data types, vectors, matrices, lists, and data frames.</p>
           <span class="level beginner">Beginner</span>
-          <p><a href="data-types.html">Start Learning →</a></p>
+          <a href="data-types.html" class="start-learning">Start Learning →</a>
         </div>
       </div>
 
+      <!-- Data Import -->
       <div class="course-card">
         <div class="card-image" style="background-image: url('images/data-import.jpg');"></div>
         <div class="card-content">
           <h3>Data Import and Export</h3>
           <p>Learn how to read from and write to various file formats.</p>
           <span class="level beginner">Beginner</span>
-          <p><a href="data-import.html">Start Learning →</a></p>
+          <a href="data-import.html" class="start-learning">Start Learning →</a>
         </div>
       </div>
 
+      <!-- Tidyverse -->
       <div class="course-card">
         <div class="card-image" style="background-image: url('images/tidyverse.jpg');"></div>
         <div class="card-content">
           <h3>Using the Tidyverse</h3>
           <p>Master the powerful collection of packages for data manipulation, analysis, and visualization.</p>
           <span class="level intermediate">Intermediate</span>
-          <p><a href="tidyverse.html">Start Learning →</a></p>
+          <a href="tidyverse.html" class="start-learning">Start Learning →</a>
         </div>
       </div>
 
+      <!-- Data Cleaning -->
       <div class="course-card">
         <div class="card-image" style="background-image: url('images/data-cleaning.jpg');"></div>
         <div class="card-content">
           <h3>Data Cleaning and Wrangling</h3>
-          <p>Master techniques for cleaning messy data and handling missing values.</p>
+          <!-- Updated Description -->
+          <p>Master techniques for cleaning messy data, handling missing values, outliers, and preparing data for analysis.</p>
           <span class="level intermediate">Intermediate</span>
-          <p><a href="data-cleaning.html">Start Learning →</a></p>
+          <a href="data-cleaning.html" class="start-learning">Start Learning →</a>
         </div>
       </div>
 
+      <!-- Visualization -->
       <div class="course-card">
         <div class="card-image" style="background-image: url('images/visualization.jpg');"></div>
         <div class="card-content">
           <h3>Data Visualization with ggplot2</h3>
           <p>Create beautiful and informative visualizations using the Grammar of Graphics.</p>
           <span class="level intermediate">Intermediate</span>
-          <p><a href="visualization.html">Start Learning →</a></p>
+          <a href="visualization.html" class="start-learning">Start Learning →</a>
         </div>
       </div>
 
+      <!-- Statistics -->
       <div class="course-card">
         <div class="card-image" style="background-image: url('images/statistical-analysis.jpg');"></div>
         <div class="card-content">
           <h3>Statistical Analysis in R</h3>
-          <p>Perform common statistical tests and analyses using R.</p>
+           <!-- Updated Description -->
+          <p>Perform common statistical tests, correlation analysis, and linear regression using R.</p>
           <span class="level intermediate">Intermediate</span>
-          <p><a href="statistics.html">Start Learning →</a></p>
+          <a href="statistics.html" class="start-learning">Start Learning →</a>
         </div>
       </div>
 
+      <!-- R Quirks -->
       <div class="course-card">
         <div class="card-image" style="background-image: url('images/r-quirks.jpg');"></div>
         <div class="card-content">
           <h3>R Syntax Quirks and Best Practices</h3>
-          <p>Understand R's unique features and how to write better R code.</p>
+           <!-- Updated Description -->
+          <p>Understand R's unique features, scoping, debugging, profiling, and how to write better R code.</p>
           <span class="level intermediate">Intermediate</span>
-          <p><a href="r-quirks.html">Start Learning →</a></p>
+          <a href="r-quirks.html" class="start-learning">Start Learning →</a>
         </div>
       </div>
 
+      <!-- Spatial -->
       <div class="course-card">
         <div class="card-image" style="background-image: url('images/spatial.jpg');"></div>
         <div class="card-content">
           <h3>Spatial Data Analysis and Mapping</h3>
-          <p>Work with geographic data and create beautiful maps in R.</p>
+          <p>Work with geographic data and create beautiful static and interactive maps in R.</p>
           <span class="level intermediate">Intermediate</span>
-          <p><a href="spatial.html">Start Learning →</a></p>
+          <a href="spatial.html" class="start-learning">Start Learning →</a>
         </div>
       </div>
 
+      <!-- R Markdown -->
       <div class="course-card">
         <div class="card-image" style="background-image: url('images/rmarkdown.jpg');"></div>
         <div class="card-content">
           <h3>R Markdown and Reproducible Reports</h3>
-          <p>Create dynamic documents that combine code, results, and narrative.</p>
+          <p>Create dynamic documents that combine code, results, and narrative for reproducible research.</p>
           <span class="level intermediate">Intermediate</span>
-          <p><a href="rmarkdown.html">Start Learning →</a></p>
+          <a href="rmarkdown.html" class="start-learning">Start Learning →</a>
         </div>
       </div>
 
+      <!-- Automation -->
       <div class="course-card">
         <div class="card-image" style="background-image: url('images/automation.jpg');"></div>
         <div class="card-content">
           <h3>Programmatic Use of R for Automation</h3>
-          <p>Learn how to automate tasks with loops, conditional statements, and functional programming.</p>
+          <p>Learn how to automate tasks with loops, conditional statements, functions, and scheduling.</p>
           <span class="level intermediate">Intermediate</span>
-          <p><a href="programmatic_r.html">Start Learning →</a></p>
+          <a href="programmatic_r.html" class="start-learning">Start Learning →</a>
         </div>
       </div>
-    </div>
-  </div>
+
+      <!-- NEW: Machine Learning -->
+      <div class="course-card">
+        <div class="card-image" style="background-image: url('images/machine-learning.jpg');"></div> <!-- Placeholder Image -->
+        <div class="card-content">
+          <h3>Introduction to Machine Learning with tidymodels</h3>
+          <p>Explore the fundamentals of machine learning using the modern, tidy `tidymodels` framework.</p>
+          <!-- Combined Level -->
+          <span class="level advanced">Intermediate/Advanced</span>
+          <a href="Machine_Learning_Tidymodels.html" class="start-learning">Start Learning →</a>
+        </div>
+      </div>
+
+      <!-- NEW: Shiny -->
+      <div class="course-card">
+        <div class="card-image" style="background-image: url('images/shiny.jpg');"></div> <!-- Placeholder Image -->
+        <div class="card-content">
+          <h3>Interactive Dashboards with Shiny</h3>
+          <p>Learn to build interactive web applications and dashboards directly from your R code using Shiny.</p>
+          <span class="level advanced">Advanced</span>
+          <a href="Shiny_Dashboards.html" class="start-learning">Start Learning →</a>
+        </div>
+      </div>
+
+    </div> <!-- /course-grid -->
+  </div> <!-- /container -->
 
   <footer>
     <div class="container">
@@ -270,8 +342,18 @@
 
   <script>
     function logout() {
-      localStorage.removeItem('authenticated');
-      window.location.href = 'login.html';
+      // Assuming auth.js handles the actual removal and redirection logic
+      // This is just a placeholder call
+      console.log("Logout initiated");
+      // Example: localStorage.removeItem('authenticated');
+      // Example: window.location.href = 'login.html';
+      if (typeof authLogout === 'function') { // Check if a function exists in auth.js
+          authLogout();
+      } else {
+          // Fallback or default behavior
+          localStorage.removeItem('authenticated');
+          window.location.href = 'login.html';
+      }
     }
   </script>
 </body>
