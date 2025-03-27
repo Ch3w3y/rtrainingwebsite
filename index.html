@@ -31,7 +31,18 @@
     h1, h2, h3 {
       color: #2c3e50;
     }
-
+    /* --- CSS FOR BANNER IMAGE --- */
+    #banner-image {
+      width: 100%; /* Make image fill container width */
+      max-width: 100%; /* Ensure it doesn't overflow */
+      height: auto; /* Maintain aspect ratio */
+      display: block; /* Remove extra bottom space */
+      margin-top: 20px; /* Add space above the banner */
+      margin-bottom: 30px; /* Add space below the banner */
+      border-radius: 8px; /* Optional: match card/section rounding */
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optional: match card/section shadow */
+    }
+    /* --- END CSS FOR BANNER IMAGE --- */
     .course-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -169,6 +180,13 @@
   </header>
 
   <div class="container">
+
+    <!-- === BANNER IMAGE ADDED HERE === -->
+    <!-- Make sure the path 'images/banner.jpg' is correct relative to index.html -->
+    <!-- You will need to create an 'images' folder and place your banner image inside it -->
+    <img src="images/banner.jpg" alt="HARP Team R Training Banner" id="banner-image">
+    <!-- === END BANNER IMAGE === -->
+
     <section class="intro-section">
       <h2>Welcome to the HARP Team R Training Portal</h2>
       <p>This training resource has been created by Daryn Sutton to help team members develop their R programming skills. Whether you're just getting started with R or looking to expand your knowledge, you'll find structured learning materials organized by topic.</p>
