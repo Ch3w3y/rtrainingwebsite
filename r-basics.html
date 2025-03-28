@@ -4,220 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>R Basics: Getting Started | HARP Team R Training</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      background-color: #f8f9fa;
-    }
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #2c3e50;
-    }
-    pre {
-      background-color: #f5f5f5;
-      border-left: 4px solid #3498db;
-      padding: 15px;
-      margin: 20px 0;
-      overflow-x: auto;
-      border-radius: 4px;
-    }
-    code {
-      font-family: 'Consolas', 'Monaco', monospace;
-    }
-    .topic-nav {
-      background-color: white;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .topic-nav ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .topic-nav li {
-      margin-right: 10px;
-    }
-    .section {
-      background-color: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .exercise {
-      background-color: #e8f4fc;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 25px 0;
-    }
-    .exercise h3 {
-      margin-top: 0;
-      color: #2980b9;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .result {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      display: none;
-    }
-    .correct {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .home-link {
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-    .quiz-option {
-      margin: 10px 0;
-    }
-    .code-input {
-      width: 100%;
-      height: 100px;
-      font-family: 'Consolas', 'Monaco', monospace;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-    .tip-box {
-      background-color: #fff3cd;
-      border-left: 4px solid #ffc107;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 4px;
-    }
-    .note-box {
-      background-color: #e2f0f9;
-      border-left: 4px solid #17a2b8;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 4px;
-    }
-    .warning-box {
-      background-color: #f8d7da;
-      border-left: 4px solid #dc3545;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 4px;
-    }
-    .code-output {
-      background-color: #f8f9fa;
-      border: 1px solid #eaeaea;
-      border-radius: 4px;
-      padding: 10px;
-      margin: 10px 0;
-      font-family: 'Consolas', 'Monaco', monospace;
-      white-space: pre-wrap;
-    }
-    .comparison-table td {
-      text-align: center;
-    }
-    .comparison-table th:first-child,
-    .comparison-table td:first-child {
-      text-align: left;
-    }
-    .tab-container {
-      margin: 20px 0;
-    }
-    .tab-nav {
-      display: flex;
-      gap: 2px;
-      border-bottom: 1px solid #dee2e6;
-    }
-    .tab-btn {
-      background-color: #f8f9fa;
-      border: 1px solid #dee2e6;
-      border-bottom: none;
-      border-radius: 4px 4px 0 0;
-      padding: 8px 16px;
-      cursor: pointer;
-    }
-    .tab-btn.active {
-      background-color: white;
-      border-bottom: 1px solid white;
-      margin-bottom: -1px;
-    }
-    .tab-content {
-      border: 1px solid #dee2e6;
-      border-top: none;
-      padding: 15px;
-      background-color: white;
-    }
-    .tab-pane {
-      display: none;
-    }
-    .tab-pane.active {
-      display: block;
-    }
-  </style>
+  
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
 </head>
 <body>
-  <script src="auth.js"></script>
+  
   
   <header>
     <div class="container">
@@ -481,7 +273,7 @@
           
           <div id="linux-install" class="tab-pane">
             <h4>Ubuntu/Debian</h4>
-            <pre><code># Add R repository
+            <pre><code class="language-r"># Add R repository
 sudo apt update
 sudo apt install --no-install-recommends software-properties-common dirmngr
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
@@ -492,7 +284,7 @@ sudo apt update
 sudo apt install r-base r-base-dev</code></pre>
 
             <h4>Fedora/RHEL/CentOS</h4>
-            <pre><code># Add R repository
+            <pre><code class="language-r"># Add R repository
 sudo dnf install dnf-plugins-core
 sudo dnf config-manager --add-repo https://cloud.r-project.org/bin/linux/fedora/$(rpm -E %fedora)/
 
@@ -522,7 +314,7 @@ sudo dnf install R</code></pre>
       <h4>Setting Up the CRAN Mirror</h4>
       <p>When you install packages, R needs to download them from a CRAN mirror (a server hosting R packages). It's good practice to set a default mirror close to your location:</p>
       
-      <pre><code># In R or RStudio console
+      <pre><code class="language-r"># In R or RStudio console
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 
 # To make this setting permanent, add it to your .Rprofile file
@@ -532,7 +324,7 @@ options(repos = c(CRAN = "https://cloud.r-project.org"))
       <h4>Setting Up Library Paths</h4>
       <p>By default, R installs packages in the system library. If you don't have admin privileges, you might want to set up a personal library:</p>
       
-      <pre><code># View current library paths
+      <pre><code class="language-r"># View current library paths
 .libPaths()
 
 # Add a personal library path
@@ -542,7 +334,7 @@ options(repos = c(CRAN = "https://cloud.r-project.org"))
       <h4>Setting Memory Limits</h4>
       <p>If you work with large datasets, you might want to increase R's memory allocation:</p>
       
-      <pre><code># Check current memory limit (in bytes)
+      <pre><code class="language-r"># Check current memory limit (in bytes)
 memory.limit()
 
 # Set memory limit (in MB) - Windows only
@@ -579,7 +371,7 @@ memory.limit(size = 8000)  # Set to 8GB
       <div class="note-box">
         <h4>Verifying Your Installation</h4>
         <p>After installing both R and RStudio, open RStudio and run the following code in the console to verify everything is working properly:</p>
-        <pre><code>R.version.string  # Should show your installed R version
+        <pre><code class="language-r">R.version.string  # Should show your installed R version
 getRversion()     # Another way to check R version
 version           # Full version information</code></pre>
       </div>
@@ -861,7 +653,7 @@ version           # Full version information</code></pre>
       </table>
       
       <h4>Working with Numeric Values</h4>
-      <pre><code># Numeric values (double precision by default)
+      <pre><code class="language-r"># Numeric values (double precision by default)
 x <- 10.5
 y <- 5
 
@@ -884,7 +676,7 @@ is.infinite(1/0)  # TRUE
 is.nan(0/0)  # TRUE</code></pre>
       
       <h4>Working with Character Data</h4>
-      <pre><code># Creating character values
+      <pre><code class="language-r"># Creating character values
 name <- "John"
 greeting <- 'Hello, World!'
 
@@ -911,7 +703,7 @@ gsub("World", "R User", greeting)  # "Hello, R User!"
 grepl("Hello", greeting)  # TRUE (checks if pattern exists in string)</code></pre>
       
       <h4>Working with Logical Values</h4>
-      <pre><code># Creating logical values
+      <pre><code class="language-r"># Creating logical values
 is_student <- TRUE
 has_experience <- FALSE
 
@@ -937,7 +729,7 @@ is.na(NA)  # TRUE</code></pre>
       <h4>Type Conversion</h4>
       <p>You can convert between data types using the <code>as.*</code> family of functions:</p>
       
-      <pre><code># Convert numeric to character
+      <pre><code class="language-r"># Convert numeric to character
 num <- 42
 num_char <- as.character(num)
 num_char  # "42"
@@ -965,7 +757,7 @@ as.logical("TRUE")  # NA (strings don't automatically convert to logical)</code>
       </div>
       
       <h4>Checking and Coercing Types</h4>
-      <pre><code># Check the type of an object
+      <pre><code class="language-r"># Check the type of an object
 x <- 10
 typeof(x)  # "double"
 class(x)   # "numeric"
@@ -981,7 +773,7 @@ str(x)  # Compact display of an object's structure</code></pre>
       <h3>Factors</h3>
       <p>Factors are a special data type in R for categorical variables:</p>
       
-      <pre><code># Create a factor
+      <pre><code class="language-r"># Create a factor
 gender <- factor(c("male", "female", "male", "female", "female"))
 gender  # Levels: female male
 
@@ -1011,7 +803,7 @@ as.character(gender)  # "male" "female" "male" "female" "female"</code></pre>
       <h3>Dates and Times</h3>
       <p>R has several data types for working with dates and times:</p>
       
-      <pre><code># Get current date
+      <pre><code class="language-r"># Get current date
 today <- Sys.Date()
 today  # Displays current date (e.g., "2023-08-15")
 class(today)  # "Date"
@@ -1049,7 +841,7 @@ format(event_time_utc, tz = "America/New_York")  # Convert to New York time</cod
         <h3>Exercise: Data Types</h3>
         <p>What will be the result of the following operations?</p>
         
-        <pre><code>x <- "42"
+        <pre><code class="language-r">x <- "42"
 y <- 7
 result <- as.numeric(x) + y</code></pre>
         
@@ -1070,7 +862,7 @@ result <- as.numeric(x) + y</code></pre>
         <div id="types-q1-result" class="result"></div>
         
         <p>What data type is the result of the following expression?</p>
-        <pre><code>result <- c(TRUE, 2, "hello")</code></pre>
+        <pre><code class="language-r">result <- c(TRUE, 2, "hello")</code></pre>
         
         <div class="quiz-option">
           <input type="radio" name="types-q2" id="types2a" value="logical">
@@ -1151,7 +943,7 @@ result <- as.numeric(x) + y</code></pre>
         </tr>
       </table>
       
-      <pre><code># Examples of arithmetic operations
+      <pre><code class="language-r"># Examples of arithmetic operations
 a <- 15
 b <- 4
 
@@ -1179,7 +971,7 @@ sin(pi/2)     # Sine of pi/2: 1</code></pre>
       <h3>Assignment Operators</h3>
       <p>R provides multiple ways to assign values to variables:</p>
       
-      <pre><code># Standard assignment
+      <pre><code class="language-r"># Standard assignment
 x <- 10       # Preferred in R
 y = 20        # Works but not recommended for variable assignment
 30 -> z       # Reverse assignment (less common)
@@ -1242,7 +1034,7 @@ x <- y <- z <- 0  # Assigns 0 to all three variables</code></pre>
         </tr>
       </table>
       
-      <pre><code># Comparison examples
+      <pre><code class="language-r"># Comparison examples
 x <- 10
 y <- 15
 
@@ -1303,7 +1095,7 @@ c(1, 2, 3) == c(1, 2, 4)  # FALSE TRUE FALSE (element-wise comparison)</code></p
         </tr>
       </table>
       
-      <pre><code># Logical operators
+      <pre><code class="language-r"># Logical operators
 x <- 5
 y <- 10
 
@@ -1323,7 +1115,7 @@ x <= 0 || 1/x > 0 # Safe, because second part only evaluates if x <= 0 is FALSE<
       <h3>Special Operators</h3>
       <p>R has some special operators for specific operations:</p>
       
-      <pre><code># %in% operator (membership)
+      <pre><code class="language-r"># %in% operator (membership)
 5 %in% c(1, 3, 5, 7, 9)  # TRUE
 "banana" %in% c("apple", "orange", "pear")  # FALSE
 
@@ -1343,7 +1135,7 @@ matrix1 %*% matrix2
       <h3>Working with Missing Values</h3>
       <p>R uses <code>NA</code> to represent missing values:</p>
       
-      <pre><code># Create a vector with missing values
+      <pre><code class="language-r"># Create a vector with missing values
 x <- c(10, NA, 15, 20, NA)
 
 # Operations with NA generally result in NA
@@ -1373,7 +1165,7 @@ x  # 10 0 15 20 0</code></pre>
         <li>Reserved words cannot be used as variable names (e.g., <code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>)</li>
       </ul>
       
-      <pre><code># Valid variable names
+      <pre><code class="language-r"># Valid variable names
 my_variable <- 10
 myVariable <- 20
 my.variable <- 30
@@ -1394,7 +1186,7 @@ avgSalary <- 50000      # camelCase</code></pre>
       <div class="exercise">
         <h3>Exercise: Basic Operations</h3>
         <p>Calculate the result of the following code:</p>
-        <pre><code>x <- 15
+        <pre><code class="language-r">x <- 15
 y <- 4
 result <- (x %% y) * 2 + (x %/% y)</code></pre>
         
@@ -1419,7 +1211,7 @@ result <- (x %% y) * 2 + (x %/% y)</code></pre>
         <div id="ops-q1-result" class="result"></div>
         
         <p>What will be returned by the following logical operation?</p>
-        <pre><code>(5 > 3) & (4 == 4) | !(6 <= 6)</code></pre>
+        <pre><code class="language-r">(5 > 3) & (4 == 4) | !(6 <= 6)</code></pre>
         
         <div class="quiz-option">
           <input type="radio" name="ops-q2" id="ops2a" value="true">
@@ -1442,7 +1234,7 @@ result <- (x %% y) * 2 + (x %/% y)</code></pre>
       <h3>Vectors</h3>
       <p>Vectors are the most basic data structure in R and contain elements of the same type.</p>
       
-      <pre><code># Creating vectors
+      <pre><code class="language-r"># Creating vectors
 numeric_vector <- c(1, 2, 3, 4, 5)
 character_vector <- c("apple", "banana", "cherry")
 logical_vector <- c(TRUE, FALSE, TRUE, TRUE)
@@ -1495,7 +1287,7 @@ rev(numeric_vector)     # 5 4 3 2 1</code></pre>
       <h3>Matrices</h3>
       <p>Matrices are two-dimensional arrays where all elements have the same data type.</p>
       
-      <pre><code># Creating matrices
+      <pre><code class="language-r"># Creating matrices
 matrix1 <- matrix(1:12, nrow = 3, ncol = 4)  # Fill by column
 matrix1
 #      [,1] [,2] [,3] [,4]
@@ -1555,7 +1347,7 @@ colMeans(matrix1) # Mean of each column</code></pre>
       <h3>Arrays</h3>
       <p>Arrays are multi-dimensional data structures where all elements have the same data type.</p>
       
-      <pre><code># Create a 2x3x2 array (2 rows, 3 columns, 2 layers)
+      <pre><code class="language-r"># Create a 2x3x2 array (2 rows, 3 columns, 2 layers)
 array_data <- array(1:12, dim = c(2, 3, 2))
 array_data
 # , , 1
@@ -1583,7 +1375,7 @@ array_data[1, , ]    # All elements in first row across all layers</code></pre>
       <h3>Lists</h3>
       <p>Lists are versatile data structures that can contain elements of different types, including other lists.</p>
       
-      <pre><code># Creating a list
+      <pre><code class="language-r"># Creating a list
 my_list <- list(
   name = "John",
   age = 30,
@@ -1630,7 +1422,7 @@ unlist(list1)  # Simplifies to a vector if possible</code></pre>
       <h3>Data Frames</h3>
       <p>Data frames are table-like structures that store different types of data in columns. They are one of the most commonly used data structures for data analysis in R.</p>
       
-      <pre><code># Creating a data frame
+      <pre><code class="language-r"># Creating a data frame
 df <- data.frame(
   name = c("Alice", "Bob", "Charlie", "David"),
   age = c(25, 30, 35, 40),
@@ -1706,7 +1498,7 @@ aggregate(salary ~ department, data = df, mean)  # Mean salary by department</co
       <h3>Tibbles</h3>
       <p>Tibbles are a modern reimagining of data frames from the tidyverse package. They have some improvements over traditional data frames.</p>
       
-      <pre><code># Load the tibble package
+      <pre><code class="language-r"># Load the tibble package
 # install.packages("tibble") # Uncomment to install
 library(tibble)
 
@@ -1734,7 +1526,7 @@ df_from_tbl <- as.data.frame(tbl)</code></pre>
         <h3>Exercise: Data Structures</h3>
         <p>Consider the following R code:</p>
         
-        <pre><code>employees <- data.frame(
+        <pre><code class="language-r">employees <- data.frame(
   id = 1:5,
   name = c("John", "Lisa", "Mark", "Sarah", "James"),
   department = c("HR", "IT", "Finance", "IT", "Marketing"),
@@ -1799,7 +1591,7 @@ result <- employees[employees$department == "IT", c("name", "salary")]</code></p
       <h3>Installing Packages</h3>
       <p>You can install packages from CRAN using the <code>install.packages()</code> function:</p>
       
-      <pre><code># Install a single package
+      <pre><code class="language-r"># Install a single package
 install.packages("dplyr")
 
 # Install multiple packages at once
@@ -1820,7 +1612,7 @@ remotes::install_github("tidyverse/dplyr")
 # devtools::install_github("tidyverse/dplyr")</code></pre>
       
       <h4>Installing from Bioconductor</h4>
-      <pre><code># Install BiocManager
+      <pre><code class="language-r"># Install BiocManager
 install.packages("BiocManager")
 
 # Install Bioconductor packages
@@ -1834,7 +1626,7 @@ BiocManager::install(c("GenomicRanges", "Biostrings"))</code></pre>
       <h3>Loading Packages</h3>
       <p>After installing a package, you need to load it into your current R session to use its functions:</p>
       
-      <pre><code># Load a package
+      <pre><code class="language-r"># Load a package
 library(dplyr)
 
 # Alternative method (less common)
@@ -1856,7 +1648,7 @@ dplyr::filter(my_data, x > 5)  # Use a function without loading the package</cod
       <h4>Managing Package Namespaces</h4>
       <p>When you load multiple packages, there can be conflicts if different packages have functions with the same name:</p>
       
-      <pre><code># Check which packages are loaded
+      <pre><code class="language-r"># Check which packages are loaded
 search()
 
 # See conflicts
@@ -1872,7 +1664,7 @@ detach("package:dplyr", unload = TRUE)</code></pre>
       <h3>Checking Installed Packages</h3>
       <p>You can view all installed packages and their versions:</p>
       
-      <pre><code># List all installed packages
+      <pre><code class="language-r"># List all installed packages
 installed.packages()
 
 # More readable way to check specific packages
@@ -1890,7 +1682,7 @@ find.package("dplyr")</code></pre>
       <h3>Updating Packages</h3>
       <p>It's a good practice to keep your packages up to date:</p>
       
-      <pre><code># Update all packages
+      <pre><code class="language-r"># Update all packages
 update.packages()
 
 # Update without asking for confirmation
@@ -2027,7 +1819,7 @@ BiocManager::install(update = TRUE)</code></pre>
       <h4>Tidyverse: An Integrated Collection</h4>
       <p>The tidyverse is a collection of R packages designed to work together for data science:</p>
       
-      <pre><code># Install the entire tidyverse
+      <pre><code class="language-r"># Install the entire tidyverse
 install.packages("tidyverse")
 
 # Load the core tidyverse packages
@@ -2086,7 +1878,7 @@ library(readxl)</textarea>
       <h3>Built-in Help System</h3>
       <p>There are several ways to access help documentation in R:</p>
       
-      <pre><code># Get help for a specific function
+      <pre><code class="language-r"># Get help for a specific function
 ?mean
 help(mean)  # Alternative syntax
 
@@ -2117,7 +1909,7 @@ help.search("correlation")  # Alternative syntax</code></pre>
       <h3>Function Arguments and Examples</h3>
       <p>You can quickly check a function's arguments:</p>
       
-      <pre><code># See arguments without full help page
+      <pre><code class="language-r"># See arguments without full help page
 args(mean)  # function (x, ..., na.rm = FALSE, trim = 0)
 
 # View function code (for non-primitive functions)
@@ -2129,7 +1921,7 @@ example(mean)  # Runs the examples from the help page</code></pre>
       <h3>Vignettes</h3>
       <p>Vignettes are long-form documentation that provide detailed tutorials on using packages:</p>
       
-      <pre><code># List all available vignettes
+      <pre><code class="language-r"># List all available vignettes
 vignette()
 
 # List vignettes for a specific package
@@ -2147,7 +1939,7 @@ vignette("dplyr")  # Opens the main dplyr vignette</code></pre>
       </ul>
       
       <h3>Getting Information About Objects</h3>
-      <pre><code># Basic information about an object
+      <pre><code class="language-r"># Basic information about an object
 x <- c(1, 2, 3, NA, 5)
 class(x)    # "numeric"
 typeof(x)   # "double"
@@ -2165,7 +1957,7 @@ glimpse(df) # Compact view (from dplyr)</code></pre>
       <h3>Debugging and Error Messages</h3>
       <p>When you encounter errors, there are several tools to help diagnose the problem:</p>
       
-      <pre><code># Print the call stack after an error
+      <pre><code class="language-r"># Print the call stack after an error
 options(error = traceback)
 
 # Interactive debugging
@@ -2276,7 +2068,7 @@ tryCatch(
       <h3>Creating and Running Scripts</h3>
       <p>In RStudio, you can create a new script by clicking File → New File → R Script, or pressing Ctrl+Shift+N (Cmd+Shift+N on Mac).</p>
       
-      <pre><code># This is an example R script
+      <pre><code class="language-r"># This is an example R script
 
 # Set working directory (where your files are located)
 setwd("C:/Users/YourName/Documents/R_Projects")  # Windows example
@@ -2353,7 +2145,7 @@ ggsave("plot.png", width = 8, height = 6)</code></pre>
       <h3>Script Best Practices</h3>
       
       <h4>1. Organization and Structure</h4>
-      <pre><code># ============================================
+      <pre><code class="language-r"># ============================================
 # SCRIPT TITLE: Data Analysis for Project X
 # AUTHOR: Your Name
 # DATE: 2023-08-15
@@ -2396,7 +2188,7 @@ data <- read.csv("data.csv")
       </ul>
       
       <h4>3. Code Style</h4>
-      <pre><code># Use consistent spacing
+      <pre><code class="language-r"># Use consistent spacing
 x <- 10 + 5  # Good
 x<-10+5      # Harder to read
 
@@ -2420,13 +2212,13 @@ long_function_call(argument1, argument2,
       
       <div class="tip-box">
         <p><strong>Tip:</strong> You can use the <code>styler</code> package to automatically format your code according to a style guide:</p>
-        <pre><code>install.packages("styler")
+        <pre><code class="language-r">install.packages("styler")
 library(styler)
 style_file("my_script.R")</code></pre>
       </div>
       
       <h4>4. Error Handling</h4>
-      <pre><code># Check if a file exists before trying to read it
+      <pre><code class="language-r"># Check if a file exists before trying to read it
 if (file.exists("data.csv")) {
   data <- read.csv("data.csv")
 } else {
@@ -2456,7 +2248,7 @@ result <- tryCatch(
 )</code></pre>
       
       <h4>5. Modular Code</h4>
-      <pre><code># Define reusable functions
+      <pre><code class="language-r"># Define reusable functions
 clean_data <- function(data) {
   # Data cleaning operations
   data %>%
@@ -2513,7 +2305,7 @@ source("helper_functions.R")</code></pre>
       <h3>Working Directory</h3>
       <p>The working directory is the default location where R looks for files and saves output:</p>
       
-      <pre><code># Check current working directory
+      <pre><code class="language-r"># Check current working directory
 getwd()
 
 # Set working directory
@@ -2537,7 +2329,7 @@ read.csv("data/raw_data.csv")  # Relative to project root</code></pre>
         <h3>Exercise: R Scripts</h3>
         <p>Identify the mistake in the following R script:</p>
         
-        <pre><code># Calculate the mean of a vector
+        <pre><code class="language-r"># Calculate the mean of a vector
 numbers <- c(10, 15, 20, NA, 30)
 result <- mean(numbers)
 print("The mean is", result)</code></pre>
@@ -2586,7 +2378,7 @@ print("The mean is", result)</code></pre>
       <p>Conditional statements allow you to execute code based on whether certain conditions are true or false.</p>
       
       <h4>if-else Statements</h4>
-      <pre><code># Basic if statement
+      <pre><code class="language-r"># Basic if statement
 x <- 10
 if (x > 5) {
   print("x is greater than 5")
@@ -2630,7 +2422,7 @@ if (score >= 60) {
       <h4>Vectorized if: ifelse()</h4>
       <p>For applying conditions to vectors, use <code>ifelse()</code> instead of <code>if-else</code>:</p>
       
-      <pre><code># ifelse for vectors
+      <pre><code class="language-r"># ifelse for vectors
 ages <- c(15, 25, 42, 8, 32)
 status <- ifelse(ages >= 18, "Adult", "Child")
 status  # "Child" "Adult" "Adult" "Child" "Adult"
@@ -2656,7 +2448,7 @@ grades <- case_when(
       <h4>The switch() Function</h4>
       <p>The <code>switch()</code> function is useful when you need to select from multiple alternatives based on a single value:</p>
       
-      <pre><code># Basic switch
+      <pre><code class="language-r"># Basic switch
 day_type <- function(day) {
   switch(day,
     Monday = "Weekday",
@@ -2678,7 +2470,7 @@ day_type("Holiday")   # "Unknown day"</code></pre>
       <p>Loops are used to repeat code multiple times. However, in R, vectorized operations are often preferred over loops for better performance.</p>
       
       <h4>for Loops</h4>
-      <pre><code># Basic for loop
+      <pre><code class="language-r"># Basic for loop
 for (i in 1:5) {
   print(paste("Iteration", i))
 }
@@ -2702,7 +2494,7 @@ for (i in 1:3) {
 }</code></pre>
       
       <h4>while Loops</h4>
-      <pre><code># Basic while loop
+      <pre><code class="language-r"># Basic while loop
 i <- 1
 while (i <= 5) {
   print(paste("Iteration", i))
@@ -2725,7 +2517,7 @@ print(paste("It took", count, "attempts to exceed 0.9"))</code></pre>
       </div>
       
       <h4>repeat Loops</h4>
-      <pre><code># repeat loop with break
+      <pre><code class="language-r"># repeat loop with break
 i <- 1
 repeat {
   print(paste("Iteration", i))
@@ -2736,7 +2528,7 @@ repeat {
 }</code></pre>
       
       <h4>Control Flow within Loops</h4>
-      <pre><code># break: exit the loop immediately
+      <pre><code class="language-r"># break: exit the loop immediately
 for (i in 1:10) {
   if (i > 5) {
     break  # Exit when i > 5
@@ -2758,7 +2550,7 @@ for (i in 1:10) {
       <h4>apply()</h4>
       <p>For applying a function over margins of an array or matrix:</p>
       
-      <pre><code># Create a matrix
+      <pre><code class="language-r"># Create a matrix
 mat <- matrix(1:9, nrow = 3)
 mat
 #      [,1] [,2] [,3]
@@ -2778,7 +2570,7 @@ apply(mat, 1, function(x) max(x) - min(x))  # 6 6 6</code></pre>
       <h4>lapply(), sapply(), and vapply()</h4>
       <p>For applying a function to each element of a list or vector:</p>
       
-      <pre><code># lapply: returns a list
+      <pre><code class="language-r"># lapply: returns a list
 numbers <- list(a = 1:5, b = 10:15, c = 20:23)
 lapply(numbers, sum)  # List of sums: 15, 75, 86
 
@@ -2792,7 +2584,7 @@ vapply(numbers, sum, numeric(1))  # Same as sapply, but enforces numeric output<
       <h4>tapply()</h4>
       <p>For applying a function to subsets of a vector based on a factor:</p>
       
-      <pre><code># Create sample data
+      <pre><code class="language-r"># Create sample data
 scores <- c(85, 92, 78, 90, 73, 88)
 groups <- c("A", "B", "A", "B", "C", "C")
 
@@ -2802,7 +2594,7 @@ tapply(scores, groups, mean)  # A: 81.5, B: 91.0, C: 80.5</code></pre>
       <h4>mapply()</h4>
       <p>For applying a function to multiple lists or vectors in parallel:</p>
       
-      <pre><code># Create input vectors
+      <pre><code class="language-r"># Create input vectors
 first_names <- c("John", "Mary", "Robert")
 last_names <- c("Smith", "Johnson", "Williams")
 
@@ -2813,7 +2605,7 @@ mapply(paste, first_names, last_names, MoreArgs = list(sep = " "))
       <h3>Functional Programming with purrr</h3>
       <p>The purrr package provides enhanced functional programming tools for R:</p>
       
-      <pre><code># Load the package
+      <pre><code class="language-r"># Load the package
 library(purrr)
 
 # map functions (similar to lapply, sapply, etc.)
@@ -2840,7 +2632,7 @@ pmap_chr(
         <h3>Exercise: Control Structures</h3>
         <p>What will the following code print?</p>
         
-        <pre><code>numbers <- c(3, 7, 2, 9, 4)
+        <pre><code class="language-r">numbers <- c(3, 7, 2, 9, 4)
 for (num in numbers) {
   if (num > 5) {
     message <- paste(num, "is greater than 5")
@@ -2894,7 +2686,7 @@ for (num in numbers) {
       <h3>Function Basics</h3>
       <p>The basic structure of an R function is:</p>
       
-      <pre><code>function_name <- function(arg1, arg2, ...) {
+      <pre><code class="language-r">function_name <- function(arg1, arg2, ...) {
   # Function body: code that performs the task
   # ...
   # Return statement (optional)
@@ -2902,7 +2694,7 @@ for (num in numbers) {
 }</code></pre>
       
       <h4>Creating Simple Functions</h4>
-      <pre><code># Function to calculate the mean of two numbers
+      <pre><code class="language-r"># Function to calculate the mean of two numbers
 mean_of_two <- function(x, y) {
   result <- (x + y) / 2
   return(result)
@@ -2924,7 +2716,7 @@ celsius_to_fahrenheit(100)  # 212</code></pre>
       <h3>Arguments</h3>
       <p>Function arguments can be required or optional (with default values):</p>
       
-      <pre><code># Function with default arguments
+      <pre><code class="language-r"># Function with default arguments
 power <- function(x, exponent = 2) {
   result <- x ^ exponent
   return(result)
@@ -2940,7 +2732,7 @@ power(exponent = 3, x = 5)  # 125</code></pre>
       <h4>The ... Argument</h4>
       <p>The special <code>...</code> argument allows a function to accept any number of additional arguments:</p>
       
-      <pre><code># Function that passes additional arguments to mean()
+      <pre><code class="language-r"># Function that passes additional arguments to mean()
 custom_mean <- function(x, ...) {
   mean(x, ...)
 }
@@ -2952,7 +2744,7 @@ custom_mean(c(1, 2, NA, 4), na.rm = TRUE)  # 2.333... (passed to mean)</code></p
       <h3>Return Values</h3>
       <p>Functions can return different types of values:</p>
       
-      <pre><code># Return a single value
+      <pre><code class="language-r"># Return a single value
 double <- function(x) {
   return(x * 2)
 }
@@ -2980,7 +2772,7 @@ result$sd      # 3.027650...</code></pre>
       <h3>Scope</h3>
       <p>Variables defined inside a function are local to that function:</p>
       
-      <pre><code># Demonstrate variable scope
+      <pre><code class="language-r"># Demonstrate variable scope
 x <- 10  # Global variable
 
 my_function <- function() {
@@ -2995,7 +2787,7 @@ x       # 10 (global x is unchanged)
 # y     # Error: y doesn't exist in the global environment</code></pre>
       
       <h4>Lexical Scoping</h4>
-      <pre><code># Lexical scoping example
+      <pre><code class="language-r"># Lexical scoping example
 outer_function <- function() {
   outer_var <- 5
   
@@ -3012,7 +2804,7 @@ outer_function()  # 10</code></pre>
       <h3>Anonymous Functions</h3>
       <p>You can create functions without naming them, which is useful for one-off operations:</p>
       
-      <pre><code># Anonymous function in apply
+      <pre><code class="language-r"># Anonymous function in apply
 nums <- list(1:5, 6:10, 11:15)
 lapply(nums, function(x) sum(x) / length(x))
 
@@ -3026,7 +2818,7 @@ subset(data, score > (function(x) mean(x))(data$score))</code></pre>
       <h3>Function Documentation</h3>
       <p>Good function documentation helps users understand how to use your function:</p>
       
-      <pre><code>#' Calculate body mass index (BMI)
+      <pre><code class="language-r">#' Calculate body mass index (BMI)
 #'
 #' @description
 #' This function calculates BMI from height and weight.
@@ -3067,7 +2859,7 @@ bmi <- function(weight, height) {
       <h4>Closures</h4>
       <p>A closure is a function that captures variables from its environment:</p>
       
-      <pre><code># Create a function factory
+      <pre><code class="language-r"># Create a function factory
 make_multiplier <- function(factor) {
   # This returns a function that "remembers" the factor
   function(x) {
@@ -3086,7 +2878,7 @@ triple(5)  # 15</code></pre>
       <h4>Recursion</h4>
       <p>Recursion is when a function calls itself:</p>
       
-      <pre><code># Calculate factorial recursively
+      <pre><code class="language-r"># Calculate factorial recursively
 factorial_recursive <- function(n) {
   if (n <= 1) {
     return(1)
@@ -3102,7 +2894,7 @@ factorial_recursive(5)  # 120</code></pre>
       </div>
       
       <h4>Functional Programming</h4>
-      <pre><code># Higher-order functions (functions that take or return functions)
+      <pre><code class="language-r"># Higher-order functions (functions that take or return functions)
 library(purrr)
 
 # Create list of functions
@@ -3119,7 +2911,7 @@ map_dbl(math_funcs, function(f) f(10))  # 20, 100, 11</code></pre>
         <h3>Exercise: Functions</h3>
         <p>What is wrong with the following function?</p>
         
-        <pre><code>calculate_grade <- function(score) {
+        <pre><code class="language-r">calculate_grade <- function(score) {
   if (score >= 90) {
     "A"
   } else if (score >= 80) {
@@ -3168,7 +2960,7 @@ map_dbl(math_funcs, function(f) f(10))  # 20, 100, 11</code></pre>
       <p>CSV (Comma-Separated Values) is one of the most common formats for data exchange:</p>
       
       <h4>Using Base R</h4>
-      <pre><code># Read a CSV file
+      <pre><code class="language-r"># Read a CSV file
 data <- read.csv("data.csv")
 
 # Common options
@@ -3186,7 +2978,7 @@ str(data)      # Structure
 summary(data)  # Summary statistics</code></pre>
       
       <h4>Using readr (tidyverse)</h4>
-      <pre><code># Load the readr package
+      <pre><code class="language-r"># Load the readr package
 library(readr)
 
 # Read a CSV file
@@ -3210,7 +3002,7 @@ data <- read_csv("data.csv",
       <h3>Reading Excel Files</h3>
       <p>For Excel files, you can use the readxl package:</p>
       
-      <pre><code># Load the readxl package
+      <pre><code class="language-r"># Load the readxl package
 library(readxl)
 
 # Read an Excel file
@@ -3230,7 +3022,7 @@ excel_sheets("data.xlsx")</code></pre>
       <h3>Reading from Databases</h3>
       <p>The DBI and odbc packages provide a unified interface to databases:</p>
       
-      <pre><code># Load required packages
+      <pre><code class="language-r"># Load required packages
 library(DBI)
 library(odbc)  # or another database-specific package
 
@@ -3261,7 +3053,7 @@ dbDisconnect(con)</code></pre>
       <h3>Reading Other Data Formats</h3>
       
       <h4>JSON</h4>
-      <pre><code># Load the jsonlite package
+      <pre><code class="language-r"># Load the jsonlite package
 library(jsonlite)
 
 # Read a JSON file
@@ -3272,7 +3064,7 @@ json_string <- '{"name": "John", "age": 30, "city": "New York"}'
 data <- fromJSON(json_string)</code></pre>
       
       <h4>XML</h4>
-      <pre><code># Load the xml2 package
+      <pre><code class="language-r"># Load the xml2 package
 library(xml2)
 
 # Read an XML file
@@ -3283,7 +3075,7 @@ nodes <- xml_find_all(xml_data, "//elementname")
 values <- xml_text(nodes)</code></pre>
       
       <h4>Fixed-width Files</h4>
-      <pre><code># Using readr
+      <pre><code class="language-r"># Using readr
 library(readr)
 
 # Read a fixed-width file
@@ -3292,7 +3084,7 @@ data <- read_fwf("data.txt",
                                           c("id", "name", "description")))</code></pre>
       
       <h4>Web Data</h4>
-      <pre><code># Load required packages
+      <pre><code class="language-r"># Load required packages
 library(httr)
 library(rvest)
 
@@ -3310,7 +3102,7 @@ data <- content(response, "parsed")</code></pre>
       <h3>Handling Large Data</h3>
       <p>For very large datasets, consider these approaches:</p>
       
-      <pre><code># 1. Read just a sample to explore the structure
+      <pre><code class="language-r"># 1. Read just a sample to explore the structure
 data_sample <- read.csv("large_data.csv", nrows = 1000)
 
 # 2. Use data.table for faster importing
@@ -3385,7 +3177,7 @@ read_csv_chunked("large_data.csv",
       <h3>Writing CSV Files</h3>
       
       <h4>Using Base R</h4>
-      <pre><code># Write a data frame to CSV
+      <pre><code class="language-r"># Write a data frame to CSV
 write.csv(data, "output.csv", 
          row.names = FALSE,   # Don't include row names
          quote = TRUE,        # Quote strings
@@ -3398,7 +3190,7 @@ write.table(data, "output.csv",
            col.names = TRUE)  # Include column names</code></pre>
       
       <h4>Using readr (tidyverse)</h4>
-      <pre><code># Load readr
+      <pre><code class="language-r"># Load readr
 library(readr)
 
 # Write a data frame to CSV
@@ -3411,7 +3203,7 @@ write_delim(data, "output.txt",
            delim = "\t")      # Tab-delimited</code></pre>
       
       <h3>Writing Excel Files</h3>
-      <pre><code># Load the writexl package
+      <pre><code class="language-r"># Load the writexl package
 library(writexl)
 
 # Write a data frame to Excel
@@ -3428,14 +3220,14 @@ write_xlsx(data_list, "multiple_sheets.xlsx")</code></pre>
       <h3>Other Export Formats</h3>
       
       <h4>RDS (R Data Serialization)</h4>
-      <pre><code># Save a single R object
+      <pre><code class="language-r"># Save a single R object
 saveRDS(data, "data.rds")
 
 # Read the object back
 data <- readRDS("data.rds")</code></pre>
       
       <h4>RData/RDA Files</h4>
-      <pre><code># Save multiple objects
+      <pre><code class="language-r"># Save multiple objects
 data1 <- 1:10
 data2 <- letters[1:10]
 save(data1, data2, file = "multiple_objects.RData")
@@ -3444,7 +3236,7 @@ save(data1, data2, file = "multiple_objects.RData")
 load("multiple_objects.RData")</code></pre>
       
       <h4>JSON</h4>
-      <pre><code># Load jsonlite
+      <pre><code class="language-r"># Load jsonlite
 library(jsonlite)
 
 # Convert data frame to JSON
@@ -3454,7 +3246,7 @@ json_data <- toJSON(data, pretty = TRUE)
 write(json_data, "data.json")</code></pre>
       
       <h4>Databases</h4>
-      <pre><code># Load DBI
+      <pre><code class="language-r"># Load DBI
 library(DBI)
 library(odbc)
 
@@ -3542,43 +3334,9 @@ dbDisconnect(con)</code></pre>
       <p>&copy; 2025 HARP R Training | Created by Daryn Sutton</p>
     </footer>
     
-    <script>
-      function checkAnswer(questionId, correctAnswer) {
-        const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
-        const resultElement = document.getElementById(`${questionId}-result`);
-        
-        if (!selectedOption) {
-          resultElement.textContent = "Please select an answer.";
-          resultElement.className = "result warning";
-          return;
-        }
-        
-        if (selectedOption.value === correctAnswer) {
-          resultElement.textContent = "Correct!";
-          resultElement.className = "result success";
-        } else {
-          resultElement.textContent = "Incorrect. Try again!";
-          resultElement.className = "result error";
-        }
-      }
-      
-      function checkFunctionExercise() {
-        const code = document.getElementById("func-exercise").value;
-        const resultElement = document.getElementById("func-exercise-result");
-        
-        // Simple check for a valid is_even function
-        if (code.includes("is_even") && 
-            (code.includes("%%") || code.includes("/ 2")) && 
-            (code.includes("TRUE") || code.includes("return(TRUE)")) &&
-            (code.includes("FALSE") || code.includes("return(FALSE)"))) {
-          resultElement.textContent = "Good job! Your function appears to be correct.";
-          resultElement.className = "result success";
-        } else {
-          resultElement.textContent = "Your function doesn't seem to meet all requirements. Check that it's named 'is_even', takes a number as input, and returns TRUE for even numbers and FALSE for odd numbers.";
-          resultElement.className = "result error";
-        }
-      }
-    </script>
+    
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>
 

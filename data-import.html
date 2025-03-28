@@ -4,150 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Import and Export | HARP Team R Training</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      background-color: #f8f9fa;
-    }
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #2c3e50;
-    }
-    pre {
-      background-color: #f5f5f5;
-      border-left: 4px solid #3498db;
-      padding: 15px;
-      margin: 20px 0;
-      overflow-x: auto;
-      border-radius: 4px;
-    }
-    code {
-      font-family: 'Consolas', 'Monaco', monospace;
-    }
-    .topic-nav {
-      background-color: white;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .topic-nav ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .topic-nav li {
-      margin-right: 10px;
-    }
-    .section {
-      background-color: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .exercise {
-      background-color: #e8f4fc;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 25px 0;
-    }
-    .exercise h3 {
-      margin-top: 0;
-      color: #2980b9;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .result {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      display: none;
-    }
-    .correct {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .home-link {
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-    .quiz-option {
-      margin: 10px 0;
-    }
-    .code-input {
-      width: 100%;
-      height: 100px;
-      font-family: 'Consolas', 'Monaco', monospace;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-  </style>
+  
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
 </head>
 <body>
-  <script src="auth.js"></script>
+  
   
   <header>
     <div class="container">
@@ -178,11 +40,11 @@
       <p>The working directory is the default location where R looks for files and saves outputs. Understanding and managing the working directory is essential for data import and export.</p>
       
       <h3>Checking the Current Working Directory</h3>
-      <pre><code># Check current working directory
+      <pre><code class="language-r"># Check current working directory
 getwd()</code></pre>
       
       <h3>Setting the Working Directory</h3>
-      <pre><code># Set working directory
+      <pre><code class="language-r"># Set working directory
 setwd("C:/Users/YourName/Documents/R_Projects")  # Windows
 # setwd("/Users/YourName/Documents/R_Projects")  # Mac/Linux
 
@@ -190,7 +52,7 @@ setwd("C:/Users/YourName/Documents/R_Projects")  # Windows
 # Session → Set Working Directory → Choose Directory...</code></pre>
       
       <h3>Listing Files in the Working Directory</h3>
-      <pre><code># List all files in working directory
+      <pre><code class="language-r"># List all files in working directory
 list.files()
 
 # List files with specific extension
@@ -226,7 +88,7 @@ list.files("data")</code></pre>
       <p>CSV (Comma-Separated Values) files are among the most common formats for storing tabular data and can be easily imported into R.</p>
       
       <h3>Basic CSV Import with Base R</h3>
-      <pre><code># Import CSV with base R function
+      <pre><code class="language-r"># Import CSV with base R function
 data <- read.csv("file.csv")
 
 # With more control over import parameters
@@ -238,7 +100,7 @@ data <- read.csv("file.csv",
                 na.strings = c("NA", "", "N/A"))  # Strings to interpret as NA</code></pre>
       
       <h3>CSV Import with readr (Faster and More Flexible)</h3>
-      <pre><code># Load the tidyverse's readr package
+      <pre><code class="language-r"># Load the tidyverse's readr package
 library(readr)
 
 # Basic usage
@@ -256,7 +118,7 @@ data <- read_csv("file.csv",
                 trim_ws = TRUE)  # Trim whitespace from character fields</code></pre>
       
       <h3>Viewing the Imported Data</h3>
-      <pre><code># Quick overview
+      <pre><code class="language-r"># Quick overview
 head(data)       # First 6 rows
 tail(data)       # Last 6 rows
 glimpse(data)    # From dplyr, shows data structure
@@ -289,7 +151,7 @@ summary(data)    # Statistical summary</code></pre>
       <p>Excel files are widely used in business contexts. R provides several packages to read and write Excel files.</p>
       
       <h3>Using readxl Package</h3>
-      <pre><code># Load the readxl package
+      <pre><code class="language-r"># Load the readxl package
 library(readxl)
 
 # Read an Excel file
@@ -309,11 +171,11 @@ data <- read_excel("file.xlsx",
                   col_types = c("text", "numeric", "date"))</code></pre>
       
       <h3>List Sheets in an Excel File</h3>
-      <pre><code># Get the names of all sheets
+      <pre><code class="language-r"># Get the names of all sheets
 excel_sheets("file.xlsx")</code></pre>
       
       <h3>Reading Multiple Sheets</h3>
-      <pre><code># Read all sheets into a list
+      <pre><code class="language-r"># Read all sheets into a list
 sheets <- excel_sheets("file.xlsx")
 data_list <- lapply(sheets, function(sheet) {
   read_excel("file.xlsx", sheet = sheet)
@@ -337,7 +199,7 @@ data <- read_excel(file = "sales_data.xlsx" sheet = 1)</textarea>
       <p>R can read various text file formats, including fixed-width files and custom delimited files.</p>
       
       <h3>Reading Tab-Delimited Files</h3>
-      <pre><code># Base R approach
+      <pre><code class="language-r"># Base R approach
 data <- read.delim("file.txt", sep = "\t")
 
 # readr approach
@@ -345,7 +207,7 @@ library(readr)
 data <- read_tsv("file.txt")</code></pre>
       
       <h3>Reading Fixed-Width Files</h3>
-      <pre><code># Base R approach
+      <pre><code class="language-r"># Base R approach
 data <- read.fwf("file.txt", 
                 widths = c(10, 5, 15),  # Column widths in characters
                 col.names = c("name", "id", "description"))
@@ -357,7 +219,7 @@ data <- read_fwf("file.txt",
                           c("name", "id", "description")))</code></pre>
       
       <h3>Reading Files with Unusual Delimiters</h3>
-      <pre><code># Base R for pipe-delimited file
+      <pre><code class="language-r"># Base R for pipe-delimited file
 data <- read.table("file.txt", sep = "|", header = TRUE)
 
 # readr for flexible delimiter
@@ -391,7 +253,7 @@ data <- read_delim("file.txt", delim = "|")</code></pre>
       <p>R can connect to databases and directly query them, allowing you to work with very large datasets.</p>
       
       <h3>DBI and RSQLite</h3>
-      <pre><code># Install packages if needed
+      <pre><code class="language-r"># Install packages if needed
 # install.packages(c("DBI", "RSQLite"))
 
 # Load packages
@@ -411,7 +273,7 @@ tables <- dbListTables(con)
 dbDisconnect(con)</code></pre>
       
       <h3>Using dplyr with Databases</h3>
-      <pre><code>library(dplyr)
+      <pre><code class="language-r">library(dplyr)
 library(DBI)
 library(RSQLite)
 
@@ -460,14 +322,14 @@ dbDisconnect(con)</code></pre>
       <p>R has its own data file formats that are useful for saving R objects between sessions.</p>
       
       <h3>RDS Files (Single Objects)</h3>
-      <pre><code># Save a single R object to an RDS file
+      <pre><code class="language-r"># Save a single R object to an RDS file
 saveRDS(my_data, file = "my_data.rds")
 
 # Load an RDS file
 my_data <- readRDS("my_data.rds")</code></pre>
       
       <h3>RData/RDA Files (Multiple Objects)</h3>
-      <pre><code># Save multiple objects to an RData file
+      <pre><code class="language-r"># Save multiple objects to an RData file
 x <- 1:10
 y <- letters[1:10]
 save(x, y, file = "objects.RData")
@@ -476,7 +338,7 @@ save(x, y, file = "objects.RData")
 load("objects.RData")  # x and y are now available in your environment</code></pre>
       
       <h3>Saving and Loading the Entire Workspace</h3>
-      <pre><code># Save entire workspace
+      <pre><code class="language-r"># Save entire workspace
 save.image("workspace.RData")
 
 # Load entire workspace
@@ -509,7 +371,7 @@ load("workspace.RData")</code></pre>
       <p>R can download data directly from the internet and parse various web formats.</p>
       
       <h3>Downloading Files</h3>
-      <pre><code># Download a file from the web
+      <pre><code class="language-r"># Download a file from the web
 download.file(
   url = "https://example.com/data.csv",
   destfile = "data.csv"
@@ -519,7 +381,7 @@ download.file(
 data <- read.csv("data.csv")</code></pre>
       
       <h3>Reading Directly from URLs</h3>
-      <pre><code># Read CSV directly from URL
+      <pre><code class="language-r"># Read CSV directly from URL
 data <- read.csv("https://example.com/data.csv")
 
 # With readr
@@ -527,7 +389,7 @@ library(readr)
 data <- read_csv("https://example.com/data.csv")</code></pre>
       
       <h3>Web Scraping with rvest</h3>
-      <pre><code># Install and load rvest package
+      <pre><code class="language-r"># Install and load rvest package
 # install.packages("rvest")
 library(rvest)
 
@@ -544,7 +406,7 @@ titles <- webpage %>%
   html_text()</code></pre>
       
       <h3>Working with APIs</h3>
-      <pre><code># Install and load httr and jsonlite packages
+      <pre><code class="language-r"># Install and load httr and jsonlite packages
 # install.packages(c("httr", "jsonlite"))
 library(httr)
 library(jsonlite)
@@ -588,7 +450,7 @@ if (http_status(response)$category == "Success") {
       <p>Once you've processed your data, you often need to save it in various formats for sharing or future use.</p>
       
       <h3>Exporting to CSV</h3>
-      <pre><code># Base R approach
+      <pre><code class="language-r"># Base R approach
 write.csv(data, file = "output.csv", row.names = FALSE)
 
 # readr approach
@@ -596,7 +458,7 @@ library(readr)
 write_csv(data, "output.csv")</code></pre>
       
       <h3>Exporting to Excel</h3>
-      <pre><code># Using writexl package
+      <pre><code class="language-r"># Using writexl package
 # install.packages("writexl")
 library(writexl)
 write_xlsx(data, "output.xlsx")
@@ -607,7 +469,7 @@ library(openxlsx)
 write.xlsx(data, "output.xlsx", sheetName = "Data", rowNames = FALSE)</code></pre>
       
       <h3>Exporting to Text Files</h3>
-      <pre><code># Tab-delimited file
+      <pre><code class="language-r"># Tab-delimited file
 write.table(data, "output.txt", sep = "\t", row.names = FALSE, quote = FALSE)
 
 # Using readr
@@ -615,7 +477,7 @@ library(readr)
 write_tsv(data, "output.txt")</code></pre>
       
       <h3>Exporting to Database</h3>
-      <pre><code>library(DBI)
+      <pre><code class="language-r">library(DBI)
 library(RSQLite)
 
 # Connect to database
@@ -645,59 +507,8 @@ dbDisconnect(con)</code></pre>
     </div>
   </footer>
 
-  <script>
-    function checkAnswer(questionId, correctAnswer) {
-      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
-      const resultDiv = document.getElementById(`${questionId}-result`);
-      
-      if (!selectedOption) {
-        resultDiv.textContent = "Please select an answer.";
-        resultDiv.className = "result incorrect";
-        resultDiv.style.display = "block";
-        return;
-      }
-      
-      if (selectedOption.value === correctAnswer) {
-        resultDiv.textContent = "Correct! Well done.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
-        resultDiv.className = "result incorrect";
-      }
-      
-      resultDiv.style.display = "block";
-    }
-    
-    function checkExcelExercise() {
-      const userCode = document.getElementById("excel-exercise").value.trim();
-      const resultDiv = document.getElementById("excel-exercise-result");
-      
-      if (userCode.includes("file = \"sales_data.xlsx\", sheet = 1") || 
-          userCode.includes("\"sales_data.xlsx\", sheet = 1")) {
-        resultDiv.textContent = "Correct! You've added the missing comma between the file and sheet parameters.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. There should be a comma between the file and sheet parameters.";
-        resultDiv.className = "result incorrect";
-      }
-      
-      resultDiv.style.display = "block";
-    }
-    
-    function checkExportExercise() {
-      const userCode = document.getElementById("export-exercise").value.trim();
-      const resultDiv = document.getElementById("export-exercise-result");
-      
-      if (userCode.includes("row.names = FALSE")) {
-        resultDiv.textContent = "Correct! Adding 'row.names = FALSE' prevents writing the row names to the CSV file.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. You need to add 'row.names = FALSE' to avoid writing row indices to the CSV file.";
-        resultDiv.className = "result incorrect";
-      }
-      
-      resultDiv.style.display = "block";
-    }
-  </script>
+  
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

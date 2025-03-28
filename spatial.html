@@ -4,152 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spatial Data Analysis and Mapping | HARP Team R Training</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      background-color: #f8f9fa;
-    }
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #2c3e50;
-    }
-    pre {
-      background-color: #f5f5f5;
-      border-left: 4px solid #3498db;
-      padding: 15px;
-      margin: 20px 0;
-      overflow-x: auto;
-      border-radius: 4px;
-    }
-    code {
-      font-family: 'Consolas', 'Monaco', monospace;
-    }
-    .topic-nav {
-      background-color: white;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .topic-nav ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .topic-nav li {
-      margin-right: 10px;
-    }
-    .section {
-      background-color: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .exercise {
-      background-color: #e8f4fc;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 25px 0;
-    }
-    .exercise h3 {
-      margin-top: 0;
-      color: #2980b9;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .result {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      display: none;
-    }
-    .correct {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-      border-radius: 4px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .home-link {
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-    .quiz-option {
-      margin: 10px 0;
-    }
-    .code-input {
-      width: 100%;
-      height: 100px;
-      font-family: 'Consolas', 'Monaco', monospace;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-    .map-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-      margin: 30px 0;
-    }
-    .map-item {
-      flex: 1;
-      min-width: 300px;
-      max-width: 450px;
-      text-align: center;
-    }
-  </style>
+  
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
 </head>
 <body>
-  <script src="auth.js"></script>
+  
   
   <header>
     <div class="container">
@@ -224,7 +84,7 @@
       </ul>
       
       <h3>Getting Started with Spatial Packages</h3>
-      <pre><code># Install key packages
+      <pre><code class="language-r"># Install key packages
 # install.packages(c("sf", "terra", "tmap", "leaflet", "rnaturalearth"))
 
 # Load the packages
@@ -272,7 +132,7 @@ library(rnaturalearth) # Natural Earth data</code></pre>
         <li><strong>GEOMETRYCOLLECTION:</strong> Collection of different geometry types</li>
       </ul>
       
-      <pre><code># Create simple feature objects
+      <pre><code class="language-r"># Create simple feature objects
 library(sf)
 
 # Create a POINT
@@ -294,7 +154,7 @@ pt_sf</code></pre>
       <h3>Raster Data with the terra Package</h3>
       <p>Raster data is stored as a grid of cells, each with one or more values.</p>
       
-      <pre><code>library(terra)
+      <pre><code class="language-r">library(terra)
 
 # Create a simple raster
 r <- rast(ncol = 10, nrow = 10, xmin = 0, xmax = 10, ymin = 0, ymax = 10)
@@ -312,7 +172,7 @@ plot(r_multi)</code></pre>
       <h3>Working with Coordinate Reference Systems</h3>
       <p>Coordinate Reference Systems (CRS) define how coordinates relate to locations on the Earth.</p>
       
-      <pre><code># View the CRS of a spatial object
+      <pre><code class="language-r"># View the CRS of a spatial object
 world <- st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 st_crs(world)
 
@@ -351,7 +211,7 @@ st_crs(world_lambert)</code></pre>
       <p>R can read and write many spatial data formats, including Shapefiles, GeoJSON, GeoPackage, and raster formats.</p>
       
       <h3>Reading Vector Data</h3>
-      <pre><code>library(sf)
+      <pre><code class="language-r">library(sf)
 
 # Read a shapefile
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
@@ -368,7 +228,7 @@ head(nc)
 plot(st_geometry(nc))</code></pre>
       
       <h3>Reading Raster Data</h3>
-      <pre><code>library(terra)
+      <pre><code class="language-r">library(terra)
 
 # Read a GeoTIFF file
 # r <- rast("path/to/file.tif")
@@ -378,7 +238,7 @@ r <- rast(system.file("ex/elev.tif", package = "terra"))
 plot(r)</code></pre>
       
       <h3>Writing Spatial Data</h3>
-      <pre><code># Write vector data
+      <pre><code class="language-r"># Write vector data
 # st_write(nc, "north_carolina.shp")
 # st_write(nc, "north_carolina.geojson")
 # st_write(nc, "north_carolina.gpkg")
@@ -388,7 +248,7 @@ plot(r)</code></pre>
 # writeRaster(r, "elevation.grd")</code></pre>
       
       <h3>Converting Between Formats</h3>
-      <pre><code># Convert between sf and sp
+      <pre><code class="language-r"># Convert between sf and sp
 library(sp)
 
 # sf to sp
@@ -417,7 +277,7 @@ nc_sf <- st_as_sf(nc_sp)
       <p>There are several ways to create maps in R, with different packages offering different approaches.</p>
       
       <h3>Mapping with the sf Package</h3>
-      <pre><code>library(sf)
+      <pre><code class="language-r">library(sf)
 nc <- st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 
 # Basic plot
@@ -427,7 +287,7 @@ plot(nc["AREA"])
 plot(nc[c("AREA", "PERIMETER", "NAME")], main = "North Carolina Counties")</code></pre>
       
       <h3>Mapping with ggplot2</h3>
-      <pre><code>library(ggplot2)
+      <pre><code class="language-r">library(ggplot2)
 
 # Simple map
 ggplot(nc) +
@@ -443,7 +303,7 @@ ggplot(nc) +
   labs(title = "North Carolina Counties by Area", fill = "Area")</code></pre>
       
       <h3>Thematic Mapping with tmap</h3>
-      <pre><code>library(tmap)
+      <pre><code class="language-r">library(tmap)
 
 # Quick thematic map
 tm_shape(nc) +
@@ -464,7 +324,7 @@ tm_shape(nc) +
   tm_scale_bar()</code></pre>
       
       <h3>Working with World Data</h3>
-      <pre><code>library(rnaturalearth)
+      <pre><code class="language-r">library(rnaturalearth)
 library(ggplot2)
 
 # Get world countries
@@ -511,7 +371,7 @@ ggplot(world) +
       <p>Interactive maps allow users to zoom, pan, and explore spatial data dynamically.</p>
       
       <h3>Interactive Maps with tmap</h3>
-      <pre><code>library(tmap)
+      <pre><code class="language-r">library(tmap)
 
 # Switch to interactive mode
 tmap_mode("view")
@@ -525,7 +385,7 @@ tm_shape(nc) +
 tmap_mode("plot")</code></pre>
       
       <h3>Interactive Maps with leaflet</h3>
-      <pre><code>library(leaflet)
+      <pre><code class="language-r">library(leaflet)
 library(sf)
 
 # Basic leaflet map
@@ -563,7 +423,7 @@ leaflet(nc) %>%
   )</code></pre>
       
       <h3>Interactive Maps with mapview</h3>
-      <pre><code>library(mapview)
+      <pre><code class="language-r">library(mapview)
 
 # Simple interactive map
 mapview(nc, zcol = "AREA", layer.name = "Area")
@@ -603,7 +463,7 @@ mapview(list(
       <p>R provides a wide range of tools for analyzing spatial data, from simple calculations to complex operations.</p>
       
       <h3>Basic Spatial Operations</h3>
-      <pre><code>library(sf)
+      <pre><code class="language-r">library(sf)
 nc <- st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 
 # Get the geometry type
@@ -623,7 +483,7 @@ dist_matrix <- st_distance(nc_centroids)
 head(dist_matrix[1:5, 1:5])</code></pre>
       
       <h3>Spatial Subsetting and Joins</h3>
-      <pre><code># Create a point
+      <pre><code class="language-r"># Create a point
 point <- st_point(c(-80, 35))
 point_sf <- st_sf(geometry = st_sfc(point, crs = st_crs(nc)))
 
@@ -644,7 +504,7 @@ points_with_counties <- st_join(random_points_sf, nc)
 head(points_with_counties[, c("ID", "NAME")])</code></pre>
       
       <h3>Spatial Transformations</h3>
-      <pre><code># Buffer (create a 10km buffer around county centroids)
+      <pre><code class="language-r"># Buffer (create a 10km buffer around county centroids)
 buffers <- st_buffer(nc_centroids, dist = 10000)  # 10 km
 
 # Union (merge all counties into a single polygon)
@@ -662,7 +522,7 @@ intersection <- st_intersection(
 nc_simple <- st_simplify(nc, dTolerance = 1000)  # 1000m tolerance</code></pre>
       
       <h3>Raster Analysis</h3>
-      <pre><code>library(terra)
+      <pre><code class="language-r">library(terra)
 
 # Create a sample raster
 r <- rast(system.file("ex/elev.tif", package = "terra"))
@@ -716,7 +576,7 @@ plot(c(r, slope, aspect, hillshade),
       <p>Let's put everything together with a comprehensive example of importing, analyzing, and visualizing spatial data.</p>
       
       <h3>Step 1: Get the Data</h3>
-      <pre><code>library(sf)
+      <pre><code class="language-r">library(sf)
 library(dplyr)
 library(ggplot2)
 library(rnaturalearth)
@@ -734,7 +594,7 @@ europe <- world %>%
   select(name, pop_est, gdp_md_est, economy)</code></pre>
       
       <h3>Step 2: Prepare the Data</h3>
-      <pre><code># Calculate population density (people per km²)
+      <pre><code class="language-r"># Calculate population density (people per km²)
 europe <- europe %>%
   mutate(
     area_km2 = as.numeric(st_area(geometry)) / 1000000,  # Convert to km²
@@ -749,7 +609,7 @@ europe %>%
   head(10)</code></pre>
       
       <h3>Step 3: Create Visualizations</h3>
-      <pre><code># Population density choropleth map
+      <pre><code class="language-r"># Population density choropleth map
 ggplot(europe) +
   geom_sf(aes(fill = pop_density)) +
   scale_fill_viridis_c(
@@ -779,7 +639,7 @@ ggplot(europe) +
   )</code></pre>
       
       <h3>Step 4: Interactive Map</h3>
-      <pre><code>library(leaflet)
+      <pre><code class="language-r">library(leaflet)
 library(htmltools)
 
 # Create popups with country info
@@ -830,7 +690,7 @@ leaflet(europe) %>%
       </div>
       
       <h3>Step 5: Adding Point Data</h3>
-      <pre><code># Create a dataset of major European cities
+      <pre><code class="language-r"># Create a dataset of major European cities
 cities <- data.frame(
   name = c("London", "Paris", "Berlin", "Madrid", "Rome", "Warsaw", "Stockholm"),
   country = c("United Kingdom", "France", "Germany", "Spain", "Italy", "Poland", "Sweden"),
@@ -879,76 +739,8 @@ ggplot() +
     </div>
   </footer>
 
-  <script>
-    function checkAnswer(questionId, correctAnswer) {
-      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
-      const resultDiv = document.getElementById(`${questionId}-result`);
-      
-      if (!selectedOption) {
-        resultDiv.textContent = "Please select an answer.";
-        resultDiv.className = "result incorrect";
-        resultDiv.style.display = "block";
-        return;
-      }
-      
-      if (selectedOption.value === correctAnswer) {
-        resultDiv.textContent = "Correct! Well done.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
-        resultDiv.className = "result incorrect";
-      }
-      
-      resultDiv.style.display = "block";
-    }
-    
-    function checkImportExercise() {
-      const userCode = document.getElementById("import-exercise").value.trim();
-      const resultDiv = document.getElementById("import-exercise-result");
-      
-      // Check various correct answers
-      const correctAnswers = [
-        "st_read",
-        "st_read()"
-      ];
-      
-      if (correctAnswers.some(answer => userCode.includes(answer))) {
-        resultDiv.textContent = "Correct! The st_read() function is used to import vector spatial data in the sf package.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. The function to read shapefiles with sf is st_read().";
-        resultDiv.className = "result incorrect";
-      }
-      
-      resultDiv.style.display = "block";
-    }
-    
-    function checkCaseStudyExercise() {
-      const userCode = document.getElementById("case-study-exercise").value.trim();
-      const resultDiv = document.getElementById("case-study-exercise-result");
-      
-      // Check if key elements are present
-      const hasEconomy = userCode.includes("economy");
-      const hasMean = userCode.includes("mean(gdp_per_capita)") || 
-                      userCode.includes("mean(gdp_per_capita, na.rm = TRUE)") ||
-                      userCode.includes("mean(gdp_per_capita, na.rm=TRUE)");
-      const hasDescSort = userCode.includes("desc(avg_gdp_per_capita)");
-      
-      if (hasEconomy && hasMean && hasDescSort) {
-        resultDiv.textContent = "Correct! This code will calculate and sort the average GDP per capita by economy classification.";
-        resultDiv.className = "result correct";
-      } else {
-        let feedback = "Not quite right. ";
-        if (!hasEconomy) feedback += "You should group by 'economy'. ";
-        if (!hasMean) feedback += "Use mean(gdp_per_capita) to calculate the average. ";
-        if (!hasDescSort) feedback += "Sort by desc(avg_gdp_per_capita) to show highest values first.";
-        
-        resultDiv.textContent = feedback;
-        resultDiv.className = "result incorrect";
-      }
-      
-      resultDiv.style.display = "block";
-    }
-  </script>
+  
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

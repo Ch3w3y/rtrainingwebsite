@@ -4,159 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Cleaning and Wrangling | HARP Team R Training</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      background-color: #f8f9fa;
-    }
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #2c3e50;
-    }
-    pre {
-      background-color: #f5f5f5;
-      border-left: 4px solid #3498db;
-      padding: 15px;
-      margin: 20px 0;
-      overflow-x: auto;
-      border-radius: 4px;
-    }
-    code {
-      font-family: 'Consolas', 'Monaco', monospace;
-    }
-    .topic-nav {
-      background-color: white;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .topic-nav ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .topic-nav li {
-      margin-right: 10px; /* Kept for potential spacing adjustments */
-    }
-    .section {
-      background-color: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .exercise {
-      background-color: #e8f4fc;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 25px 0;
-    }
-    .exercise h3 {
-      margin-top: 0;
-      color: #2980b9;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 10px; /* Added margin */
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .result {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      display: none;
-    }
-    .correct {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .home-link {
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-    .quiz-option {
-      margin: 10px 0;
-    }
-    .code-input {
-      width: 95%; /* Adjusted width */
-      height: 80px; /* Adjusted height */
-      font-family: 'Consolas', 'Monaco', monospace;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-     .resources {
-      margin-top: 30px;
-      border-top: 1px solid #eee;
-      padding-top: 15px;
-    }
-    footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-  </style>
+  
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
 </head>
 <body>
   <!-- Assuming auth.js handles authentication/redirection if needed -->
-  <script src="auth.js"></script>
+  
 
   <header>
     <div class="container">
@@ -186,11 +40,11 @@
         <h2>Introduction: Why Clean Data?</h2>
         <p>Real-world data is often messy, inconsistent, and incomplete. "Garbage in, garbage out" is a common saying in data analysis – if your input data is flawed, your analysis results will be unreliable. Data cleaning and wrangling involve transforming raw data into a tidy, consistent format suitable for analysis and visualization.</p>
         <p>This module covers common data cleaning tasks in R, primarily using functions from base R and the `tidyverse`.</p>
-        <pre><code># Load necessary libraries (install if needed)
+        <pre><code class="language-r"># Load necessary libraries (install if needed)
 # install.packages("tidyverse")
 library(tidyverse)
 library(lubridate) # For date/time handling</code></pre>
-        <pre><code># Sample messy data for examples
+        <pre><code class="language-r"># Sample messy data for examples
 messy_data <- tibble(
   id = c(1, 2, 3, 4, 2, 5, 6, 7),
   name = c("Alice", "Bob", "Charlie ", " David", "Bob", "Eve", NA, "Frank"),
@@ -208,7 +62,7 @@ print(messy_data)</code></pre>
       <p>Missing values (`NA`) are common. R provides several ways to identify and handle them.</p>
 
       <h4>Identifying Missing Values</h4>
-      <pre><code># Check for NAs in the entire data frame
+      <pre><code class="language-r"># Check for NAs in the entire data frame
 is.na(messy_data) # Returns a logical matrix
 
 # Count NAs in each column
@@ -221,7 +75,7 @@ any(is.na(messy_data))
 messy_data %>% filter(is.na(name))</code></pre>
 
       <h4>Removing Missing Values</h4>
-      <pre><code># Remove rows with *any* NA (use with caution!)
+      <pre><code class="language-r"># Remove rows with *any* NA (use with caution!)
 data_complete_rows <- na.omit(messy_data)
 # Alternative using tidyr:
 # data_complete_rows <- messy_data %>% drop_na()
@@ -235,7 +89,7 @@ print(data_name_complete)</code></pre>
 
       <h4>Replacing Missing Values (Imputation)</h4>
       <p>Replacing NAs is often preferred over removing rows, especially if missingness is limited. Common strategies include replacing with a specific value (0, "Unknown"), the mean, median, or mode.</p>
-      <pre><code># Replace NA in 'name' with "Unknown"
+      <pre><code class="language-r"># Replace NA in 'name' with "Unknown"
 data_imputed_name <- messy_data %>%
   mutate(name = replace_na(name, "Unknown"))
 print("Data with NA names replaced:")
@@ -257,7 +111,7 @@ print(data_imputed_name)
         <p>2. Create a new tibble `messy_data_filled` where the `NA` value in the `name` column is replaced with "Unknown".</p>
         <button onclick="toggleSolution('sol_missing')">Show/Hide Solution Code</button>
         <div class="result" id="sol_missing" style="display: none; background-color: #f5f5f5;">
-            <pre><code># 1. Count total NAs
+            <pre><code class="language-r"># 1. Count total NAs
 total_na <- sum(is.na(messy_data))
 print(paste("Total NA values:", total_na)) # Should be 1
 
@@ -275,7 +129,7 @@ print(messy_data_filled)</code></pre>
       <p>Duplicate rows can skew analysis results and should usually be identified and removed.</p>
 
       <h4>Identifying Duplicates</h4>
-      <pre><code># Check for duplicate rows (returns logical vector)
+      <pre><code class="language-r"># Check for duplicate rows (returns logical vector)
 duplicated(messy_data)
 
 # View the duplicate rows (shows the second, third, etc., occurrences)
@@ -285,7 +139,7 @@ messy_data[duplicated(messy_data), ]
 messy_data[duplicated(messy_data) | duplicated(messy_data, fromLast = TRUE), ]</code></pre>
 
       <h4>Removing Duplicates</h4>
-      <pre><code># Remove duplicate rows, keeping the first occurrence
+      <pre><code class="language-r"># Remove duplicate rows, keeping the first occurrence
 data_distinct <- distinct(messy_data)
 # Base R alternative: data_distinct <- messy_data[!duplicated(messy_data), ]
 print("Data after removing duplicates:")
@@ -304,7 +158,7 @@ print(data_distinct_subset)</code></pre>
         <p>2. Create a new tibble `unique_data` containing only the unique rows from `messy_data`.</p>
         <button onclick="toggleSolution('sol_duplicates')">Show/Hide Solution Code</button>
         <div class="result" id="sol_duplicates" style="display: none; background-color: #f5f5f5;">
-            <pre><code># 1. Identify duplicates based on 'id'
+            <pre><code class="language-r"># 1. Identify duplicates based on 'id'
 duplicate_ids_logical <- duplicated(messy_data$id)
 print("Logical vector indicating duplicate IDs (second occurrence onwards):")
 print(duplicate_ids_logical)
@@ -325,7 +179,7 @@ print(unique_data)</code></pre>
       <p>Ensuring columns have the correct data type is crucial for analysis and visualization.</p>
 
       <h4>Checking Data Types</h4>
-      <pre><code># Check the structure and types of all columns
+      <pre><code class="language-r"># Check the structure and types of all columns
 str(messy_data)
 glimpse(messy_data) # tidyverse alternative
 
@@ -335,7 +189,7 @@ class(messy_data$date_joined)</code></pre>
 
       <h4>Converting Data Types</h4>
       <p>Use `as.*` functions (e.g., `as.numeric`, `as.character`, `as.Date`, `as.factor`) or `parse_*` functions from `readr` (often more robust).</p>
-      <pre><code># Convert value_text to numeric (handle N/A and currency symbols)
+      <pre><code class="language-r"># Convert value_text to numeric (handle N/A and currency symbols)
 # Use readr::parse_number for flexibility
 data_typed <- messy_data %>%
   mutate(
@@ -374,7 +228,7 @@ levels(data_typed$category_factor)</code></pre>
         <p>2. Convert the `id` column to be character type instead of numeric.</p>
         <button onclick="toggleSolution('sol_types_ex')">Show/Hide Solution Code</button>
         <div class="result" id="sol_types_ex" style="display: none; background-color: #f5f5f5;">
-            <pre><code># Assuming 'data_typed' exists from the previous code block
+            <pre><code class="language-r"># Assuming 'data_typed' exists from the previous code block
 
 # 1. Check type of value_numeric
 print(paste("Class of value_numeric:", class(data_typed$value_numeric))) # Should be numeric
@@ -404,7 +258,7 @@ print(paste("Class of id column now:", class(data_typed_id_char$id))) # Should b
           </ul>
         </li>
       </ul>
-      <pre><code># Visual identification using boxplot
+      <pre><code class="language-r"># Visual identification using boxplot
 ggplot(messy_data, aes(y = score)) +
   geom_boxplot() +
   ggtitle("Boxplot of Scores (showing potential outlier)")
@@ -437,7 +291,7 @@ print(messy_data_outliers_iqr)</code></pre>
         <li><strong>Cap/Winsorize:</strong> Replace outliers with the nearest "acceptable" value (e.g., the 99th percentile value).</li>
         <li><strong>Use Robust Methods:</strong> Employ statistical techniques less sensitive to outliers (e.g., median instead of mean, robust regression).</li>
       </ul>
-      <pre><code># Example: Removing the outlier row identified by IQR
+      <pre><code class="language-r"># Example: Removing the outlier row identified by IQR
 data_no_outliers <- messy_data %>%
   filter(score >= lower_bound & score <= upper_bound)
 print("Data after removing score outliers:")
@@ -459,7 +313,7 @@ print(data_capped)</code></pre>
     <div class="section" id="string-cleaning">
         <h2>String Cleaning</h2>
         <p>Text data often requires cleaning, such as removing extra whitespace, changing case, or extracting specific patterns. The `stringr` package (part of tidyverse) is very helpful.</p>
-        <pre><code>library(stringr)
+        <pre><code class="language-r">library(stringr)
 
 # Remove leading/trailing whitespace
 messy_data_cleaned <- messy_data %>%
@@ -501,7 +355,7 @@ print(messy_data_cleaned %>% select(name, first_name))</code></pre>
         <h2>Data Validation</h2>
         <p>Data validation involves checking if data meets certain rules or constraints (e.g., values within a range, correct format, uniqueness).</p>
         <p>You can perform checks manually using `dplyr::filter` or `stopifnot()`, or use dedicated packages like `assertr`.</p>
-        <pre><code># Manual checks
+        <pre><code class="language-r"># Manual checks
 # Check if all scores are positive (after handling outliers/NA)
 if(any(data_no_outliers$score < 0, na.rm = TRUE)) {
   warning("Negative scores found!")
@@ -532,7 +386,7 @@ validated_data <- messy_data %>%
      <div class="section" id="profiling">
         <h2>Data Profiling</h2>
         <p>Data profiling involves generating summary statistics and visualizations to get a quick understanding of the data's structure, quality, and distributions. Packages like `skimr` and `DataExplorer` are excellent for this.</p>
-        <pre><code># Using skimr for quick summaries
+        <pre><code class="language-r"># Using skimr for quick summaries
 # install.packages("skimr")
 library(skimr)
 skim(messy_data) # Provides detailed summary statistics by data type
@@ -576,34 +430,8 @@ library(DataExplorer)
     </div>
   </footer>
 
-  <script>
-    // Simple toggle function for solution code blocks
-    function toggleSolution(id) {
-        var element = document.getElementById(id);
-        if (element.style.display === "none") {
-            element.style.display = "block";
-        } else {
-            element.style.display = "none";
-        }
-    }
-
-    // Placeholder for potential quiz/code checking functions if needed
-    function checkAnswer(questionId, correctAnswer) {
-      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
-      const resultDiv = document.getElementById(`${questionId}-result`);
-      // Basic feedback logic
-      if(selectedOption && selectedOption.value === correctAnswer) {
-          resultDiv.textContent = "Correct!";
-          resultDiv.className = "result correct";
-      } else if (selectedOption) {
-          resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
-          resultDiv.className = "result incorrect";
-      } else {
-          resultDiv.textContent = "Please select an answer.";
-          resultDiv.className = "result incorrect";
-      }
-      resultDiv.style.display = "block";
-    }
-  </script>
+  
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

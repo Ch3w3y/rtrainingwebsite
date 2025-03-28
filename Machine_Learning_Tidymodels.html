@@ -4,159 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Intro to Machine Learning with tidymodels | HARP Team R Training</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      background-color: #f8f9fa;
-    }
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #2c3e50;
-    }
-    pre {
-      background-color: #f5f5f5;
-      border-left: 4px solid #3498db;
-      padding: 15px;
-      margin: 20px 0;
-      overflow-x: auto;
-      border-radius: 4px;
-    }
-    code {
-      font-family: 'Consolas', 'Monaco', monospace;
-    }
-    .topic-nav {
-      background-color: white;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .topic-nav ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .topic-nav li {
-      margin-right: 10px; /* Kept for potential spacing adjustments */
-    }
-    .section {
-      background-color: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .exercise {
-      background-color: #e8f4fc;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 25px 0;
-    }
-    .exercise h3 {
-      margin-top: 0;
-      color: #2980b9;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 10px; /* Added margin */
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .result {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      display: none;
-    }
-    .correct {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .home-link {
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-    .quiz-option {
-      margin: 10px 0;
-    }
-    .code-input {
-      width: 95%; /* Adjusted width */
-      height: 80px; /* Adjusted height */
-      font-family: 'Consolas', 'Monaco', monospace;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-     .resources {
-      margin-top: 30px;
-      border-top: 1px solid #eee;
-      padding-top: 15px;
-    }
-    footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-  </style>
+  
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
 </head>
 <body>
   <!-- Assuming auth.js handles authentication/redirection if needed -->
-  <script src="auth.js"></script>
+  
 
   <header>
     <div class="container">
@@ -215,7 +69,7 @@
         <li><strong>Modularity:</strong> Different packages handle specific parts of the workflow (splitting, preprocessing, modeling, evaluation), making it flexible.</li>
         <li><strong>Focus on Good Practices:</strong> Encourages proper validation techniques like data splitting and resampling.</li>
       </ul>
-      <pre><code># Install the core tidymodels package (includes several key packages)
+      <pre><code class="language-r"># Install the core tidymodels package (includes several key packages)
 # install.packages("tidymodels")
 
 # Load the core tidymodels packages
@@ -247,7 +101,7 @@ library(tidyverse) # Usually loaded alongside for data manipulation</code></pre>
             <li><strong>Training Set:</strong> Used to train the model (fit parameters, learn patterns).</li>
             <li><strong>Testing Set:</strong> Used to evaluate the final model's performance on unseen data.</li>
         </ul>
-        <pre><code># Load example data
+        <pre><code class="language-r"># Load example data
 data(iris)
 iris_tbl <- as_tibble(iris) # Convert to tibble for better printing
 
@@ -287,7 +141,7 @@ table(iris_test$Species) %>% prop.table()
             <li>And many more...</li>
         </ul>
         <p>Recipes are defined *before* training and are applied consistently to training, testing, and new data.</p>
-        <pre><code># Define a simple recipe for the iris data
+        <pre><code class="language-r"># Define a simple recipe for the iris data
 # Predict Species using all other variables (.)
 iris_recipe <- recipe(Species ~ ., data = iris_train) %>%
   # Example steps (not all strictly necessary for iris, but illustrative):
@@ -314,7 +168,7 @@ iris_recipe <- recipe(Species ~ ., data = iris_train) %>%
             <li>Set the prediction **mode** (`"classification"` or `"regression"`).</li>
             <li>(Optional) Set model **hyperparameters** (arguments that aren't learned from data, e.g., number of trees). Use `tune()` as a placeholder for tuning later.</li>
         </ol>
-        <pre><code># Specify a logistic regression model for classification
+        <pre><code class="language-r"># Specify a logistic regression model for classification
 log_reg_spec <- logistic_reg() %>% # Model Type
   set_engine("glm") %>%           # Engine (uses stats::glm)
   set_mode("classification")      # Mode
@@ -337,7 +191,7 @@ print(rf_spec)</code></pre>
     <div class="section" id="workflows">
         <h2>4. Bundling (`workflows`)</h2>
         <p>A `workflow` object bundles your preprocessing recipe and model specification together. This ensures that preprocessing is applied correctly and consistently during training, prediction, and resampling.</p>
-        <pre><code># Create a workflow with the recipe and logistic regression model
+        <pre><code class="language-r"># Create a workflow with the recipe and logistic regression model
 log_reg_wf <- workflow() %>%
   add_recipe(iris_recipe) %>% # Add the preprocessing steps
   add_model(log_reg_spec)   # Add the model specification
@@ -353,7 +207,7 @@ rf_wf <- workflow() %>%
     <div class="section" id="fitting">
         <h2>5. Training (Fitting) & Predicting</h2>
         <p>Use `fit()` to train your workflow on the training data. Then use `predict()` with the fitted workflow on new data (like the test set).</p>
-        <pre><code># Fit the logistic regression workflow to the training data
+        <pre><code class="language-r"># Fit the logistic regression workflow to the training data
 log_reg_fit <- fit(log_reg_wf, data = iris_train)
 print(log_reg_fit)
 
@@ -375,7 +229,7 @@ head(iris_test_results)</code></pre>
     <div class="section" id="evaluation">
         <h2>6. Evaluation (`yardstick`)</h2>
         <p>`yardstick` provides functions for measuring model performance using tidy principles.</p>
-        <pre><code># Define a set of metrics relevant for classification
+        <pre><code class="language-r"># Define a set of metrics relevant for classification
 iris_metrics <- metric_set(accuracy, sens, spec, roc_auc) # sens=sensitivity, spec=specificity
 
 # Calculate metrics using the test set results
@@ -398,7 +252,7 @@ autoplot(conf_mat_results, type = "heatmap")</code></pre>
     <div class="section" id="example">
         <h2>Example: Iris Classification</h2>
         <p>Let's put the basic steps together for logistic regression on the Iris dataset.</p>
-        <pre><code>library(tidymodels)
+        <pre><code class="language-r">library(tidymodels)
 library(tidyverse)
 
 # 1. Data and Splitting
@@ -451,7 +305,7 @@ conf_mat(predictions, truth = Species, estimate = .pred_class) %>% autoplot(type
         <p>8. Calculate the accuracy on the test data.</p>
         <button onclick="toggleSolution('sol_tidymodels_ex')">Show/Hide Solution Code</button>
         <div class="result" id="sol_tidymodels_ex" style="display: none; background-color: #f5f5f5;">
-            <pre><code>library(tidymodels)
+            <pre><code class="language-r">library(tidymodels)
 library(tidyverse)
 
 # 1. Prepare data
@@ -517,34 +371,8 @@ print(accuracy_result)</code></pre>
     </div>
   </footer>
 
-  <script>
-    // Simple toggle function for solution code blocks
-    function toggleSolution(id) {
-        var element = document.getElementById(id);
-        if (element.style.display === "none") {
-            element.style.display = "block";
-        } else {
-            element.style.display = "none";
-        }
-    }
-
-    // Placeholder for potential quiz/code checking functions if needed
-    function checkAnswer(questionId, correctAnswer) {
-      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
-      const resultDiv = document.getElementById(`${questionId}-result`);
-      // Basic feedback logic
-      if(selectedOption && selectedOption.value === correctAnswer) {
-          resultDiv.textContent = "Correct!";
-          resultDiv.className = "result correct";
-      } else if (selectedOption) {
-          resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
-          resultDiv.className = "result incorrect";
-      } else {
-          resultDiv.textContent = "Please select an answer.";
-          resultDiv.className = "result incorrect";
-      }
-      resultDiv.style.display = "block";
-    }
-  </script>
+  
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

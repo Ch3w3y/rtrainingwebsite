@@ -4,150 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Visualization with ggplot2 | HARP Team R Training</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      background-color: #f8f9fa;
-    }
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #2c3e50;
-    }
-    pre {
-      background-color: #f5f5f5;
-      border-left: 4px solid #3498db;
-      padding: 15px;
-      margin: 20px 0;
-      overflow-x: auto;
-      border-radius: 4px;
-    }
-    code {
-      font-family: 'Consolas', 'Monaco', monospace;
-    }
-    .topic-nav {
-      background-color: white;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .topic-nav ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .topic-nav li {
-      margin-right: 10px;
-    }
-    .section {
-      background-color: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .exercise {
-      background-color: #e8f4fc;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 25px 0;
-    }
-    .exercise h3 {
-      margin-top: 0;
-      color: #2980b9;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .result {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      display: none;
-    }
-    .correct {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-      border-radius: 4px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .home-link {
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-    .quiz-option {
-      margin: 10px 0;
-    }
-    .code-input {
-      width: 100%;
-      height: 100px;
-      font-family: 'Consolas', 'Monaco', monospace;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-    .plot-compare {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-    .plot-item {
-      flex: 1;
-      min-width: 300px;
-      text-align: center;
-    }
-  </style>
+  
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
 </head>
 <body>
-  <script src="auth.js"></script> <!-- Assuming auth.js is served by Plumber or available -->
+   <!-- Assuming auth.js is served by Plumber or available -->
 
   <header>
     <div class="container">
@@ -187,7 +49,7 @@
       </ul>
 
       <h3>Getting Started with ggplot2</h3>
-      <pre><code># Install and load ggplot2
+      <pre><code class="language-r"># Install and load ggplot2
 # install.packages("ggplot2")  # Uncomment if not installed
 library(ggplot2)
 
@@ -260,7 +122,7 @@ ggplot(data = mtcars, aes(x = wt, y = mpg)) +
       </ul>
 
       <h3>Building a Plot Layer by Layer</h3>
-      <pre><code># Start with data and aesthetics
+      <pre><code class="language-r"># Start with data and aesthetics
 p <- ggplot(mtcars, aes(x = wt, y = mpg))
 
 # Add a geometry layer
@@ -298,7 +160,7 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
       <p>ggplot2 can create almost any type of statistical visualization. Here are some of the most common plot types:</p>
 
       <h3>Scatter Plots (geom_point)</h3>
-      <pre><code># Basic scatter plot
+      <pre><code class="language-r"># Basic scatter plot
 ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point()
 
@@ -308,7 +170,7 @@ ggplot(mtcars, aes(x = wt, y = mpg, color = as.factor(cyl), size = hp)) +
   labs(color = "Cylinders", size = "Horsepower")</code></pre>
 
       <h3>Line Plots (geom_line)</h3>
-      <pre><code># Create a time series example
+      <pre><code class="language-r"># Create a time series example
 economics_subset <- economics[1:100, ]
 
 # Basic line plot
@@ -319,7 +181,7 @@ ggplot(economics_subset, aes(x = date, y = unemploy)) +
        y = "Unemployed Population")</code></pre>
 
       <h3>Bar Charts (geom_bar, geom_col)</h3>
-      <pre><code># geom_bar() for counts
+      <pre><code class="language-r"># geom_bar() for counts
 ggplot(mtcars, aes(x = as.factor(cyl))) +
   geom_bar() +
   labs(x = "Number of Cylinders", y = "Count")
@@ -333,7 +195,7 @@ ggplot(cylinder_avg, aes(x = as.factor(cyl), y = mpg)) +
        y = "Average MPG")</code></pre>
 
       <h3>Histograms and Density Plots</h3>
-      <pre><code># Histogram
+      <pre><code class="language-r"># Histogram
 ggplot(mtcars, aes(x = mpg)) +
   geom_histogram(bins = 10, fill = "skyblue", color = "black") +
   labs(title = "Distribution of MPG", x = "Miles per Gallon", y = "Count")
@@ -344,7 +206,7 @@ ggplot(mtcars, aes(x = mpg)) +
   labs(title = "Density of MPG", x = "Miles per Gallon", y = "Density")</code></pre>
 
       <h3>Box Plots (geom_boxplot)</h3>
-      <pre><code># Basic boxplot
+      <pre><code class="language-r"># Basic boxplot
 ggplot(mtcars, aes(x = as.factor(cyl), y = mpg)) +
   geom_boxplot() +
   labs(title = "MPG Distribution by Cylinder Count",
@@ -391,7 +253,7 @@ ggplot(mtcars, aes(x = as.factor(cyl), y = mpg)) +
       <p>ggplot2 offers extensive customization options to create publication-quality graphics.</p>
 
       <h3>Colors and Palettes</h3>
-      <pre><code># Manual color specification
+      <pre><code class="language-r"># Manual color specification
 ggplot(mtcars, aes(x = wt, y = mpg, color = as.factor(cyl))) +
   geom_point(size = 3) +
   scale_color_manual(values = c("4" = "forestgreen", "6" = "steelblue", "8" = "firebrick")) +
@@ -411,7 +273,7 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Petal.Length)) +
   labs(color = "Petal Length")</code></pre>
 
       <h3>Titles, Labels, and Annotations</h3>
-      <pre><code># Add titles and labels
+      <pre><code class="language-r"># Add titles and labels
 ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point() +
   labs(
@@ -432,7 +294,7 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
   labs(title = "Car Weight vs. Fuel Efficiency")</code></pre>
 
       <h3>Themes</h3>
-      <pre><code># Built-in themes
+      <pre><code class="language-r"># Built-in themes
 p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point() +
   labs(title = "Car Weight vs. Fuel Efficiency")
@@ -463,7 +325,7 @@ p + theme(
 )</code></pre>
 
       <h3>Faceting</h3>
-      <pre><code># Facet by a single variable
+      <pre><code class="language-r"># Facet by a single variable
 ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point() +
   facet_wrap(~ cyl) +
@@ -505,7 +367,7 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
       <p>ggplot2's layering system allows the creation of sophisticated visualizations by combining multiple geoms and statistical transformations.</p>
 
       <h3>Combining Multiple Geoms</h3>
-      <pre><code># Points and smoothed line
+      <pre><code class="language-r"># Points and smoothed line
 ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point() +
   geom_smooth() +
@@ -527,7 +389,7 @@ ggplot(economics, aes(x = date)) +
   labs(title = "Unemployment and Consumer Spending Over Time")</code></pre>
 
       <h3>Heat Maps</h3>
-      <pre><code># Create a correlation matrix of the mtcars dataset
+      <pre><code class="language-r"># Create a correlation matrix of the mtcars dataset
 cor_matrix <- round(cor(mtcars), 2)
 # Requires reshape2 or tidyr::pivot_longer
 # cor_data <- as.data.frame(as.table(cor_matrix))
@@ -555,7 +417,7 @@ ggplot(cor_data, aes(x = Var1, y = Var2, fill = Correlation)) +
   labs(title = "Correlation Matrix of Car Variables")</code></pre>
 
       <h3>Interactive Plots with plotly</h3>
-      <pre><code># Install and load plotly
+      <pre><code class="language-r"># Install and load plotly
 # install.packages("plotly")
 library(plotly)
 
@@ -577,7 +439,7 @@ ggplotly(p)</code></pre>
       <p>ggplot2 can be used for creating beautiful maps and visualizing spatial data, especially when combined with packages like sf and rnaturalearth.</p>
 
       <h3>Creating Basic Maps</h3>
-      <pre><code># Install necessary packages
+      <pre><code class="language-r"># Install necessary packages
 # install.packages(c("sf", "rnaturalearth", "rnaturalearthdata"))
 library(sf)
 library(rnaturalearth)
@@ -593,7 +455,7 @@ ggplot(data = world) +
   labs(title = "World Map")</code></pre>
 
       <h3>Choropleth Maps</h3>
-      <pre><code># Choropleth map with population data
+      <pre><code class="language-r"># Choropleth map with population data
 ggplot(data = world) +
   geom_sf(aes(fill = pop_est)) +
   scale_fill_viridis_c(
@@ -605,7 +467,7 @@ ggplot(data = world) +
   labs(title = "World Population (Log Scale)")</code></pre>
 
       <h3>Adding Points to Maps</h3>
-      <pre><code># Create a sample dataset of major cities
+      <pre><code class="language-r"># Create a sample dataset of major cities
 cities <- data.frame(
   name = c("London", "Paris", "Berlin", "Madrid", "Rome"),
   lon = c(-0.1278, 2.3522, 13.4050, -3.7038, 12.4964),
@@ -643,7 +505,7 @@ ggplot() +
       </div>
 
       <h3>Mapping Regional Data</h3>
-      <pre><code># US state-level map example
+      <pre><code class="language-r"># US state-level map example
 # Get US states data
 us_states <- ne_states(country = "united states of america", returnclass = "sf")
 
@@ -662,7 +524,7 @@ ggplot(data = us_states) +
         <h3>Exercise: Map Visualization</h3>
         <p>What would you need to add to the code below to zoom the map to continental United States (approximately longitude -125 to -65 and latitude 25 to 50)?</p>
 
-        <pre><code>ggplot(data = us_states) +
+        <pre><code class="language-r">ggplot(data = us_states) +
   geom_sf(aes(fill = value)) +
   scale_fill_viridis_c(name = "Value") +
   theme_minimal() +
@@ -731,7 +593,7 @@ ggplot(data = us_states) +
       </div>
 
       <h3>Saving Your Plots</h3>
-      <pre><code># Save the last plot
+      <pre><code class="language-r"># Save the last plot
 p <- ggplot(mtcars, aes(x = wt, y = mpg, color = as.factor(cyl))) +
   geom_point() +
   labs(title = "Car Weight vs. MPG", color = "Cylinders") +
@@ -789,79 +651,8 @@ ggsave("my_plot.svg", plot = p, width = 8, height = 6)</code></pre>
     </div>
   </footer>
 
-  <script>
-    // --- Keep existing JavaScript functions ---
-    function checkAnswer(questionId, correctAnswer) {
-      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
-      const resultDiv = document.getElementById(`${questionId}-result`);
-
-      if (!selectedOption) {
-        resultDiv.textContent = "Please select an answer.";
-        resultDiv.className = "result incorrect";
-        resultDiv.style.display = "block";
-        return;
-      }
-
-      if (selectedOption.value === correctAnswer) {
-        resultDiv.textContent = "Correct! Well done.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkGgplotQuiz() {
-      const q1Answer = document.querySelector('input[name="ggplot-q1"]:checked');
-      const q2Answer = document.querySelector('input[name="ggplot-q2"]:checked');
-      const resultDiv = document.getElementById('ggplot-quiz-result');
-
-      if (!q1Answer || !q2Answer) {
-        resultDiv.textContent = "Please answer all questions.";
-        resultDiv.className = "result incorrect";
-        resultDiv.style.display = "block";
-        return;
-      }
-
-      const correctQ1 = "b";
-      const correctQ2 = "b";
-
-      if (q1Answer.value === correctQ1 && q2Answer.value === correctQ2) {
-        resultDiv.textContent = "All correct! The ggplot() function creates a coordinate system, and aes() maps data to visual properties.";
-        resultDiv.className = "result correct";
-      } else if (q1Answer.value === correctQ1) {
-        resultDiv.textContent = "First answer is correct, but second is wrong. The aes() function maps variables to visual properties.";
-        resultDiv.className = "result incorrect";
-      } else if (q2Answer.value === correctQ2) {
-        resultDiv.textContent = "Second answer is correct, but first is wrong. The ggplot() function creates a coordinate system.";
-        resultDiv.className = "result incorrect";
-      } else {
-        resultDiv.textContent = "Both answers are incorrect. Please review the material and try again.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkBasicPlotExercise() {
-      const userCode = document.getElementById("basic-plot-exercise").value.trim();
-      const resultDiv = document.getElementById("basic-plot-exercise-result");
-
-      // Check various correct answers
-      const correctPattern = /ggplot\s*\(\s*data\s*=\s*iris\s*,\s*aes\s*\(\s*x\s*=\s*Sepal\.Length\s*,\s*y\s*=\s*Petal\.Length\s*,\s*color\s*=\s*Species\s*\)\s*\)\s*\+\s*geom_point\s*\(\s*\)/i;
-
-      if (correctPattern.test(userCode)) {
-        resultDiv.textContent = "Correct! This code will create a scatter plot of Sepal.Length vs Petal.Length colored by Species.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. The correct answer should map Sepal.Length to x, Petal.Length to y, and Species to color.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-  </script>
+  
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

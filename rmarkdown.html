@@ -4,176 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>R Markdown and Reproducible Reports | HARP Team R Training</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      background-color: #f8f9fa;
-    }
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #2c3e50;
-    }
-    pre {
-      background-color: #f5f5f5;
-      border-left: 4px solid #3498db;
-      padding: 15px;
-      margin: 20px 0;
-      overflow-x: auto;
-      border-radius: 4px;
-    }
-    code {
-      font-family: 'Consolas', 'Monaco', monospace;
-    }
-    .section {
-      background-color: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .exercise {
-      background-color: #e8f4fc;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 25px 0;
-    }
-    .exercise h3 {
-      margin-top: 0;
-      color: #2980b9;
-    }
-    .note {
-      background-color: #fcf8e3;
-      padding: 15px;
-      border-left: 4px solid #f0ad4e;
-      border-radius: 4px;
-      margin: 20px 0;
-    }
-    .tip {
-      background-color: #e8f6f3;
-      padding: 15px;
-      border-left: 4px solid #1abc9c;
-      border-radius: 4px;
-      margin: 20px 0;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .result {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      display: none;
-    }
-    .correct {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .home-link {
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-    .quiz-option {
-      margin: 10px 0;
-    }
-    .code-input {
-      width: 100%;
-      height: 100px;
-      font-family: 'Consolas', 'Monaco', monospace;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    .tabs {
-      display: flex;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #ddd;
-    }
-    .tab {
-      padding: 10px 15px;
-      cursor: pointer;
-      background-color: #f8f9fa;
-      border: 1px solid #ddd;
-      border-bottom: none;
-      margin-right: 5px;
-      border-radius: 4px 4px 0 0;
-    }
-    .tab.active {
-      background-color: white;
-      border-bottom: 1px solid white;
-      margin-bottom: -1px;
-    }
-    .tab-content {
-      display: none;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-top: none;
-      border-radius: 0 0 4px 4px;
-    }
-    .tab-content.active {
-      display: block;
-    }
-    footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-  </style>
+  
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
 </head>
 <body>
-  <script src="auth.js"></script>
+  
 
   <header>
     <div class="container">
@@ -227,7 +63,7 @@
         <li><strong>Code Chunks:</strong> Executable R code blocks</li>
       </ol>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "My Analysis Report"
 author: "Daryn Sutton"
 date: "`r Sys.Date()`"
@@ -275,7 +111,7 @@ Based on our analysis, we can see that stopping distance generally increases wit
         <li>Use the <code>rmarkdown::render()</code> function in R</li>
       </ul>
 
-      <pre><code>rmarkdown::render("my_analysis.Rmd", output_format = "html_document")</code></pre>
+      <pre><code class="language-r">rmarkdown::render("my_analysis.Rmd", output_format = "html_document")</code></pre>
 
       <div class="exercise">
         <h3>Exercise: Your First R Markdown Document</h3>
@@ -372,7 +208,7 @@ Based on our analysis, we can see that stopping distance generally increases wit
       <div class="tip">
         <h4>Pro Tip</h4>
         <p>Install the full R Markdown ecosystem with:</p>
-        <pre><code>install.packages(c("rmarkdown", "knitr", "bookdown", "flexdashboard",
+        <pre><code class="language-r">install.packages(c("rmarkdown", "knitr", "bookdown", "flexdashboard",
                "blogdown", "distill", "xaringan", "pagedown",
                "DT", "leaflet", "plotly", "shiny", "gt",
                "kableExtra", "flextable", "bslib", "tinytex"))</code></pre>
@@ -384,7 +220,7 @@ Based on our analysis, we can see that stopping distance generally increases wit
       <p>The YAML header (between --- delimiters) contains metadata about the document and controls how it's processed and rendered.</p>
 
       <h3>Basic YAML Fields</h3>
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "My Analysis Report"
 author: "Daryn Sutton"
 date: "`r Sys.Date()`"
@@ -394,7 +230,7 @@ output: html_document
       <h3>Advanced YAML Configuration</h3>
       <p>You can customize your output with many options:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "Comprehensive Analysis Report"
 author: "Daryn Sutton"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
@@ -477,7 +313,7 @@ link-citations: yes
       <h3>Multiple Output Formats</h3>
       <p>You can specify multiple output formats in the same document:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "Multi-format Report"
 output:
   html_document:
@@ -494,7 +330,7 @@ output:
       <h3>Document Parameters</h3>
       <p>Define parameters that can be set when rendering the document:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "Parameterized Report"
 params:
   region: "North"
@@ -527,7 +363,7 @@ output: html_document
       <p>Code chunks are blocks of executable R code embedded in an R Markdown document. They are one of the most powerful features for creating dynamic reports.</p>
 
       <h3>Basic Code Chunk Syntax</h3>
-      <pre><code>&#96;&#96;&#96;{r chunk_name}
+      <pre><code class="language-r">&#96;&#96;&#96;{r chunk_name}
 # R code goes here
 summary(cars)
 &#96;&#96;&#96;</code></pre>
@@ -535,7 +371,7 @@ summary(cars)
       <h3>Chunk Options</h3>
       <p>Control how code chunks behave with options:</p>
 
-      <pre><code>&#96;&#96;&#96;{r visualization, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+      <pre><code class="language-r">&#96;&#96;&#96;{r visualization, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
 # This chunk will run silently and display only the resulting plot
 library(ggplot2)
 ggplot(mtcars, aes(x = wt, y = mpg)) +
@@ -620,7 +456,7 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
       <h3>Global Chunk Options</h3>
       <p>Set default options for all chunks:</p>
 
-      <pre><code>&#96;&#96;&#96;{r setup, include=FALSE}
+      <pre><code class="language-r">&#96;&#96;&#96;{r setup, include=FALSE}
 knitr::opts_chunk$set(
   echo = TRUE,        # Display code by default
   warning = FALSE,    # Suppress warnings
@@ -635,14 +471,14 @@ knitr::opts_chunk$set(
       <h3>Inline Code</h3>
       <p>For embedding small calculations directly in text:</p>
 
-      <pre><code>The average mpg is `r mean(mtcars$mpg)` with a standard deviation of `r sd(mtcars$mpg)`.
+      <pre><code class="language-r">The average mpg is `r mean(mtcars$mpg)` with a standard deviation of `r sd(mtcars$mpg)`.
 
 There are `r nrow(mtcars)` cars in the dataset.</code></pre>
 
       <h3>Chunk Output Control</h3>
       <p>Control how results are displayed:</p>
 
-      <pre><code>&#96;&#96;&#96;{r results='hide'}
+      <pre><code class="language-r">&#96;&#96;&#96;{r results='hide'}
 # Run code but hide results
 complex_calculation <- function(x) x^2
 &#96;&#96;&#96;
@@ -749,20 +585,20 @@ print("Second line")
       <h3>Extended Markdown Features</h3>
 
       <h4>Tables</h4>
-      <pre><code>| Name     | Age | Occupation  |
+      <pre><code class="language-r">| Name     | Age | Occupation  |
 |----------|-----|-------------|
 | John     | 28  | Developer   |
 | Sarah    | 34  | Data Analyst|
 | Michael  | 42  | Manager     |</code></pre>
 
       <h4>Footnotes</h4>
-      <pre><code>Here's a statement with a footnote[^1].
+      <pre><code class="language-r">Here's a statement with a footnote[^1].
 
 [^1]: This is the footnote content.</code></pre>
 
       <h4>Math Equations</h4>
       <p>R Markdown supports LaTeX equations:</p>
-      <pre><code>Inline equation: $E = mc^2$
+      <pre><code class="language-r">Inline equation: $E = mc^2$
 
 Display equation:
 $$f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi) e^{2\pi i \xi x} d\xi$$</code></pre>
@@ -775,7 +611,7 @@ $$f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi) e^{2\pi i \xi x} d\xi$$</code></pr
       <h3>HTML Support</h3>
       <p>You can use HTML directly in R Markdown documents for additional formatting:</p>
 
-      <pre><code>&lt;div style="color: blue; border: 1px solid gray; padding: 10px;"&gt;
+      <pre><code class="language-r">&lt;div style="color: blue; border: 1px solid gray; padding: 10px;"&gt;
 This is a custom formatted div with **Markdown** inside it.
 &lt;/div&gt;
 
@@ -813,7 +649,7 @@ This is a custom formatted div with **Markdown** inside it.
 
       <div id="html-tab" class="tab-content active">
         <h4>HTML Documents</h4>
-        <pre><code>---
+        <pre><code class="language-r">---
 title: "HTML Report"
 output:
   html_document:
@@ -840,7 +676,7 @@ output:
 
       <div id="pdf-tab" class="tab-content">
         <h4>PDF Documents</h4>
-        <pre><code>---
+        <pre><code class="language-r">---
 title: "PDF Report"
 output:
   pdf_document:
@@ -867,14 +703,14 @@ output:
         <div class="note">
           <h4>Note</h4>
           <p>To create PDF documents, you need a LaTeX installation. The simplest way to get this is by installing the <code>tinytex</code> package:</p>
-          <pre><code>install.packages("tinytex")
+          <pre><code class="language-r">install.packages("tinytex")
 tinytex::install_tinytex()</code></pre>
         </div>
       </div>
 
       <div id="word-tab" class="tab-content">
         <h4>Word Documents</h4>
-        <pre><code>---
+        <pre><code class="language-r">---
 title: "Word Report"
 output:
   word_document:
@@ -910,7 +746,7 @@ output:
         <p>R Markdown supports multiple presentation formats:</p>
 
         <h5>PowerPoint</h5>
-        <pre><code>---
+        <pre><code class="language-r">---
 title: "PowerPoint Presentation"
 output:
   powerpoint_presentation:
@@ -919,7 +755,7 @@ output:
 ---</code></pre>
 
         <h5>ioslides (HTML)</h5>
-        <pre><code>---
+        <pre><code class="language-r">---
 title: "HTML Presentation"
 output:
   ioslides_presentation:
@@ -929,7 +765,7 @@ output:
 ---</code></pre>
 
         <h5>Slidy (HTML)</h5>
-        <pre><code>---
+        <pre><code class="language-r">---
 title: "Slidy Presentation"
 output:
   slidy_presentation:
@@ -938,7 +774,7 @@ output:
 ---</code></pre>
 
         <h5>Beamer (PDF)</h5>
-        <pre><code>---
+        <pre><code class="language-r">---
 title: "Beamer Presentation"
 output:
   beamer_presentation:
@@ -948,7 +784,7 @@ output:
 ---</code></pre>
 
         <h5>xaringan (HTML)</h5>
-        <pre><code>---
+        <pre><code class="language-r">---
 title: "xaringan Presentation"
 output:
   xaringan::moon_reader:
@@ -966,7 +802,7 @@ output:
         <h4>Other Output Formats</h4>
 
         <h5>Dashboards with flexdashboard</h5>
-        <pre><code>---
+        <pre><code class="language-r">---
 title: "Interactive Dashboard"
 output:
   flexdashboard::flex_dashboard:
@@ -976,7 +812,7 @@ output:
 ---</code></pre>
 
         <h5>Journal Articles with rticles</h5>
-        <pre><code>---
+        <pre><code class="language-r">---
 title: "Article Title"
 author: "Author Name"
 output:
@@ -986,7 +822,7 @@ output:
 ---</code></pre>
 
         <h5>Tufte-style Documents</h5>
-        <pre><code>---
+        <pre><code class="language-r">---
 title: "Tufte-style Document"
 output:
   tufte::tufte_html:
@@ -994,7 +830,7 @@ output:
 ---</code></pre>
 
         <h5>GitBook</h5>
-        <pre><code>---
+        <pre><code class="language-r">---
 title: "Book Title"
 author: "Author Name"
 output:
@@ -1007,7 +843,7 @@ output:
 ---</code></pre>
 
         <h5>Markdown Export</h5>
-        <pre><code>---
+        <pre><code class="language-r">---
 title: "Markdown Only"
 output:
   md_document:
@@ -1019,7 +855,7 @@ output:
       <h3>Multiple Output Formats</h3>
       <p>You can define multiple output formats in a single document:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "Multi-format Report"
 author: "Daryn Sutton"
 date: "`r Sys.Date()`"
@@ -1035,12 +871,12 @@ output:
 ---</code></pre>
 
       <p>To render a specific format:</p>
-      <pre><code>rmarkdown::render("report.Rmd", output_format = "pdf_document")</code></pre>
+      <pre><code class="language-r">rmarkdown::render("report.Rmd", output_format = "pdf_document")</code></pre>
 
       <h3>Custom Output Formats</h3>
       <p>Create your own output format with <code>output_format()</code>:</p>
 
-      <pre><code>custom_format <- function(...) {
+      <pre><code class="language-r">custom_format <- function(...) {
   rmarkdown::output_format(
     knitr = rmarkdown::knitr_options(
       opts_chunk = list(fig.width = 8, fig.height = 6)
@@ -1134,7 +970,7 @@ output:
 
       <h4>Code Chunk Reference</h4>
       <p>Reference results from other chunks:</p>
-      <pre><code>&#96;&#96;&#96;{r data-prep}
+      <pre><code class="language-r">&#96;&#96;&#96;{r data-prep}
 x <- 1:10
 y <- x^2
 plot(x, y)
@@ -1146,12 +982,12 @@ plot(x, y)
 
       <h4>Child Documents</h4>
       <p>Include other R Markdown documents:</p>
-      <pre><code>&#96;&#96;&#96;{r, child="child-document.Rmd"}
+      <pre><code class="language-r">&#96;&#96;&#96;{r, child="child-document.Rmd"}
 &#96;&#96;&#96;</code></pre>
 
       <h4>Caching for Performance</h4>
       <p>Cache results to speed up rendering:</p>
-      <pre><code>&#96;&#96;&#96;{r expensive-computation, cache=TRUE}
+      <pre><code class="language-r">&#96;&#96;&#96;{r expensive-computation, cache=TRUE}
 # Long running computation
 result <- slow_function(large_data)
 &#96;&#96;&#96;
@@ -1163,7 +999,7 @@ plot(result)
 
       <h4>Custom Engines</h4>
       <p>knitr supports various language engines beyond R:</p>
-      <pre><code>&#96;&#96;&#96;{python}
+      <pre><code class="language-r">&#96;&#96;&#96;{python}
 import numpy as np
 x = np.linspace(0, 10, 100)
 y = np.sin(x)
@@ -1185,7 +1021,7 @@ date
 
       <h4>Setting Hooks</h4>
       <p>Customize how chunk outputs are processed:</p>
-      <pre><code>&#96;&#96;&#96;{r setup}
+      <pre><code class="language-r">&#96;&#96;&#96;{r setup}
 knitr::knit_hooks$set(
   plot = function(x, options) {
     paste0("<figure><img src='", x,
@@ -1198,7 +1034,7 @@ knitr::knit_hooks$set(
 
       <h4>Figure Layout Control</h4>
       <p>Control how multiple figures are arranged:</p>
-      <pre><code>&#96;&#96;&#96;{r multi-fig, fig.show='hold', out.width='50%', fig.ncol=2}
+      <pre><code class="language-r">&#96;&#96;&#96;{r multi-fig, fig.show='hold', out.width='50%', fig.ncol=2}
 plot(1:10)
 plot(10:1)
 hist(rnorm(100))
@@ -1233,13 +1069,13 @@ boxplot(1:10 ~ rep(1:2, 5))
         <li>Pandoc then converts the .md file to the final output format</li>
       </ol>
 
-      <pre><code>  [.Rmd file] ―→ knitr ―→ [.md file] ―→ pandoc ―→ [output file]</code></pre>
+      <pre><code class="language-r">  [.Rmd file] ―→ knitr ―→ [.md file] ―→ pandoc ―→ [output file]</code></pre>
 
       <h3>Pandoc Markdown Features</h3>
       <p>Pandoc extends standard Markdown with additional features:</p>
 
       <h4>Enhanced Tables</h4>
-      <pre><code>| Right | Left | Default | Center |
+      <pre><code class="language-r">| Right | Left | Default | Center |
 |------:|:-----|---------|:------:|
 | 12    | 12   | 12      | 12     |
 | 123   | 123  | 123     | 123    |
@@ -1247,7 +1083,7 @@ boxplot(1:10 ~ rep(1:2, 5))
 : Table caption {#tbl-id}</code></pre>
 
       <h4>Definition Lists</h4>
-      <pre><code>Term 1
+      <pre><code class="language-r">Term 1
   ~ Definition 1
 
 Term 2
@@ -1255,12 +1091,12 @@ Term 2
   ~ Definition 2b</code></pre>
 
       <h4>Footnotes</h4>
-      <pre><code>Here is a footnote reference[^1].
+      <pre><code class="language-r">Here is a footnote reference[^1].
 
 [^1]: Here is the footnote.</code></pre>
 
       <h4>Citations</h4>
-      <pre><code>Smith [-@smith2000] says...
+      <pre><code class="language-r">Smith [-@smith2000] says...
 
 According to @smith2000, ...
 
@@ -1269,7 +1105,7 @@ Smith says blah [-@smith2000, p. 33].</code></pre>
       <h3>Custom Pandoc Options</h3>
       <p>You can pass additional arguments to Pandoc in the YAML header:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "My Document"
 output:
   pdf_document:
@@ -1282,7 +1118,7 @@ output:
       <h3>Pandoc Variables</h3>
       <p>Customize output with Pandoc variables:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "My Document"
 output:
   pdf_document:
@@ -1302,7 +1138,7 @@ classoption: [twocolumn, landscape]
       <h3>Pandoc Templates</h3>
       <p>Use custom templates for complete control over the output format:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "My Document"
 output:
   pdf_document:
@@ -1314,13 +1150,13 @@ output:
       <div class="tip">
         <h4>Finding Pandoc Templates</h4>
         <p>You can find the default templates in your Pandoc installation or by running:</p>
-        <pre><code>rmarkdown::pandoc_template_path("default.html")</code></pre>
+        <pre><code class="language-r">rmarkdown::pandoc_template_path("default.html")</code></pre>
       </div>
 
       <h3>Advanced Pandoc Usage</h3>
       <p>For complex documents, you might want to use Pandoc directly:</p>
 
-      <pre><code>system2(
+      <pre><code class="language-r">system2(
   "pandoc",
   args = c(
     "input.md",
@@ -1354,7 +1190,7 @@ output:
       <h3>Defining Parameters</h3>
       <p>Parameters are defined in the YAML header:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "Sales Report"
 author: "Daryn Sutton"
 date: "`r Sys.Date()`"
@@ -1370,7 +1206,7 @@ params:
       <h3>Using Parameters in the Document</h3>
       <p>Access parameters with the <code>params</code> object:</p>
 
-      <pre><code>## Sales Analysis for `r params$region` Region
+      <pre><code class="language-r">## Sales Analysis for `r params$region` Region
 
 This report analyzes sales data for `r params$year` Q`r params$quarters`.
 
@@ -1396,7 +1232,7 @@ if (params$include_plots) {
       <h3>Rendering with Parameters</h3>
       <p>Render the report with custom parameter values:</p>
 
-      <pre><code># Render with specified parameters
+      <pre><code class="language-r"># Render with specified parameters
 rmarkdown::render(
   "sales_report.Rmd",
   params = list(
@@ -1411,7 +1247,7 @@ rmarkdown::render(
       <h3>Interactive Parameter Selection</h3>
       <p>Create an interactive interface for parameter selection:</p>
 
-      <pre><code># Render with interactive parameter selection
+      <pre><code class="language-r"># Render with interactive parameter selection
 rmarkdown::render(
   "sales_report.Rmd",
   params = "ask"
@@ -1420,7 +1256,7 @@ rmarkdown::render(
       <h3>Custom Parameter Input Forms</h3>
       <p>Define custom input widgets for parameters:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "Customized Parameter Report"
 output: html_document
 params:
@@ -1442,7 +1278,7 @@ params:
       <h3>Batch Reporting</h3>
       <p>Generate multiple reports in a loop:</p>
 
-      <pre><code># Generate a report for each region
+      <pre><code class="language-r"># Generate a report for each region
 regions <- c("North", "South", "East", "West")
 
 for (region in regions) {
@@ -1456,7 +1292,7 @@ for (region in regions) {
       <h3>Parameter Dependencies</h3>
       <p>Handle parameters that depend on other parameters:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "Dependent Parameters Report"
 output: html_document
 params:
@@ -1489,7 +1325,7 @@ params:
       <h3>Basic Tables with knitr::kable()</h3>
       <p>The simplest way to create tables is with kable:</p>
 
-      <pre><code>&#96;&#96;&#96;{r}
+      <pre><code class="language-r">&#96;&#96;&#96;{r}
 # Basic table
 knitr::kable(head(mtcars[, 1:5]),
              caption = "Motor Trend Car Road Tests")
@@ -1498,7 +1334,7 @@ knitr::kable(head(mtcars[, 1:5]),
       <h3>Formatting Tables with kableExtra</h3>
       <p>The kableExtra package adds powerful formatting capabilities:</p>
 
-      <pre><code>&#96;&#96;&#96;{r}
+      <pre><code class="language-r">&#96;&#96;&#96;{r}
 library(kableExtra)
 
 mtcars[1:5, 1:6] %>%
@@ -1514,7 +1350,7 @@ mtcars[1:5, 1:6] %>%
       <h3>Interactive Tables with DT</h3>
       <p>Create interactive tables with searching, sorting, and filtering:</p>
 
-      <pre><code>&#96;&#96;&#96;{r}
+      <pre><code class="language-r">&#96;&#96;&#96;{r}
 library(DT)
 
 datatable(mtcars,
@@ -1533,7 +1369,7 @@ datatable(mtcars,
       <h3>Beautiful Tables with gt</h3>
       <p>The gt package offers a modern approach to table creation:</p>
 
-      <pre><code>&#96;&#96;&#96;{r}
+      <pre><code class="language-r">&#96;&#96;&#96;{r}
 library(gt)
 
 mtcars[1:5, 1:6] %>%
@@ -1561,7 +1397,7 @@ mtcars[1:5, 1:6] %>%
       <h3>Complex Tables with flextable</h3>
       <p>The flextable package works well across all output formats:</p>
 
-      <pre><code>&#96;&#96;&#96;{r}
+      <pre><code class="language-r">&#96;&#96;&#96;{r}
 library(flextable)
 
 flextable(mtcars[1:5, 1:6]) %>%
@@ -1579,7 +1415,7 @@ flextable(mtcars[1:5, 1:6]) %>%
       <h3>Tables for LaTeX/PDF Output</h3>
       <p>Special considerations for PDF output:</p>
 
-      <pre><code>&#96;&#96;&#96;{r}
+      <pre><code class="language-r">&#96;&#96;&#96;{r}
 # For LaTeX/PDF output
 knitr::kable(head(mtcars[, 1:5]),
              caption = "Motor Trend Car Road Tests",
@@ -1600,7 +1436,7 @@ knitr::kable(head(mtcars[, 1:5]),
       <h3>Creating Tables from Scratch</h3>
       <p>You can also create tables directly with Markdown syntax:</p>
 
-      <pre><code>| Name     | Value | Description        |
+      <pre><code class="language-r">| Name     | Value | Description        |
 |----------|-------|--------------------|
 | Variable 1 | 10.5  | First measurement  |
 | Variable 2 | 15.7  | Second measurement |
@@ -1630,7 +1466,7 @@ Table: Manual Markdown Table</code></pre>
       <h3>Creating Plots</h3>
       <p>Base R plots are automatically included:</p>
 
-      <pre><code>&#96;&#96;&#96;{r basic-plot, fig.width=7, fig.height=5, fig.cap="Scatter plot of speed vs. distance"}
+      <pre><code class="language-r">&#96;&#96;&#96;{r basic-plot, fig.width=7, fig.height=5, fig.cap="Scatter plot of speed vs. distance"}
 plot(cars$speed, cars$dist,
      main = "Speed vs. Stopping Distance",
      xlab = "Speed (mph)",
@@ -1641,7 +1477,7 @@ plot(cars$speed, cars$dist,
       <h3>ggplot2 Figures</h3>
       <p>ggplot2 creates publication-quality visualizations:</p>
 
-      <pre><code>&#96;&#96;&#96;{r ggplot-example, fig.width=8, fig.height=6}
+      <pre><code class="language-r">&#96;&#96;&#96;{r ggplot-example, fig.width=8, fig.height=6}
 library(ggplot2)
 
 ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
@@ -1714,7 +1550,7 @@ ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
       <h3>Multiple Figures in One Chunk</h3>
       <p>Control the layout of multiple figures:</p>
 
-      <pre><code>&#96;&#96;&#96;{r multi-figure, fig.width=6, fig.height=4, fig.show='hold', out.width='50%'}
+      <pre><code class="language-r">&#96;&#96;&#96;{r multi-figure, fig.width=6, fig.height=4, fig.show='hold', out.width='50%'}
 # Two figures side by side
 hist(mtcars$mpg, main = "MPG Distribution")
 hist(mtcars$hp, main = "Horsepower Distribution")
@@ -1723,7 +1559,7 @@ hist(mtcars$hp, main = "Horsepower Distribution")
       <h3>Including External Images</h3>
       <p>Include images from files:</p>
 
-      <pre><code>&#96;&#96;&#96;{r external-image, echo=FALSE, out.width="75%", fig.align="center", fig.cap="Company Logo"}
+      <pre><code class="language-r">&#96;&#96;&#96;{r external-image, echo=FALSE, out.width="75%", fig.align="center", fig.cap="Company Logo"}
 knitr::include_graphics("logo.png")
 &#96;&#96;&#96;
 
@@ -1735,7 +1571,7 @@ knitr::include_graphics("logo.png")
             <h3>Interactive Plots</h3>
       <p>Create interactive visualizations:</p>
 
-      <pre><code>&#96;&#96;&#96;{r plotly-example, warning=FALSE}
+      <pre><code class="language-r">&#96;&#96;&#96;{r plotly-example, warning=FALSE}
 library(plotly)
 
 p <- ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl), 
@@ -1749,7 +1585,7 @@ ggplotly(p, tooltip = "text")
       <h3>Figure Captions and Cross-References</h3>
       <p>Add captions and cross-reference figures (works with bookdown):</p>
 
-      <pre><code>&#96;&#96;&#96;{r mpg-plot, fig.cap="Relationship between weight and fuel efficiency."}
+      <pre><code class="language-r">&#96;&#96;&#96;{r mpg-plot, fig.cap="Relationship between weight and fuel efficiency."}
 ggplot(mtcars, aes(wt, mpg)) + 
   geom_point() + 
   geom_smooth(method = "loess")
@@ -1780,7 +1616,7 @@ See Figure \@ref(fig:mpg-plot) for the relationship between car weight and MPG.<
       <p>R Markdown supports various interactive elements that enhance your reports and allow users to explore your data.</p>
 
       <h3>Interactive Tables with DT</h3>
-      <pre><code>&#96;&#96;&#96;{r}
+      <pre><code class="language-r">&#96;&#96;&#96;{r}
 library(DT)
 datatable(iris, 
           filter = 'top',
@@ -1790,7 +1626,7 @@ datatable(iris,
 &#96;&#96;&#96;</code></pre>
 
       <h3>Interactive Maps with leaflet</h3>
-      <pre><code>&#96;&#96;&#96;{r}
+      <pre><code class="language-r">&#96;&#96;&#96;{r}
 library(leaflet)
 
 # Create a simple map
@@ -1811,7 +1647,7 @@ leaflet() %>%
         <li><code>threejs</code>: 3D scatterplots and globes</li>
       </ul>
 
-      <pre><code>&#96;&#96;&#96;{r}
+      <pre><code class="language-r">&#96;&#96;&#96;{r}
 library(dygraphs)
 library(xts)
 
@@ -1829,7 +1665,7 @@ dygraph(data, main = "Annual Sunspot Data") %>%
       <h3>Shiny Integration</h3>
       <p>Embed full Shiny applications in your R Markdown documents:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "Shiny Document"
 output: html_document
 runtime: shiny
@@ -1853,7 +1689,7 @@ renderPlot({
       <h3>HTML Widgets</h3>
       <p>Create custom interactive elements with HTML, CSS, and JavaScript:</p>
 
-      <pre><code>&#96;&#96;&#96;{r}
+      <pre><code class="language-r">&#96;&#96;&#96;{r}
 library(htmlwidgets)
 
 # Example with visNetwork
@@ -1896,7 +1732,7 @@ visNetwork(nodes, edges, width = "100%", height = "400px") %>%
       <h3>Custom CSS and Styling</h3>
       <p>Add custom CSS to your HTML documents:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "Styled Document"
 output:
   html_document:
@@ -1928,7 +1764,7 @@ Regular paragraph text.
       <h3>Custom Templates</h3>
       <p>Create document templates for consistent formatting:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "Custom Template Document"
 output:
   html_document:
@@ -1938,7 +1774,7 @@ output:
       <h3>Multi-language Support</h3>
       <p>Use multiple programming languages in one document:</p>
 
-      <pre><code>&#96;&#96;&#96;{r}
+      <pre><code class="language-r">&#96;&#96;&#96;{r}
 # R code here
 x <- 1:10
 mean(x)
@@ -1961,7 +1797,7 @@ ls -la | head -5
       <h3>Pre-rendering Hooks</h3>
       <p>Execute code before rendering the document:</p>
 
-      <pre><code>&#96;&#96;&#96;{r setup, include=FALSE}
+      <pre><code class="language-r">&#96;&#96;&#96;{r setup, include=FALSE}
 # Set up environment and load data before processing
 knitr::knit_hooks$set(
   time = function(before, options) {
@@ -2006,7 +1842,7 @@ Sys.sleep(2)
       <h3>Embedding Shiny Components in Reports</h3>
       <p>Add interactive elements to static reports:</p>
 
-      <pre><code>---
+      <pre><code class="language-r">---
 title: "Report with Shiny Components"
 output: html_document
 runtime: shiny
@@ -2048,7 +1884,7 @@ shiny::renderPlot({
 
       <h3>Project Organization</h3>
       <p>Structure your R Markdown projects for clarity and reproducibility:</p>
-      <pre><code>project/
+      <pre><code class="language-r">project/
 ├── README.md
 ├── data/
 │   ├── raw/
@@ -2067,7 +1903,7 @@ shiny::renderPlot({
       <h3>Modular Reports</h3>
       <p>Break large reports into manageable pieces:</p>
 
-      <pre><code>&#96;&#96;&#96;{r child="sections/introduction.Rmd"}
+      <pre><code class="language-r">&#96;&#96;&#96;{r child="sections/introduction.Rmd"}
 &#96;&#96;&#96;
 
 &#96;&#96;&#96;{r child="sections/methods.Rmd"}
@@ -2082,7 +1918,7 @@ shiny::renderPlot({
       <h3>Functions and Source Files</h3>
       <p>Keep code modular and organized by sourcing external files:</p>
 
-      <pre><code>&#96;&#96;&#96;{r setup, include=FALSE}
+      <pre><code class="language-r">&#96;&#96;&#96;{r setup, include=FALSE}
 # Load custom functions
 source("code/utility_functions.R")
 source("code/visualization_functions.R")
@@ -2094,7 +1930,7 @@ data <- load_and_clean_data("data/raw/survey_data.csv")
       <h3>Report Generation Pipelines</h3>
       <p>Automate report generation for multiple outputs or parameters:</p>
 
-      <pre><code># Create an R script to render multiple reports
+      <pre><code class="language-r"># Create an R script to render multiple reports
 # save as render_reports.R
 
 library(rmarkdown)
@@ -2124,7 +1960,7 @@ for (region in regions) {
       <h3>Dependency Management</h3>
       <p>Ensure report reproducibility with explicit dependency management:</p>
 
-      <pre><code>&#96;&#96;&#96;{r setup, include=FALSE}
+      <pre><code class="language-r">&#96;&#96;&#96;{r setup, include=FALSE}
 # Use renv for package management
 # Initialize with: renv::init()
 # Install dependencies: renv::restore()
@@ -2149,7 +1985,7 @@ session_info()
       <h3>Report Scheduling</h3>
       <p>Schedule automatic report generation:</p>
 
-      <pre><code># Example cron job for Linux/macOS
+      <pre><code class="language-r"># Example cron job for Linux/macOS
 # Run weekly at 8am on Monday
 # 0 8 * * 1 Rscript /path/to/render_report.R
 
@@ -2237,380 +2073,8 @@ cron_add(cmd, frequency = "daily", at = "7AM",
       <p>Created with R Markdown and the power of reproducible reporting</p>
     </div>
   </footer>
-<script>
-  // JavaScript functions for exercises and tabs
-  function showTab(tabId, clickedTab) {
-    // Hide all tabs
-    var tabContents = document.getElementsByClassName("tab-content");
-    for (var i = 0; i < tabContents.length; i++) {
-      tabContents[i].classList.remove("active");
-    }
-    
-    // Remove active class from all tabs
-    var tabs = document.getElementsByClassName("tab");
-    for (var i = 0; i < tabs.length; i++) {
-      tabs[i].classList.remove("active");
-    }
-    
-    // Show the selected tab
-    document.getElementById(tabId).classList.add("active");
-    
-    // Add active class to clicked tab
-    clickedTab.classList.add("active");
-  }
-  
-  // Helper function to display result with appropriate styling
-  function displayResult(resultId, isCorrect, message) {
-    const resultElem = document.getElementById(resultId);
-    resultElem.innerHTML = message;
-    resultElem.style.display = "block";
-    
-    if (isCorrect) {
-      resultElem.className = "result correct";
-    } else {
-      resultElem.className = "result incorrect";
-    }
-  }
-  
-  // Exercise checking functions
-  function checkIntroExercise() {
-    const userCode = document.getElementById("intro-exercise").value;
-    
-    // Check for required elements
-    const hasYamlHeader = /---[\s\S]*title:[\s\S]*author:[\s\S]*date:[\s\S]*output:[\s\S]*html_document[\s\S]*---/.test(userCode);
-    const hasDataAnalysisHeading = /#\s*Data Analysis/.test(userCode);
-    const hasMtcarsChunk = /```\{r[\s\S]*mtcars[\s\S]*```/.test(userCode);
-    const hasMeanMpg = /mean[\s\S]*mpg/.test(userCode);
-    const hasConclusion = /conclusion|summary|found|analysis/i.test(userCode);
-    
-    if (hasYamlHeader && hasDataAnalysisHeading && hasMtcarsChunk && hasMeanMpg && hasConclusion) {
-      displayResult("intro-exercise-result", true, 
-        "✅ Correct! Your R Markdown document contains all the required elements: YAML header, Data Analysis section, code chunk with mtcars, calculation of mean MPG, and a conclusion.");
-    } else {
-      let feedback = "❌ Your solution is missing some elements: ";
-      if (!hasYamlHeader) feedback += "YAML header with title, author, date and HTML output; ";
-      if (!hasDataAnalysisHeading) feedback += "Data Analysis heading; ";
-      if (!hasMtcarsChunk) feedback += "code chunk loading mtcars dataset; ";
-      if (!hasMeanMpg) feedback += "calculation of mean MPG; ";
-      if (!hasConclusion) feedback += "conclusion paragraph; ";
-      
-      displayResult("intro-exercise-result", false, feedback);
-    }
-  }
-  
-  function checkYamlExercise() {
-    const userCode = document.getElementById("yaml-exercise").value;
-    
-    // Check for required elements in YAML
-    const hasTitle = /title:\s*["']?Sales Analysis Report["']?/i.test(userCode);
-    const hasFloatingToc = /toc:\s*true[\s\S]*toc_float:\s*true/i.test(userCode) || 
-                           /toc_float:\s*true[\s\S]*toc:\s*true/i.test(userCode);
-    const hasTocDepth = /toc_depth:\s*2/i.test(userCode);
-    const hasNumberSections = /number_sections:\s*true/i.test(userCode);
-    const hasFlatlyTheme = /theme:\s*["']?flatly["']?/i.test(userCode);
-    const hasCodeFolding = /code_folding:\s*["']?hide["']?/i.test(userCode);
-    const hasQuarterParam = /params:[\s\S]*quarter:\s*["']?Q1["']?/i.test(userCode);
-    
-    if (hasTitle && hasFloatingToc && hasTocDepth && hasNumberSections && 
-        hasFlatlyTheme && hasCodeFolding && hasQuarterParam) {
-      displayResult("yaml-exercise-result", true, 
-        "✅ Correct! Your YAML header includes all the required elements and configurations.");
-    } else {
-      let feedback = "❌ Your YAML header is missing some required elements: ";
-      if (!hasTitle) feedback += "title 'Sales Analysis Report'; ";
-      if (!hasFloatingToc) feedback += "floating table of contents; ";
-      if (!hasTocDepth) feedback += "TOC depth of 2; ";
-      if (!hasNumberSections) feedback += "section numbering; ";
-      if (!hasFlatlyTheme) feedback += "'flatly' theme; ";
-      if (!hasCodeFolding) feedback += "collapsible code sections (defaulting to hidden); ";
-      if (!hasQuarterParam) feedback += "quarter parameter with default value 'Q1'; ";
-      
-      displayResult("yaml-exercise-result", false, feedback);
-    }
-  }
-  
-  function checkChunksExercise() {
-    const userCode = document.getElementById("chunks-exercise").value;
-    
-    // Check for required code chunks
-    const hasSetupChunk = /```\{r\s+setup[\s\S]*opts_chunk\$set[\s\S]*warning\s*=\s*FALSE[\s\S]*message\s*=\s*FALSE[\s\S]*fig\.align\s*=\s*["']?center["']?[\s\S]*```/.test(userCode);
-    const hasGgplot2Chunk = /```\{r[\s\S]*echo\s*=\s*FALSE[\s\S]*library\(ggplot2\)[\s\S]*```/.test(userCode);
-    const hasHistogramChunk = /```\{r[\s\S]*fig\.width\s*=\s*10[\s\S]*fig\.height\s*=\s*6[\s\S]*hist\(mtcars\$mpg[\s\S]*```/.test(userCode);
-    
-    if (hasSetupChunk && hasGgplot2Chunk && hasHistogramChunk) {
-      displayResult("chunks-exercise-result", true, 
-        "✅ Correct! Your code chunks correctly implement the setup options, load ggplot2 silently, and create the histogram with specified dimensions.");
-    } else {
-      let feedback = "❌ Your solution is missing some required code chunks: ";
-      if (!hasSetupChunk) feedback += "setup chunk with global options for warnings, messages, and centered figures; ";
-      if (!hasGgplot2Chunk) feedback += "chunk loading ggplot2 without showing code or messages; ";
-      if (!hasHistogramChunk) feedback += "chunk creating histogram of mtcars$mpg with width=10, height=6; ";
-      
-      displayResult("chunks-exercise-result", false, feedback);
-    }
-  }
-  
-  function checkMarkdownExercise() {
-    const userCode = document.getElementById("markdown-exercise").value;
-    
-    // Check for required markdown elements
-    const hasHeading = /##\s*Data Analysis Results/.test(userCode);
-    const hasParagraph = new RegExp("Data Analysis Results.*?\\n\\n[^#\\n][\\s\\S]+?\\n\\n", "i").test(userCode);
-    const hasBulletList = /(\*|\-|\+)\s+.+\n(\*|\-|\+)\s+.+\n(\*|\-|\+)\s+.+/.test(userCode);
-    const hasTable = /\|[^|]+\|[^|]+\|/.test(userCode) && 
-                    /\|[\s\-:]+\|[\s\-:]+\|/.test(userCode) && 
-                    /\|[^|]+\|[^|]+\|/.test(userCode);
-    const hasLink = /\[([^\]]+)\]\(([^)]+)\)/.test(userCode);
-    
-    if (hasHeading && hasParagraph && hasBulletList && hasTable && hasLink) {
-      displayResult("markdown-exercise-result", true, 
-        "✅ Correct! Your markdown formatting includes all required elements: level 2 heading, paragraph, bullet list, table, and link.");
-    } else {
-      let feedback = "❌ Your solution is missing some markdown elements: ";
-      if (!hasHeading) feedback += "level 2 heading titled 'Data Analysis Results'; ";
-      if (!hasParagraph) feedback += "explanatory paragraph; ";
-      if (!hasBulletList) feedback += "bulleted list with three items; ";
-      if (!hasTable) feedback += "table with regions data; ";
-      if (!hasLink) feedback += "link to more information; ";
-      
-      displayResult("markdown-exercise-result", false, feedback);
-    }
-  }
-  
-  function checkOutputFormatsExercise() {
-    const userCode = document.getElementById("output-formats-exercise").value;
-    
-    // Check for required output format specifications
-    const hasHtmlOutput = /output:[\s\S]*html_document:/.test(userCode);
-    const hasHtmlTocFloat = /html_document:[\s\S]*toc:\s*true[\s\S]*toc_float:\s*true/i.test(userCode) || 
-                           /html_document:[\s\S]*toc_float:\s*true[\s\S]*toc:\s*true/i.test(userCode);
-    const hasFlatlyTheme = /theme:\s*["']?flatly["']?/i.test(userCode);
-    const hasCodeFolding = /code_folding:\s*["']?show["']?/i.test(userCode);
-    
-    const hasPdfOutput = /pdf_document:/.test(userCode);
-    const hasPdfToc = /pdf_document:[\s\S]*toc:\s*true/i.test(userCode);
-    const hasXeLaTeX = /latex_engine:\s*["']?xelatex["']?/i.test(userCode);
-    const hasFigCaptions = /fig_caption:\s*true/i.test(userCode);
-    
-    if (hasHtmlOutput && hasHtmlTocFloat && hasFlatlyTheme && hasCodeFolding && 
-        hasPdfOutput && hasPdfToc && hasXeLaTeX && hasFigCaptions) {
-      displayResult("output-formats-exercise-result", true, 
-        "✅ Correct! Your YAML header correctly specifies both HTML and PDF output formats with all required options.");
-    } else {
-      let feedback = "❌ Your YAML header is missing some required output format specifications: ";
-      
-      if (!hasHtmlOutput) feedback += "HTML output format; ";
-      else {
-        if (!hasHtmlTocFloat) feedback += "HTML floating TOC; ";
-        if (!hasFlatlyTheme) feedback += "HTML 'flatly' theme; ";
-        if (!hasCodeFolding) feedback += "HTML code folding set to 'show'; ";
-      }
-      
-      if (!hasPdfOutput) feedback += "PDF output format; ";
-      else {
-        if (!hasPdfToc) feedback += "PDF table of contents; ";
-        if (!hasXeLaTeX) feedback += "PDF 'xelatex' engine; ";
-        if (!hasFigCaptions) feedback += "PDF figure captions; ";
-      }
-      
-      displayResult("output-formats-exercise-result", false, feedback);
-    }
-  }
-  
-  function checkKnitrExercise() {
-    const userCode = document.getElementById("knitr-exercise").value;
-    
-    // Check for required knitr elements
-    const hasSetupChunk = /```\{r[\s\S]*knitr::opts_chunk\$set\([\s\S]*cache\s*=\s*TRUE[\s\S]*dpi\s*=\s*300[\s\S]*fig\.align\s*=\s*["']?center["']?[\s\S]*\)[\s\S]*```/.test(userCode);
-    const hasImageChunk = /```\{r[\s\S]*knitr::include_graphics\(["']logo\.png["']\)[\s\S]*out\.width\s*=\s*["']?50\%?["']?[\s\S]*```/.test(userCode);
-    const hasKableChunk = /```\{r[\s\S]*knitr::kable\([\s\S]*mtcars\[1:5[\s\S]*caption\s*=\s*["']Car Performance Data["'][\s\S]*\)[\s\S]*```/.test(userCode);
-    
-    if (hasSetupChunk && hasImageChunk && hasKableChunk) {
-      displayResult("knitr-exercise-result", true, 
-        "✅ Correct! Your knitr code includes all required elements: a setup chunk with appropriate options, image inclusion, and a table with caption.");
-    } else {
-      let feedback = "❌ Your solution is missing some required knitr elements: ";
-      if (!hasSetupChunk) feedback += "setup chunk with cache, dpi=300, and centered figure options; ";
-      if (!hasImageChunk) feedback += "chunk that includes logo.png at 50% width; ";
-      if (!hasKableChunk) feedback += "chunk creating a table from mtcars with caption 'Car Performance Data'; ";
-      
-      displayResult("knitr-exercise-result", false, feedback);
-    }
-  }
-  
-  function checkPandocExercise() {
-    const userCode = document.getElementById("pandoc-exercise").value;
-    
-    // Check for required Pandoc options
-    const hasPdfMargins = /pdf_document:[\s\S]*geometry:\s*["']?margin=1\.5in["']?/i.test(userCode) || 
-                         /geometry:\s*["']?margin=1\.5in["']?/i.test(userCode) ||
-                         /pandoc_args:[\s\S]*--variable=geometry:margin=1\.5in/i.test(userCode);
-    const hasHtmlCss = /html_document:[\s\S]*css:\s*["']?[\w\-\.\/]+\.css["']?/i.test(userCode);
-    const hasFontSize = /fontsize:\s*["']?11pt["']?/i.test(userCode) || 
-                       /font-size:\s*["']?11pt["']?/i.test(userCode) ||
-                       /pandoc_args:[\s\S]*--variable=fontsize:11pt/i.test(userCode);
-    
-    if (hasPdfMargins && hasHtmlCss && hasFontSize) {
-      displayResult("pandoc-exercise-result", true, 
-        "✅ Correct! Your YAML header includes all required Pandoc options: 1.5 inch margins for PDF, custom CSS for HTML, and 11pt font size.");
-    } else {
-      let feedback = "❌ Your YAML header is missing some required Pandoc options: ";
-      if (!hasPdfMargins) feedback += "setting margins to 1.5 inches for PDF; ";
-      if (!hasHtmlCss) feedback += "adding a custom CSS file to HTML; ";
-      if (!hasFontSize) feedback += "specifying 11pt font size; ";
-      
-      displayResult("pandoc-exercise-result", false, feedback);
-    }
-  }
-  
-  function checkParamsExercise() {
-    const userCode = document.getElementById("params-exercise").value;
-    
-    // Check for required parameters
-    const hasDepartmentParam = /params:[\s\S]*department:\s*["']?Sales["']?/i.test(userCode);
-    const hasYearParam = /params:[\s\S]*year:\s*!r\s*\d{4}|year:\s*\d{4}/i.test(userCode) || 
-                        /year:[\s\S]*!r\s*as\.numeric\(format\(Sys\.Date\(\),\s*["']%Y["']\)\)/i.test(userCode);
-    const hasIncludeChartsParam = /params:[\s\S]*include_charts:\s*(TRUE|true)/i.test(userCode);
-    const hasDataSourceParam = /params:[\s\S]*data_source:[\s\S]*input:\s*select[\s\S]*choices:\s*\[["']Database["'],\s*["']CSV["'],\s*["']API["']\]/i.test(userCode) ||
-                             /params:[\s\S]*data_source:[\s\S]*input:\s*select[\s\S]*choices:\s*\[["']?Database["']?,\s*["']?CSV["']?,\s*["']?API["']?\]/i.test(userCode);
-    
-    if (hasDepartmentParam && hasYearParam && hasIncludeChartsParam && hasDataSourceParam) {
-      displayResult("params-exercise-result", true, 
-        "✅ Correct! Your YAML header includes all required parameters with appropriate defaults and configurations.");
-    } else {
-      let feedback = "❌ Your YAML header is missing some required parameters: ";
-      if (!hasDepartmentParam) feedback += "department parameter with default 'Sales'; ";
-      if (!hasYearParam) feedback += "year parameter with default set to current year; ";
-      if (!hasIncludeChartsParam) feedback += "include_charts boolean parameter defaulting to TRUE; ";
-      if (!hasDataSourceParam) feedback += "data_source parameter with select input for Database, CSV, and API options; ";
-      
-      displayResult("params-exercise-result", false, feedback);
-    }
-  }
-  
-  function checkTablesExercise() {
-    const userCode = document.getElementById("tables-exercise").value;
-    
-    // Check for required tables code
-    const hasKable = /knitr::kable\(iris\[1:5,[\s\S]*caption\s*=\s*["'][^"']*["']\)/i.test(userCode);
-    const hasKableExtra = /kableExtra::kable_styling\([\s\S]*stripe\s*=\s*["']?row["']?|bootstrap_options\s*=\s*c\(["']?striped["']?/i.test(userCode);
-    const hasBoldColumn = /column_spec\(1,\s*bold\s*=\s*TRUE\)/i.test(userCode);
-    const hasSummaryRow = /(rbind|add_row|add_header_above)\([\s\S]*(mean|summary|average)/i.test(userCode) || 
-                         /mean\(iris\$[\s\S]*\)/i.test(userCode);
-    
-    if (hasKable && hasKableExtra && hasBoldColumn && hasSummaryRow) {
-      displayResult("tables-exercise-result", true, 
-        "✅ Correct! Your code creates a properly formatted table with kable, adds styling with kableExtra, includes a bold first column, and adds a summary row.");
-    } else {
-      let feedback = "❌ Your solution is missing some required table elements: ";
-      if (!hasKable) feedback += "kable function with iris data and a caption; ";
-      if (!hasKableExtra) feedback += "kableExtra styling with striped rows; ";
-      if (!hasBoldColumn) feedback += "bold formatting for the first column; ";
-      if (!hasSummaryRow) feedback += "summary row showing means of columns; ";
-      
-      displayResult("tables-exercise-result", false, feedback);
-    }
-  }
-  
-  function checkFiguresExercise() {
-    const userCode = document.getElementById("figures-exercise").value;
-    
-    // Check for required figure elements
-    const hasGgplot = /ggplot\(iris,\s*aes\([\s\S]*Sepal\.Length[\s\S]*Sepal\.Width/i.test(userCode);
-    const hasColorBySpecies = /aes\([\s\S]*color\s*=\s*Species\)/i.test(userCode);
-    const hasTitleLabels = /labs\([\s\S]*title\s*=|ggtitle\(/i.test(userCode) && 
-                          /labs\([\s\S]*x\s*=|xlab\(/i.test(userCode) && 
-                          /labs\([\s\S]*y\s*=|ylab\(/i.test(userCode);
-    const hasDimensions = /fig\.width\s*=\s*8[\s\S]*fig\.height\s*=\s*5/i.test(userCode);
-    const hasCaption = /fig\.cap\s*=\s*["']?Iris flower measurements by species["']?/i.test(userCode);
-    
-    if (hasGgplot && hasColorBySpecies && hasTitleLabels && hasDimensions && hasCaption) {
-      displayResult("figures-exercise-result", true, 
-        "✅ Correct! Your code creates a ggplot2 visualization of the iris dataset with all required specifications.");
-    } else {
-      let feedback = "❌ Your solution is missing some required figure elements: ";
-      if (!hasGgplot) feedback += "ggplot2 scatter plot of Sepal.Length vs Sepal.Width; ";
-      if (!hasColorBySpecies) feedback += "coloring points by Species; ";
-      if (!hasTitleLabels) feedback += "appropriate title and axis labels; ";
-      if (!hasDimensions) feedback += "figure dimensions (width=8, height=5); ";
-      if (!hasCaption) feedback += "caption 'Iris flower measurements by species'; ";
-      
-      displayResult("figures-exercise-result", false, feedback);
-    }
-  }
-  
-  function checkInteractiveExercise() {
-    const userCode = document.getElementById("interactive-exercise").value;
-    
-    // Check for required interactive visualization elements
-    const hasPlotly = /library\(plotly\)/i.test(userCode);
-    const hasDiamonds = /diamonds/i.test(userCode);
-    const hasPriceVsCarat = /aes\([\s\S]*price[\s\S]*carat/i.test(userCode) || 
-                           /aes\([\s\S]*carat[\s\S]*price/i.test(userCode);
-    const hasHoverInfo = /text\s*=|tooltip\s*=|hoverinfo\s*=|hovertemplate\s*=/i.test(userCode) && 
-                        /cut|color|clarity/i.test(userCode);
-    const hasColorByCut = /color\s*=\s*[\s\S]*cut/i.test(userCode);
-    
-    if (hasPlotly && hasDiamonds && hasPriceVsCarat && hasHoverInfo && hasColorByCut) {
-      displayResult("interactive-exercise-result", true, 
-        "✅ Correct! Your code creates an interactive plotly visualization of the diamonds dataset with all required specifications.");
-    } else {
-      let feedback = "❌ Your solution is missing some required interactive elements: ";
-      if (!hasPlotly) feedback += "plotly library for interactive visualization; ";
-      if (!hasDiamonds) feedback += "diamonds dataset; ";
-      if (!hasPriceVsCarat) feedback += "scatter plot of price vs carat; ";
-      if (!hasHoverInfo) feedback += "hover information showing cut, color, and clarity; ";
-      if (!hasColorByCut) feedback += "coloring points by diamond cut; ";
-      
-      displayResult("interactive-exercise-result", false, feedback);
-    }
-  }
-  
-  function checkAdvancedExercise() {
-    const userCode = document.getElementById("advanced-exercise").value;
-    
-    // Check for at least one advanced feature
-    const hasCustomCSS = /style[\s\S]*\{[\s\S]*\}|<style>[\s\S]*<\/style>|css:|\.css/i.test(userCode);
-    const hasMemoryHook = /knit_hooks\$set\([\s\S]*memory|gc\(|object\.size\(|mem\.used\(/i.test(userCode);
-    const hasMultiLanguage = /```\{r[\s\S]*```[\s\S]*```\{python[\s\S]*```/i.test(userCode);
-    
-    if (hasCustomCSS || hasMemoryHook || hasMultiLanguage) {
-      let feature = hasCustomCSS ? "custom CSS styling" : 
-                   hasMemoryHook ? "memory usage hook" : 
-                   "multi-language R and Python code";
-                   
-      displayResult("advanced-exercise-result", true, 
-        `✅ Correct! Your code successfully implements advanced R Markdown features using ${feature}.`);
-    } else {
-      displayResult("advanced-exercise-result", false, 
-        "❌ Your solution doesn't contain any of the required advanced features: custom CSS styling, memory usage hook, or multi-language code.");
-    }
-  }
-  
-  function checkWorkflowExercise() {
-    const userCode = document.getElementById("workflow-exercise").value;
-    
-    // Check for required workflow elements
-    const hasFolderStructure = /data\/|code\/|reports\//i.test(userCode);
-    const hasParameterizedReports = /params:|parameters:|parameter/i.test(userCode) && 
-                                  /business\s*units|departments|divisions/i.test(userCode);
-    const hasRenderingScript = /render|knit|build/i.test(userCode) && 
-                             /for\s*\(|loop|iterate|foreach/i.test(userCode);
-    const hasDependencyManagement = /renv|packrat|library\(|require\(|install\.packages|dependencies/i.test(userCode);
-    
-    if (hasFolderStructure && hasParameterizedReports && hasRenderingScript && hasDependencyManagement) {
-      displayResult("workflow-exercise-result", true, 
-        "✅ Correct! Your workflow design includes all required elements: folder structure, parameterized reports, rendering script, and dependency management.");
-    } else {
-      let feedback = "❌ Your workflow design is missing some required elements: ";
-      if (!hasFolderStructure) feedback += "separate folders for data, code, and reports; ";
-      if (!hasParameterizedReports) feedback += "parameterized reports for different business units; ";
-      if (!hasRenderingScript) feedback += "rendering script to generate all reports; ";
-      if (!hasDependencyManagement) feedback += "dependency management approach; ";
-      
-      displayResult("workflow-exercise-result", false, feedback);
-    }
-  }
-</script>
+
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

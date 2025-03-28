@@ -4,133 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>R Syntax Quirks and Best Practices | HARP Team R Training</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      background-color: #f8f9fa;
-    }
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #2c3e50;
-    }
-    pre {
-      background-color: #f5f5f5;
-      border-left: 4px solid #3498db;
-      padding: 15px;
-      margin: 20px 0;
-      overflow-x: auto;
-      border-radius: 4px;
-    }
-    code {
-      font-family: 'Consolas', 'Monaco', monospace;
-    }
-    .section {
-      background-color: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .exercise {
-      background-color: #e8f4fc;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 25px 0;
-    }
-    .exercise h3 {
-      margin-top: 0;
-      color: #2980b9;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .result {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      display: none;
-    }
-    .correct {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .home-link {
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-    .quiz-option {
-      margin: 10px 0;
-    }
-    .code-input {
-      width: 100%;
-      height: 100px;
-      font-family: 'Consolas', 'Monaco', monospace;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-  </style>
+  
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
 </head>
 <body>
-  <script src="auth.js"></script>
+  
 
   <header>
     <div class="container">
@@ -147,14 +26,14 @@
       <p>R has multiple assignment operators, but the most commonly used are <code>&lt;-</code> and <code>=</code>.</p>
 
       <h3>Using <code>&lt;-</code></h3>
-      <pre><code># Assign a value to a variable
+      <pre><code class="language-r"># Assign a value to a variable
 x <- 10
 
 # Preferred for assignment in R scripts
 y <- "Hello, R!"</code></pre>
 
       <h3>Using <code>=</code></h3>
-      <pre><code># Assign a value to a variable
+      <pre><code class="language-r"># Assign a value to a variable
 x = 10
 
 # Commonly used in function arguments
@@ -179,7 +58,7 @@ plot(x = 1:10, y = 1:10)</code></pre>
       <p>R has several data types and structures, each suited for different tasks.</p>
 
       <h3>Data Types</h3>
-      <pre><code># Numeric
+      <pre><code class="language-r"># Numeric
 x <- 42.5
 
 # Integer
@@ -192,7 +71,7 @@ z <- "Hello, R!"
 flag <- TRUE</code></pre>
 
       <h3>Data Structures</h3>
-      <pre><code># Vector
+      <pre><code class="language-r"># Vector
 vec <- c(1, 2, 3)
 
 # Matrix
@@ -228,7 +107,7 @@ lst <- list(
       <p>Logical values are used for comparisons and conditional statements.</p>
 
       <h3>Logical Operators</h3>
-      <pre><code># Equality
+      <pre><code class="language-r"># Equality
 x == y
 
 # Inequality
@@ -243,7 +122,7 @@ x >= y
 x <= y</code></pre>
 
       <h3>Combining Logical Values</h3>
-      <pre><code># AND
+      <pre><code class="language-r"># AND
 x & y
 
 # OR
@@ -270,54 +149,8 @@ x | y
     </div>
   </footer>
 
-  <script>
-    function checkAssignmentExercise() {
-      const userCode = document.getElementById("assignment-exercise").value.trim();
-      const resultDiv = document.getElementById("assignment-exercise-result");
-
-      if (userCode.includes("answer <- 42")) {
-        resultDiv.textContent = "Correct! You've used the preferred assignment operator.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Use '<-' for assignments in scripts.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkDataTypesExercise() {
-      const userCode = document.getElementById("data-types-exercise").value.trim();
-      const resultDiv = document.getElementById("data-types-exercise-result");
-
-      if (userCode.includes("data.frame") &&
-          userCode.includes("id =") &&
-          userCode.includes("name =") &&
-          userCode.includes("score =")) {
-        resultDiv.textContent = "Correct! You've created a data frame with the required columns.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to include 'id', 'name', and 'score' as columns.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkLogicalValuesExercise() {
-      const userCode = document.getElementById("logical-values-exercise").value.trim();
-      const resultDiv = document.getElementById("logical-values-exercise-result");
-
-      if (userCode.includes("score > 80") && userCode.includes("score < 100")) {
-        resultDiv.textContent = "Correct! You've checked if the score is between 80 and 100.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to use '>' and '<' to check the range.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-  </script>
+  
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

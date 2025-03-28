@@ -4,159 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Statistical Analysis in R | HARP Team R Training</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      background-color: #f8f9fa;
-    }
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #2c3e50;
-    }
-    pre {
-      background-color: #f5f5f5;
-      border-left: 4px solid #3498db;
-      padding: 15px;
-      margin: 20px 0;
-      overflow-x: auto;
-      border-radius: 4px;
-    }
-    code {
-      font-family: 'Consolas', 'Monaco', monospace;
-    }
-    .topic-nav {
-      background-color: white;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .topic-nav ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .topic-nav li {
-      margin-right: 10px; /* Kept for potential spacing adjustments */
-    }
-    .section {
-      background-color: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .exercise {
-      background-color: #e8f4fc;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 25px 0;
-    }
-    .exercise h3 {
-      margin-top: 0;
-      color: #2980b9;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 10px; /* Added margin */
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .result {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      display: none;
-    }
-    .correct {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .home-link {
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-    .quiz-option {
-      margin: 10px 0;
-    }
-    .code-input {
-      width: 95%; /* Adjusted width */
-      height: 80px; /* Adjusted height */
-      font-family: 'Consolas', 'Monaco', monospace;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-     .resources {
-      margin-top: 30px;
-      border-top: 1px solid #eee;
-      padding-top: 15px;
-    }
-    footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-  </style>
+  
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
 </head>
 <body>
   <!-- Assuming auth.js handles authentication/redirection if needed -->
-  <script src="auth.js"></script>
+  
 
   <header>
     <div class="container">
@@ -185,7 +39,7 @@
 
       <h4>Basic Summary Statistics</h4>
       <p>The `summary()` function provides a quick overview for numeric variables (min, 1st quartile, median, mean, 3rd quartile, max) and frequency counts for factors/characters.</p>
-      <pre><code># Load example data
+      <pre><code class="language-r"># Load example data
 data(iris) # Famous dataset about iris flowers
 
 # Summary of the entire dataset
@@ -196,7 +50,7 @@ summary(iris$Sepal.Length)</code></pre>
 
       <h4>Measures of Central Tendency</h4>
       <p>Describe the center of your data.</p>
-      <pre><code># Assuming 'data' is your data frame and 'column_name' is the column of interest
+      <pre><code class="language-r"># Assuming 'data' is your data frame and 'column_name' is the column of interest
 # Replace with your actual data and column names
 
 # Mean (average)
@@ -215,7 +69,7 @@ get_mode(iris$Species) # Output: "setosa" (or whichever is most frequent)</code>
 
       <h4>Measures of Dispersion (Variability)</h4>
       <p>Describe how spread out your data is.</p>
-      <pre><code># Standard Deviation (average distance from the mean)
+      <pre><code class="language-r"># Standard Deviation (average distance from the mean)
 sd(iris$Sepal.Length, na.rm = TRUE)
 
 # Variance (average squared distance from the mean)
@@ -241,7 +95,7 @@ IQR(iris$Sepal.Length, na.rm = TRUE)</code></pre>
 
       <h4>Frequency Distributions</h4>
       <p>Show how often different values or categories occur.</p>
-      <pre><code># Frequency table for a categorical variable (Factor)
+      <pre><code class="language-r"># Frequency table for a categorical variable (Factor)
 table(iris$Species)
 
 # Frequency table for a numeric variable (often less useful unless rounded/binned)
@@ -257,7 +111,7 @@ table(iris$Species, iris$Size)</code></pre>
 
       <h4>Grouped Summaries (using dplyr)</h4>
       <p>Often, you want summaries calculated for different groups within your data. The `dplyr` package is excellent for this.</p>
-      <pre><code>library(dplyr) # Make sure dplyr is installed and loaded
+      <pre><code class="language-r">library(dplyr) # Make sure dplyr is installed and loaded
 
 iris %>%
   group_by(Species) %>%
@@ -277,7 +131,7 @@ iris %>%
         <p>4. Using `dplyr`, calculate the average `mpg` and average weight (`wt`) for each cylinder group (`cyl`).</p>
         <button onclick="toggleSolution('sol_desc_stats')">Show/Hide Solution Code</button>
         <div class="result" id="sol_desc_stats" style="display: none; background-color: #f5f5f5;">
-            <pre><code># Load the dataset (already available in R)
+            <pre><code class="language-r"># Load the dataset (already available in R)
 data(mtcars)
 
 # 1. Mean, Median, SD for mpg
@@ -330,7 +184,7 @@ print(grouped_summary)</code></pre>
         <li><strong>Spearman:</strong> Measures monotonic association (whether one variable tends to increase as the other increases, not necessarily linearly). Rank-based, less sensitive to outliers, doesn't assume normality.</li>
         <li><strong>Kendall:</strong> Also measures monotonic association using ranks. Often used for smaller datasets or data with many tied ranks.</li>
       </ul>
-      <pre><code># Using iris dataset (selecting only numeric columns for correlation)
+      <pre><code class="language-r"># Using iris dataset (selecting only numeric columns for correlation)
 iris_numeric <- iris[, 1:4] # Select Sepal.Length, Sepal.Width, Petal.Length, Petal.Width
 
 # Pearson correlation between two variables
@@ -351,13 +205,13 @@ cor(iris_numeric$Sepal.Length, iris_numeric$Petal.Length, method = "kendall")
 
       <h4>Correlation Matrix</h4>
       <p>Calculate correlations between multiple variables simultaneously.</p>
-      <pre><code># Correlation matrix for the numeric iris columns
+      <pre><code class="language-r"># Correlation matrix for the numeric iris columns
 cor_matrix <- cor(iris_numeric, method = "pearson", use = "complete.obs")
 print(round(cor_matrix, 2)) # Round for readability</code></pre>
 
       <h4>Visualizing Correlations</h4>
       <p>Scatter plots are essential for visualizing the relationship between two variables. Correlation matrices can be visualized using packages like `corrplot` or `ggcorrplot`.</p>
-      <pre><code># Basic scatter plot
+      <pre><code class="language-r"># Basic scatter plot
 plot(iris$Petal.Length, iris$Petal.Width,
      main = "Petal Length vs. Petal Width",
      xlab = "Petal Length (cm)",
@@ -384,7 +238,7 @@ ggcorrplot(cor_matrix, hc.order = TRUE, type = "lower",
         <p>4. Create a scatter plot of `mpg` vs `wt`.</p>
         <button onclick="toggleSolution('sol_correlation')">Show/Hide Solution Code</button>
         <div class="result" id="sol_correlation" style="display: none; background-color: #f5f5f5;">
-            <pre><code>data(mtcars)
+            <pre><code class="language-r">data(mtcars)
 
 # 1. Pearson correlation mpg vs wt
 pearson_mpg_wt <- cor(mtcars$mpg, mtcars$wt, method = "pearson")
@@ -433,7 +287,7 @@ abline(lm(mpg ~ wt, data = mtcars), col = "red", lwd = 2)</code></pre>
         <li><strong>Paired t-Test:</strong> Compares the means of the same subjects under two different conditions (e.g., before and after treatment).
           <br><em>H₀: Mean difference between pairs = 0</em></li>
       </ul>
-      <pre><code># Example data (replace with actual data)
+      <pre><code class="language-r"># Example data (replace with actual data)
 group1_scores <- rnorm(30, mean = 50, sd = 10)
 group2_scores <- rnorm(35, mean = 55, sd = 12)
 before_scores <- rnorm(25, mean = 100, sd = 15)
@@ -457,7 +311,7 @@ t_result_paired <- t.test(after_scores, before_scores, paired = TRUE)
 print(t_result_paired)
 # Interpretation: Look at p-value. If < 0.05, reject H0 (likely a significant difference).</code></pre>
       <p><strong>Formula Notation for Two-Sample Test:</strong> You can also use formula notation, especially if your data is in a "long" format with a grouping variable.</p>
-      <pre><code># Example using iris data
+      <pre><code class="language-r"># Example using iris data
 # Test if Sepal.Length differs between setosa and versicolor
 setosa_versicolor <- subset(iris, Species %in% c("setosa", "versicolor"))
 t.test(Sepal.Length ~ Species, data = setosa_versicolor)</code></pre>
@@ -470,7 +324,7 @@ t.test(Sepal.Length ~ Species, data = setosa_versicolor)</code></pre>
         <li><strong>Goodness-of-Fit Test:</strong> Determines if sample proportions match hypothesized population proportions.
           <br><em>H₀: Sample proportions = Hypothesized proportions.</em></li>
       </ul>
-      <pre><code># Test for Independence (using the mtcars dataset's cyl and am columns)
+      <pre><code class="language-r"># Test for Independence (using the mtcars dataset's cyl and am columns)
 # Convert to factors if they aren't already
 mtcars$cyl_factor <- factor(mtcars$cyl)
 mtcars$am_factor <- factor(mtcars$am, labels = c("Automatic", "Manual"))
@@ -496,7 +350,7 @@ print(chisq_gof_result)
         <li><strong>One-Way ANOVA:</strong> One categorical independent variable (factor) and one continuous dependent variable.
           <br><em>H₀: The means of all groups are equal.</em></li>
       </ul>
-      <pre><code># One-Way ANOVA using iris data (Compare Sepal.Length across the 3 Species)
+      <pre><code class="language-r"># One-Way ANOVA using iris data (Compare Sepal.Length across the 3 Species)
 aov_result <- aov(Sepal.Length ~ Species, data = iris)
 summary(aov_result) # The summary shows the F-statistic and p-value
 # Interpretation: Look at the p-value ('Pr(>F)'). If < 0.05, reject H0 (at least one group mean is different).
@@ -509,7 +363,7 @@ plot(tukey_result) # Visualize differences</code></pre>
       <h4>Normality Tests</h4>
       <p>Many statistical tests (like t-tests, ANOVA) assume data is normally distributed. The Shapiro-Wilk test is a common way to check this.</p>
       <p><em>H₀: The data is normally distributed.</em></p>
-      <pre><code># Shapiro-Wilk test on iris Sepal.Length
+      <pre><code class="language-r"># Shapiro-Wilk test on iris Sepal.Length
 shapiro.test(iris$Sepal.Length)
 # Interpretation: If p-value < 0.05, reject H0 (data is likely not normally distributed).
 
@@ -526,7 +380,7 @@ iris %>%
         <p>3. Check if the `Petal.Length` for the `setosa` species appears to be normally distributed using the Shapiro-Wilk test.</p>
         <button onclick="toggleSolution('sol_hypo_test')">Show/Hide Solution Code</button>
         <div class="result" id="sol_hypo_test" style="display: none; background-color: #f5f5f5;">
-            <pre><code>data(iris)
+            <pre><code class="language-r">data(iris)
 library(dplyr)
 
 # 1. Two-sample t-test for Petal.Width (versicolor vs virginica)
@@ -568,7 +422,7 @@ print(shapiro_test_setosa)
 
       <h4>Fitting a Linear Model (`lm`)</h4>
       <p>The `lm()` function is used to fit linear models.</p>
-      <pre><code># Simple linear regression: Predict mpg from weight (wt) using mtcars
+      <pre><code class="language-r"># Simple linear regression: Predict mpg from weight (wt) using mtcars
 model_simple <- lm(mpg ~ wt, data = mtcars)
 
 # Multiple linear regression: Predict mpg from weight (wt) and horsepower (hp)
@@ -580,7 +434,7 @@ model_factor <- lm(mpg ~ wt + factor(cyl), data = mtcars)</code></pre>
 
       <h4>Interpreting Model Summary</h4>
       <p>The `summary()` function provides detailed output about the fitted model.</p>
-      <pre><code># Get summary of the multiple regression model
+      <pre><code class="language-r"># Get summary of the multiple regression model
 summary_multiple <- summary(model_multiple)
 print(summary_multiple)</code></pre>
       <p>Key parts of the summary:</p>
@@ -604,7 +458,7 @@ print(summary_multiple)</code></pre>
 
       <h4>Checking Model Assumptions</h4>
       <p>Linear regression relies on several assumptions. Violations can invalidate the results. Common checks involve plotting residuals:</p>
-      <pre><code># Plot diagnostics for the multiple regression model
+      <pre><code class="language-r"># Plot diagnostics for the multiple regression model
 par(mfrow = c(2, 2)) # Arrange plots in a 2x2 grid
 plot(model_multiple)
 par(mfrow = c(1, 1)) # Reset plotting layout</code></pre>
@@ -618,7 +472,7 @@ par(mfrow = c(1, 1)) # Reset plotting layout</code></pre>
 
       <h4>Making Predictions</h4>
       <p>Use the `predict()` function to predict outcomes for new data.</p>
-      <pre><code># Create new data frame with values for predictors
+      <pre><code class="language-r"># Create new data frame with values for predictors
 new_cars <- data.frame(
   wt = c(2.5, 3.0, 3.5),
   hp = c(100, 150, 200)
@@ -641,7 +495,7 @@ predict(model_multiple, newdata = new_cars, interval = "prediction") # Interval 
         <p>4. (Optional) Plot the diagnostic plots for the model.</p>
         <button onclick="toggleSolution('sol_regression')">Show/Hide Solution Code</button>
         <div class="result" id="sol_regression" style="display: none; background-color: #f5f5f5;">
-            <pre><code>data(iris)
+            <pre><code class="language-r">data(iris)
 
 # 1. Fit the linear model
 iris_model <- lm(Petal.Length ~ Sepal.Length, data = iris)
@@ -695,53 +549,8 @@ par(mfrow = c(1, 1))</code></pre>
     </div>
   </footer>
 
-  <script>
-    function checkAnswer(questionId, correctAnswer) {
-      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
-      const resultDiv = document.getElementById(`${questionId}-result`);
-
-      if (!selectedOption) {
-        resultDiv.textContent = "Please select an answer.";
-        resultDiv.className = "result incorrect";
-        resultDiv.style.display = "block";
-        return;
-      }
-
-      if (selectedOption.value === correctAnswer) {
-        resultDiv.textContent = "Correct! Well done.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    // Simple toggle function for solution code blocks
-    function toggleSolution(id) {
-        var element = document.getElementById(id);
-        if (element.style.display === "none") {
-            element.style.display = "block";
-        } else {
-            element.style.display = "none";
-        }
-    }
-
-    // Placeholder for potential code checking functions if needed later
-    function checkCodeExercise(inputId, resultId /*, validationLogic */) {
-       const userCode = document.getElementById(inputId).value.trim();
-       const resultDiv = document.getElementById(resultId);
-       // Basic feedback for now
-       if (userCode) {
-           resultDiv.textContent = "Code submitted (validation logic not implemented in this example).";
-           resultDiv.className = "result correct"; // Assume correct for demo
-       } else {
-           resultDiv.textContent = "Please enter some code.";
-           resultDiv.className = "result incorrect";
-       }
-       resultDiv.style.display = "block";
-    }
-  </script>
+  
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

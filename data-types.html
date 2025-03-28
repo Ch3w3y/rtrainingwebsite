@@ -4,159 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>R Data Types and Structures | HARP Team R Training</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      background-color: #f8f9fa;
-    }
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #2c3e50;
-    }
-    pre {
-      background-color: #f5f5f5;
-      border-left: 4px solid #3498db;
-      padding: 15px;
-      margin: 20px 0;
-      overflow-x: auto;
-      border-radius: 4px;
-    }
-    code {
-      font-family: 'Consolas', 'Monaco', monospace;
-    }
-    .topic-nav {
-      background-color: white;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .topic-nav ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .topic-nav li {
-      margin-right: 10px; /* Kept for potential spacing adjustments */
-    }
-    .section {
-      background-color: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .exercise {
-      background-color: #e8f4fc;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 25px 0;
-    }
-    .exercise h3 {
-      margin-top: 0;
-      color: #2980b9;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 10px; /* Added margin */
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .result {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      display: none;
-    }
-    .correct {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .home-link {
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-    .quiz-option {
-      margin: 10px 0;
-    }
-    .code-input {
-      width: 95%; /* Adjusted width */
-      height: 80px; /* Adjusted height */
-      font-family: 'Consolas', 'Monaco', monospace;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .resources {
-      margin-top: 30px;
-      border-top: 1px solid #eee;
-      padding-top: 15px;
-    }
-    footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-  </style>
+  
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
 </head>
 <body>
   <!-- Assuming auth.js handles authentication/redirection if needed -->
-  <script src="auth.js"></script>
+  
 
   <header>
     <div class="container">
@@ -188,7 +42,7 @@
 
       <h4>Numeric</h4>
       <p>The default numerical type, representing real numbers (including decimals). Internally, these are usually stored as double-precision floating-point numbers.</p>
-      <pre><code># Numeric examples
+      <pre><code class="language-r"># Numeric examples
 x <- 42.5      # Decimal
 y <- 100       # Appears as integer, but stored as numeric by default
 z <- 2e3       # Scientific notation (2 * 10^3 = 2000)
@@ -199,7 +53,7 @@ is.numeric(x) # Output: TRUE</code></pre>
 
       <h4>Integer</h4>
       <p>Represents whole numbers. To explicitly create an integer, append an `L` to the number.</p>
-      <pre><code># Integer examples
+      <pre><code class="language-r"># Integer examples
 a <- 42L
 b <- -10L
 
@@ -214,7 +68,7 @@ class(c) # Output: "integer"</code></pre>
 
       <h4>Character</h4>
       <p>Represents text strings. Enclose text in either double (`"`) or single (`'`) quotes.</p>
-      <pre><code># Character examples
+      <pre><code class="language-r"># Character examples
 name <- "Alice"
 greeting <- 'Hello, world!'
 empty_string <- ""
@@ -228,7 +82,7 @@ print(full_greeting) # Output: "Hello, world! Alice"</code></pre>
 
       <h4>Logical</h4>
       <p>Represents Boolean values: `TRUE` or `FALSE`. Often the result of comparisons. You can abbreviate them as `T` and `F`, but this is generally discouraged as `T` and `F` can be reassigned.</p>
-      <pre><code># Logical examples
+      <pre><code class="language-r"># Logical examples
 is_valid <- TRUE
 has_error <- FALSE
 
@@ -250,7 +104,7 @@ TRUE | FALSE  # OR: Output: TRUE
 
       <h4>Complex</h4>
       <p>Represents complex numbers with real and imaginary parts.</p>
-      <pre><code># Complex examples
+      <pre><code class="language-r"># Complex examples
 comp_num <- 3 + 4i
 class(comp_num) # Output: "complex"
 Re(comp_num) # Real part: Output: 3
@@ -258,7 +112,7 @@ Im(comp_num) # Imaginary part: Output: 4</code></pre>
 
       <h4>Raw</h4>
       <p>Holds raw bytes. Less commonly used in typical data analysis.</p>
-      <pre><code># Raw examples
+      <pre><code class="language-r"># Raw examples
 raw_vec <- charToRaw("Hello")
 print(raw_vec) # Output: 48 65 6c 6c 6f
 class(raw_vec) # Output: "raw"</code></pre>
@@ -272,7 +126,7 @@ class(raw_vec) # Output: "raw"</code></pre>
         <p>5. Use the `class()` function to check the type of each variable you created.</p>
         <button onclick="toggleSolution('sol_types')">Show/Hide Solution Code</button>
         <div id="sol_types" class="result" style="display: none; background-color: #f5f5f5;">
-            <pre><code># 1. Create my_age
+            <pre><code class="language-r"># 1. Create my_age
 my_age <- 30L
 print(my_age)
 class(my_age) # Should be "integer"
@@ -303,7 +157,7 @@ class(is_beginner)</code></pre>
     <div class="section" id="vectors">
       <h2>Vectors</h2>
       <p>The most fundamental data structure. A vector is a sequence of elements, **all of the same basic data type**. You create vectors using the `c()` (combine) function.</p>
-      <pre><code># Creating vectors
+      <pre><code class="language-r"># Creating vectors
 numeric_vec <- c(1, 2, 3.5, 10)
 integer_vec <- c(1L, 5L, -2L)
 char_vec <- c("apple", "banana", "cherry")
@@ -325,7 +179,7 @@ class(mixed_vec) # Output: "character" (character is most flexible here)</code><
 
       <h4>Vector Indexing (1-based)</h4>
       <p>Access elements using square brackets `[]`. R uses 1-based indexing (the first element is at index 1).</p>
-      <pre><code># Indexing examples
+      <pre><code class="language-r"># Indexing examples
 my_vector <- c(10, 20, 30, 40, 50)
 
 my_vector[1]       # First element: Output: 10
@@ -337,7 +191,7 @@ my_vector[my_vector > 25] # Elements greater than 25: Output: 30 40 50</code></p
 
       <h4>Vectorized Operations</h4>
       <p>Operations in R are often vectorized, meaning they apply element-wise to entire vectors without needing explicit loops. This is efficient.</p>
-      <pre><code># Vectorized operations
+      <pre><code class="language-r"># Vectorized operations
 vec1 <- c(1, 2, 3)
 vec2 <- c(10, 20, 30)
 
@@ -360,7 +214,7 @@ vec1 + c(10, 20) # Output: 11 22 13 (c(10, 20) recycled to c(10, 20, 10))
         <p>5. What happens if you try `c(temps, days)`? What is the resulting vector's type?</p>
         <button onclick="toggleSolution('sol_vectors')">Show/Hide Solution Code</button>
         <div class="result" id="sol_vectors" style="display: none; background-color: #f5f5f5;">
-            <pre><code># 1. Create temps vector
+            <pre><code class="language-r"># 1. Create temps vector
 temps <- c(25.1, 28.3, 22.0, 31.5)
 print(temps)
 
@@ -393,7 +247,7 @@ class(combined_vec) # Output: "character"</code></pre>
       <h2>Matrices & Arrays</h2>
       <h4>Matrices</h4>
       <p>A matrix is a two-dimensional rectangular data structure. Importantly, like vectors, **all elements in a matrix must be of the same basic data type**.</p>
-      <pre><code># Creating a matrix
+      <pre><code class="language-r"># Creating a matrix
 # By default, fills by column
 mat1 <- matrix(1:12, nrow = 3, ncol = 4)
 print(mat1)
@@ -421,7 +275,7 @@ mat1 %*% t(mat1) # Matrix multiplication (t() is transpose)</code></pre>
 
       <h4>Arrays</h4>
       <p>Arrays extend matrices to more than two dimensions. All elements must be of the same type.</p>
-      <pre><code># Creating an array (3 rows, 4 columns, 2 layers)
+      <pre><code class="language-r"># Creating an array (3 rows, 4 columns, 2 layers)
 arr <- array(1:24, dim = c(3, 4, 2))
 print(arr)
 
@@ -432,7 +286,7 @@ arr[1, 2, 1] # Element at row 1, col 2, layer 1: Output: 4</code></pre>
     <div class="section" id="lists">
       <h2>Lists</h2>
       <p>Lists are a very flexible data structure because their elements **can be of different types**, including other lists, vectors, matrices, data frames, or functions.</p>
-      <pre><code># Creating a list
+      <pre><code class="language-r"># Creating a list
 my_list <- list(
     name = "Alice",
     age = 30L,
@@ -461,7 +315,7 @@ class(sub_list) # Output: "list"</code></pre>
     <div class="section" id="dataframes">
       <h2>Data Frames</h2>
       <p>The most common structure for storing tabular data in R. A data frame is essentially a list of vectors **of equal length**. Each vector represents a column, and they can be of different data types (numeric, character, logical, etc.).</p>
-      <pre><code># Creating a data frame
+      <pre><code class="language-r"># Creating a data frame
 df <- data.frame(
     ID = 1:4,
     Name = c("Alice", "Bob", "Charlie", "David"),
@@ -501,7 +355,7 @@ class(df_no_factors$Name) # Output: "character"
     <div class="section" id="factors">
       <h2>Factors</h2>
       <p>Factors are used to represent categorical data. They are stored internally as integers, with associated character labels (levels). Useful for statistical modeling and ensuring categories are treated correctly.</p>
-      <pre><code># Creating a factor
+      <pre><code class="language-r"># Creating a factor
 directions <- c("North", "East", "South", "North", "West")
 factor_directions <- factor(directions)
 print(factor_directions)
@@ -533,7 +387,7 @@ ordered_ratings[1] < ordered_ratings[3] # Comparison works: Output: TRUE
         <p>6. Access the `inventory` column of the `product_info` data frame.</p>
         <button onclick="toggleSolution('sol_structures')">Show/Hide Solution Code</button>
         <div class="result" id="sol_structures" style="display: none; background-color: #f5f5f5;">
-            <pre><code># 1. Create matrix
+            <pre><code class="language-r"># 1. Create matrix
 mat_data <- matrix(10:15, nrow = 2, ncol = 3, byrow = TRUE)
 print(mat_data)
 
@@ -576,7 +430,7 @@ print(inventory_col) # Output: 150 220</code></pre>
 
       <h4>NA (Not Available)</h4>
       <p>`NA` represents missing or undefined values within a vector or other data structure. `NA` values are "contagious" in calculations – operations involving `NA` often result in `NA` unless specifically handled.</p>
-      <pre><code># Working with NA
+      <pre><code class="language-r"># Working with NA
 x <- c(1, 2, NA, 4, 5)
 is.na(x)      # Check for NA: Output: FALSE FALSE TRUE FALSE FALSE
 any(is.na(x)) # Check if any NA exists: Output: TRUE
@@ -595,7 +449,7 @@ mean(x, na.rm = TRUE) # Output: 3
 
       <h4>NULL</h4>
       <p>`NULL` represents the absence of an object or an empty object. It is fundamentally different from `NA`. `NULL` has no type and zero length. It is often removed when combined into vectors or lists.</p>
-      <pre><code># Working with NULL
+      <pre><code class="language-r"># Working with NULL
 y <- NULL
 is.null(y)      # Check for NULL: Output: TRUE
 length(y)       # Output: 0
@@ -653,7 +507,7 @@ list(a = 1, b = NULL, c = 3) # NULL element is kept in lists
       <div class="exercise">
         <h3>Exercise: NA and NULL</h3>
         <p>What will the following code return?</p>
-        <pre><code>vec <- c(10, NA, 30, NULL, 50)
+        <pre><code class="language-r">vec <- c(10, NA, 30, NULL, 50)
 sum(vec, na.rm = TRUE)</code></pre>
 
         <div class="quiz-option">
@@ -699,67 +553,8 @@ sum(vec, na.rm = TRUE)</code></pre>
     </div>
   </footer>
 
-  <script>
-    function checkAnswer(questionId, correctAnswer) {
-      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
-      const resultDiv = document.getElementById(`${questionId}-result`);
-
-      if (!selectedOption) {
-        resultDiv.textContent = "Please select an answer.";
-        resultDiv.className = "result incorrect";
-        resultDiv.style.display = "block";
-        return;
-      }
-
-      if (selectedOption.value === correctAnswer) {
-        resultDiv.textContent = "Correct! Well done.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkVectorExercise() {
-      // This is a placeholder for checking code input.
-      // A real implementation would likely need server-side execution or a JS R interpreter.
-      // For now, we'll just provide feedback based on common patterns.
-      const userCode = document.getElementById("vector-exercise").value.trim();
-      const resultDiv = document.getElementById("vector-exercise-result");
-
-      // Simple check for common correct patterns
-      const correctPatterns = [
-        /seq\(\s*from\s*=\s*2\s*,\s*to\s*=\s*10\s*,\s*by\s*=\s*2\s*\)/,
-        /seq\(\s*2\s*,\s*10\s*,\s*2\s*\)/,
-        /seq\(\s*2\s*,\s*10\s*,\s*by\s*=\s*2\s*\)/,
-        /c\(\s*2\s*,\s*4\s*,\s*6\s*,\s*8\s*,\s*10\s*\)/
-      ];
-
-      if (correctPatterns.some(pattern => pattern.test(userCode))) {
-         resultDiv.textContent = "Looks correct! This code should generate the vector c(2, 4, 6, 8, 10).";
-         resultDiv.className = "result correct";
-      } else if (userCode.includes("seq") && !userCode.includes(")")) {
-         resultDiv.textContent = "Looks like you might be missing a closing parenthesis ')' in your seq() function.";
-         resultDiv.className = "result incorrect";
-      }
-       else {
-         resultDiv.textContent = "Not quite right, or not in a recognized format. Common ways are using seq(2, 10, by=2) or c(2, 4, 6, 8, 10).";
-         resultDiv.className = "result incorrect";
-      }
-      resultDiv.style.display = "block";
-    }
-
-    // Simple toggle function for solution code blocks
-    function toggleSolution(id) {
-        var element = document.getElementById(id);
-        if (element.style.display === "none") {
-            element.style.display = "block";
-        } else {
-            element.style.display = "none";
-        }
-    }
-  </script>
+  
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

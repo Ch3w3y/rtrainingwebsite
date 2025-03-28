@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming with dplyr | HARP Team R Training</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Programming with dplyr</h1>
+            <p>Writing reusable functions with Tidyverse verbs (Intermediate)</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="home-link">← Back to Course Index</a>
+
+        <div class="section" id="intro-tidy-eval">
+            <h2>The Challenge: Using dplyr Verbs Inside Functions</h2>
+            <p>You've learned the power of `dplyr` verbs like `filter()`, `mutate()`, `group_by()`, and `summarise()` for interactive data manipulation. But what happens when you want to wrap these operations inside your own functions to make your analysis reusable and less repetitive?</p>
+            <p>You might try something like this:</p>
+            <pre><code class="language-r">library(dplyr)
+library(palmerpenguins) # Example data
+
+# Function attempt 1: Filter by species
+filter_species <- function(data, species_name) {
+  # This will NOT work as intended!
+  data %>% filter(species == species_name)
+}
+
+# Try to use it
+adelie_penguins <- filter_species(penguins, "Adelie")
+# Error: object 'Adelie' not found
+</code></pre>
+            <p>This fails because `dplyr` uses **non-standard evaluation (NSE)**. It doesn't look for a variable named `species_name` in your global environment; it looks for a column named `species` inside the data frame and tries to compare it to the *literal value* `species_name`, which doesn't exist. It expects unquoted column names directly within its verbs.</p>
+            <p>To write functions that correctly handle column names passed as arguments, we need to use the **Tidy Evaluation** framework.</p>
+        </div>
+
+        <div class="section" id="curly-curly">
+            <h2>The Solution: Embracing Arguments with `{{ }}`</h2>
+            <p>The simplest and most common way to handle this in modern `dplyr` (and other tidyverse packages) is the "curly-curly" or "embrace" operator: `{{ }}`.</p>
+            <p>When you wrap a function argument with `{{ }}`, you tell `dplyr` to look at the *value* that argument represents (which should be a column name) rather than treating the argument name literally.</p>
+            <pre><code class="language-r"># Function attempt 2: Using {{ }}
+filter_species_tidy <- function(data, species_col, species_name) {
+  # {{species_col}} tells filter to use the column whose name is passed to species_col
+  data %>% filter({{ species_col }} == species_name)
+}
+
+# Use it correctly: Pass the *unquoted* column name to species_col
+adelie_penguins_tidy <- filter_species_tidy(penguins, species_col = species, species_name = "Adelie")
+glimpse(adelie_penguins_tidy) # Works!
+
+gentoo_penguins_tidy <- filter_species_tidy(penguins, species, "Gentoo") # Also works without naming arg
+glimpse(gentoo_penguins_tidy)
+</code></pre>
+            <p>The `{{ }}` operator "unquotes" the argument `species_col`, making `filter` see `species == "Adelie"` as intended.</p>
+
+            <h4>Using `{{ }}` with Multiple Columns or Expressions</h4>
+            <p>You can use `{{ }}` for arguments that represent column names in `select()`, `group_by()`, `mutate()`, etc.</p>
+            <pre><code class="language-r"># Function to group by a column and calculate mean of another
+summarise_by_group <- function(data, group_var, summary_var) {
+  data %>%
+    group_by({{ group_var }}) %>%
+    summarise(
+      mean_value = mean({{ summary_var }}, na.rm = TRUE),
+      n = n()
+    )
+}
+
+# Calculate mean bill length by species
+summarise_by_group(penguins, group_var = species, summary_var = bill_length_mm)
+
+# Calculate mean body mass by island
+summarise_by_group(penguins, island, body_mass_g)
+
+# Function to create a new column based on others
+create_ratio <- function(data, new_col_name, numerator_col, denominator_col) {
+  data %>%
+    mutate({{ new_col_name }} := {{ numerator_col }} / {{ denominator_col }})
+    # Note the := operator for assigning to a dynamic name
+}
+
+penguins_with_ratio <- create_ratio(penguins,
+                                    new_col_name = bill_ratio,
+                                    numerator_col = bill_length_mm,
+                                    denominator_col = bill_depth_mm)
+glimpse(penguins_with_ratio)
+</code></pre>
+            <div class="note">
+                <strong>Dynamic Variable Names:</strong> When you want the *name* of a new column in `mutate` or `summarise` to be determined by a function argument, use the `:=` (walrus) operator instead of `=`.
+            </div>
+        </div>
+
+        <div class="section" id="dot-data-pronoun">
+            <h2>Disambiguation: The `.data` Pronoun</h2>
+            <p>Sometimes, you might have a function argument with the same name as a column in your data frame. This can cause ambiguity. The `.data` pronoun helps resolve this.</p>
+            <p>Inside `dplyr` verbs, `.data[[var_name]]` always refers to the column named `var_name` in the data frame being processed, while `var_name` by itself refers to the variable in the function's environment.</p>
+            <pre><code class="language-r"># Example where argument name clashes with column name
+mean_bill_length <- 10 # A variable in the environment
+
+# This function might be ambiguous if 'mean_bill_length' was a column
+filter_longer_than_value <- function(data, col, value) {
+  # Using .data ensures we filter based on the COLUMN 'col',
+  # comparing it to the ARGUMENT 'value'
+  data %>% filter(.data[[col]] > value)
+}
+
+# Correct usage: Pass column name as a string when using .data[[...]]
+filter_longer_than_value(penguins, "bill_length_mm", 45)
+
+# Less common, but needed if 'value' argument clashed with a column name:
+filter_longer_than_value_safe <- function(data, col, value) {
+  # Use .env to explicitly refer to the 'value' from the function environment
+  data %>% filter(.data[[col]] > .env$value)
+}
+filter_longer_than_value_safe(penguins, "bill_length_mm", 45)
+
+</code></pre>
+            <p>Generally, using `{{ }}` is preferred for passing column names. Use `.data` when you need to refer to a column name provided as a *string* or to disambiguate between an argument and a column with the same name.</p>
+        </div>
+
+         <div class="section" id="dots-ellipsis">
+            <h2>Passing Multiple Arguments with `...`</h2>
+            <p>What if you want your function to accept multiple grouping variables or multiple columns to select? You can use the ellipsis (`...`).</p>
+             <pre><code class="language-r"># Function to group by any number of columns and summarise
+group_summarise <- function(data, ..., summary_var) {
+  data %>%
+    group_by(...) %>% # Pass the ellipsis directly
+    summarise(
+      mean_value = mean({{ summary_var }}, na.rm = TRUE),
+      n = n(),
+      .groups = "drop" # Good practice to drop grouping afterwards
+    )
+}
+
+# Group by species
+group_summarise(penguins, species, summary_var = body_mass_g)
+
+# Group by species and island
+group_summarise(penguins, species, island, summary_var = body_mass_g)
+
+# Function to select any number of columns
+select_cols <- function(data, ...) {
+  data %>% select(...)
+}
+
+select_cols(penguins, species, island, bill_length_mm)
+</code></pre>
+        </div>
+
+        <div class="section" id="older-nse">
+            <h2>Older NSE / Tidy Eval Approaches (Briefly)</h2>
+            <p>You might encounter older code using functions like `quo()`, `enquo()`, `!!` (bang-bang), and `!!!` (bang-bang-bang). These were predecessors to the `{{ }}` syntax.</p>
+            <ul>
+                <li>`enquo(arg)`: Captures the expression passed to `arg`.</li>
+                <li>`!!`: Unquotes a captured expression (similar to `{{ }}`).</li>
+                <li>`!!!`: Unquotes a list of captured expressions (for `...`).</li>
+            </ul>
+            <pre><code class="language-r"># Example using older syntax (less common now)
+filter_species_old <- function(data, species_col, species_name) {
+  species_col_enquo <- enquo(species_col)
+  data %>% filter(!!species_col_enquo == species_name)
+}
+
+filter_species_old(penguins, species, "Adelie")
+</code></pre>
+            <p>While understanding these can be helpful for reading older code, **prefer using `{{ }}` and `:=` in new code** for simplicity and clarity.</p>
+        </div>
+
+        <div class="exercise">
+            <h4>Exercise: Programming with dplyr</h4>
+            <p>Write a function `calculate_group_stats` that takes a data frame, a grouping variable, and a numeric variable as arguments. The function should:</p>
+            <ol>
+                <li>Group the data by the `grouping_variable`.</li>
+                <li>Calculate the mean, median, and standard deviation of the `numeric_variable` for each group.</li>
+                <li>Rename the summary columns to `avg_[var]`, `med_[var]`, `sd_[var]` (where `[var]` is the name of the numeric variable).</li>
+                <li>Return the summarised tibble.</li>
+            </ol>
+            <p>Test your function on the `penguins` dataset, grouping by `species` and calculating stats for `flipper_length_mm`.</p>
+            <div class="check-answer" onclick="toggleSolution('sol_dplyr_prog')">Show Solution</div>
+            <div class="solution" id="sol_dplyr_prog">
+                <pre><code class="language-r">library(dplyr)
+library(palmerpenguins)
+library(stringr) # For str_glue
+
+calculate_group_stats <- function(data, group_var, numeric_var) {
+  # Capture the name of the numeric variable for renaming
+  numeric_var_name <- deparse(substitute(numeric_var))
+
+  data %>%
+    group_by({{ group_var }}) %>%
+    summarise(
+      # Use dynamic names with := and str_glue or paste0
+      "avg_{numeric_var_name}" := mean({{ numeric_var }}, na.rm = TRUE),
+      "med_{numeric_var_name}" := median({{ numeric_var }}, na.rm = TRUE),
+      "sd_{numeric_var_name}" := sd({{ numeric_var }}, na.rm = TRUE),
+      count = n(),
+      .groups = "drop" # Drop grouping after summarise
+    )
+}
+
+# Test the function
+penguin_flipper_stats <- calculate_group_stats(penguins,
+                                               group_var = species,
+                                               numeric_var = flipper_length_mm)
+
+print(penguin_flipper_stats)
+# Expected Output (column names might vary slightly based on exact renaming):
+# # A tibble: 3 × 5
+#   species   avg_flipper_length_mm med_flipper_length_mm sd_flipper_length_mm count
+#   <fct>                     <dbl>                 <dbl>                <dbl> <int>
+# 1 Adelie                     190.                   190                 6.52   152
+# 2 Chinstrap                  196.                   196                 7.13    68
+# 3 Gentoo                     217.                   216                 6.48   124
+</code></pre>
+            </div>
+        </div>
+
+        <div class="module-nav">
+           <!-- Add Previous/Next links here when structure is known -->
+           <span><!-- <a href="PREVIOUS_PAGE.html">← Previous Module: ...</a> --></span>
+           <span><a href="ggplot2-advanced.html">Next Module: Advanced ggplot2 →</a></span>
+       </div>
+
+    </div><!-- /container -->
+
+    <footer>
+        <div class="container">
+            <p>HARP Team R Training © 2025 | Created by Daryn Sutton</p>
+        </div>
+    </footer>
+
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
+    <!-- Add auth.js if needed -->
+    <!-- <script src="js/auth.js"></script> -->
+</body>
+</html>

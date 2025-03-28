@@ -4,177 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Programmatic Use of R for Automation | HARP Team R Training</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      background-color: #f8f9fa;
-    }
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #2c3e50;
-    }
-    pre {
-      background-color: #f5f5f5;
-      border-left: 4px solid #3498db;
-      padding: 15px;
-      margin: 20px 0;
-      overflow-x: auto;
-      border-radius: 4px;
-    }
-    code {
-      font-family: 'Consolas', 'Monaco', monospace;
-    }
-    .section {
-      background-color: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .exercise {
-      background-color: #e8f4fc;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 25px 0;
-    }
-    .exercise h3 {
-      margin-top: 0;
-      color: #2980b9;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .result {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      display: none;
-    }
-    .correct {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .home-link {
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-    .quiz-option {
-      margin: 10px 0;
-    }
-    .code-input {
-      width: 100%;
-      height: 100px;
-      font-family: 'Consolas', 'Monaco', monospace;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-    .tip {
-      background-color: #fff3cd;
-      border-left: 4px solid #ffc107;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 4px;
-    }
-    .warning {
-      background-color: #f8d7da;
-      border-left: 4px solid #dc3545;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 4px;
-    }
-    .note {
-      background-color: #d1ecf1;
-      border-left: 4px solid #17a2b8;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 4px;
-    }
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid #ddd;
-      margin-bottom: 15px;
-    }
-    .tab {
-      padding: 10px 15px;
-      cursor: pointer;
-      border: 1px solid transparent;
-      border-bottom: none;
-      margin-bottom: -1px;
-    }
-    .tab.active {
-      background-color: white;
-      border-color: #ddd;
-      border-radius: 4px 4px 0 0;
-    }
-    .tab-content {
-      display: none;
-    }
-    .tab-content.active {
-      display: block;
-    }
-  </style>
+  
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
 </head>
 <body>
-  <script src="auth.js"></script>
+  
 
   <header>
     <div class="container">
@@ -209,7 +44,7 @@
       <p>Loops allow you to repeat tasks multiple times.</p>
 
       <h3>For Loops</h3>
-      <pre><code># Basic for loop
+      <pre><code class="language-r"># Basic for loop
 for (i in 1:5) {
   print(i)
 }
@@ -234,7 +69,7 @@ for (i in seq_along(fruits)) {
 }</code></pre>
 
       <h3>While Loops</h3>
-      <pre><code># Basic while loop
+      <pre><code class="language-r"># Basic while loop
 count <- 1
 while (count <= 5) {
   print(count)
@@ -262,7 +97,7 @@ while (i < 10) {
 }</code></pre>
 
       <h3>Repeat Loops</h3>
-      <pre><code># Basic repeat loop (less commonly used)
+      <pre><code class="language-r"># Basic repeat loop (less commonly used)
 count <- 1
 repeat {
   print(count)
@@ -302,7 +137,7 @@ repeat {
       <p>Conditional statements allow you to execute code based on specific conditions.</p>
 
       <h3>If-Else Statements</h3>
-      <pre><code># Basic if-else
+      <pre><code class="language-r"># Basic if-else
 x <- 10
 if (x > 5) {
   print("x is greater than 5")
@@ -338,7 +173,7 @@ if (age > 18) {
 }</code></pre>
 
       <h3>Case When</h3>
-      <pre><code># Using case_when from dplyr
+      <pre><code class="language-r"># Using case_when from dplyr
 library(dplyr)
 data <- tibble(
   score = c(90, 75, 60, 45),
@@ -365,7 +200,7 @@ employees <- tibble(
 )</code></pre>
 
       <h3>Switch Statement</h3>
-      <pre><code># Basic switch statement
+      <pre><code class="language-r"># Basic switch statement
 day <- "Monday"
 result <- switch(day,
   Monday = "Start of work week",
@@ -412,7 +247,7 @@ print(result)</code></pre>
       <p>Functions allow you to package code for reuse, making your automation more modular and maintainable.</p>
 
       <h3>Basic Function Structure</h3>
-      <pre><code># Simple function
+      <pre><code class="language-r"># Simple function
 greet <- function(name) {
   paste("Hello,", name, "!")
 }
@@ -433,7 +268,7 @@ calculate_total(100, tax_rate = 0.05)  # Override tax_rate
 calculate_total(100, discount = 0.1, tax_rate = 0.06)  # Override both</code></pre>
 
       <h3>Return Values</h3>
-      <pre><code># Explicit return statement
+      <pre><code class="language-r"># Explicit return statement
 square <- function(x) {
   return(x^2)
 }
@@ -460,7 +295,7 @@ print(results$mean)  # Access specific elements
 print(results$max)</code></pre>
 
       <h3>Functions with Variable Arguments</h3>
-      <pre><code># Using ... for variable arguments
+      <pre><code class="language-r"># Using ... for variable arguments
 sum_all <- function(...) {
   args <- list(...)
   sum(unlist(args))
@@ -486,7 +321,7 @@ sum_all(c(1, 2), c(3, 4))  # 10</code></pre>
       <p>The purrr package provides tools for functional programming in R.</p>
 
       <h3>Using map()</h3>
-      <pre><code># Apply a function to each element of a list
+      <pre><code class="language-r"># Apply a function to each element of a list
 library(purrr)
 numbers <- list(1, 2, 3, 4, 5)
 squared <- map(numbers, ~ .x^2)
@@ -506,7 +341,7 @@ map_chr(numbers, ~ paste("Number:", .x))
 map_lgl(numbers, ~ .x > 3)</code></pre>
 
       <h3>Using map2()</h3>
-      <pre><code># Apply a function to pairs of elements from two lists
+      <pre><code class="language-r"># Apply a function to pairs of elements from two lists
 list1 <- list(1, 2, 3)
 list2 <- list(10, 20, 30)
 sums <- map2(list1, list2, ~ .x + .y)
@@ -523,7 +358,7 @@ scores <- c(92, 85, 78)
 results <- map2_chr(names, scores, ~ paste(.x, "scored", .y, "points"))</code></pre>
 
       <h3>More purrr Functions</h3>
-      <pre><code># pmap - apply function to multiple parameter vectors
+      <pre><code class="language-r"># pmap - apply function to multiple parameter vectors
 prices <- c(100, 200, 300)
 tax_rates <- c(0.05, 0.07, 0.06)
 discounts <- c(0.1, 0, 0.15)
@@ -546,7 +381,7 @@ keep(1:10, ~ .x %% 2 == 0)  # Keep even numbers
 discard(1:10, ~ .x %% 2 == 0)  # Discard even numbers</code></pre>
 
       <h3>Error Handling with purrr</h3>
-      <pre><code># safely - returns result and error
+      <pre><code class="language-r"># safely - returns result and error
 safe_log <- safely(log)
 safe_log(10)  # Returns list with $result and $error
 safe_log(-5)  # Error is caught, returns list with NULL result and error
@@ -573,7 +408,7 @@ map_dbl(numbers, possible_log)</code></pre>
       <div class="exercise">
         <h3>Exercise: Advanced purrr</h3>
         <p>Use <code>pmap</code> to calculate the final prices for products with varying prices, tax rates, and discounts:</p>
-        <pre><code>products <- list(
+        <pre><code class="language-r">products <- list(
   list(name = "Product A", price = 100, tax = 0.05, discount = 0.1),
   list(name = "Product B", price = 200, tax = 0.07, discount = 0),
   list(name = "Product C", price = 150, tax = 0.06, discount = 0.15)
@@ -591,7 +426,7 @@ map_dbl(numbers, possible_log)</code></pre>
       <p>Robust automation requires proper error handling to ensure scripts can handle unexpected situations.</p>
 
       <h3>Try-Catch with tryCatch()</h3>
-      <pre><code># Basic error handling
+      <pre><code class="language-r"># Basic error handling
 result <- tryCatch(
   {
     # Code that might fail
@@ -631,7 +466,7 @@ process_data <- function(file_path) {
 }</code></pre>
 
       <h3>Multiple Conditions</h3>
-      <pre><code># Handling specific error types
+      <pre><code class="language-r"># Handling specific error types
 validate_input <- function(x) {
   if (!is.numeric(x)) {
     stop("Input must be numeric")
@@ -673,7 +508,7 @@ result <- tryCatch(
       <p>Automating file operations is a common requirement in data processing workflows.</p>
 
       <h3>Reading and Writing Files</h3>
-      <pre><code># List files in a directory
+      <pre><code class="language-r"># List files in a directory
 files <- list.files(path = "data/", pattern = "*.csv", full.names = TRUE)
 
 # Read multiple files
@@ -696,7 +531,7 @@ file_paths <- paste0("data/iris_", names(data_list), ".csv")
 walk2(data_list, file_paths, write.csv)</code></pre>
 
       <h3>Working with Directories</h3>
-      <pre><code># Create directories
+      <pre><code class="language-r"># Create directories
 dir.create("output", showWarnings = FALSE)
 dir.create("output/processed", recursive = TRUE, showWarnings = FALSE)
 
@@ -733,7 +568,7 @@ if (file.exists("temp.txt")) {
       <p>Running R scripts automatically at specified times or intervals.</p>
 
       <h3>Using cronR for macOS/Linux</h3>
-      <pre><code># Install and load cronR
+      <pre><code class="language-r"># Install and load cronR
 # install.packages("cronR")
 library(cronR)
 
@@ -748,7 +583,7 @@ cron_ls()
 cron_rm(id = 1)</code></pre>
 
       <h3>Using taskscheduleR for Windows</h3>
-      <pre><code># Install and load taskscheduleR
+      <pre><code class="language-r"># Install and load taskscheduleR
 # install.packages("taskscheduleR")
 library(taskscheduleR)
 
@@ -767,7 +602,7 @@ taskscheduler_ls()
 taskscheduler_delete("DailyReport")</code></pre>
 
       <h3>Parameterized Rmd Reports</h3>
-      <pre><code># Create a script to generate reports for different parameters
+      <pre><code class="language-r"># Create a script to generate reports for different parameters
 library(rmarkdown)
 
 # Define parameters
@@ -825,7 +660,7 @@ for (year in years) {
       <p>Common scenarios where R automation can be applied effectively.</p>
 
       <h3>Data Processing Pipeline</h3>
-      <pre><code># Example data processing pipeline
+      <pre><code class="language-r"># Example data processing pipeline
 process_data_pipeline <- function(input_dir, output_dir) {
   # Step 1: List files to process
   files <- list.files(path = input_dir, pattern = "*.csv", full.names = TRUE)
@@ -869,7 +704,7 @@ process_data_pipeline <- function(input_dir, output_dir) {
 }</code></pre>
 
       <h3>Automated Reporting</h3>
-      <pre><code># Generate daily reports
+      <pre><code class="language-r"># Generate daily reports
 generate_daily_reports <- function() {
   # Get yesterday's date
   yesterday <- Sys.Date() - 1
@@ -913,173 +748,8 @@ generate_daily_reports <- function() {
     </div>
   </footer>
 
-  <script>
-    function checkLoopsExercise() {
-      const userCode = document.getElementById("loops-exercise").value.trim();
-      const resultDiv = document.getElementById("loops-exercise-result");
-
-      if (userCode.includes("for (i in 1:10)") && userCode.includes("print(i^2)")) {
-        resultDiv.textContent = "Correct! You've written a for loop to print the squares of numbers.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to use 'i^2' to calculate the square.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkNestedLoopsExercise() {
-      const userCode = document.getElementById("nested-loops-exercise").value.trim();
-      const resultDiv = document.getElementById("nested-loops-exercise-result");
-
-      if (userCode.includes("for (i in 1:5)") && 
-          userCode.includes("for (j in 1:5)") && 
-          userCode.includes("i * j")) {
-        resultDiv.textContent = "Correct! You've created a nested loop to generate a multiplication table.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to use nested loops with 'i' and 'j' variables and calculate i * j.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkConditionalStatementsExercise() {
-      const userCode = document.getElementById("conditional-statements-exercise").value.trim();
-      const resultDiv = document.getElementById("conditional-statements-exercise-result");
-
-      if ((userCode.includes("if (x %% 2 == 0)") || userCode.includes("if(x %% 2 == 0)")) && 
-          userCode.includes("else") && 
-          (userCode.includes("even") || userCode.includes("odd"))) {
-        resultDiv.textContent = "Correct! You've written an if-else statement to check for even or odd numbers.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to use 'x %% 2 == 0' to check for even numbers and include both if and else clauses.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkCaseWhenExercise() {
-      const userCode = document.getElementById("case-when-exercise").value.trim();
-      const resultDiv = document.getElementById("case-when-exercise-result");
-
-      if (userCode.includes("case_when") && 
-          userCode.includes("< 32") && 
-          userCode.includes(">= 32") && 
-          userCode.includes(">= 50") && 
-          userCode.includes(">= 70") && 
-          userCode.includes("> 85")) {
-        resultDiv.textContent = "Correct! You've created a case_when statement with all the required temperature categories.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to use case_when and include all temperature categories with proper conditions.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkFunctionExercise() {
-      const userCode = document.getElementById("function-exercise").value.trim();
-      const resultDiv = document.getElementById("function-exercise-result");
-
-      if (userCode.includes("calculate_bmi") && 
-          userCode.includes("function") && 
-          userCode.includes("weight") && 
-          userCode.includes("height") && 
-          userCode.includes("weight / (height") && 
-          userCode.includes("^2") &&
-          userCode.includes("round")) {
-        resultDiv.textContent = "Correct! You've created a function to calculate BMI with proper rounding.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure your function is named calculate_bmi, takes height and weight parameters, and rounds the result.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkFunctionalProgrammingExercise() {
-      const userCode = document.getElementById("functional-programming-exercise").value.trim();
-      const resultDiv = document.getElementById("functional-programming-exercise-result");
-
-      if (userCode.includes("map(numbers, sqrt)") || 
-          userCode.includes("map(numbers, function") && userCode.includes("sqrt") || 
-          userCode.includes("map(numbers, ~ sqrt")) {
-        resultDiv.textContent = "Correct! You've used map() to calculate the square root.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to use 'map(numbers, sqrt)' or an equivalent lambda expression.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkPmapExercise() {
-      const userCode = document.getElementById("pmap-exercise").value.trim();
-      const resultDiv = document.getElementById("pmap-exercise-result");
-
-      if (userCode.includes("pmap") && 
-          userCode.includes("price") && 
-          userCode.includes("tax") && 
-          userCode.includes("discount") && 
-          userCode.includes("1 - discount") && 
-          userCode.includes("1 + tax")) {
-        resultDiv.textContent = "Correct! You've used pmap to calculate final prices with the correct formula.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to use pmap and apply the formula: (price * (1 - discount)) * (1 + tax).";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkErrorHandlingExercise() {
-      const userCode = document.getElementById("error-handling-exercise").value.trim();
-      const resultDiv = document.getElementById("error-handling-exercise-result");
-
-      if ((userCode.includes("tryCatch") || userCode.includes("possibly") || userCode.includes("safely")) && 
-          userCode.includes("log") && 
-          userCode.includes("NA")) {
-        resultDiv.textContent = "Correct! You've created a function that safely computes logarithms and handles invalid inputs.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to use error handling (tryCatch or possibly) and return NA for invalid inputs.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-
-    function checkFileProcessingExercise() {
-      const userCode = document.getElementById("file-processing-exercise").value.trim();
-      const resultDiv = document.getElementById("file-processing-exercise-result");
-
-      if (userCode.includes("list.files") && 
-          userCode.includes("read.csv") && 
-          userCode.includes("bind_rows") && 
-          userCode.includes("group_by") && 
-          userCode.includes("category") && 
-          userCode.includes("summarize") && 
-          userCode.includes("mean") && 
-          userCode.includes("sum") && 
-          userCode.includes("write.csv")) {
-        resultDiv.textContent = "Correct! Your script correctly reads, combines, groups, summarizes, and writes the data.";
-        resultDiv.className = "result correct";
-      } else {
-        resultDiv.textContent = "Not quite right. Make sure to list files, read CSVs, combine them, group by category, calculate statistics, and write the summary.";
-        resultDiv.className = "result incorrect";
-      }
-
-      resultDiv.style.display = "block";
-    }
-  </script>
+  
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

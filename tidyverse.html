@@ -4,129 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comprehensive Tidyverse in R | Data Science Training</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            color: #333;
-        }
-        h1, h2, h3, h4 {
-            color: #2c3e50;
-        }
-        h1 {
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        h2 {
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-            margin-top: 30px;
-        }
-        pre {
-            background-color: #f8f8f8;
-            padding: 12px;
-            border-radius: 5px;
-            border-left: 4px solid #3498db;
-            overflow-x: auto;
-            font-size: 14px;
-        }
-        code {
-            font-family: Consolas, Monaco, 'Andale Mono', monospace;
-            background-color: #f0f0f0;
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
-        pre code {
-            background-color: transparent;
-            padding: 0;
-        }
-        .exercise {
-            background-color: #ebf5fb;
-            padding: 15px;
-            border-left: 4px solid #3498db;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-        .exercise h4 {
-            margin-top: 0;
-            color: #2980b9;
-        }
-        .solution {
-            background-color: #eafaf1;
-            padding: 15px;
-            border-left: 4px solid #2ecc71;
-            margin: 10px 0;
-            display: none;
-            border-radius: 5px;
-        }
-        .check-answer {
-            color: #2980b9;
-            cursor: pointer;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        .back-link {
-            margin-bottom: 20px;
-        }
-        .note {
-            background-color: #fff9e6;
-            padding: 10px;
-            border-left: 4px solid #f1c40f;
-            margin: 15px 0;
-            border-radius: 5px;
-        }
-        .warning {
-            background-color: #fdedec;
-            padding: 10px;
-            border-left: 4px solid #e74c3c;
-            margin: 15px 0;
-            border-radius: 5px;
-        }
-        .tip {
-            background-color: #e8f8f5;
-            padding: 10px;
-            border-left: 4px solid #1abc9c;
-            margin: 15px 0;
-            border-radius: 5px;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin: 15px 0;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .section-nav {
-            background-color: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 20px 0;
-        }
-        .section-nav ul {
-            list-style-type: none;
-            padding-left: 15px;
-        }
-        footer {
-            margin-top: 40px;
-            border-top: 1px solid #ddd;
-            padding-top: 10px;
-            font-size: 0.9em;
-            text-align: center;
-        }
-    </style>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
 </head>
 <body>
-    <h1>Comprehensive Tidyverse in R | Data Science Training</h1>
-
+   <header>	  
+   	    <h1>Comprehensive Tidyverse in R | Data Science Training</h1>
+       </div>
+    </header>
+  <div class="container">
     <p>The Tidyverse is an ecosystem of R packages designed with common APIs and a shared philosophy. This guide provides an in-depth exploration of the major Tidyverse packages and how to leverage them for efficient data science workflows.</p>
 
     <div class="back-link">
@@ -166,7 +53,7 @@
 
     <h3>Installing and Loading</h3>
 
-    <pre><code># Install the complete tidyverse
+    <pre><code class="language-r"># Install the complete tidyverse
 install.packages("tidyverse")
 
 # Load the core tidyverse packages
@@ -189,7 +76,7 @@ library(ggplot2)</code></pre>
 
     <h3>Creating Tibbles</h3>
 
-    <pre><code># Create a tibble from scratch
+    <pre><code class="language-r"># Create a tibble from scratch
 tbl <- tibble(
   x = 1:5,
   y = LETTERS[1:5],
@@ -215,7 +102,7 @@ tibble_data <- tibble(
         <li>Tibbles don't support row names</li>
     </ul>
 
-    <pre><code># Data frame vs tibble printing
+    <pre><code class="language-r"># Data frame vs tibble printing
 head(mtcars)
 as_tibble(mtcars)
 
@@ -229,7 +116,7 @@ tbl$x</code></pre>
 
     <h3>Tribbles: Transposed Tibbles</h3>
 
-    <pre><code># Row-wise tibble creation
+    <pre><code class="language-r"># Row-wise tibble creation
 tribble(
   ~name, ~age, ~city,
   "John", 25, "New York",
@@ -250,7 +137,7 @@ tribble(
         <p>Then, print your tibble and explain how the output differs from a standard data frame.</p>
         <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
         <div class="solution">
-            <pre><code># Creating the tibble
+            <pre><code class="language-r"># Creating the tibble
 set.seed(123) # For reproducibility
 product_tibble <- tibble(
   product_id = 1:5,
@@ -277,7 +164,7 @@ product_tibble
 
     <h3>Reading Data Files</h3>
 
-    <pre><code># Read a CSV file
+    <pre><code class="language-r"># Read a CSV file
 data_csv <- read_csv("data.csv")
 
 # Read a TSV file
@@ -298,7 +185,7 @@ data_from_string <- read_csv("
 
     <h3>Parsing Options</h3>
 
-    <pre><code># Specify column types
+    <pre><code class="language-r"># Specify column types
 data <- read_csv("data.csv",
   col_types = cols(
     id = col_integer(),
@@ -323,7 +210,7 @@ data <- read_csv("data.csv",
 
     <h3>Writing Data Files</h3>
 
-    <pre><code># Write to CSV
+    <pre><code class="language-r"># Write to CSV
 write_csv(data, "output.csv")
 
 # Write to TSV
@@ -357,7 +244,7 @@ Sarah Williams,39,2017-08-14,IT,81200</pre>
         </ol>
         <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
         <div class="solution">
-            <pre><code># Create a temporary CSV file
+            <pre><code class="language-r"># Create a temporary CSV file
 temp_csv <- tempfile(fileext = ".csv")
 writeLines("name,age,hire_date,department,salary
 John Smith,34,2018-05-12,IT,78500
@@ -409,7 +296,7 @@ unlink(temp_csv)</code></pre>
 
     <h3>Core dplyr Verbs</h3>
 
-    <pre><code># Sample data
+    <pre><code class="language-r"># Sample data
 employees <- tibble(
   id = 1:8,
   name = c("Alice", "Bob", "Charlie", "Diana", "Eva", "Frank", "Grace", "Henry"),
@@ -420,7 +307,7 @@ employees <- tibble(
 
     <h4>filter(): Subset Rows Based on Values</h4>
 
-    <pre><code># Single condition
+    <pre><code class="language-r"># Single condition
 employees %>% filter(department == "IT")
 
 # Multiple conditions with AND
@@ -445,7 +332,7 @@ employees %>% filter(department != "Marketing")</code></pre>
 
     <h4>select(): Choose Columns by Name</h4>
 
-    <pre><code># Select specific columns
+    <pre><code class="language-r"># Select specific columns
 employees %>% select(name, department, salary)
 
 # Exclude columns
@@ -459,7 +346,7 @@ employees %>% select(employee_id = id, employee_name = name, department, salary)
 
     <h4>Helper Functions for select()</h4>
 
-    <pre><code># Select columns containing a string
+    <pre><code class="language-r"># Select columns containing a string
 employees %>% select(contains("a"))
 
 # Select columns starting with a string
@@ -479,7 +366,7 @@ employees %>% select(name, id, everything())</code></pre>
 
     <h4>mutate(): Create or Transform Variables</h4>
 
-    <pre><code># Add a new column
+    <pre><code class="language-r"># Add a new column
 employees %>% mutate(bonus = salary * 0.1)
 
 # Add multiple columns
@@ -515,7 +402,7 @@ employees %>% mutate(
 
     <h4>arrange(): Sort Rows</h4>
 
-    <pre><code># Arrange in ascending order
+    <pre><code class="language-r"># Arrange in ascending order
 employees %>% arrange(salary)
 
 # Arrange in descending order
@@ -530,7 +417,7 @@ employees %>% arrange(desc(salary), na_last = TRUE)</code></pre>
 
     <h4>summarize(): Reduce Data to Summary</h4>
 
-    <pre><code># Basic summary statistics
+    <pre><code class="language-r"># Basic summary statistics
 employees %>% summarize(
   avg_salary = mean(salary),
   total_employees = n(),
@@ -550,7 +437,7 @@ employees %>% summarize(
 
     <h4>group_by(): Group Data for Operations</h4>
 
-    <pre><code># Group and summarize
+    <pre><code class="language-r"># Group and summarize
 employees %>%
   group_by(department) %>%
   summarize(
@@ -582,7 +469,7 @@ employees %>%
 
     <h4>Joins: Combining Tables</h4>
 
-    <pre><code># Sample data for joins
+    <pre><code class="language-r"># Sample data for joins
 dept_info <- tibble(
   department = c("IT", "HR", "Finance", "Marketing", "Sales"),
   location = c("Floor 3", "Floor 1", "Floor 2", "Floor 1", "Floor 4"),
@@ -613,7 +500,7 @@ employees %>% anti_join(dept_info, by = "department")
 
     <h4>Working with Row Indices</h4>
 
-    <pre><code># Sample data
+    <pre><code class="language-r"># Sample data
 transactions <- tibble(
   id = 1:10,
   customer = sample(LETTERS[1:5], 10, replace = TRUE),
@@ -648,7 +535,7 @@ transactions %>%
 
     <h4>Conditional and Comparative Logic</h4>
 
-    <pre><code># if_else: vectorized if statement
+    <pre><code class="language-r"># if_else: vectorized if statement
 employees %>% mutate(
   tax_rate = if_else(salary > 80000, 0.3, 0.25)
 )
@@ -671,7 +558,7 @@ employees %>% filter(near(salary / 1000, 65))</code></pre>
 
     <h4>Advanced Selection and Transformation</h4>
 
-    <pre><code># across: apply same transformation to multiple columns
+    <pre><code class="language-r"># across: apply same transformation to multiple columns
 employees %>%
   mutate(across(c(salary, years), ~ scale(.)))
 
@@ -694,7 +581,7 @@ employees %>%
     <div class="exercise">
         <h4>Exercise: Data Manipulation Challenge</h4>
         <p>Using the following dataset of sales transactions:</p>
-        <pre><code>sales <- tibble(
+        <pre><code class="language-r">sales <- tibble(
   date = c("2023-01-15", "2023-01-20", "2023-01-25", "2023-02-05", "2023-02-10", 
            "2023-02-15", "2023-02-20", "2023-03-01", "2023-03-10", "2023-03-15"),
   product = c("Laptop", "Phone", "Tablet", "Laptop", "Phone", 
@@ -717,7 +604,7 @@ employees %>%
         </ol>
         <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
         <div class="solution">
-            <pre><code>library(tidyverse)
+            <pre><code class="language-r">library(tidyverse)
 library(lubridate)
 
 # Define the sales data
@@ -792,7 +679,7 @@ sales_with_pct %>%
 
     <h4>pivot_longer(): Wide to Long Format</h4>
 
-    <pre><code># Sample wide format data
+    <pre><code class="language-r"># Sample wide format data
 ratings_wide <- tibble(
   name = c("Alice", "Bob", "Charlie"),
   math = c(90, 85, 78),
@@ -840,7 +727,7 @@ ratings_wide_extra %>%
 
     <h4>pivot_wider(): Long to Wide Format</h4>
 
-    <pre><code># Basic pivot to wide format
+    <pre><code class="language-r"># Basic pivot to wide format
 ratings_wide2 <- ratings_long %>%
   pivot_wider(
     names_from = subject,
@@ -876,7 +763,7 @@ duplicate_data %>%
 
     <h3>Handling Missing Values</h3>
 
-    <pre><code># Sample data with missing values
+    <pre><code class="language-r"># Sample data with missing values
 employees_missing <- tibble(
   id = 1:6,
   name = c("Alice", "Bob", "Charlie", NA, "Eva", "Frank"),
@@ -916,7 +803,7 @@ complete(product_sales,
 
     <h3>Nesting and Unnesting Data</h3>
 
-    <pre><code># Sample data
+    <pre><code class="language-r"># Sample data
 nested_example <- tibble(
   group = c("A", "A", "B", "B", "B", "C"),
   value1 = c(1, 2, 3, 4, 5, 6),
@@ -957,7 +844,7 @@ mtcars_nested %>%
 
     <h3>Separating and Uniting Columns</h3>
 
-    <pre><code># Separate a column into multiple columns
+    <pre><code class="language-r"># Separate a column into multiple columns
 names <- tibble(
   name = c("John Smith", "Jane Doe", "Robert Johnson")
 )
@@ -999,7 +886,7 @@ parts %>%
     <div class="exercise">
         <h4>Exercise: Reshaping Data</h4>
         <p>Given the following dataset of quarterly sales by region:</p>
-        <pre><code>quarterly_sales <- tibble(
+        <pre><code class="language-r">quarterly_sales <- tibble(
   region = c("North", "South", "East", "West"),
   Q1_2022 = c(120, 100, 90, 110),
   Q2_2022 = c(140, 110, 95, 125),
@@ -1017,7 +904,7 @@ parts %>%
         </ol>
         <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
         <div class="solution">
-            <pre><code>library(tidyverse)
+            <pre><code class="language-r">library(tidyverse)
 
 # Define the data
 quarterly_sales <- tibble(
@@ -1091,7 +978,7 @@ list(
 
     <h3>Basic String Operations</h3>
 
-    <pre><code># Sample text data
+    <pre><code class="language-r"># Sample text data
 texts <- c(
   "The quick brown fox jumps over the lazy dog.",
   "Hello world! How are you today?",
@@ -1112,7 +999,7 @@ str_sub(texts, start = -10, end = -1)  # Last 10 characters</code></pre>
 
     <h3>Pattern Matching</h3>
 
-    <pre><code># Detect patterns
+    <pre><code class="language-r"># Detect patterns
 str_detect(texts, "fox")                      # Contains "fox"?
 str_detect(texts, "^The")                     # Starts with "The"?
 str_detect(texts, "\\.\\s*$")                 # Ends with period?
@@ -1137,7 +1024,7 @@ str_match(name_email, "(\\w+ \\w+) \\((.+)\\)")  # Match name and email</code></
 
     <h3>String Manipulation</h3>
 
-    <pre><code># Replace patterns
+    <pre><code class="language-r"># Replace patterns
 str_replace(texts, "fox", "cat")               # Replace first match
 str_replace_all(texts, "[0-9]", "#")           # Replace all digits with #
 
@@ -1158,7 +1045,7 @@ str_trim(whitespace_text, side = "left")       # Left only</code></pre>
 
     <h3>Working with Multiple Strings</h3>
 
-    <pre><code># Split strings
+    <pre><code class="language-r"># Split strings
 str_split(texts, " ")                          # Split by space
 str_split(texts, "\\s+")                      # Split by any whitespace
 str_split_fixed(texts, " ", n = 3)            # Split into fixed number of pieces
@@ -1175,7 +1062,7 @@ str_dist(c("kitten", "sitting"))              # Levenshtein distance</code></pre
 
     <h3>Regular Expressions in stringr</h3>
 
-    <pre><code># Regular expression basics
+    <pre><code class="language-r"># Regular expression basics
 patterns <- tribble(
   ~pattern, ~description,
   "\\d", "Matches any digit",
@@ -1227,7 +1114,7 @@ str_detect(example_strings, common_patterns$pattern[2])</code></pre>
     <div class="exercise">
         <h4>Exercise: String Processing</h4>
         <p>Given the following dataset of customer information:</p>
-        <pre><code>customers <- tibble(
+        <pre><code class="language-r">customers <- tibble(
   id = 1:6,
   name = c("John Smith", "MARY JOHNSON", "bob williams", "Sarah Davis", "MICHAEL BROWN", "Jennifer wilson"),
   email = c("john.smith@example.com", "mary.j@company.co.uk", "bob.williams@gmail.com", "sarah@website.net", "michael.brown@work.org", "jen_wilson@mail.info"),
@@ -1243,7 +1130,7 @@ str_detect(example_strings, common_patterns$pattern[2])</code></pre>
         </ol>
         <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
         <div class="solution">
-            <pre><code>library(tidyverse)
+            <pre><code class="language-r">library(tidyverse)
 
 # Define the customers data
 customers <- tibble(
@@ -1302,7 +1189,7 @@ customers_processed %>%
 
     <h3>Creating and Examining Factors</h3>
 
-    <pre><code># Sample categorical data
+    <pre><code class="language-r"># Sample categorical data
 responses <- c("Agree", "Disagree", "Neutral", "Strongly Agree", "Neutral", 
               "Disagree", "Strongly Disagree", "Agree", "Neutral")
 
@@ -1327,7 +1214,7 @@ fct_count(response_factor)</code></pre>
 
     <h3>Manipulating Factor Levels</h3>
 
-    <pre><code># Reorder factor levels manually
+    <pre><code class="language-r"># Reorder factor levels manually
 response_reorder <- fct_relevel(response_factor, 
                                "Strongly Agree", "Agree", "Neutral", "Disagree", "Strongly Disagree")
 
@@ -1358,7 +1245,7 @@ ggplot(survey, aes(x = fct_infreq(response))) +
 
     <h3>Modifying Factor Levels</h3>
 
-    <pre><code># Recode factor levels
+    <pre><code class="language-r"># Recode factor levels
 response_renamed <- fct_recode(response_factor,
   "SD" = "Strongly Disagree",
   "D" = "Disagree",
@@ -1389,7 +1276,7 @@ ratings_prop <- fct_lump_prop(product_ratings, prop = 0.1, other_level = "Other"
 
     <h3>Working with Missing Values in Factors</h3>
 
-    <pre><code># Sample data with NA values
+    <pre><code class="language-r"># Sample data with NA values
 responses_na <- c("Agree", "Disagree", NA, "Strongly Agree", "Neutral", 
                 NA, "Strongly Disagree", "Agree", NA)
 response_factor_na <- factor(responses_na)
@@ -1404,7 +1291,7 @@ ratings_no_na <- fct_explicit_na(ratings_ordered)</code></pre>
 
     <h3>Advanced Factor Operations</h3>
 
-    <pre><code># Convert from character to factor efficiently
+    <pre><code class="language-r"># Convert from character to factor efficiently
 gender <- sample(c("Male", "Female", "Non-Binary"), 1000, replace = TRUE)
 gender_fct <- as_factor(gender)  # More efficient than factor()
 
@@ -1426,7 +1313,7 @@ expanded <- expand_grid(
     <div class="exercise">
         <h4>Exercise: Factor Manipulation</h4>
         <p>Consider the following dataset of product reviews:</p>
-        <pre><code>reviews <- tibble(
+        <pre><code class="language-r">reviews <- tibble(
   product = c("Laptop", "Phone", "Tablet", "Laptop", "Phone", "Laptop", "Monitor", 
              "Keyboard", "Mouse", "Headphones", "Speaker", "Tablet", "Phone", "Laptop", "Phone"),
   rating = factor(c("Poor", "Good", "Average", "Excellent", "Good", "Average", 
@@ -1446,7 +1333,7 @@ expanded <- expand_grid(
         </ol>
         <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
         <div class="solution">
-            <pre><code>library(tidyverse)
+            <pre><code class="language-r">library(tidyverse)
 
 # Define the reviews data
 reviews <- tibble(
@@ -1525,7 +1412,7 @@ list(
 
     <h3>Parsing Dates and Times</h3>
 
-    <pre><code># Load the lubridate package
+    <pre><code class="language-r"># Load the lubridate package
 library(lubridate)
 
 # Parse dates in various formats
@@ -1543,7 +1430,7 @@ parse_date_time(c("2023/01/15", "15-Jan-2023"), orders = c("ymd", "dmy"))</code>
 
     <h3>Creating Dates and Times</h3>
 
-    <pre><code># Create from components
+    <pre><code class="language-r"># Create from components
 date_from_parts <- make_date(year = 2023, month = 1, day = 15)
 datetime_from_parts <- make_datetime(year = 2023, month = 1, day = 15, hour = 14, min = 30, sec = 45)
 
@@ -1556,7 +1443,7 @@ as_datetime(1673827200)          # Seconds since 1970-01-01</code></pre>
 
     <h3>Extracting Components</h3>
 
-    <pre><code># Sample dates
+    <pre><code class="language-r"># Sample dates
 dates <- ymd(c("2023-01-15", "2023-02-28", "2023-05-10", "2023-12-25"))
 datetimes <- ymd_hms(c("2023-01-15 09:30:00", "2023-01-15 14:45:30"))
 
@@ -1578,7 +1465,7 @@ second(datetimes)</code></pre>
 
     <h3>Manipulating Dates and Times</h3>
 
-    <pre><code># Sample date
+    <pre><code class="language-r"># Sample date
 date <- ymd("2023-01-15")
 
 # Add or subtract time periods
@@ -1604,7 +1491,7 @@ date %>% round_date("week")      # Round to nearest week</code></pre>
 
     <h3>Calculating Time Periods and Durations</h3>
 
-    <pre><code># Time spans
+    <pre><code class="language-r"># Time spans
 start_date <- ymd("2023-01-01")
 end_date <- ymd("2023-12-31")
 
@@ -1631,7 +1518,7 @@ date %within% interval</code></pre>
 
     <h3>Working with Time Zones</h3>
 
-    <pre><code># Available time zones
+    <pre><code class="language-r"># Available time zones
 OlsonNames()[1:5]                # First 5 time zone names
 
 # Create date-time with time zone
@@ -1648,7 +1535,7 @@ Sys.timezone()</code></pre>
     <div class="exercise">
         <h4>Exercise: Date and Time Analysis</h4>
         <p>Given the following dataset of customer transactions:</p>
-        <pre><code>transactions <- tibble(
+        <pre><code class="language-r">transactions <- tibble(
   transaction_id = 1:12,
   customer_id = sample(1:5, 12, replace = TRUE),
   transaction_date = c(
@@ -1671,7 +1558,7 @@ Sys.timezone()</code></pre>
         </ol>
         <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
         <div class="solution">
-            <pre><code>library(tidyverse)
+            <pre><code class="language-r">library(tidyverse)
 library(lubridate)
 
 # Define the transactions data
@@ -1761,7 +1648,7 @@ list(
 
     <h3>Map Functions: Apply Functions to Each Element</h3>
 
-    <pre><code># Basic mapping with map
+    <pre><code class="language-r"># Basic mapping with map
 numbers <- list(a = 1:3, b = 4:6, c = 7:9)
 map(numbers, sum)                  # Returns a list
 map_dbl(numbers, sum)              # Returns a numeric vector
@@ -1790,7 +1677,7 @@ pmap(params, rnorm)</code></pre>
 
     <h3>Iteration with side effects</h3>
 
-    <pre><code># Walk functions for side effects (e.g., printing, plotting)
+    <pre><code class="language-r"># Walk functions for side effects (e.g., printing, plotting)
 files <- c("data1.csv", "data2.csv", "data3.csv")
 walk(files, ~ cat("Processing", .x, "\n"))
 
@@ -1806,7 +1693,7 @@ walk2(plots, paths, ggsave, width = 6, height = 4)</code></pre>
 
     <h3>Handling Lists and Nested Data</h3>
 
-    <pre><code># Flatten nested lists
+    <pre><code class="language-r"># Flatten nested lists
 nested_list <- list(a = 1, b = list(c = 2, d = list(e = 3)))
 flatten(nested_list)
 flatten_dbl(list(1, c(2, 3), 4))
@@ -1842,7 +1729,7 @@ nested_df %>%
 
     <h3>Manipulating and restructuring data</h3>
 
-    <pre><code># Keep/discard elements based on a predicate
+    <pre><code class="language-r"># Keep/discard elements based on a predicate
 numbers <- list(a = c(1, 2, 3), b = c(4, 5, 6), c = c(7, 8, 9))
 keep(numbers, ~ any(.x > 5))      # Keep only elements with values > 5
 discard(numbers, ~ all(.x < 5))   # Discard elements where all values < 5
@@ -1863,7 +1750,7 @@ array_branch(array_data, 1)       # Convert array to list</code></pre>
 
     <h3>Combining Functions</h3>
 
-    <pre><code># Compose functions with compose
+    <pre><code class="language-r"># Compose functions with compose
 double_then_add_one <- compose(function(x) x + 1, function(x) x * 2)
 double_then_add_one(10)           # (10 * 2) + 1 = 21
 
@@ -1888,7 +1775,7 @@ invoke_map_dbl(functions, list(x = 1:10))</code></pre>
     <div class="exercise">
         <h4>Exercise: Functional Programming</h4>
         <p>Given a list of data frames representing sales from different regions:</p>
-        <pre><code># Create sample data
+        <pre><code class="language-r"># Create sample data
 set.seed(123)
 regions <- c("North", "South", "East", "West")
 product_types <- c("Electronics", "Clothing", "Home", "Books")
@@ -1919,7 +1806,7 @@ names(region_sales) <- regions</code></pre>
         </ol>
         <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
         <div class="solution">
-            <pre><code>library(tidyverse)
+            <pre><code class="language-r">library(tidyverse)
 library(broom)
 
 # Create sample data
@@ -2038,7 +1925,7 @@ list(
 
     <h3>Grammar of Graphics Basics</h3>
 
-    <pre><code># Load ggplot2
+    <pre><code class="language-r"># Load ggplot2
 library(ggplot2)
 
 # Basic components:
@@ -2061,7 +1948,7 @@ ggplot(data = <DATA>) +
 
     <h3>Creating Basic Plots</h3>
 
-    <pre><code># Sample data
+    <pre><code class="language-r"># Sample data
 diamonds_sample <- diamonds %>% sample_n(1000)
 mpg_sample <- mpg
 
@@ -2099,7 +1986,7 @@ ggplot(diamonds_sample, aes(x = price)) +
 
     <h3>Customizing Plots</h3>
 
-    <pre><code># Customizing aesthetics
+    <pre><code class="language-r"># Customizing aesthetics
 ggplot(diamonds_sample, aes(x = carat, y = price, color = cut)) +
   geom_point(alpha = 0.7, size = 3, shape = 21)
 
@@ -2133,7 +2020,7 @@ ggplot(mpg_sample, aes(x = class, y = hwy, fill = class)) +
 
     <h3>Multiple Plots and Faceting</h3>
 
-    <pre><code># Faceting
+    <pre><code class="language-r"># Faceting
 ggplot(mpg_sample, aes(x = displ, y = hwy)) +
   geom_point() +
   facet_wrap(~ class)
@@ -2169,7 +2056,7 @@ p1 / (p2 + p3)  # Custom layout</code></pre>
 
     <h3>Advanced Plotting Techniques</h3>
 
-    <pre><code># Custom coordinate systems
+    <pre><code class="language-r"># Custom coordinate systems
 ggplot(mpg_sample, aes(x = class, fill = class)) +
   geom_bar() +
   coord_flip() +
@@ -2219,7 +2106,7 @@ ggplot(diamonds_sample, aes(x = carat, y = price)) +
         <p>Make sure to include appropriate titles, labels, and theme customizations for clarity.</p>
         <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
         <div class="solution">
-            <pre><code>library(tidyverse)
+            <pre><code class="language-r">library(tidyverse)
 
 # Use a subset of diamonds for faster plotting
 set.seed(123)
@@ -2339,7 +2226,7 @@ combined_plot +
 
     <h3>The Pipe Operator</h3>
 
-    <pre><code># The pipe operator: %>% 
+    <pre><code class="language-r"># The pipe operator: %>% 
 # Takes the output of one function and passes it as the first argument to the next function
 
 # Without the pipe
@@ -2363,7 +2250,7 @@ mtcars %>%
 
     <h3>End-to-End Data Pipeline Examples</h3>
 
-    <pre><code># Example 1: Summary statistics by group
+    <pre><code class="language-r"># Example 1: Summary statistics by group
 diamonds %>%
   # Prepare data
   mutate(
@@ -2471,7 +2358,7 @@ ggplot(cut_summary, aes(x = cut, y = avg_price, fill = cut)) +
 
     <h3>Best Practices for Data Pipelines</h3>
 
-    <pre><code># 1. Use meaningful variable names
+    <pre><code class="language-r"># 1. Use meaningful variable names
 diamonds %>%
   # Good: descriptive names
   mutate(
@@ -2569,7 +2456,7 @@ comparison <- left_join(large_summary, small_summary,
         </ol>
         <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
         <div class="solution">
-            <pre><code>library(tidyverse)
+            <pre><code class="language-r">library(tidyverse)
 library(nycflights13)
 
 # Load the flights data
@@ -2753,7 +2640,7 @@ list(
 
     <h3>Common Operations Compared</h3>
 
-    <pre><code># Sample data
+    <pre><code class="language-r"># Sample data
 set.seed(123)
 df <- data.frame(
   id = 1:10,
@@ -2864,7 +2751,7 @@ df_na_complete_tidy <- df_na %>% drop_na()</code></pre>
 
     <h3>General Performance Tips</h3>
 
-    <pre><code># Profile your code to identify bottlenecks
+    <pre><code class="language-r"># Profile your code to identify bottlenecks
 library(profvis)
 # profvis({
 #   # Your code here
@@ -2898,7 +2785,7 @@ system.time(map_dbl(x, sqrt))</code></pre>
 
     <h3>Specific Optimizations</h3>
 
-    <pre><code># Precompute values used multiple times
+    <pre><code class="language-r"># Precompute values used multiple times
 diamonds_expensive <- mean(diamonds$price) * 2
 
 result <- diamonds %>%
@@ -2943,7 +2830,7 @@ result <- small_filtered %>%
 
     <h3>Memory Management</h3>
 
-    <pre><code># Check the size of objects
+    <pre><code class="language-r"># Check the size of objects
 lobstr::obj_size(diamonds)
 
 # Remove large intermediate objects when no longer needed
@@ -2978,7 +2865,7 @@ gc()  # Force garbage collection
     <div class="exercise">
         <h4>Exercise: Performance Optimization</h4>
         <p>Below is a function that processes the diamonds dataset inefficiently. Optimize it to run faster while maintaining the same output:</p>
-        <pre><code>slow_diamond_processing <- function(data) {
+        <pre><code class="language-r">slow_diamond_processing <- function(data) {
   # Create a new category
   data <- data %>%
     mutate(price_category = if_else(price > mean(price), "High", "Low"))
@@ -3017,7 +2904,7 @@ gc()  # Force garbage collection
 }</code></pre>
         <div class="check-answer" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">Show Solution</div>
         <div class="solution">
-            <pre><code>library(tidyverse)
+            <pre><code class="language-r">library(tidyverse)
 
 # Optimized version of the function
 fast_diamond_processing <- function(data) {
@@ -3096,29 +2983,16 @@ list(
     </div>
 
     <footer>
-        HARP Team R Training © 2025 | Created by Daryn Sutton
-    </footer>
+      <div class="container">
+        <div class="container">
+            HARP Team R Training © 2025 | Created by Daryn Sutton
+          </div>
+      </div>
+      </footer>
 
-    <script>
-        // Optional: JavaScript to toggle solutions visibility
-        document.addEventListener('DOMContentLoaded', function() {
-            var checkAnswerButtons = document.querySelectorAll('.check-answer');
-            checkAnswerButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var solution = this.nextElementSibling;
-                    if (solution.style.display === 'none' || solution.style.display === '') {
-                        solution.style.display = 'block';
-                        this.textContent = 'Hide Solution';
-                    } else {
-                        solution.style.display = 'none';
-                        this.textContent = 'Show Solution';
-                    }
-                });
-            });
-        });
-    </script>
+    
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
- 
 
-_

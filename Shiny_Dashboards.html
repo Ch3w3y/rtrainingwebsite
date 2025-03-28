@@ -4,166 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Dashboards with Shiny | HARP Team R Training</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      background-color: #f8f9fa;
-    }
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #2c3e50;
-    }
-    pre {
-      background-color: #f5f5f5;
-      border-left: 4px solid #3498db;
-      padding: 15px;
-      margin: 20px 0;
-      overflow-x: auto;
-      border-radius: 4px;
-    }
-    code {
-      font-family: 'Consolas', 'Monaco', monospace;
-    }
-    .topic-nav {
-      background-color: white;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .topic-nav ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .topic-nav li {
-      margin-right: 10px; /* Kept for potential spacing adjustments */
-    }
-    .section {
-      background-color: white;
-      padding: 25px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    .exercise {
-      background-color: #e8f4fc;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 25px 0;
-    }
-    .exercise h3 {
-      margin-top: 0;
-      color: #2980b9;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 10px; /* Added margin */
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
-    .result {
-      margin-top: 15px;
-      padding: 10px;
-      border-radius: 4px;
-      display: none;
-    }
-    .correct {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    .incorrect {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 20px auto;
-    }
-    a {
-      color: #3498db;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .home-link {
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-    .quiz-option {
-      margin: 10px 0;
-    }
-    .code-input {
-      width: 95%; /* Adjusted width */
-      height: 80px; /* Adjusted height */
-      font-family: 'Consolas', 'Monaco', monospace;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-     .resources {
-      margin-top: 30px;
-      border-top: 1px solid #eee;
-      padding-top: 15px;
-    }
-    footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-    .shiny-app-note {
-        background-color: #fff3cd;
-        border-left: 4px solid #ffeeba;
-        padding: 15px;
-        margin: 20px 0;
-        border-radius: 4px;
-    }
-  </style>
+  
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
 </head>
 <body>
   <!-- Assuming auth.js handles authentication/redirection if needed -->
-  <script src="auth.js"></script>
+  
 
   <header>
     <div class="container">
@@ -199,7 +46,7 @@
         <li>Facilitates communication of complex findings.</li>
         <li>Integrates seamlessly with R's plotting and analysis capabilities.</li>
       </ul>
-      <pre><code># Install Shiny (if you haven't already)
+      <pre><code class="language-r"># Install Shiny (if you haven't already)
 # install.packages("shiny")
 
 # Load the library
@@ -218,7 +65,7 @@ library(dplyr)   # Often used for data manipulation</code></pre>
         <li><strong>User Interface (UI):</strong> Defines the layout and appearance of the app – what the user sees. It's created using functions like `fluidPage()`, `sidebarLayout()`, input functions (`sliderInput()`, etc.), and output functions (`plotOutput()`, etc.).</li>
         <li><strong>Server Function:</strong> Contains the instructions to build and rebuild the R objects displayed in the UI. It takes `input` and `output` arguments and defines how outputs react to changes in inputs.</li>
       </ol>
-      <pre><code># Basic app.R structure
+      <pre><code class="language-r"># Basic app.R structure
 
 library(shiny)
 
@@ -254,7 +101,7 @@ shinyApp(ui = ui, server = server)</code></pre>
         <li>`dateInput()` / `dateRangeInput()`: Calendars for selecting dates.</li>
         <li>`actionButton()`: A button to trigger actions.</li>
       </ul>
-      <pre><code># Example UI with inputs
+      <pre><code class="language-r"># Example UI with inputs
 
 ui <- fluidPage(
   titlePanel("Shiny Input Examples"),
@@ -312,7 +159,7 @@ server <- function(input, output) {
         <li>`renderText()` / `renderPrint()`: Code generates text. `renderPrint` captures console output.</li>
         <li>`renderUI()`: Code generates UI elements.</li>
       </ul>
-      <pre><code># Example UI with inputs and outputs
+      <pre><code class="language-r"># Example UI with inputs and outputs
 
 ui <- fluidPage(
   titlePanel("Histogram App"),
@@ -358,7 +205,7 @@ server <- function(input, output) {
         <li><strong>Reactive Conductors (`reactive()`):</strong> Used to create intermediate reactive values or expressions. Code inside `reactive({...})` is re-run only when its reactive sources change. Access the value using `()` (e.g., `myReactiveValue()`). This avoids redundant calculations if multiple outputs depend on the same intermediate result.</li>
         <li><strong>Observers (`observe()`, `observeEvent()`):</strong> Used for actions with side effects (e.g., printing to console, saving files, updating inputs) triggered by reactive changes, rather than producing output for the UI. `observeEvent()` is triggered only when a specific event (like an `actionButton` press or an input changing) occurs.</li>
       </ul>
-      <pre><code># Server example using reactive() and observeEvent()
+      <pre><code class="language-r"># Server example using reactive() and observeEvent()
 
 server <- function(input, output) {
 
@@ -409,7 +256,7 @@ server <- function(input, output) {
             <li>`tabsetPanel()` / `tabPanel()`: Creates tabbed interfaces.</li>
             <li>`navbarPage()`: Creates an app with a navigation bar at the top.</li>
         </ul>
-        <pre><code># Example using fluidRow and column
+        <pre><code class="language-r"># Example using fluidRow and column
 
 ui <- fluidPage(
   titlePanel("Grid Layout Example"),
@@ -438,7 +285,7 @@ ui <- fluidPage(
     <div class="section" id="example">
         <h2>Complete Example: `mtcars` Explorer</h2>
         <p>This app allows selecting variables from `mtcars` for a scatter plot.</p>
-        <pre><code># app.R
+        <pre><code class="language-r"># app.R
 library(shiny)
 library(ggplot2)
 library(dplyr)
@@ -509,7 +356,7 @@ server <- function(input, output) {
             <li><strong>Shiny Server (Open Source):</strong> A free server option you can host on your own Linux server. Requires server administration knowledge.</li>
             <li><strong>Docker Containers:</strong> Package your app and its dependencies into a container for deployment on various cloud platforms (AWS, Azure, Google Cloud) or servers.</li>
         </ul>
-        <pre><code># Example deployment to shinyapps.io (after setting up account)
+        <pre><code class="language-r"># Example deployment to shinyapps.io (after setting up account)
 # install.packages('rsconnect')
 library(rsconnect)
 
@@ -529,7 +376,7 @@ library(rsconnect)
         <p>4. The `renderPrint` function should display the result in the `squared_output` placeholder, perhaps with a descriptive message like "The square is: [result]".</p>
         <button onclick="toggleSolution('sol_shiny_ex')">Show/Hide Solution Code</button>
         <div class="result" id="sol_shiny_ex" style="display: none; background-color: #f5f5f5;">
-            <pre><code># app.R
+            <pre><code class="language-r"># app.R
 library(shiny)
 
 # Define UI
@@ -587,34 +434,8 @@ server <- function(input, output) {
     </div>
   </footer>
 
-  <script>
-    // Simple toggle function for solution code blocks
-    function toggleSolution(id) {
-        var element = document.getElementById(id);
-        if (element.style.display === "none") {
-            element.style.display = "block";
-        } else {
-            element.style.display = "none";
-        }
-    }
-
-    // Placeholder for potential quiz/code checking functions if needed
-    function checkAnswer(questionId, correctAnswer) {
-      const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
-      const resultDiv = document.getElementById(`${questionId}-result`);
-      // Basic feedback logic
-      if(selectedOption && selectedOption.value === correctAnswer) {
-          resultDiv.textContent = "Correct!";
-          resultDiv.className = "result correct";
-      } else if (selectedOption) {
-          resultDiv.textContent = `Incorrect. The correct answer is: ${correctAnswer}`;
-          resultDiv.className = "result incorrect";
-      } else {
-          resultDiv.textContent = "Please select an answer.";
-          resultDiv.className = "result incorrect";
-      }
-      resultDiv.style.display = "block";
-    }
-  </script>
+  
+    <script src="js/prism.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
